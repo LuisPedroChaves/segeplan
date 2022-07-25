@@ -1,1 +1,157 @@
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+@include mat.core();
+
+// Paletas de colores
+$primary: (
+  50: #e0e6eb,
+  100: #b3c1cd,
+  200: #8098ac,
+  300: #4d6e8a,
+  400: #264f71,
+  500: #003058,
+  600: #002b50,
+  700: #002447,
+  800: #001e3d,
+  900: #00132d,
+  A100: #6694ff,
+  A200: #3370ff,
+  A400: #004cff,
+  A700: #0045e6,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$accent: (
+  50: #fbf6ee,
+  100: #f5e8d4,
+  200: #efd9b7,
+  300: #e9c99a,
+  400: #e4be85,
+  500: #dfb26f,
+  600: #dbab67,
+  700: #d7a25c,
+  800: #d29952,
+  900: #ca8a40,
+  A100: #ffffff,
+  A200: #fff4e8,
+  A400: #ffdbb5,
+  A700: #ffcf9c,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$warn: (
+  50: #f7e6ec,
+  100: #eac1cf,
+  200: #dc98b0,
+  300: #ce6f90,
+  400: #c45078,
+  500: #b93160,
+  600: #b22c58,
+  700: #aa254e,
+  800: #a21f44,
+  900: #931333,
+  A100: #ffc6d2,
+  A200: #ff93aa,
+  A400: #ff6082,
+  A700: #ff476e,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$segeplan-primary: mat.define-palette($primary);
+$segeplan-accent: mat.define-palette($accent);
+$segeplan-warn: mat.define-palette($warn);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $segeplan-primary,
+      accent: $segeplan-accent,
+      warn: $segeplan-warn,
+    ),
+  )
+);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $segeplan-primary,
+      accent: $segeplan-accent,
+      warn: $segeplan-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($light-theme);
+
+.darkMode {
+  @include mat.all-component-colors($dark-theme);
+}
+
+.active-elevation {
+  @include mat.elevation-transition();
+  @include mat.elevation(2);
+
+  &:active {
+    @include mat.elevation(8);
+  }
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
