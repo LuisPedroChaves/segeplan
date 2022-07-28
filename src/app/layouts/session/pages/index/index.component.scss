@@ -1,0 +1,31 @@
+.login-content-desktop {
+  background-image: url('../../../../../assets/img/ejemplo.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 64px);
+  width: 100%;
+}
+
+.blur-desktop {
+  background: rgba(255, 255, 255, 0.2); // Make sure this color has an opacity of less than 1
+  backdrop-filter: blur(18px); // This be the blur
+  height: calc(100vh - 64px);
+	width: 100%;
+}
+
+.login-content-mobile {
+  background-image: url('../../../../../assets/img/ejemplo.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 56px);
+  width: 100%;
+}
+
+.blur-mobile {
+  background: rgba(255, 255, 255, 0.2); // Make sure this color has an opacity of less than 1
+  backdrop-filter: blur(18px); // This be the blur
+  height: calc(100vh - 56px);
+	width: 100%;
+}

@@ -1,0 +1,31 @@
+<mat-drawer-container ngClass.gt-sm="content-desktop" ngClass.lt-md="content-mobile">
+  <mat-drawer fxHide.lt-md mode="side" opened>
+    <ngx-simplebar class="sidebar">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid" class="grid">
+        <div>
+          <mat-card class="menu-button pointer mat-elevation-z0" routerLink="" routerLinkActive="mat-elevation-z6"
+            [routerLinkActiveOptions]="{ exact: true }" matTooltip="Registro de ideas" matTooltipPosition="right">
+            <mat-card-content>
+              <img
+                src="data:image/png;base64,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">
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </ngx-simplebar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-card class="mat-elevation-z0" ngClass.gt-sm="main-content-desktop" ngClass.lt-md="main-content-mobile">
+        <router-outlet></router-outlet>
+    </mat-card>
+    <mat-toolbar fxHide.gt-sm>
+      <mat-toolbar-row fxLayoutAlign="space-around center">
+        <button mat-icon-button routerLink="" routerLinkActive="mat-elevation-z2 active-mobile"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <img
+            src="data:image/png;base64,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">
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-drawer-content>
+</mat-drawer-container>

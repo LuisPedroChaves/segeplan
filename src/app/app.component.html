@@ -1,15 +1,17 @@
-<div class="mat-app-background body">
-  <p class="mat-display-4">mat-display-4</p>
-  <p class="mat-display-3">mat-display-3</p>
-  <p class="mat-display-2">mat-display-2</p>
-  <p class="mat-display-1">mat-display-1</p>
-  <p class="mat-headline">mat-headline</p>
-  <p class="mat-title">mat-title</p>
-  <p class="mat-subheading-2">mat-subheading-2</p>
-  <p class="mat-subheading-1">mat-subheading-1</p>
-  <p class="mat-body-1">mat-body-1</p>
-  <p class="mat-body-2">mat-body-2</p>
-  <p class="mat-caption">mat-caption</p>
-  <p class="mat-button">mat-button</p>
-  <p class="mat-input">mat-input</p>
+<div class="mat-app-background body app-layout">
+  <mat-toolbar fxLayoutGap="15px">
+    <img [routerLink]="['/']" src="../assets/img/Logo-min.jpg" alt="SEGEPLAN" class="logo active-elevation">
+    <p fxHide.lt-md  class="mat-subheading-2">Secretaría de Planificación y Programación de la Presidencia</p>
+    <span fxFlex></span>
+    <button mat-mini-fab *ngIf="theme === 'darkMode'" (click)="changeMode()" matTooltip="Modo claro">
+      <mat-icon>light_mode</mat-icon>
+    </button>
+    <button mat-mini-fab *ngIf="theme === 'lightMode'" (click)="changeMode()" color="primary" matTooltip="Modo oscuro">
+      <mat-icon>dark_mode</mat-icon>
+    </button>
+    <button mat-mini-fab color="accent" matTooltip="Mi cuenta">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
 </div>

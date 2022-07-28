@@ -1,0 +1,53 @@
+.content-desktop {
+  height: calc(100vh - 64px);
+}
+
+mat-drawer {
+  width: 67px;
+  height: 100%;
+  border-right: 0px !important;
+  background-color: transparent !important;
+}
+
+.sidebar {
+  height: calc(100vh - 112px);
+  margin-top: 16px;
+}
+
+.new-button {
+  padding-bottom: 16px;
+  padding-top: 12px;
+}
+
+.grid {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.menu-button {
+  width: 36px;
+  height: 38px;
+  border-radius: 0px 8px 8px 0px;
+  padding: 5px 5px 5px 10px;
+  // background-color: #ffffff;
+}
+
+img {
+  width: 36px;
+  height: 38px;
+}
+
+/* #region  Mobile */
+.content-mobile {
+  height: calc(100vh - 56px);
+}
+
+mat-toolbar {
+  background-color: transparent !important;
+}
+
+.active-mobile {
+  width: 50px;
+  height: 50px;
+}
+/* #endregion */

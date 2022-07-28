@@ -1,0 +1,49 @@
+<mat-card class="mat-elevation-z24">
+  <mat-card-header>
+
+    <mat-icon matCardAvatar>login</mat-icon>
+    <mat-card-title>Inicio de sesión</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <br>
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+
+
+      <mat-form-field fxFill appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+          Por favor, introduzca una dirección de correo electrónico válida
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          El correo electrónico es <strong>requerido</strong>
+        </mat-error>
+        <mat-icon matSuffix>alternate_email</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field fxFill appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="pass" placeholder="**********">
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+          Por favor, introduzca una dirección de correo electrónico válida
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          El correo electrónico es <strong>requerido</strong>
+        </mat-error>
+        <mat-icon matSuffix>password</mat-icon>
+      </mat-form-field>
+
+      <mat-checkbox>Recuérdame</mat-checkbox>
+
+      <br>
+
+      <div fxLayoutAlign="center center">
+        <button mat-raised-button color="accent"><b class="">Iniciar Sesión</b></button>
+      </div>
+    </form>
+
+  </mat-card-content>
+
+</mat-card>

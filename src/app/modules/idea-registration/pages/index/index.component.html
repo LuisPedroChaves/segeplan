@@ -1,0 +1,36 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="drawer.toggle()" matTooltip="Mostrar/Ocultar Menú">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Registro de ideas</span>
+</mat-toolbar>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" opened="true">
+
+    <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
+      <button mat-raised-button color="primary">Crear idea</button>
+      <br>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option routerLink="/"  routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-icon mat-list-icon>tips_and_updates</mat-icon>
+          Registro de ideas
+        </mat-list-option>
+        <mat-list-option routerLink="followIdeas"  routerLinkActive="mat-list-single-selected-option">
+          <mat-icon mat-list-icon>model_training</mat-icon>
+          Propuestas
+        </mat-list-option>
+        <mat-list-option routerLink="/historyIdeas" routerLinkActive="mat-list-single-selected-option">
+          <mat-icon mat-list-icon>history</mat-icon>
+          Historial
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+
+  </mat-drawer>
+
+
+  <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
