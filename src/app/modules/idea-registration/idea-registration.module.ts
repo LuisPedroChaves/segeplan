@@ -8,6 +8,7 @@ import { IdeaRegistrationRoutes } from './idea-registration.routing';
 import { NewIdeasComponent } from './pages/new-ideas/new-ideas.component';
 import { FollowIdeasComponent } from './pages/follow-ideas/follow-ideas.component';
 import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.component';
+import { NewIdeaComponent } from './pages/new-idea/new-idea.component';
 
 
 
@@ -17,6 +18,7 @@ import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.compo
     NewIdeasComponent,
     FollowIdeasComponent,
     HistoryIdeasComponent,
+    NewIdeaComponent,
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,7 @@
   <mat-drawer #drawer mode="side" opened="true">
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button mat-raised-button color="primary">Crear idea</button>
+      <button mat-raised-button routerLink="/newIdea" color="primary">Crear idea</button>
       <br>
       <mat-selection-list #shoes [multiple]="false">
         <mat-list-option routerLink="/"  routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{ exact: true }">
