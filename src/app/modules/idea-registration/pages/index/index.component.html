@@ -1,21 +1,22 @@
 <mat-toolbar>
-  <button mat-icon-button (click)="drawer.toggle()" matTooltip="Mostrar/Ocultar Menú">
+  <button mat-icon-button (click)="chengeDrawer()" matTooltip="Mostrar/Ocultar Menú">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Registro de ideas</span>
 </mat-toolbar>
-<mat-drawer-container autosize>
-  <mat-drawer #drawer mode="side" opened="true">
+<mat-drawer-container autosize class="my-menu-container">
+  <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button mat-raised-button routerLink="/newIdea" color="primary">Crear idea</button>
+      <button mat-raised-button (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')" color="primary">Crear idea</button>
       <br>
       <mat-selection-list #shoes [multiple]="false">
-        <mat-list-option routerLink="/"  routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-list-option routerLink="/" routerLinkActive="mat-list-single-selected-option"
+          [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon mat-list-icon>tips_and_updates</mat-icon>
           Registro de ideas
         </mat-list-option>
-        <mat-list-option routerLink="followIdeas"  routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option routerLink="followIdeas" routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>model_training</mat-icon>
           Propuestas
         </mat-list-option>
@@ -29,8 +30,23 @@
   </mat-drawer>
 
 
-  <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">
-    <router-outlet></router-outlet>
-  </div>
+  <mat-drawer-container>
+    <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
+
+      <header fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="closeFullDrawer()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <span class="mat-title">{{ fullTitle }}</span>
+      </header>
+
+      <app-new-idea></app-new-idea>
+    </mat-drawer>
+
+    <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-container>
 
 </mat-drawer-container>

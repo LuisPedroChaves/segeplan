@@ -4,7 +4,6 @@ import { IndexComponent } from './pages/index/index.component';
 import { NewIdeasComponent } from "./pages/new-ideas/new-ideas.component";
 import { FollowIdeasComponent } from './pages/follow-ideas/follow-ideas.component';
 import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.component';
-import { NewIdeaComponent } from './pages/new-idea/new-idea.component';
 
 export const IdeaRegistrationRoutes: Routes = [
   {
@@ -23,10 +22,6 @@ export const IdeaRegistrationRoutes: Routes = [
         path: 'historyIdeas',
         component: HistoryIdeasComponent
       },
-      {
-        path: 'newIdea',
-        component: NewIdeaComponent
-      }
     ]
   }
 ];

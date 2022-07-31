@@ -3,11 +3,11 @@ mat-toolbar {
   height: 52px;
 }
 
-mat-drawer-container {
+.my-menu-container {
   height: calc(100% - 52px);
 }
 
-mat-drawer {
+.my-menu-drawer {
   width: 252px;
   padding-top: 16px;
   padding-bottom: 10px;
@@ -26,4 +26,8 @@ mat-drawer {
 .my-content-mobile {
   height: calc(100vh - 212px);
   padding: 48px 16px 0px;
+}
+
+.mat-title {
+  margin: 0px !important;
 }
