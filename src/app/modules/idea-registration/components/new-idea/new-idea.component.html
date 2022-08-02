@@ -3,14 +3,15 @@
 
     <mat-step [stepControl]="generalInformation">
       <ng-template matStepLabel>Información general</ng-template>
-      <form [formGroup]="generalInformation" autocomplete="off" fxLayout="column" fxLayoutGap="15px">
+
+      <form [formGroup]="generalInformation" (ngSubmit)="saveGeneralInformation()"  autocomplete="off" fxLayout="column" fxLayoutGap="15px">
 
         <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
           <div fxFlex.lt-md="100" fxFlex.gt-sm="59">
             <mat-form-field fxFill appearance="outline">
               <mat-label>Selección del Producto</mat-label>
               <mat-select formControlName="_product" name="Producto">
-                <mat-option *ngFor="let product of products" [value]="product.code">
+                <mat-option *ngFor="let product of products" [value]="product">
                   {{product.name}}
                 </mat-option>
               </mat-select>
@@ -58,7 +59,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput placeholder="Nombre completo" formControlName="name">
+          <input matInput placeholder="Nombre completo" formControlName="responsibleName">
           <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
         </mat-form-field>
 
@@ -84,15 +85,17 @@
         </mat-form-field>
 
         <div>
-          <button mat-button matStepperNext>Siguiente</button>
+          <button mat-button matStepperNext type="submit">Siguiente</button>
         </div>
       </form>
+
     </mat-step>
 
     <mat-step [stepControl]="generalInformation">
       <ng-template matStepLabel>Datos de quien propone</ng-template>
       <form [formGroup]="generalInformation" autocomplete="off" fxLayout="column" fxLayoutGap="15px">
       </form>
+
     </mat-step>
 
     <mat-step>
