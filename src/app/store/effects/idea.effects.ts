@@ -18,7 +18,7 @@ export class IdeaEffects {
       .pipe(
         ofType(actions.READ_IDEAS),
         // mergeMap(
-        //     () => this.ideasService.read()
+        //     () => this.ideaService.read()
         //         .pipe(
         //             map(ideas => actions.SET_IDEAS({ ideas }))
         //         )
@@ -34,7 +34,7 @@ export class IdeaEffects {
         // mergeMap(
         //     ({ idea }) => this.ideaService.create(idea)
         //         .pipe(
-        //             map(idea => actions.SET_NEW_IDEAT({ idea }))
+        //             map(idea => actions.SET_NEW_IDEA({ idea }))
         //         )
         // )
         map(({ idea }) => actions.SET_NEW_IDEA({ idea }))

@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/GeneralInformation';
 import { IProduct } from 'src/app/core/models/Product';
-import { UPDATE_IDEA } from 'src/app/store/actions';
+import { CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
 
@@ -68,24 +68,39 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   }
 
   saveGeneralInformation(): void {
-    const PRODUCT: IProduct = this.generalInformation.controls['_product'].value!;
-
     const {
-      _product
-    } = this.generalInformation.value
+      _product,
+      date,
+      planningInstrument,
+      description,
+      responsibleName,
+      email,
+      phone
+    } = this.generalInformation.value;
+
+    const idea: GeneralInformation = {
+      productId: _product.code,
+      productName: _product.name,
+      date,
+      planningInstrument,
+      description,
+      idEntity: '',
+      nameEntity: '',
+      responsibleName,
+      email,
+      phone
+    }
 
     if (this.idea) {
-
-      // this.ideaStore.dispatch(UPDATE_IDEA({
-      //   idea:
-      //   {
-      //     productId: PRODUCT.code!,
-      //     productName: PRODUCT.name,
-      //     date: this.generalInformation.controls['date'].value,
-      //     planningInstrument: this.generalInformation.controls['planningInstrument'].value,
-      //   }
-      // }))
+      this.ideaStore.dispatch(UPDATE_IDEA({
+        idea
+      }))
+      return;
     }
+
+    this.ideaStore.dispatch(CREATE_IDEA({
+      idea
+    }))
   }
 
 }
