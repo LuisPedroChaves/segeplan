@@ -10,10 +10,13 @@ export interface GeneralInformationSend {
     productId: string; //Setear valor quemado
     productName: string; //Setear valor quemado
     date: Date;
-    registerCode: string;
-    correlation: number;
     planningInstrument: boolean;
-    description: string;
+    description?: string;
+    idEntity: string;
+    nameEntity: string;
+    responsibleName: string;
+    email: string;
+    phone: string;
 }
 
 export interface GeneralInformation {
@@ -25,14 +28,16 @@ export interface GeneralInformation {
     registerCode?: string;
     planningInstrument: boolean;
     description: string;
+    dateOut: Date;
+    punctuation: number;
+    state: boolean;
+    idEntity: string;
+    nameEntity: string;
     responsibleName: string;
     email: string;
     phone: string;
-    dateOut?: Date;
-    punctuation?: number;
-    state?: boolean;
-    stage?: Stage;
-    ProblemDefinition?: ProblemDefinition;
-    PreliminaryDefinition?: PreliminaryDefinition;
-    Qualification?: Qualification;
+    stage: Stage;
+    ProblemDefinition: ProblemDefinition;
+    PreliminaryDefinition: PreliminaryDefinition;
+    Qualification: Qualification;
 }
