@@ -1,4 +1,3 @@
-import { DataProponent } from "./DataProponent";
 import { PreliminaryDefinition } from "./PreliminaryDefinition";
 import { ProblemDefinition } from "./ProblemDefinition";
 import { Qualification } from "./Qyualification";
@@ -9,10 +8,13 @@ export interface GeneralInformationSend {
     productId: string; //Setear valor quemado
     productName: string; //Setear valor quemado
     date: Date;
-    registerCode: string;
-    correlation: number;
     planningInstrument: boolean;
-    description: string;
+    description?: string;
+    idEntity: string;
+    nameEntity: string;
+    responsibleName: string;
+    email: string;
+    phone: string;
 }
 
 export interface GeneralInformation {
@@ -27,8 +29,12 @@ export interface GeneralInformation {
     dateOut: Date;
     punctuation: number;
     state: boolean;
+    idEntity: string;
+    nameEntity: string;
+    responsibleName: string;
+    email: string;
+    phone: string;
     stage: Stage;
-    DataProponent: DataProponent;
     ProblemDefinition: ProblemDefinition;
     PreliminaryDefinition: PreliminaryDefinition;
     Qualification: Qualification;
