@@ -1,26 +1,12 @@
-import { PreliminaryDefinition } from "./PreliminaryDefinition";
-import { ProblemDefinition } from "./ProblemDefinition";
 import { Qualification } from "./Qyualification";
 import { Stage } from "./Stage";
 import * as moment from 'moment';
-
-
-export interface GeneralInformationSend {
-    codigo?: string;
-    productId: string; //Setear valor quemado
-    productName: string; //Setear valor quemado
-    date: Date;
-    planningInstrument: boolean;
-    description?: string;
-    idEntity: string;
-    nameEntity: string;
-    responsibleName: string;
-    email: string;
-    phone: string;
-}
-
+import { PossibleAlternative } from "./PossibleAlternative";
+import { PossibleEffect } from "./PossibleEffect";
+import { PossibleCause } from "./PossibleCause";
 export interface GeneralInformation {
     codigo?: string;
+    idStage?: string;
     productId: string; //Setear valor quemado
     productName: string; //Setear valor quemado
     date: moment.Moment;
@@ -36,8 +22,18 @@ export interface GeneralInformation {
     responsibleName: string;
     email: string;
     phone: string;
+    definitionPotentiality: string,
+    baseLine: string,
+    descriptionCurrentSituation: string;
+
+    generalObjective: string;
+    expectedChange: string;
+
+    possibleEffects: PossibleEffect[];
+    possibleCauses: PossibleCause[];
+    possibleAlternatives: PossibleAlternative[];
     stage?: Stage;
-    ProblemDefinition?: ProblemDefinition;
-    PreliminaryDefinition?: PreliminaryDefinition;
-    Qualification?: Qualification;
+    qualification?: Qualification;
+
+
 }
