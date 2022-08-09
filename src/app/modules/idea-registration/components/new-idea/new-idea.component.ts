@@ -84,11 +84,49 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       date,
       planningInstrument,
       description,
-      idEntity: '',
-      nameEntity: '',
+      idEntity: '11111',
+      nameEntity: 'testEntity',
       responsibleName,
       email,
-      phone
+      phone,
+      definitionPotentiality: 'Definicion de la Potencialidad',
+      baseLine: 'Linea base, otra descripcion',
+      descriptionCurrentSituation: 'Descripcion de la situacion actual',
+      generalObjective: "Descripción de objetivo general ",
+      expectedChange: "Resultado o cambio esperado respecto a indicadores       (resultado final) ",
+      possibleEffects: [
+        {
+            "description": "Posible Efecto 01"
+        },
+        {
+            "description": "Posible Efecto 02"
+        },
+        {
+            "description": "Posible Efecto 03"
+        }
+    ],
+    possibleCauses: [
+        {
+            "description": "Posible Causa 01"
+        },
+        {
+            "description": "Posible Causa 02"
+        },
+        {
+            "description": "Posible Causa 03"
+        }
+    ],
+    possibleAlternatives: [
+        {
+            "description": "Posible alternatives 01"
+        },
+        {
+            "description": "Posible alternatives 02"
+        },
+        {
+            "description": "Posible alternatives 03"
+        }
+    ]
     }
 
     if (this.idea) {

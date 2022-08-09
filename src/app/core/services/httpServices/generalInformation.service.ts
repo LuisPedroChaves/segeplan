@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { GeneralInformation, GeneralInformationSend } from '../../models/GeneralInformation';
+import { GeneralInformation } from '../../models/GeneralInformation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralInformationService {
     private API_URL = environment.root;
-    private urlGeneralInformation = 'api/general/problemDefinition';
+    private urlGeneralInformation = 'api/general/information';
 
       constructor(private http: HttpClient, private router: Router) {}
 
@@ -21,5 +21,14 @@ export class GeneralInformationService {
             return res;
             })
         );
+    }
+
+    getIdeas(): Observable<any> {
+      const url = this.API_URL + this.urlGeneralInformation;
+      return this.http.get(url).pipe(
+        map((res: any) => {
+          return res.generalInformations;
+        })
+      )
     }
 }
