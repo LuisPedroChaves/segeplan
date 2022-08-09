@@ -18,10 +18,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatTableModule} from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTableModule } from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 /* #endregion */
 
 /* #region  Configuración de fechas */
@@ -50,10 +51,12 @@ export const MY_DATE_FORMATS = {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    MobileMenuComponent
+    MobileMenuComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +83,7 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
     MatSlideToggleModule,
     MatAutocompleteModule,
     MatTableModule,
+    MatTabsModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
@@ -108,9 +112,13 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
     MatSlideToggleModule,
     MatAutocompleteModule,
     MatTableModule,
+    MatTabsModule,
     /* #endregion */
     FlexLayoutModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
+    /* #region  Components */
+    NotFoundComponent
+    /* #endregion */
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es' },

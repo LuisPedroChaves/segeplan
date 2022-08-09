@@ -1,8 +1,7 @@
 <ngx-simplebar fxLayoutAlign="center start" class="sub-content-desktop">
   <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
-    <form [formGroup]="generalInformation" (ngSubmit)="saveGeneralInformation()" autocomplete="off">
-      <!-- <mat-step [stepControl]="generalInformation"> -->
+    <form [formGroup]="generalInformation" autocomplete="off">
       <mat-step>
         <ng-template matStepLabel>Información general</ng-template>
 
@@ -88,7 +87,6 @@
         </div>
       </mat-step>
 
-      <!-- <mat-step [stepControl]="generalInformation"> -->
       <mat-step>
         <ng-template matStepLabel>Definición del problema, necesidad o potencialidad de inversión, causas y efectos
         </ng-template>
@@ -270,7 +268,7 @@
         <mat-divider></mat-divider>
         <br>
         <div>
-          <button mat-button type="submit" color="primary">Finalizar</button>
+          <button mat-button (click)="saveGeneralInformation()" color="primary">Finalizar</button>
           <span fxFlex></span>
           <button mat-button matStepperPrevious>Volver</button>
           <button mat-button (click)="stepper.reset()">Restablecer</button>

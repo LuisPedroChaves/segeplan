@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IdeaStore } from 'src/app/store/reducers';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { READ_IDEAS } from 'src/app/store/actions';
+import { OPEN_FULL_DRAWER, READ_IDEAS, SET_IDEA } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-new-ideas',
@@ -20,15 +20,23 @@ export class NewIdeasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ideaStore.dispatch(READ_IDEAS())
     this.ideaStoreSubscription = this.ideaStore.select('idea')
     .subscribe(state => {
       this.ideas = state.ideas;
     })
+
+    this.ideaStore.dispatch(READ_IDEAS())
   }
 
   ngOnDestroy(): void {
     this.ideaStoreSubscription?.unsubscribe();
+  }
+
+  openFullDrawer(idea: GeneralInformation): void {
+
+    this.ideaStore.dispatch(SET_IDEA({idea}))
+
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER({fullTitle: idea.registerCode, fullComponent: 'SELECTED_IDEA'}))
   }
 
 }

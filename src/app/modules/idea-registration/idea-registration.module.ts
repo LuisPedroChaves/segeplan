@@ -13,6 +13,7 @@ import { NewIdeasComponent } from './pages/new-ideas/new-ideas.component';
 import { FollowIdeasComponent } from './pages/follow-ideas/follow-ideas.component';
 import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.component';
 import { NewIdeaComponent } from './components/new-idea/new-idea.component';
+import { SelectedIdeaComponent } from './components/selected-idea/selected-idea.component';
 
 
 
@@ -23,6 +24,7 @@ import { NewIdeaComponent } from './components/new-idea/new-idea.component';
     FollowIdeasComponent,
     HistoryIdeasComponent,
     NewIdeaComponent,
+    SelectedIdeaComponent,
   ],
   imports: [
     CommonModule,

@@ -48,6 +48,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
+    this.store.dispatch(actions.SET_IDEA({idea: null}))
     this.store.dispatch(actions.OPEN_FULL_DRAWER({fullTitle, fullComponent}))
   }
 

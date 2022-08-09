@@ -4,12 +4,14 @@ import * as moment from 'moment';
 import { PossibleAlternative } from "./PossibleAlternative";
 import { PossibleEffect } from "./PossibleEffect";
 import { PossibleCause } from "./PossibleCause";
+import { IdeaAlternative } from "../alternative/ideaAlternative";
+
 export interface GeneralInformation {
     codigo?: string;
     idStage?: string;
     productId: string; //Setear valor quemado
     productName: string; //Setear valor quemado
-    date: moment.Moment;
+    date: moment.Moment | Date | string;
     correlation?: number;
     registerCode?: string;
     planningInstrument: boolean;
@@ -36,5 +38,5 @@ export interface GeneralInformation {
     qualification?: Qualification;
 
     createdAt?: string;
-
+    alternatives?: IdeaAlternative[];
 }

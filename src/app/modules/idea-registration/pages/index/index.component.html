@@ -40,7 +40,8 @@
         <span class="mat-title">{{ fullTitle }}</span>
       </header>
 
-      <app-new-idea></app-new-idea>
+      <app-new-idea *ngIf="fullComponent === 'NEW_IDEA'"></app-new-idea>
+      <app-selected-idea *ngIf="fullComponent === 'SELECTED_IDEA'"></app-selected-idea>
     </mat-drawer>
 
     <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">

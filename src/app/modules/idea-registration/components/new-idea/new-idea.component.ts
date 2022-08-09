@@ -6,10 +6,13 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
 import { IProduct } from 'src/app/core/models/informationGeneral/Product';
+import { PossibleEffect } from 'src/app/core/models/informationGeneral/PossibleEffect';
+import { PossibleCause } from 'src/app/core/models/informationGeneral/PossibleCause';
+import { PossibleAlternative } from 'src/app/core/models/informationGeneral/PossibleAlternative';
 
 @Component({
   selector: 'app-new-idea',
@@ -38,14 +41,14 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     responsibleName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required),
-    possibleEffects: this.FormBuilder.array([]),
+    possibleEffects: this.FormBuilder.array<PossibleEffect>([]),
     definitionPotentiality: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-    possibleCauses: this.FormBuilder.array([]),
+    possibleCauses: this.FormBuilder.array<PossibleCause>([]),
     baseLine: new FormControl('', [Validators.required]),
     descriptionCurrentSituation: new FormControl('', [Validators.required, Validators.maxLength(200)]),
     generalObjective: new FormControl('', [Validators.required, Validators.maxLength(200)]),
     expectedChange: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-    possibleAlternatives: this.FormBuilder.array([]),
+    possibleAlternatives: this.FormBuilder.array<PossibleAlternative>([]),
   });
 
   effectsColumns: string[] = ['description', 'remove'];
@@ -97,6 +100,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     description!.disable();
   }
 
+  /* #region  formArrays */
 
   addEffect(): void {
     const NEW_DETAIL: FormGroup = this.FormBuilder.group({
@@ -139,8 +143,12 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     this.formAlternatives.removeAt(index);
     this.alternativesSource.next(this.formAlternatives.controls);
   }
+  /* #endregion */
 
   saveGeneralInformation(): void {
+
+    //TODO:Condicionar si el formulario es valido
+
     const {
       _product,
       date,
@@ -148,32 +156,55 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       description,
       responsibleName,
       email,
-      phone
+      phone,
+      possibleEffects,
+      definitionPotentiality,
+      possibleCauses,
+      baseLine,
+      descriptionCurrentSituation,
+      generalObjective,
+      expectedChange,
+      possibleAlternatives
     } = this.generalInformation.value;
 
-    // const idea: GeneralInformation = {
-    //   productId: _product.code,
-    //   productName: _product.name,
-    //   date,
-    //   planningInstrument,
-    //   description,
-    //   idEntity: '',
-    //   nameEntity: '',
-    //   responsibleName,
-    //   email,
-    //   phone
-    // }
+    const idea: GeneralInformation = {
+      productId: _product.code,
+      productName: _product.name,
+      date,
+      planningInstrument,
+      description,
+      idEntity: '',
+      nameEntity: '',
+      responsibleName,
+      email,
+      phone,
+      possibleEffects,
+      definitionPotentiality,
+      possibleCauses,
+      baseLine,
+      descriptionCurrentSituation,
+      generalObjective,
+      expectedChange,
+      possibleAlternatives
+    }
 
-    // if (this.idea) {
-    //   this.ideaStore.dispatch(UPDATE_IDEA({
-    //     idea
-    //   }))
-    //   return;
-    // }
+    if (this.idea) {
+      this.ideaStore.dispatch(UPDATE_IDEA({
+        idea
+      }))
+      return;
+    }
 
-    // this.ideaStore.dispatch(CREATE_IDEA({
-    //   idea
-    // }))
+    this.ideaStore.dispatch(CREATE_IDEA({
+      idea
+    }))
+
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+
+    this.generalInformation.reset({
+      date: moment(),
+      planningInstrument: true
+    })
   }
 
 }
