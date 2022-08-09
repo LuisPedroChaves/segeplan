@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { GeneralInformation, GeneralInformationSend } from '../../models/GeneralInformation';
+import { GeneralInformation } from '../../models/GeneralInformation';
 
 @Injectable({
   providedIn: 'root',

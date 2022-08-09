@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTableModule} from '@angular/material/table';
 /* #endregion */
 
 /* #region  Configuración de fechas */
@@ -78,6 +79,7 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
     MatSelectModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
+    MatTableModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
@@ -105,6 +107,7 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
     MatSelectModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
+    MatTableModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
