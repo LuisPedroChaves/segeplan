@@ -12,3 +12,12 @@ export const OPEN_FULL_DRAWER = createAction(
 export const CLOSE_FULL_DRAWER = createAction(
     '[DRAWER] Cerrar cajón',
 )
+
+export const OPEN_FULL_DRAWER2 = createAction(
+	'[DRAWER] Abir cajón 2',
+	props<{ fullTitle2: string, fullComponent2: string }>()
+);
+
+export const CLOSE_FULL_DRAWER2 = createAction(
+    '[DRAWER] Cerrar cajón 2',
+)

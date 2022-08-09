@@ -15,6 +15,7 @@ import { SelectedIdeaComponent } from './components/selected-idea/selected-idea.
 import { RevelanceMatrixComponent } from './pages/revelance-matrix/revelance-matrix.component';
 import { IdeaCardComponent } from './components/idea-card/idea-card.component';
 import { AlternativesComponent } from './components/alternatives/alternatives.component';
+import { NewAlternativeComponent } from './components/new-alternative/new-alternative.component';
 
 
 
@@ -27,6 +28,7 @@ import { AlternativesComponent } from './components/alternatives/alternatives.co
     RevelanceMatrixComponent,
     IdeaCardComponent,
     AlternativesComponent,
+    NewAlternativeComponent,
   ],
   imports: [
     CommonModule,
