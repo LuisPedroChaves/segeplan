@@ -26,6 +26,10 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     return this.generalInformation.get('possibleCauses') as FormArray;
   }
 
+  get formAlternatives(): FormArray {
+    return this.generalInformation.get('possibleAlternatives') as FormArray;
+  }
+
   generalInformation = new FormGroup({
     _product: new FormControl(null, Validators.required),
     date: new FormControl(moment(), Validators.required),
@@ -37,6 +41,11 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     possibleEffects: this.FormBuilder.array([]),
     definitionPotentiality: new FormControl('', [Validators.required, Validators.maxLength(200)]),
     possibleCauses: this.FormBuilder.array([]),
+    baseLine: new FormControl('', [Validators.required]),
+    descriptionCurrentSituation: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+    generalObjective: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+    expectedChange: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+    possibleAlternatives: this.FormBuilder.array([]),
   });
 
   effectsColumns: string[] = ['description', 'remove'];
@@ -44,6 +53,9 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   causesColumns: string[] = ['description', 'remove'];
   causesSource = new BehaviorSubject<AbstractControl[]>([]);
+
+  alternativesColumns: string[] = ['description', 'remove'];
+  alternativesSource = new BehaviorSubject<AbstractControl[]>([]);
 
   products: IProduct[] = [];
   productStoreSubscription = new Subscription();
@@ -106,12 +118,26 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     });
     this.formCauses.push(NEW_DETAIL);
 
-    this.causesSource.next(this.formEffects.controls);
+    this.causesSource.next(this.formCauses.controls);
   }
 
   removeCauses(index: number): void {
-    this.formEffects.removeAt(index);
-    this.causesSource.next(this.formEffects.controls);
+    this.formCauses.removeAt(index);
+    this.causesSource.next(this.formCauses.controls);
+  }
+
+  addAlternatives(): void {
+    const NEW_DETAIL: FormGroup = this.FormBuilder.group({
+      description: new FormControl('', Validators.required),
+    });
+    this.formAlternatives.push(NEW_DETAIL);
+
+    this.alternativesSource.next(this.formAlternatives.controls);
+  }
+
+  removeAlternatives(index: number): void {
+    this.formAlternatives.removeAt(index);
+    this.alternativesSource.next(this.formAlternatives.controls);
   }
 
   saveGeneralInformation(): void {
