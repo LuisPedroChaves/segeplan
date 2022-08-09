@@ -5,11 +5,11 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 
-import { GeneralInformation } from 'src/app/core/models/GeneralInformation';
-import { IProduct } from 'src/app/core/models/Product';
+import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
+import { IProduct } from 'src/app/core/models/informationGeneral/Product';
 
 @Component({
   selector: 'app-new-idea',

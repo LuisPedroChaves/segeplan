@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { GeneralInformation } from 'src/app/core/models/GeneralInformation';
+import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import * as actions from '../actions';
 import { AppState } from '../app.reducer';
 

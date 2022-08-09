@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IdeaStore } from 'src/app/store/reducers';
-import { GeneralInformation } from 'src/app/core/models/GeneralInformation';
+import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { READ_IDEAS } from 'src/app/store/actions';
 
 @Component({

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { GeneralInformation } from 'src/app/core/models/GeneralInformation';
+import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 
 export const READ_IDEAS = createAction(
 	'[IDEAS] Leer ideas'
