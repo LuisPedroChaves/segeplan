@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 
-import { OPEN_FULL_DRAWER } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 
 @Component({
@@ -14,26 +14,31 @@ import { IdeaStore } from 'src/app/store/reducers';
 export class SelectedIdeaComponent implements OnInit, OnDestroy {
 
   ideaStoreSubscription = new Subscription();
-  currentIdea: GeneralInformation = null;
+  currentView = 'generalInformation';
+
+  drawerSubscription = new Subscription();
+  fullTitle = '';
 
   constructor(
     private ideaStore: Store<IdeaStore>,
   ) { }
 
   ngOnInit(): void {
-    this.ideaStoreSubscription =  this.ideaStore.select('idea')
+
+    this.drawerSubscription = this.ideaStore.select('drawer')
     .subscribe(state => {
-      this.currentIdea = state.idea;
-    })
+      this.fullTitle = state.fullTitle
+    });
+
   }
 
   ngOnDestroy(): void {
+    this.drawerSubscription?.unsubscribe()
     this.ideaStoreSubscription?.unsubscribe()
   }
 
-  openFullDrawer(fullTitle: string, fullComponent: string): void {
-    this.ideaStore.dispatch(OPEN_FULL_DRAWER({fullTitle, fullComponent}))
+  closeFullDrawer(): void {
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
   }
-
 
 }

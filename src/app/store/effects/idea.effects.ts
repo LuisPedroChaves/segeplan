@@ -71,7 +71,8 @@ export class IdeaEffects {
               {
                 "description": "Alternativa 2"
               }
-            ]
+            ],
+            alternatives: []
           },
           {
             "productId": "1",
@@ -118,7 +119,8 @@ export class IdeaEffects {
               {
                 "description": "Alternativa 2"
               }
-            ]
+            ],
+            alternatives: []
           },
           {
             "productId": "1",
@@ -165,7 +167,8 @@ export class IdeaEffects {
               {
                 "description": "Alternativa 2"
               }
-            ]
+            ],
+            alternatives: []
           }
         ] }))
       )

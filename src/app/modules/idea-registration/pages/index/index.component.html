@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="chengeDrawer()" matTooltip="Mostrar/Ocultar Menú">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Registro de ideas</span>
+  <span>Banco de ideas</span>
 </mat-toolbar>
 <mat-drawer-container autosize class="my-menu-container">
   <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
@@ -16,13 +16,9 @@
           <mat-icon mat-list-icon>tips_and_updates</mat-icon>
           Registro de ideas
         </mat-list-option>
-        <mat-list-option routerLink="followIdeas" routerLinkActive="mat-list-single-selected-option">
-          <mat-icon mat-list-icon>model_training</mat-icon>
-          Propuestas
-        </mat-list-option>
-        <mat-list-option routerLink="/historyIdeas" routerLinkActive="mat-list-single-selected-option">
-          <mat-icon mat-list-icon>history</mat-icon>
-          Historial
+        <mat-list-option routerLink="revelanceMatrix" routerLinkActive="mat-list-single-selected-option">
+          <mat-icon mat-list-icon>timeline</mat-icon>
+          Matriz de pertinencia
         </mat-list-option>
       </mat-selection-list>
     </div>
@@ -33,15 +29,9 @@
   <mat-drawer-container>
     <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
 
-      <header fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
-        <button mat-icon-button (click)="closeFullDrawer()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <span class="mat-title">{{ fullTitle }}</span>
-      </header>
-
       <app-new-idea *ngIf="fullComponent === 'NEW_IDEA'"></app-new-idea>
       <app-selected-idea *ngIf="fullComponent === 'SELECTED_IDEA'"></app-selected-idea>
+
     </mat-drawer>
 
     <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">

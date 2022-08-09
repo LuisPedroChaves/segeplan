@@ -10,10 +10,11 @@ import { IdeaEffects } from 'src/app/store/effects/idea.effects';
 import { IndexComponent } from './pages/index/index.component';
 import { IdeaRegistrationRoutes } from './idea-registration.routing';
 import { NewIdeasComponent } from './pages/new-ideas/new-ideas.component';
-import { FollowIdeasComponent } from './pages/follow-ideas/follow-ideas.component';
-import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.component';
 import { NewIdeaComponent } from './components/new-idea/new-idea.component';
 import { SelectedIdeaComponent } from './components/selected-idea/selected-idea.component';
+import { RevelanceMatrixComponent } from './pages/revelance-matrix/revelance-matrix.component';
+import { IdeaCardComponent } from './components/idea-card/idea-card.component';
+import { AlternativesComponent } from './components/alternatives/alternatives.component';
 
 
 
@@ -21,10 +22,11 @@ import { SelectedIdeaComponent } from './components/selected-idea/selected-idea.
   declarations: [
     IndexComponent,
     NewIdeasComponent,
-    FollowIdeasComponent,
-    HistoryIdeasComponent,
     NewIdeaComponent,
     SelectedIdeaComponent,
+    RevelanceMatrixComponent,
+    IdeaCardComponent,
+    AlternativesComponent,
   ],
   imports: [
     CommonModule,

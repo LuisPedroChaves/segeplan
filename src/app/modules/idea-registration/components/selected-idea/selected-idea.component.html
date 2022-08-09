@@ -1,3 +1,21 @@
+<header fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
+  <button mat-icon-button (click)="closeFullDrawer()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div>
+    <span class="mat-title">{{ fullTitle }}</span>
+  </div>
+  <mat-chip-list>
+    <mat-chip color="primary" (click)="currentView = 'generalInformation'" [selected]="currentView === 'generalInformation'" class="pointer active-elevation">
+      <mat-icon matChipAvatar>lightbulb</mat-icon>
+      Información general
+    </mat-chip>
+    <mat-chip color="accent" (click)="currentView = 'alternatives'" [selected]="currentView === 'alternatives'" class="pointer active-elevation">
+      <mat-icon matChipAvatar>alt_route</mat-icon>
+      Alternativas
+    </mat-chip>
+  </mat-chip-list>
+</header>
 <mat-drawer-container>
   <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
 
@@ -14,64 +32,8 @@
 
   <ngx-simplebar class="sub-content-desktop">
 
-    <div fxLayout="row wrap" fxLayoutAlign="center center">
-      <div fxFlex.gt-lg="60" fxFlex.lg="80" fxFlex.md="80" fxFlex.sm="100" fxFlex.lt-sm="100">
-
-        <mat-card class="idea-card mat-elevation-z2">
-
-          <mat-card-header>
-            <mat-icon mat-card-avatar color="accent">lightbulb</mat-icon>
-            <mat-card-title>
-              {{currentIdea.registerCode}}
-            </mat-card-title>
-            <mat-card-subtitle>Información general</mat-card-subtitle>
-            <span fxFlex></span>
-            <mat-chip-list aria-label="Fish selection">
-              <mat-chip *ngIf="currentIdea.state" color="light" selected>
-                <mat-icon matChipAvatar>pending</mat-icon>
-                SIN ENVIAR
-              </mat-chip>
-              <mat-chip *ngIf="!currentIdea.state" color="accent" selected>
-                <mat-icon matChipAvatar>schedule</mat-icon>
-                EN REVISION
-              </mat-chip>
-            </mat-chip-list>
-          </mat-card-header>
-
-          <mat-card-content class="idea-card-content">
-            <p>{{currentIdea.generalObjective}} </p>
-            <hr>
-            <mat-tab-group mat-align-tabs="start" color="accent">
-              <mat-tab label="Información general">
-                <div class="generalInformation">
-                  <p><b>Encargado: </b>{{currentIdea.responsibleName}}</p>
-                  <p><b>Creada: </b> {{ currentIdea.createdAt | date:'dd/MM/yyyy'}}</p>
-                </div>
-              </mat-tab>
-              <mat-tab label="Posibles Efectos">
-                Posibles Efectos...
-              </mat-tab>
-              <mat-tab label="Posibles Causas">
-                Content 2
-              </mat-tab>
-              <mat-tab label="Posibles Alternativas">
-                Content 3
-              </mat-tab>
-            </mat-tab-group>
-          </mat-card-content>
-
-          <mat-card-actions>
-            <button mat-button (click)="openFullDrawer('Editar Idea', 'NEW_IDEA')" color="accent">
-              Editar
-            </button>
-            <button mat-button color="warn">
-              Eliminar
-            </button>
-          </mat-card-actions>
-
-        </mat-card>
-      </div>
-    </div>
+    <app-idea-card *ngIf="currentView === 'generalInformation'"></app-idea-card>
+    <app-alternatives *ngIf="currentView === 'alternatives'"></app-alternatives>
 
   </ngx-simplebar>
 

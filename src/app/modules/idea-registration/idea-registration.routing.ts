@@ -2,8 +2,7 @@ import { Routes } from "@angular/router";
 
 import { IndexComponent } from './pages/index/index.component';
 import { NewIdeasComponent } from "./pages/new-ideas/new-ideas.component";
-import { FollowIdeasComponent } from './pages/follow-ideas/follow-ideas.component';
-import { HistoryIdeasComponent } from './pages/history-ideas/history-ideas.component';
+import { RevelanceMatrixComponent } from './pages/revelance-matrix/revelance-matrix.component';
 
 export const IdeaRegistrationRoutes: Routes = [
   {
@@ -15,12 +14,8 @@ export const IdeaRegistrationRoutes: Routes = [
         component: NewIdeasComponent,
       },
       {
-        path: 'followIdeas',
-        component: FollowIdeasComponent
-      },
-      {
-        path: 'historyIdeas',
-        component: HistoryIdeasComponent
+        path: 'revelanceMatrix',
+        component: RevelanceMatrixComponent
       },
     ]
   }

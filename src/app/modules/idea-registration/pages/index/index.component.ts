@@ -18,7 +18,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   storeSubscription = new Subscription;
 
-  fullTitle = '';
   fullComponent = '';
 
   constructor(
@@ -33,7 +32,6 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
         if (this.fullDrawer) {
           this.fullDrawer.opened = state.fullDrawer;
-          this.fullTitle = state.fullTitle
           this.fullComponent = state.fullComponent
         }
       });
@@ -50,10 +48,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   openFullDrawer(fullTitle: string, fullComponent: string): void {
     this.store.dispatch(actions.SET_IDEA({idea: null}))
     this.store.dispatch(actions.OPEN_FULL_DRAWER({fullTitle, fullComponent}))
-  }
-
-  closeFullDrawer(): void {
-    this.store.dispatch(actions.CLOSE_FULL_DRAWER())
   }
 
 }

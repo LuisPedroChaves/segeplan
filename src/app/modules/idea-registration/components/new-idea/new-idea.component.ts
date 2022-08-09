@@ -66,6 +66,9 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   idea: GeneralInformation = null!
   ideaStoreSubscription = new Subscription();
 
+  drawerSubscription = new Subscription();
+  fullTitle = '';
+
   constructor(
     private productStore: Store<ProductStore>,
     private ideaStore: Store<IdeaStore>,
@@ -73,6 +76,11 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.drawerSubscription = this.ideaStore.select('drawer')
+      .subscribe(state => {
+        this.fullTitle = state.fullTitle
+      });
+
     this.productStoreSubscription = this.productStore.select('product')
       .subscribe(state => {
         this.products = state.products;
@@ -85,8 +93,13 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.drawerSubscription?.unsubscribe();
     this.productStoreSubscription?.unsubscribe();
     this.ideaStoreSubscription?.unsubscribe();
+  }
+
+  closeFullDrawer(): void {
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
   }
 
   changeDescription(event: MatSlideToggleChange): void {
@@ -185,7 +198,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       descriptionCurrentSituation,
       generalObjective,
       expectedChange,
-      possibleAlternatives
+      possibleAlternatives,
+      alternatives: []
     }
 
     if (this.idea) {

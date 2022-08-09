@@ -38,5 +38,5 @@ export interface GeneralInformation {
     qualification?: Qualification;
 
     createdAt?: string;
-    alternatives?: IdeaAlternative[];
+    alternatives: IdeaAlternative[];
 }

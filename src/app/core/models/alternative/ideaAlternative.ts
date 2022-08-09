@@ -1,4 +1,4 @@
-import { GeographicArea } from "./geographicArea";
+import { GeographicArea } from "./GeographicArea";
 import { PopulationDelimitation } from "./PopulationDelimitation";
 import { PreliminaryName } from "./PreliminaryName";
 import { ProjectDescription } from "./ProjectDescription";
@@ -14,4 +14,3 @@ export interface IdeaAlternative {
     geographicArea: GeographicArea;
     projectDescription: ProjectDescription;
 }
-

@@ -1,3 +1,9 @@
+<header fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+  <button mat-icon-button (click)="closeFullDrawer()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <span class="mat-title">{{ fullTitle }}</span>
+</header>
 <ngx-simplebar fxLayoutAlign="center start" class="sub-content-desktop">
   <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
