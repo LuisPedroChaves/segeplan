@@ -10,7 +10,7 @@ import { GeneralInformation } from '../../models/GeneralInformation';
 })
 export class GeneralInformationService {
     private API_URL = environment.root;
-    private urlGeneralInformation = 'api/general/problemDefinition';
+    private urlGeneralInformation = 'api/general/information';
 
       constructor(private http: HttpClient, private router: Router) {}
 
@@ -21,5 +21,14 @@ export class GeneralInformationService {
             return res;
             })
         );
+    }
+
+    getIdeas(): Observable<any> {
+      const url = this.API_URL + this.urlGeneralInformation;
+      return this.http.get(url).pipe(
+        map((res: any) => {
+          return res.generalInformations;
+        })
+      )
     }
 }

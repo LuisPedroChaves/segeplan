@@ -125,18 +125,18 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       phone
     } = this.generalInformation.value;
 
-    // const idea: GeneralInformation = {
-    //   productId: _product.code,
-    //   productName: _product.name,
-    //   date,
-    //   planningInstrument,
-    //   description,
-    //   idEntity: '',
-    //   nameEntity: '',
-    //   responsibleName,
-    //   email,
-    //   phone
-    // }
+    const idea: GeneralInformation = {
+      productId: _product.code,
+      productName: _product.name,
+      date,
+      planningInstrument,
+      description,
+      idEntity: '',
+      nameEntity: '',
+      responsibleName,
+      email,
+      phone
+    }
 
     // if (this.idea) {
     //   this.ideaStore.dispatch(UPDATE_IDEA({

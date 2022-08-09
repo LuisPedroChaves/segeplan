@@ -35,5 +35,6 @@ export interface GeneralInformation {
     stage?: Stage;
     qualification?: Qualification;
 
+    createdAt?: string;
 
 }

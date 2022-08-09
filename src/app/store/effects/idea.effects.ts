@@ -19,13 +19,13 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.READ_IDEAS),
-        // mergeMap(
-        //     () => this.ideaService.read()
-        //         .pipe(
-        //             map(ideas => actions.SET_IDEAS({ ideas }))
-        //         )
-        // )
-        map(() => actions.SET_IDEAS({ ideas: [] }))
+        mergeMap(
+            () => this.generalInformationService.getIdeas()
+                .pipe(
+                    map(ideas => actions.SET_IDEAS({ ideas }))
+                )
+        )
+        // map(() => actions.SET_IDEAS({ ideas: [] }))
       )
   )
 
