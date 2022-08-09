@@ -1,111 +1,181 @@
 <ngx-simplebar fxLayoutAlign="center start" class="sub-content-desktop">
   <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
-    <mat-step [stepControl]="generalInformation">
-      <ng-template matStepLabel>Información general</ng-template>
+    <form [formGroup]="generalInformation" (ngSubmit)="saveGeneralInformation()" autocomplete="off">
+      <!-- <mat-step [stepControl]="generalInformation"> -->
+      <mat-step>
+        <ng-template matStepLabel>Información general</ng-template>
 
-      <form [formGroup]="generalInformation" (ngSubmit)="saveGeneralInformation()"  autocomplete="off" fxLayout="column" fxLayoutGap="15px">
+        <div fxLayout="column" fxLayoutGap="15px">
 
-        <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
-          <div fxFlex.lt-md="100" fxFlex.gt-sm="59">
-            <mat-form-field fxFill appearance="outline">
-              <mat-label>Selección del Producto</mat-label>
-              <mat-select formControlName="_product" name="Producto">
-                <mat-option *ngFor="let product of products" [value]="product">
-                  {{product.name}}
-                </mat-option>
-              </mat-select>
-              <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
-              <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
-                El producto es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
+          <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+            <div fxFlex.lt-md="100" fxFlex.gt-sm="59">
+              <mat-form-field fxFill appearance="outline">
+                <mat-label>Selección del Producto</mat-label>
+                <mat-select formControlName="_product" name="Producto">
+                  <mat-option *ngFor="let product of products" [value]="product">
+                    {{product.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
+                <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
+                  El producto es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
+              <mat-form-field fxFill appearance="outline">
+                <mat-label>Fecha</mat-label>
+                <input matInput formControlName="date" [matDatepicker]="datepicker">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-error *ngIf="generalInformation.get('date')?.hasError('required')">
+                  La fecha es <strong>requerida</strong>
+                </mat-error>
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                  <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancelar</button>
+                    <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <p class="mat-subheading-2">Origen de la idea de proyecto</p>
+          <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un
+            instrumento de planificación</mat-slide-toggle>
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+            <mat-hint>Según la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de
+              planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
+            <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
+              Máximo 200 caracteres.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-divider></mat-divider>
+          <p class="mat-subheading-2">Datos de quien propone</p>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre completo" formControlName="responsibleName">
+            <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
+          </mat-form-field>
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Correo electrónico</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
+            <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
+            <mat-error
+              *ngIf="generalInformation.get('email')?.hasError('email') && !generalInformation.get('email')?.hasError('required')">
+              Por favor, introduzca una dirección de correo electrónico válida
+            </mat-error>
+            <mat-error *ngIf="generalInformation.get('email')?.hasError('required')">
+              El correo electrónico es <strong>requerido</strong>
+            </mat-error>
+            <mat-icon matSuffix>alternate_email</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono </mat-label>
+            <span matPrefix>+502 &nbsp;</span>
+            <input formControlName="phone" type="tel" matInput placeholder="12345678">
+            <mat-icon matSuffix>contact_phone</mat-icon>
+            <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
           </div>
 
-          <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
-            <mat-form-field fxFill appearance="outline">
-              <mat-label>Fecha</mat-label>
-              <input matInput formControlName="date" [matDatepicker]="datepicker">
-              <mat-hint>DD/MM/YYYY</mat-hint>
-              <mat-error *ngIf="generalInformation.get('date')?.hasError('required')">
-                La fecha es <strong>requerida</strong>
-              </mat-error>
-              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-              <mat-datepicker #datepicker>
-                <mat-datepicker-actions>
-                  <button mat-button matDatepickerCancel>Cancelar</button>
-                  <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
-                </mat-datepicker-actions>
-              </mat-datepicker>
-            </mat-form-field>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="generalInformation">
+        <ng-template matStepLabel>Definición del problema, necesidad o potencialidad de inversión, causas y efectos</ng-template>
+
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <p class="mat-subheading-2">Posibles efectos</p>
+
+          <table fxFill  mat-table [dataSource]="effectsSource" formArrayName="possibleEffects" class="mat-elevation-z0">
+            <tr mat-header-row *matHeaderRowDef="effectsColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: effectsColumns;"></tr>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Posibles efectos </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field fxFill appearance="outline" class="description">
+                  <mat-label>Descripción</mat-label>
+                  <input matInput formControlName="description" type="text" placeholder="Descripción...">
+                  <mat-hint>Ingrese un posible efecto</mat-hint>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+              <th mat-header-cell *matHeaderCellDef> Quitar </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <button mat-icon-button (click)="removeEffect(index)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+          </table>
+
+          <button mat-button (click)="addEffect()"  color="accent">Agregar efecto</button>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Definición de la problemática o potencialidad central</mat-label>
+            <textarea matInput formControlName="definitionPotentiality" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+            <mat-hint>Hasta 200 caracteres.</mat-hint>
+            <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('maxlength')">
+              Máximo 200 caracteres.
+            </mat-error>
+          </mat-form-field>
+
+          <p class="mat-subheading-2">Posibles causas</p>
+
+          <table fxFill  mat-table [dataSource]="causesSource" formArrayName="possibleCauses" class="mat-elevation-z0">
+            <tr mat-header-row *matHeaderRowDef="causesColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: causesColumns;"></tr>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Posibles causas </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field fxFill appearance="outline" class="description">
+                  <mat-label>Descripción</mat-label>
+                  <input matInput formControlName="description" type="text" placeholder="Descripción...">
+                  <mat-hint>Ingrese una posible causa</mat-hint>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+              <th mat-header-cell *matHeaderCellDef> Quitar </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <button mat-icon-button (click)="removeCauses(index)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+          </table>
+
+          <button mat-button (click)="addCauses()"  color="accent">Agregar causa</button>
+
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
           </div>
         </div>
 
-        <p class="mat-subheading-2">Origen de la idea de proyecto.</p>
+      </mat-step>
 
-        <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un instrumento de planificación</mat-slide-toggle>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Descripción</mat-label>
-          <textarea matInput formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
-          <mat-hint>Según la respuesta anterior se justifica si la idea de  proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
-          <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
-            Máximo 200 caracteres.
-          </mat-error>
-        </mat-form-field>
-        <br>
-        <mat-divider></mat-divider>
-        <p class="mat-subheading-2">Datos de quien propone</p>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input matInput placeholder="Nombre completo" formControlName="responsibleName">
-          <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
-        </mat-form-field>
-
-        <mat-form-field fxFill appearance="outline">
-          <mat-label>Correo electrónico</mat-label>
-          <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
-          <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
-          <mat-error *ngIf="generalInformation.get('email')?.hasError('email') && !generalInformation.get('email')?.hasError('required')">
-            Por favor, introduzca una dirección de correo electrónico válida
-          </mat-error>
-          <mat-error *ngIf="generalInformation.get('email')?.hasError('required')">
-            El correo electrónico es <strong>requerido</strong>
-          </mat-error>
-          <mat-icon matSuffix>alternate_email</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Teléfono </mat-label>
-          <span matPrefix>+502 &nbsp;</span>
-          <input formControlName="phone" type="tel" matInput placeholder="12345678">
-          <mat-icon matSuffix>contact_phone</mat-icon>
-          <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
-        </mat-form-field>
-
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
         <div>
-          <button mat-button matStepperNext type="submit">Siguiente</button>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
-      </form>
-
-    </mat-step>
-
-    <mat-step [stepControl]="generalInformation">
-      <ng-template matStepLabel>Datos de quien propone</ng-template>
-      <form [formGroup]="generalInformation" autocomplete="off" fxLayout="column" fxLayoutGap="15px">
-      </form>
-
-    </mat-step>
-
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
+      </mat-step>
+    </form>
 
   </mat-stepper>
 </ngx-simplebar>

@@ -33,13 +33,13 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.CREATE_IDEA),
-        mergeMap(
-            ({ idea }) => this.generalInformationService.sendGeneralInformation(idea)
-                .pipe(
-                    map(idea => actions.SET_NEW_IDEA({ idea }))
-                )
-        )
-        // map(({ idea }) => actions.SET_NEW_IDEA({ idea }))
+        // mergeMap(
+        //     ({ idea }) => this.generalInformationService.sendGeneralInformation(idea)
+        //         .pipe(
+        //             map(idea => actions.SET_NEW_IDEA({ idea }))
+        //         )
+        // )
+        map(({ idea }) => actions.SET_NEW_IDEA({ idea }))
       )
   )
 

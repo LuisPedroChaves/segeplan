@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
@@ -18,6 +18,14 @@ import { IProduct } from 'src/app/core/models/informationGeneral/Product';
 })
 export class NewIdeaComponent implements OnInit, OnDestroy {
 
+  get formEffects(): FormArray {
+    return this.generalInformation.get('possibleEffects') as FormArray;
+  }
+
+  get formCauses(): FormArray {
+    return this.generalInformation.get('possibleCauses') as FormArray;
+  }
+
   generalInformation = new FormGroup({
     _product: new FormControl(null, Validators.required),
     date: new FormControl(moment(), Validators.required),
@@ -26,7 +34,16 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     responsibleName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required),
+    possibleEffects: this.FormBuilder.array([]),
+    definitionPotentiality: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+    possibleCauses: this.FormBuilder.array([]),
   });
+
+  effectsColumns: string[] = ['description', 'remove'];
+  effectsSource = new BehaviorSubject<AbstractControl[]>([]);
+
+  causesColumns: string[] = ['description', 'remove'];
+  causesSource = new BehaviorSubject<AbstractControl[]>([]);
 
   products: IProduct[] = [];
   productStoreSubscription = new Subscription();
@@ -37,6 +54,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   constructor(
     private productStore: Store<ProductStore>,
     private ideaStore: Store<IdeaStore>,
+    private FormBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -67,6 +85,35 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     description!.disable();
   }
 
+
+  addEffect(): void {
+    const NEW_DETAIL: FormGroup = this.FormBuilder.group({
+      description: new FormControl('', Validators.required),
+    });
+    this.formEffects.push(NEW_DETAIL);
+
+    this.effectsSource.next(this.formEffects.controls);
+  }
+
+  removeEffect(index: number): void {
+    this.formEffects.removeAt(index);
+    this.effectsSource.next(this.formEffects.controls);
+  }
+
+  addCauses(): void {
+    const NEW_DETAIL: FormGroup = this.FormBuilder.group({
+      description: new FormControl('', Validators.required),
+    });
+    this.formCauses.push(NEW_DETAIL);
+
+    this.causesSource.next(this.formEffects.controls);
+  }
+
+  removeCauses(index: number): void {
+    this.formEffects.removeAt(index);
+    this.causesSource.next(this.formEffects.controls);
+  }
+
   saveGeneralInformation(): void {
     const {
       _product,
@@ -78,67 +125,29 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       phone
     } = this.generalInformation.value;
 
-    const idea: GeneralInformation = {
-      productId: _product.code,
-      productName: _product.name,
-      date,
-      planningInstrument,
-      description,
-      idEntity: '11111',
-      nameEntity: 'testEntity',
-      responsibleName,
-      email,
-      phone,
-      definitionPotentiality: 'Definicion de la Potencialidad',
-      baseLine: 'Linea base, otra descripcion',
-      descriptionCurrentSituation: 'Descripcion de la situacion actual',
-      generalObjective: "Descripción de objetivo general ",
-      expectedChange: "Resultado o cambio esperado respecto a indicadores       (resultado final) ",
-      possibleEffects: [
-        {
-            "description": "Posible Efecto 01"
-        },
-        {
-            "description": "Posible Efecto 02"
-        },
-        {
-            "description": "Posible Efecto 03"
-        }
-    ],
-    possibleCauses: [
-        {
-            "description": "Posible Causa 01"
-        },
-        {
-            "description": "Posible Causa 02"
-        },
-        {
-            "description": "Posible Causa 03"
-        }
-    ],
-    possibleAlternatives: [
-        {
-            "description": "Posible alternatives 01"
-        },
-        {
-            "description": "Posible alternatives 02"
-        },
-        {
-            "description": "Posible alternatives 03"
-        }
-    ]
-    }
+    // const idea: GeneralInformation = {
+    //   productId: _product.code,
+    //   productName: _product.name,
+    //   date,
+    //   planningInstrument,
+    //   description,
+    //   idEntity: '',
+    //   nameEntity: '',
+    //   responsibleName,
+    //   email,
+    //   phone
+    // }
 
-    if (this.idea) {
-      this.ideaStore.dispatch(UPDATE_IDEA({
-        idea
-      }))
-      return;
-    }
+    // if (this.idea) {
+    //   this.ideaStore.dispatch(UPDATE_IDEA({
+    //     idea
+    //   }))
+    //   return;
+    // }
 
-    this.ideaStore.dispatch(CREATE_IDEA({
-      idea
-    }))
+    // this.ideaStore.dispatch(CREATE_IDEA({
+    //   idea
+    // }))
   }
 
 }
