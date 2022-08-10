@@ -1,1 +1,253 @@
-<p>new-alternative works!</p>
+<ngx-simplebar fxLayoutAlign="center start" class="my-content">
+  <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
+
+    <mat-step [stepControl]="preliminaryName">
+      <ng-template matStepLabel>Nombre preliminar de la idea de proyecto de inversión en relación a la alternativa
+        seleccionada</ng-template>
+
+      <form [formGroup]="preliminaryName" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+          <br>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Tipo de idea de proyecto</mat-label>
+            <mat-select formControlName="typeProject" (selectionChange)="enableTypeProject()">
+              <mat-option value="Forma Capital Fijo">
+                Forma Capital Fijo
+              </mat-option>
+              <mat-option value="No Forma Capital Fijo">
+                No Forma Capital Fijo
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div fxLayout="row wrap">
+            <p fxFlex="10" class="mat-subheading-2" fxLayoutAlign="center center">A.</p>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Proceso</mat-label>
+              <mat-select formControlName="proccess">
+                <mat-option value="Proceso1">
+                  Proceso 1
+                </mat-option>
+                <mat-option value="Proceso2">
+                  Proceso 2
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+                El tipo de idea es <strong>requerido</strong>
+              </mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row wrap">
+            <p fxFlex="10" class="mat-subheading-2" fxLayoutAlign="center center">B.</p>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Objeto</mat-label>
+              <mat-select formControlName="object">
+                <mat-option value="Objecto1">
+                  Objeto 1
+                </mat-option>
+                <mat-option value="Objeto2">
+                  Objeto 2
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+                El tipo de idea es <strong>requerido</strong>
+              </mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row wrap">
+
+            <p fxFlex="10" class="mat-subheading-2" fxLayoutAlign="center center">C.</p>
+
+            <div fxFlex fxLayout="column">
+
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Departamento</mat-label>
+                  <mat-select formControlName="departament">
+                    <mat-option value="Guatemala">
+                      Guatemala
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Municipio</mat-label>
+                  <mat-select formControlName="municipality">
+                    <mat-option value="Guatemala">
+                      Guatemala
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Aldea</mat-label>
+                <mat-select formControlName="village">
+                  <mat-option value="Carmen">
+                    Carmen
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+          <p class="mat-subheading-2">Nombre preliminar del proyecto</p>
+          <p class="mat-title" fxLayoutAlign="center center">
+            <span *ngIf="preliminaryName.get('proccess')?.value">
+              A. {{ preliminaryName.get('proccess')?.value }}&nbsp;
+            </span>
+            <span *ngIf="preliminaryName.get('object')?.value">
+              B. {{ preliminaryName.get('object')?.value }}&nbsp;
+            </span>
+            <span *ngIf="preliminaryName.get('departament')?.value">
+              C. {{ preliminaryName.get('village')?.value }}
+              {{ preliminaryName.get('municipality')?.value }},
+              {{ preliminaryName.get('departament')?.value }}
+            </span>
+          </p>
+
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- <mat-step [stepControl]="responsibleEntity"> -->
+    <mat-step>
+      <ng-template matStepLabel>Entidad responsable</ng-template>
+
+      <form [formGroup]="responsibleEntity" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de la entidad</mat-label>
+            <input matInput [placeholder]="currentIdea.nameEntity" formControlName="nameEPI">
+            <mat-hint>Puede ser comité, asociación,cocode, Intitución u otro tipo de organización.</mat-hint>
+            <mat-error *ngIf="responsibleEntity.get('nameEPI')?.hasError('required')">
+              El nombre de la entidad es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput [placeholder]="currentIdea.responsibleName" formControlName="leaderName">
+            <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
+            <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Correo electrónico</mat-label>
+            <input type="email" matInput formControlName="email" [placeholder]="currentIdea.email">
+            <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
+            <mat-error
+              *ngIf="responsibleEntity.get('email')?.hasError('email') && !responsibleEntity.get('email')?.hasError('required')">
+              Por favor, introduzca una dirección de correo electrónico válida
+            </mat-error>
+            <mat-error *ngIf="responsibleEntity.get('email')?.hasError('required')">
+              El correo electrónico es <strong>requerido</strong>
+            </mat-error>
+            <mat-icon matSuffix>alternate_email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono </mat-label>
+            <span matPrefix>+502 &nbsp;</span>
+            <input formControlName="phone" type="tel" matInput [placeholder]="currentIdea.phone">
+            <mat-icon matSuffix>contact_phone</mat-icon>
+            <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
+            <mat-error *ngIf="responsibleEntity.get('phone')?.hasError('required')">
+              El teléfono de contacto es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="PopulationDelimitation">
+      <ng-template matStepLabel>Delimitación preliminar de los posibles beneficiarios </ng-template>
+
+      <form [formGroup]="PopulationDelimitation" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+          <br>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Población de referencia (Según INE)</mat-label>
+            <input type="text" placeholder="Seleccione o ingrese un valor" matInput
+              formControlName="referencePopulationId" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option value="Nacional">
+                Nacional
+              </mat-option>
+              <mat-option value="Departamental">
+                Departamental
+              </mat-option>
+              <mat-option value="Municipal">
+                Municipal
+              </mat-option>
+              <mat-option value="Comunal">
+                Comunal
+              </mat-option>
+            </mat-autocomplete>
+            <mat-hint>Nacional / Departamental / Municipal / Comunal / Otra</mat-hint>
+            <mat-error *ngIf="PopulationDelimitation.get('typeProject')?.hasError('required')">
+              La población de referencia es <strong>requerida</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div fxLayout="row wrap">
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Total de población de referencia</mat-label>
+              <input matInput formControlName="totalPopulation" type="number" placeholder="Ej. 125000">
+              <mat-error *ngIf="PopulationDelimitation.get('totalPopulation')?.hasError('max')">
+                Máximo 15 números.
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Identificación preliminar de alternativas</ng-template>
+      <div fxLayout="column" fxLayoutGap="15px">
+
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div>
+        <button mat-button color="primary">Finalizar</button>
+        <span fxFlex></span>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button (click)="stepper.reset()">Restablecer</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</ngx-simplebar>
