@@ -160,6 +160,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   saveGeneralInformation(): void {
 
+    console.log(this.generalInformation)
     //TODO:Condicionar si el formulario es valido
 
     const {
