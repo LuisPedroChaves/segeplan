@@ -34,18 +34,36 @@
                 </div>
               </mat-tab>
               <mat-tab label="Posibles Efectos">
-                Posibles Efectos...
+                <div class="generalInformation">
+                  <div *ngFor="let efect of currentIdea.possibleEffects; index as i">
+                    <p><b>
+                        <mat-icon>flare</mat-icon>
+                      </b>{{ efect.description}}</p>
+                  </div>
+                </div>
               </mat-tab>
               <mat-tab label="Posibles Causas">
-                Content 2
+                <div class="generalInformation">
+                  <div *ngFor="let cause of currentIdea.possibleCauses; index as i">
+                    <p><b>
+                        <mat-icon>view_in_ar</mat-icon>
+                      </b>{{ cause.description}}</p>
+                  </div>
+                </div>
               </mat-tab>
               <mat-tab label="Posibles Alternativas">
-                Content 3
+                <div class="generalInformation">
+                  <div *ngFor="let alternative of currentIdea.possibleAlternatives; index as i">
+                    <p><b>
+                        <mat-icon>view_in_ar</mat-icon>
+                      </b>{{ alternative.description}}</p>
+                  </div>
+                </div>
               </mat-tab>
             </mat-tab-group>
-          </mat-card-content>
-
-          <mat-card-actions>
+            </mat-card-content>
+              
+              <mat-card-actions>
             <button mat-button (click)="openFullDrawer('Editar Idea', 'NEW_IDEA')" color="accent">
               Editar
             </button>

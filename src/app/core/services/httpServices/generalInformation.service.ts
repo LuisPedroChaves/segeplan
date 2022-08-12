@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { FiltroIdeas } from '../../models/adicionales/filtroIdeas';
 import { GeneralInformation } from '../../models/informationGeneral/GeneralInformation';
 
 @Injectable({
@@ -23,12 +24,25 @@ export class GeneralInformationService {
         );
     }
 
-    getIdeas(): Observable<any> {
+    getIdeas(filtros?: FiltroIdeas): Observable<any> {
       const url = this.API_URL + this.urlGeneralInformation;
-      return this.http.get(url).pipe(
-        map((res: any) => {
-          return res.generalInformations;
-        })
-      )
+      if (filtros){ 
+        console.log(filtros)
+        const httpParams = new HttpParams({ fromObject: { ...filtros } });
+
+        return this.http.get(url, {params: httpParams}).pipe(
+          map((res: any) => {
+            return res.generalInformations;
+          })
+        )
+      }
+      else {
+        return this.http.get(url).pipe(
+          map((res: any) => {
+            return res.generalInformations;
+          })
+        )
+      }
+
     }
 }

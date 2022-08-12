@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, mergeMap } from 'rxjs/operators';
+import { FiltroIdeas } from "../../core/models/adicionales/filtroIdeas";
 import { GeneralInformationService } from "../../core/services/httpServices/generalInformation.service";
 
 
@@ -15,12 +16,14 @@ export class IdeaEffects {
     private actions$: Actions,
   ) { }
 
+  filtros: FiltroIdeas = {state: 'CREADA'}
+
   readIdeas = createEffect(
     () => this.actions$
       .pipe(
         ofType(actions.READ_IDEAS),
         mergeMap(
-            () => this.generalInformationService.getIdeas()
+            () => this.generalInformationService.getIdeas(this.filtros)
                 .pipe(
                     map(ideas => actions.SET_IDEAS({ ideas }))
                 )

@@ -20,11 +20,11 @@
           <p><b>Encargado: </b>{{item.responsibleName}}</p>
           <p><b>Creada: </b> {{ item.createdAt | date:'dd/MM/yyyy'}}</p>
           <mat-chip-list aria-label="Fish selection">
-            <mat-chip *ngIf="item.state" color="light" selected>
+            <mat-chip *ngIf="item.state == 'CREADA'" color="light" selected>
               <mat-icon matChipAvatar>pending</mat-icon>
               SIN ENVIAR
             </mat-chip>
-            <mat-chip *ngIf="!item.state" color="accent" selected>
+            <mat-chip *ngIf="item.state == 'ENVIADA'" color="accent" selected>
               <mat-icon matChipAvatar>schedule</mat-icon>
               EN REVISION
             </mat-chip>

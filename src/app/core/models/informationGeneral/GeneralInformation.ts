@@ -18,7 +18,7 @@ export interface GeneralInformation {
     description: string;
     dateOut?: Date;
     punctuation?: number;
-    state?: boolean;
+    state?: string;
     idEntity?: string;
     nameEntity?: string;
     responsibleName: string;
