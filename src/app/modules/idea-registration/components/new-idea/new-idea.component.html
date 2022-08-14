@@ -19,7 +19,7 @@
                 <mat-label>Selección del Producto</mat-label>
                 <mat-select formControlName="_product" name="Producto">
                   <mat-option *ngFor="let product of products" [value]="product">
-                    {{product.name}}
+                    {{product.nombre}}
                   </mat-option>
                 </mat-select>
                 <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>

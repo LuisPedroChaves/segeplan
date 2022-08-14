@@ -9,7 +9,7 @@ import { GeneralInformation } from 'src/app/core/models/informationGeneral/Gener
 import { CLOSE_FULL_DRAWER, CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
-import { IProduct } from 'src/app/core/models/informationGeneral/Product';
+import { IProduct } from 'src/app/core/models/adicionales/Product';
 import { PossibleEffect } from 'src/app/core/models/informationGeneral/PossibleEffect';
 import { PossibleCause } from 'src/app/core/models/informationGeneral/PossibleCause';
 import { PossibleAlternative } from 'src/app/core/models/informationGeneral/PossibleAlternative';
