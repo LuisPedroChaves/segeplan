@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { IProduct } from 'src/app/core/models/informationGeneral/Product';
+import { IProduct } from 'src/app/core/models/adicionales/Product';
 import * as actions from '../actions';
 import { AppState } from '../app.reducer';
 
@@ -14,9 +14,9 @@ export interface ProductStore extends AppState {
 
 export const PRODUCT_STATE: ProductState = {
     products: [
-      { code: '1', name: 'Producto 1'},
-      { code: '1', name: 'Producto 2'},
-      { code: '1', name: 'Producto 3'},
+      { codigo: '1', nombre: 'Producto 1'},
+      { codigo: '1', nombre: 'Producto 2'},
+      { codigo: '1', nombre: 'Producto 3'},
     ],
 }
 
