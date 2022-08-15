@@ -7,5 +7,5 @@ export interface PopulationDelimitation {
     gender: string;
     estimateBeneficiaries: number;
     preliminaryCharacterization: string;
-    coverage: number;
+    coverage?: number;
 }

@@ -3,10 +3,11 @@ import { ExecutionTime } from "./ExecutionTime";
 export interface ProjectDescription {
     codigo?: string;
     ideaAlternativeId?: string;
-    formulationProcess: string;
     projectType: string;
-    complexity: string;
+    formulationProcess: string;
+    formulationProcessDescription: string;
     descriptionInterventions: string;
+    complexity: string;
     estimatedCost: number;
     investmentCost: number;
     fundingSources: number;

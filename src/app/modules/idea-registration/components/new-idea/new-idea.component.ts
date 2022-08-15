@@ -6,7 +6,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CLOSE_FULL_DRAWER, CREATE_IDEA, UPDATE_IDEA } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, CREATE_IDEA, READ_PRODUCTS, UPDATE_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
 import { IProduct } from 'src/app/core/models/adicionales/Product';
@@ -90,6 +90,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.idea = state.idea;
       })
+
+      this.productStore.dispatch(READ_PRODUCTS())
   }
 
   ngOnDestroy(): void {

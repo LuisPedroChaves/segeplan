@@ -45,7 +45,7 @@ export class Integrations {
         const url = this.API_URL + this.urlIntegrations + 'productos';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }

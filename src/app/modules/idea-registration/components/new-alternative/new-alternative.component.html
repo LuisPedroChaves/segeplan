@@ -121,8 +121,7 @@
       </form>
     </mat-step>
 
-    <!-- <mat-step [stepControl]="responsibleEntity"> -->
-    <mat-step>
+    <mat-step [stepControl]="responsibleEntity">
       <ng-template matStepLabel>Entidad responsable</ng-template>
 
       <form [formGroup]="responsibleEntity" autocomplete="off">
@@ -181,8 +180,7 @@
       </form>
     </mat-step>
 
-    <!-- <mat-step [stepControl]="populationDelimitation"> -->
-    <mat-step>
+    <mat-step [stepControl]="populationDelimitation">
       <ng-template matStepLabel>Delimitación preliminar de los posibles beneficiarios </ng-template>
 
       <form [formGroup]="populationDelimitation" autocomplete="off">
@@ -242,8 +240,8 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Denominación</mat-label>
-            <input type="text" placeholder="Seleccione o ingrese un valor" matInput
-              formControlName="denominationId" [matAutocomplete]="auto2">
+            <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="denominationId"
+              [matAutocomplete]="auto2">
             <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
               <mat-option value="Alumnos">
                 Alumnos
@@ -273,9 +271,11 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Caracterización preliminar</mat-label>
-            <textarea matInput formControlName="preliminaryCharacterization" placeholder="Describir aspectos a nivel socioeconómicos del área de influencia del proyecto -Ejemplo: Pobreza, educación, salud, otros-"
+            <textarea matInput formControlName="preliminaryCharacterization"
+              placeholder="Describir aspectos a nivel socioeconómicos del área de influencia del proyecto -Ejemplo: Pobreza, educación, salud, otros-"
               rows="4"></textarea>
-            <mat-hint>Hasta {{500 - populationDelimitation.value.preliminaryCharacterization.length}} caracteres.</mat-hint>
+            <mat-hint>Hasta {{500 - populationDelimitation.value.preliminaryCharacterization.length}} caracteres.
+            </mat-hint>
             <mat-error *ngIf="populationDelimitation.get('preliminaryCharacterization')?.hasError('maxlength')">
               Máximo 500 caracteres.
             </mat-error>
@@ -300,22 +300,26 @@
         <div fxLayout="column" fxLayoutGap="15px">
           <br>
 
-          <mat-slide-toggle formControlName="oneAvailableTerrain">Se identifica solo un terreno disponible</mat-slide-toggle>
-          <mat-slide-toggle formControlName="availableTerrain">Se identifican varios terrenos disponibles</mat-slide-toggle>
-          <mat-slide-toggle formControlName="investPurchase">Es necesario invertir en la compra de un terreno</mat-slide-toggle>
+          <mat-slide-toggle formControlName="oneAvailableTerrain">Se identifica solo un terreno disponible
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="availableTerrain">Se identifican varios terrenos disponibles
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="investPurchase">Es necesario invertir en la compra de un terreno
+          </mat-slide-toggle>
 
           <mat-divider></mat-divider>
 
           <p class="mat-subheading-2">Situación legal del posible bien inmueble</p>
           <mat-slide-toggle formControlName="governmentTerrain">Terreno a nombre del Estado</mat-slide-toggle>
-          <mat-slide-toggle formControlName="registerGovernmentTerrain">Se debe de inscribir el terreno a nombre del Estado</mat-slide-toggle>
+          <mat-slide-toggle formControlName="registerGovernmentTerrain">Se debe de inscribir el terreno a nombre del
+            Estado</mat-slide-toggle>
 
           <mat-slide-toggle formControlName="switchStatus">Observación</mat-slide-toggle>
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Observación</mat-label>
             <textarea matInput formControlName="statusDescribe" placeholder="Describir el estatus..."
-            rows="4"></textarea>
+              rows="4"></textarea>
             <mat-hint>Hasta {{200 - geographicArea.get('statusDescribe')?.value.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('statusDescribe')?.hasError('maxlength')">
               Máximo 200 caracteres.
@@ -354,15 +358,15 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Imagen</mat-label>
-            <input matInput formControlName="image" placeholder="Ingrese una imagen clara para el contexto actual del terreno">
+            <input matInput formControlName="image"
+              placeholder="Ingrese una imagen clara para el contexto actual del terreno">
             <mat-icon matSuffix>file</mat-icon>
             <mat-hint>Archivo JPG, no mayor a 10MB.</mat-hint>
           </mat-form-field>
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Descripción del terreno</mat-label>
-            <textarea matInput formControlName="description" placeholder="Máximo 200 caracteres..."
-            rows="4"></textarea>
+            <textarea matInput formControlName="description" placeholder="Máximo 200 caracteres..." rows="4"></textarea>
             <mat-hint>Hasta {{200 - geographicArea.get('description')?.value.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('description')?.hasError('maxlength')">
               Máximo 200 caracteres.
@@ -374,18 +378,71 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Descripción</mat-label>
-            <textarea matInput formControlName="descriptionBasicServices" placeholder="Indique que servicios hay para el terreno (Ejemplo: Agua potable, luz eléctrica, drenajes sanitarios, otros."
-            rows="4"></textarea>
-            <mat-hint>Hasta {{200 - geographicArea.get('descriptionBasicServices')?.value.length}} caracteres.</mat-hint>
+            <textarea matInput formControlName="descriptionBasicServices"
+              placeholder="Indique que servicios hay para el terreno (Ejemplo: Agua potable, luz eléctrica, drenajes sanitarios, otros."
+              rows="4"></textarea>
+            <mat-hint>Hasta {{200 - geographicArea.get('descriptionBasicServices')?.value.length}} caracteres.
+            </mat-hint>
             <mat-error *ngIf="geographicArea.get('descriptionBasicServices')?.hasError('maxlength')">
               Máximo 200 caracteres.
             </mat-error>
           </mat-form-field>
 
+          <mat-divider></mat-divider>
+          <p class="mat-subheading-2">Coordenadas geográficas</p>
+
+          <table fxFill mat-table [dataSource]="coordinatesSource" formArrayName="coordinates" class="mat-elevation-z0">
+            <tr mat-header-row *matHeaderRowDef="coordinatesColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: coordinatesColumns;"></tr>
+
+            <ng-container matColumnDef="geographicAreaId">
+              <th mat-header-cell *matHeaderCellDef> Longitud (x) </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field fxFill appearance="outline">
+                  <mat-label>Longitud (x)</mat-label>
+                  <input matInput formControlName="geographicAreaId" type="number" placeholder="Ej. xxxxx">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="latitude">
+              <th mat-header-cell *matHeaderCellDef> Latitud (y) </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field fxFill appearance="outline">
+                  <mat-label>Latitud (x)</mat-label>
+                  <input matInput formControlName="latitude" type="number" placeholder="Ej. xxxxx">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="length">
+              <th mat-header-cell *matHeaderCellDef> Altitud (msnm) </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field fxFill appearance="outline">
+                  <mat-label>Altitud (msnm)</mat-label>
+                  <input matInput formControlName="length" type="number" placeholder="Ej. xxxxx">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+              <th mat-header-cell *matHeaderCellDef> Quitar </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <button mat-icon-button (click)="removeCoordinates(index)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+          </table>
+
+          <button mat-button *ngIf="!geographicArea.get('investPurchase').value" (click)="addCoordinates()"
+            color="accent">Agregar Coordenada</button>
+
           <mat-form-field fxFill appearance="outline">
             <mat-label>Breve descripción de la posible ubicación</mat-label>
-            <textarea matInput formControlName="descriptionLocation" placeholder="Describir ventajas y desventajas de cada uno de los terrenos, colindancias, posibles riesgos; cualquier aspecto que considere relevante."
-            rows="4"></textarea>
+            <textarea matInput formControlName="descriptionLocation"
+              placeholder="Describir ventajas y desventajas de cada uno de los terrenos, colindancias, posibles riesgos; cualquier aspecto que considere relevante."
+              rows="4"></textarea>
             <mat-hint>Hasta {{200 - geographicArea.get('descriptionLocation')?.value.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('descriptionLocation')?.hasError('maxlength')">
               Máximo 200 caracteres.
@@ -401,16 +458,385 @@
       </form>
     </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Identificación preliminar de alternativas</ng-template>
-      <div fxLayout="column" fxLayoutGap="15px">
+    <mat-step [stepControl]="projectDescription">
+      <ng-template matStepLabel>Descripción preliminar de la idea proyecto</ng-template>
 
-      </div>
+      <form [formGroup]="projectDescription" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+          <br>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Tipo de Proyecto</mat-label>
+            <mat-select formControlName="projectType">
+
+              <mat-option value="null">
+                Seleccione un tipo de proyecto
+              </mat-option>
+              <mat-option value="Desarrollo económico">
+                Desarrollo económico
+              </mat-option>
+              <mat-option value="Desarrollo social">
+                Desarrollo social
+              </mat-option>
+              <mat-option value="Desarrollo ambiental y recursos naturales">
+                Desarrollo ambiental y recursos naturales
+              </mat-option>
+
+            </mat-select>
+            <mat-hint>Defina el proyecto por clasificación del grupo sectorial.</mat-hint>
+            <mat-error *ngIf="projectDescription.get('projectType')?.hasError('required')">
+              El tipo de proyecto es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-divider></mat-divider>
+          <p class="mat-subheading-2">Proceso de Formulación</p>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Estime su avance</mat-label>
+            <mat-select formControlName="formulationProcess">
+
+              <mat-option value="null">
+                Ningúno
+              </mat-option>
+              <mat-option value="Idea conceptual (Bocetos)">
+                Idea conceptual (Bocetos)
+              </mat-option>
+              <mat-option value="Anteproyecto previo (Arquitectura e ingeniería)">
+                Anteproyecto previo (Arquitectura e ingeniería)
+              </mat-option>
+              <mat-option value="Anteproyecto con presupuesto estimado">
+                Anteproyecto con presupuesto estimado
+              </mat-option>
+
+            </mat-select>
+            <mat-hint>Defina el proyecto por clasificación del grupo sectorial.</mat-hint>
+            <mat-error *ngIf="projectDescription.get('formulationProcess')?.hasError('required')">
+              El avance es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Observación</mat-label>
+            <textarea matInput formControlName="formulationProcessDescription" placeholder="Máximo 200 caracteres..."
+              rows="4"></textarea>
+            <mat-hint>Hasta {{200 - projectDescription.get('formulationProcessDescription')?.value.length}} caracteres.
+            </mat-hint>
+            <mat-error *ngIf="projectDescription.get('formulationProcessDescription')?.hasError('maxlength')">
+              Máximo 200 caracteres.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-divider></mat-divider>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Breve descripción de las posibles intervenciones o acciones a desarrollar</mat-label>
+            <textarea matInput formControlName="descriptionInterventions"
+              placeholder="Describir de manera general lo que se pretende con el proyecto de manera cualitativa; puede ser infraestructura, mobiliario u otros para el buen funcionamiento de este."
+              rows="4"></textarea>
+            <mat-hint>Hasta {{250 - projectDescription.get('descriptionInterventions')?.value.length}} caracteres.
+            </mat-hint>
+            <mat-error *ngIf="projectDescription.get('descriptionInterventions')?.hasError('maxlength')">
+              Máximo 200 caracteres.
+            </mat-error>
+            <mat-error *ngIf="projectDescription.get('descriptionInterventions')?.hasError('required')">
+              El campo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Complejidad</mat-label>
+            <mat-select formControlName="complexity">
+
+              <mat-option value="Alta">
+                Alta
+              </mat-option>
+              <mat-option value="Media">
+                Media
+              </mat-option>
+              <mat-option value="Baja">
+                Baja
+              </mat-option>
+
+            </mat-select>
+            <mat-hint>Seleccionar la opción que a su criterio se adapte mejor en base al producto que desea ejecutar.
+              Tome en cuenta la complejidad de la problemática, tamaño, tecnología, ingeniería, financiamiento y
+              aspectos particulares de la propuesta de su proyecto.</mat-hint>
+            <mat-error *ngIf="projectDescription.get('complexity')?.hasError('required')">
+              La complejidad es <strong>requerida</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-divider></mat-divider>
+
+          <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Costo estimado de la Preinversión </mat-label>
+              <span matPrefix>Q. &nbsp;</span>
+              <input formControlName="estimatedCost" type="number" matInput placeholder="Ej. 25000">
+              <mat-hint>Se refiere al costo estimado de los estudios en la Etapa de Preinversión que serán necesarios
+                realizar para fortalecer la toma de decisión del proyecto.</mat-hint>
+              <mat-error *ngIf="projectDescription.get('estimatedCost')?.hasError('required')">
+                El Costo estimado de la Preinversión es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Costo estimado de la inversión</mat-label>
+              <span matPrefix>Q. &nbsp;</span>
+              <input formControlName="investmentCost" type="number" matInput placeholder="Ej. 25000">
+              <mat-error *ngIf="projectDescription.get('estimatedCost')?.hasError('required')">
+                El Costo estimado de la inversión es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <br>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Posibles fuentes de financiamiento</mat-label>
+            <mat-select formControlName="fundingSources">
+
+              <mat-option value="Fuente 1">
+                Fuente 1
+              </mat-option>
+              <mat-option value="Fuente 2">
+                fuente 2
+              </mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="projectDescription.get('fundingSources')?.hasError('required')">
+              Las Posibles fuentes de financiamiento son <strong>requeridas</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="executionTime">
+      <ng-template matStepLabel>Plazo tentativo de ejecución</ng-template>
+
+      <form [formGroup]="executionTime" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-subheading-2">Plazo tentativo de la Preinversión</p>
+
+          <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Mes</mat-label>
+              <mat-select formControlName="tentativeTermMonth">
+
+                <mat-option value="Enero">
+                  Enero
+                </mat-option>
+                <mat-option value="Febrero">
+                  Febrero
+                </mat-option>
+                <mat-option value="Marzo">
+                  Marzo
+                </mat-option>
+                <mat-option value="Abril">
+                  Abril
+                </mat-option>
+                <mat-option value="Mayo">
+                  Mayo
+                </mat-option>
+                <mat-option value="Junio">
+                  Junio
+                </mat-option>
+                <mat-option value="Julio">
+                  Julio
+                </mat-option>
+                <mat-option value="Agosto">
+                  Agosto
+                </mat-option>
+                <mat-option value="Septiembre">
+                  Septiembre
+                </mat-option>
+                <mat-option value="Octubre">
+                  Octubre
+                </mat-option>
+                <mat-option value="Noviembre">
+                  Noviembre
+                </mat-option>
+                <mat-option value="Diciembre">
+                  Diciembre
+                </mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="executionTime.get('tentativeTermMonth')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Año</mat-label>
+              <span matPrefix>20 &nbsp;</span>
+              <input formControlName="tentativeTermYear" type="number" matInput placeholder="Ej. 22">
+              <mat-error *ngIf="executionTime.get('tentativeTermYear')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <p class="mat-subheading-2">Fecha probable de inicio de ejecución</p>
+
+          <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Mes</mat-label>
+              <mat-select formControlName="executionDateMonth">
+
+                <mat-option value="Enero">
+                  Enero
+                </mat-option>
+                <mat-option value="Febrero">
+                  Febrero
+                </mat-option>
+                <mat-option value="Marzo">
+                  Marzo
+                </mat-option>
+                <mat-option value="Abril">
+                  Abril
+                </mat-option>
+                <mat-option value="Mayo">
+                  Mayo
+                </mat-option>
+                <mat-option value="Junio">
+                  Junio
+                </mat-option>
+                <mat-option value="Julio">
+                  Julio
+                </mat-option>
+                <mat-option value="Agosto">
+                  Agosto
+                </mat-option>
+                <mat-option value="Septiembre">
+                  Septiembre
+                </mat-option>
+                <mat-option value="Octubre">
+                  Octubre
+                </mat-option>
+                <mat-option value="Noviembre">
+                  Noviembre
+                </mat-option>
+                <mat-option value="Diciembre">
+                  Diciembre
+                </mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="executionTime.get('executionDateMonth')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Año</mat-label>
+              <span matPrefix>20 &nbsp;</span>
+              <input formControlName="executionDateYear" type="number" matInput placeholder="Ej. 22">
+              <mat-error *ngIf="executionTime.get('executionDateYear')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <p class="mat-subheading-2">Fecha probable de finalización de la ejecución</p>
+
+          <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Mes</mat-label>
+              <mat-select formControlName="finishDateMonth">
+
+                <mat-option value="Enero">
+                  Enero
+                </mat-option>
+                <mat-option value="Febrero">
+                  Febrero
+                </mat-option>
+                <mat-option value="Marzo">
+                  Marzo
+                </mat-option>
+                <mat-option value="Abril">
+                  Abril
+                </mat-option>
+                <mat-option value="Mayo">
+                  Mayo
+                </mat-option>
+                <mat-option value="Junio">
+                  Junio
+                </mat-option>
+                <mat-option value="Julio">
+                  Julio
+                </mat-option>
+                <mat-option value="Agosto">
+                  Agosto
+                </mat-option>
+                <mat-option value="Septiembre">
+                  Septiembre
+                </mat-option>
+                <mat-option value="Octubre">
+                  Octubre
+                </mat-option>
+                <mat-option value="Noviembre">
+                  Noviembre
+                </mat-option>
+                <mat-option value="Diciembre">
+                  Diciembre
+                </mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="executionTime.get('finishDateMonth')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Año</mat-label>
+              <span matPrefix>20 &nbsp;</span>
+              <input formControlName="finishDateYear" type="number" matInput placeholder="Ej. 22">
+              <mat-error *ngIf="executionTime.get('finishDateYear')?.hasError('required')">
+                El campo es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-select formControlName="annual">
+
+              <mat-option value="true">
+                Anual
+              </mat-option>
+              <mat-option value="false">
+                Multianual
+              </mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="executionTime.get('annual')?.hasError('required')">
+              El campo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </form>
       <br>
       <mat-divider></mat-divider>
       <br>
       <div>
-        <button mat-button color="primary">Finalizar</button>
+        <button mat-button (click)="saveIdeaAlternative()" [disabled]="executionTime.invalid" color="primary">Finalizar</button>
         <span fxFlex></span>
         <button mat-button matStepperPrevious>Volver</button>
         <button mat-button (click)="stepper.reset()">Restablecer</button>

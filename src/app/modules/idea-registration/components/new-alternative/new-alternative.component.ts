@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { distinctUntilChanged, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
+import { Coordinates } from 'src/app/core/models/alternative/Coordinates';
+import { ExecutionTime } from 'src/app/core/models/alternative/ExecutionTime';
+import { GeographicArea } from 'src/app/core/models/alternative/GeographicArea';
+import { PopulationDelimitation } from 'src/app/core/models/alternative/PopulationDelimitation';
 
 import { PreliminaryName } from 'src/app/core/models/alternative/PreliminaryName';
+import { ProjectDescription } from 'src/app/core/models/alternative/ProjectDescription';
 import { ResponsibleEntity } from 'src/app/core/models/alternative/ResponsibleEntity';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { IdeaStore } from 'src/app/store/reducers';
@@ -35,11 +40,15 @@ export class NewAlternativeComponent implements OnInit {
   populationDelimitation = new FormGroup({
     referencePopulationId: new FormControl('', Validators.required),
     denominationId: new FormControl(''),
-    totalPopulation: new FormControl('', [Validators.required, Validators.max(999999999999999)]),
+    totalPopulation: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
     gender: new FormControl('Hombres', Validators.required),
-    estimateBeneficiaries: new FormControl('', [Validators.required, Validators.max(999999999999999)]),
+    estimateBeneficiaries: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
     preliminaryCharacterization: new FormControl('', [Validators.required, Validators.maxLength(500)]),
   })
+
+  get formCoordinates(): FormArray {
+    return this.geographicArea.get('coordinates') as FormArray;
+  }
 
   geographicArea = new FormGroup({
     oneAvailableTerrain: new FormControl(false),
@@ -66,14 +75,40 @@ export class NewAlternativeComponent implements OnInit {
     description: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
     basicServices: new FormControl(false),
     descriptionBasicServices: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
+    coordinates: this.FormBuilder.array<Coordinates>([]),
     descriptionLocation: new FormControl('', [Validators.maxLength(200)]),
   })
+
+  projectDescription = new FormGroup({
+    projectType: new FormControl(null, Validators.required),
+    formulationProcess: new FormControl(null, Validators.required),
+    formulationProcessDescription: new FormControl('', [Validators.maxLength(200)]),
+    descriptionInterventions: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+    complexity: new FormControl('', Validators.required),
+    estimatedCost: new FormControl<number>(null, Validators.required),
+    investmentCost: new FormControl<number>(null, Validators.required),
+    fundingSources: new FormControl<number>(null, Validators.required),
+  })
+
+  executionTime = new FormGroup({
+    tentativeTermMonth: new FormControl('', Validators.required),
+    tentativeTermYear: new FormControl('', Validators.required),
+    executionDateMonth: new FormControl('', Validators.required),
+    executionDateYear: new FormControl('', Validators.required),
+    finishDateMonth: new FormControl('', Validators.required),
+    finishDateYear: new FormControl('', Validators.required),
+    annual: new FormControl(true, Validators.required),
+  })
+
+  coordinatesColumns: string[] = ['geographicAreaId', 'latitude', 'length', 'remove'];
+  coordinatesSource = new BehaviorSubject<AbstractControl[]>([]);
 
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
 
   constructor(
     private ideaStore: Store<IdeaStore>,
+    private FormBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -83,7 +118,10 @@ export class NewAlternativeComponent implements OnInit {
         this.currentIdea = state.idea;
       })
 
-    /* #region  TERRAIN BOOLEANS */
+    this.terrainValidators()
+  }
+
+  terrainValidators(): void {
     this.geographicArea.controls['oneAvailableTerrain'].valueChanges
       .pipe(
         distinctUntilChanged()
@@ -120,11 +158,39 @@ export class NewAlternativeComponent implements OnInit {
         if (value) {
           this.geographicArea.controls['oneAvailableTerrain'].disable()
           this.geographicArea.controls['availableTerrain'].disable()
+
+          this.geographicArea.controls['governmentTerrain'].disable()
+          this.geographicArea.controls['registerGovernmentTerrain'].disable()
+          this.geographicArea.controls['statusDescribe'].disable()
+          this.geographicArea.controls['finca'].disable()
+          this.geographicArea.controls['folio'].disable()
+          this.geographicArea.controls['libro'].disable()
+          this.geographicArea.controls['plano'].disable()
+          this.geographicArea.controls['slightIncline'].disable()
+          this.geographicArea.controls['broken'].disable()
+          this.geographicArea.controls['image'].disable()
+          this.geographicArea.controls['description'].disable()
+          this.geographicArea.controls['basicServices'].disable()
+          this.geographicArea.controls['descriptionBasicServices'].disable()
+          this.geographicArea.controls['descriptionLocation'].disable()
+          this.geographicArea.controls['coordinates'].disable()
+          this.geographicArea.controls['switchStatus'].disable()
+          this.geographicArea.controls['withImage'].disable()
           return
         }
 
         this.geographicArea.controls['oneAvailableTerrain'].enable()
         this.geographicArea.controls['availableTerrain'].enable()
+        this.geographicArea.controls['governmentTerrain'].enable()
+        this.geographicArea.controls['registerGovernmentTerrain'].enable()
+        this.geographicArea.controls['plano'].enable()
+        this.geographicArea.controls['slightIncline'].enable()
+        this.geographicArea.controls['broken'].enable()
+        this.geographicArea.controls['basicServices'].enable()
+        this.geographicArea.controls['descriptionLocation'].enable()
+        this.geographicArea.controls['coordinates'].enable()
+        this.geographicArea.controls['switchStatus'].enable()
+        this.geographicArea.controls['withImage'].enable()
       });
 
     this.geographicArea.controls['governmentTerrain'].valueChanges
@@ -241,8 +307,22 @@ export class NewAlternativeComponent implements OnInit {
 
         this.geographicArea.controls['descriptionBasicServices'].disable()
       });
-    /* #endregion */
+  }
 
+  addCoordinates(): void {
+    const NEW_DETAIL: FormGroup = this.FormBuilder.group({
+      geographicAreaId: new FormControl('', Validators.required),
+      latitude: new FormControl('', Validators.required),
+      length: new FormControl('', Validators.required),
+    });
+    this.formCoordinates.push(NEW_DETAIL);
+
+    this.coordinatesSource.next(this.formCoordinates.controls);
+  }
+
+  removeCoordinates(index: number): void {
+    this.formCoordinates.removeAt(index);
+    this.coordinatesSource.next(this.formCoordinates.controls);
   }
 
   enableTypeProject(): void {
@@ -304,16 +384,120 @@ export class NewAlternativeComponent implements OnInit {
       phone,
     }
 
+    const {
+      referencePopulationId,
+      denominationId,
+      totalPopulation,
+      gender,
+      estimateBeneficiaries,
+      preliminaryCharacterization,
+    } = this.populationDelimitation.value
+
+    const POPULATION_DELIMITATION: PopulationDelimitation = {
+      referencePopulationId,
+      denominationId,
+      totalPopulation,
+      gender,
+      estimateBeneficiaries,
+      preliminaryCharacterization,
+    }
+
+    const {
+      availableTerrain,
+      oneAvailableTerrain,
+      investPurchase,
+      governmentTerrain,
+      registerGovernmentTerrain,
+      statusDescribe,
+      finca,
+      folio,
+      libro,
+      plano,
+      slightIncline,
+      broken,
+      image,
+      description,
+      basicServices,
+      descriptionBasicServices,
+      descriptionLocation,
+      coordinates
+    } = this.geographicArea.value
+
+    const GEOGRAPHIC_AREA: GeographicArea = {
+      availableTerrain,
+      oneAvailableTerrain,
+      investPurchase,
+      governmentTerrain,
+      registerGovernmentTerrain,
+      statusDescribe,
+      finca,
+      folio,
+      libro,
+      plano,
+      slightIncline,
+      broken,
+      image,
+      description,
+      basicServices,
+      descriptionBasicServices,
+      descriptionLocation,
+      coordinates
+    }
+
+    const {
+      tentativeTermMonth,
+      tentativeTermYear,
+      executionDateMonth,
+      executionDateYear,
+      finishDateMonth,
+      finishDateYear,
+      annual
+    } = this.executionTime.value
+
+    const EXECUTION_TIME: ExecutionTime = {
+      tentativeTermMonth,
+      tentativeTermYear,
+      executionDateMonth,
+      executionDateYear,
+      finishDateMonth,
+      finishDateYear,
+      annual
+    }
+
+    const {
+      projectType,
+      formulationProcess,
+      formulationProcessDescription,
+      descriptionInterventions,
+      complexity,
+      estimatedCost,
+      investmentCost,
+      fundingSources,
+    } = this.projectDescription.value
+
+    const PROJECT_DESCRIPTION: ProjectDescription = {
+      projectType,
+      formulationProcess,
+      formulationProcessDescription,
+      descriptionInterventions,
+      complexity,
+      estimatedCost,
+      investmentCost,
+      fundingSources,
+      foundingSourcesName: '',
+      executionTime: EXECUTION_TIME
+    }
 
     const NEW_ALTERNATIVE: IdeaAlternative = {
       sectionBIId: null,
       preliminaryName: PRELIMINAR_NAME,
       responsibleEntity: RESPONSIBLE_ENTITY,
-      populationDelimitation: null,
-      geographicArea: null,
-      projectDescription: null
+      populationDelimitation: POPULATION_DELIMITATION,
+      geographicArea: GEOGRAPHIC_AREA,
+      projectDescription: PROJECT_DESCRIPTION
     }
-
+    console.log("🚀 ~ file: new-alternative.component.ts ~ line 499 ~ NewAlternativeComponent ~ saveIdeaAlternative ~ NEW_ALTERNATIVE", NEW_ALTERNATIVE)
+    //TODO: Enlazar con servicio
   }
 
 }

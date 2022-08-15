@@ -1,5 +1,5 @@
 <mat-toolbar fxLayoutGap="16px">
-  <button mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE')"  color="accent">
+  <button mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE')" color="accent">
     <mat-icon>add</mat-icon>
     Crear alternativa
   </button>
@@ -7,37 +7,30 @@
 </mat-toolbar>
 <ngx-simplebar class="my-content">
 
-  <app-not-found *ngIf="currentIdea?.alternatives?.length === 0"></app-not-found>
+  <app-not-found *ngIf="alternatives.length === 0"></app-not-found>
 
   <div fxLayout="row wrap" fxLayoutGap="15px grid">
 
-    <div *ngFor="let item of currentIdea.alternatives" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="50" fxFlex.sm="100" fxFlex.lt-sm="100">
+    <div *ngFor="let item of alternatives" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="50" fxFlex.sm="100"
+      fxFlex.lt-sm="100">
 
-      <!-- <mat-card matRipple (click)="openFullDrawer(item)" class="idea-card pointer active-elevation">
+      <mat-card matRipple class="alternative-card pointer active-elevation">
         <mat-card-header>
-          <mat-icon mat-card-avatar color="accent">lightbulb</mat-icon>
+          <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
           <mat-card-title>
-            {{item.registerCode}}
+            {{item.preliminaryName.typeProject}}
           </mat-card-title>
           <mat-card-subtitle>Información general</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p>{{item.generalObjective}} </p>
+          <p>{{item.preliminaryName.proccess}} </p>
+          <br>
+          <p>{{item.preliminaryName.object}} </p>
+          <br>
           <hr>
-          <p><b>Encargado: </b>{{item.responsibleName}}</p>
-          <p><b>Creada: </b> {{ item.createdAt | date:'dd/MM/yyyy'}}</p>
-          <mat-chip-list aria-label="Fish selection">
-            <mat-chip *ngIf="item.state" color="light" selected>
-              <mat-icon matChipAvatar>pending</mat-icon>
-              SIN ENVIAR
-            </mat-chip>
-            <mat-chip *ngIf="!item.state" color="accent" selected>
-              <mat-icon matChipAvatar>schedule</mat-icon>
-              EN REVISION
-            </mat-chip>
-          </mat-chip-list>
+          <p>{{ item.projectDescription.complexity }}</p>
         </mat-card-content>
-      </mat-card> -->
+      </mat-card>
 
     </div>
 

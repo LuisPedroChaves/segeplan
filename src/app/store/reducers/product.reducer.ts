@@ -13,14 +13,14 @@ export interface ProductStore extends AppState {
 }
 
 export const PRODUCT_STATE: ProductState = {
-    products: [
-      { codigo: '1', nombre: 'Producto 1'},
-      { codigo: '1', nombre: 'Producto 2'},
-      { codigo: '1', nombre: 'Producto 3'},
-    ],
+    products: [],
 }
 
 const _PRODUCT_REDUCER = createReducer(PRODUCT_STATE,
+  on(actions.SET_PRODUCTS, (state, { products: products }) => ({
+    ...state,
+    products: [...products],
+})),
 )
 
 export function ProductReducer(state: ProductState, action: any) {
