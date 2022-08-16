@@ -7,7 +7,7 @@ import * as actions from '../actions';
 import { IntegrationsService } from '../../core/services/httpServices/integrations.service';
 
 @Injectable()
-export class ProductEffects {
+export class ObjectEffects {
 
   constructor(
     private integrationsService: IntegrationsService,
@@ -15,18 +15,15 @@ export class ProductEffects {
   ) { }
 
 
-  readProducts = createEffect(
+  readObjects = createEffect(
     () => this.actions$
       .pipe(
-        ofType(actions.READ_PRODUCTS),
+        ofType(actions.READ_OBJECTS),
         mergeMap(
-          () => this.integrationsService.getProductos()
-            .pipe(
-              map((products:any) => {
-                console.log(products)
-                return actions.SET_PRODUCTS({ products }
-                )})
-            )
+            () => this.integrationsService.getObjetos()
+                .pipe(
+                    map(objects => actions.SET_OBJECTS({ objects }))
+                )
         )
       )
   )

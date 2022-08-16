@@ -6,7 +6,10 @@ import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
 import { OPEN_FULL_DRAWER2 } from 'src/app/store/actions';
-import { IdeaStore } from 'src/app/store/reducers';
+import { IdeaStore, ProductStore } from 'src/app/store/reducers';
+import { IProduct } from '../../../../core/models/adicionales/Product';
+import { IntegrationsService } from '../../../../core/services/httpServices/integrations.service';
+import * as actions from '../../../../store/actions'
 
 @Component({
   selector: 'app-alternatives',
@@ -16,13 +19,18 @@ import { IdeaStore } from 'src/app/store/reducers';
 export class AlternativesComponent implements OnInit {
 
   ideaStoreSubscription = new Subscription();
+  productStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
+  products: IProduct[] = [];
 
   alternatives: IdeaAlternative[] = [];
 
   constructor(
     private ideaStore: Store<IdeaStore>,
-    private generalInformationService: GeneralInformationService
+    private productStore: Store<ProductStore>,
+    private generalInformationService: GeneralInformationService,
+    private integrationsService: IntegrationsService,
+
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +39,7 @@ export class AlternativesComponent implements OnInit {
       .subscribe(state => {
         this.currentIdea = state.idea;
         this.getAlternatives()
-      })
+      });
 
   }
 
@@ -42,7 +50,11 @@ export class AlternativesComponent implements OnInit {
   getAlternatives(): void {
     console.log(this.currentIdea);
     this.generalInformationService.getAlternatives(this.currentIdea.codigo)
-      .subscribe(data => this.alternatives = data);
+      .subscribe(data => {
+        this.alternatives = data
+      });
   }
+
+
 
 }

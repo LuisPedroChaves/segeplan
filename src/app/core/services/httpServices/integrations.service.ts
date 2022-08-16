@@ -8,7 +8,7 @@ import { FiltroIdeas } from '../../models/adicionales/filtroIdeas';
 @Injectable({
     providedIn: 'root',
 })
-export class Integrations {
+export class IntegrationsService {
     private API_URL = environment.root;
     private urlIntegrations = 'api/integrations/';
 
@@ -42,6 +42,7 @@ export class Integrations {
     }
 
     getProductos(): Observable<any> {
+        console.log('Hoola')
         const url = this.API_URL + this.urlIntegrations + 'productos';
         return this.http.get(url).pipe(
             map((res: any) => {

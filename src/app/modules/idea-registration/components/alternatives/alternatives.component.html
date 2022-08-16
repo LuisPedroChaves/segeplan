@@ -18,17 +18,17 @@
         <mat-card-header>
           <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
           <mat-card-title>
-            {{item.preliminaryName.typeProject}}
+            {{item?.preliminaryName?.typeProject}}
           </mat-card-title>
           <mat-card-subtitle>Información general</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p>{{item.preliminaryName.proccess}} </p>
+          <p>{{item?.preliminaryName?.proccess}} </p>
           <br>
-          <p>{{item.preliminaryName.object}} </p>
+          <p>{{item?.preliminaryName?.object}} </p>
           <br>
           <hr>
-          <p>{{ item.projectDescription.complexity }}</p>
+          <p>{{ item?.projectDescription?.complexity }}</p>
         </mat-card-content>
       </mat-card>
 

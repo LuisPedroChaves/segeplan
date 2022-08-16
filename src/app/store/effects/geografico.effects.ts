@@ -7,7 +7,7 @@ import * as actions from '../actions';
 import { IntegrationsService } from '../../core/services/httpServices/integrations.service';
 
 @Injectable()
-export class ProductEffects {
+export class GeograficoEffects {
 
   constructor(
     private integrationsService: IntegrationsService,
@@ -15,18 +15,15 @@ export class ProductEffects {
   ) { }
 
 
-  readProducts = createEffect(
+  readGeograficos = createEffect(
     () => this.actions$
       .pipe(
-        ofType(actions.READ_PRODUCTS),
+        ofType(actions.READ_GEOGRAFICOS),
         mergeMap(
-          () => this.integrationsService.getProductos()
-            .pipe(
-              map((products:any) => {
-                console.log(products)
-                return actions.SET_PRODUCTS({ products }
-                )})
-            )
+            () => this.integrationsService.getGeograficos()
+                .pipe(
+                    map(geograficos => actions.SET_GEOGRAFICOS({ geograficos }))
+                )
         )
       )
   )
