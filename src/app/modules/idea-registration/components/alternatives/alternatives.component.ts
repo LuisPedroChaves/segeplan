@@ -18,7 +18,18 @@ export class AlternativesComponent implements OnInit {
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
 
-  alternatives: IdeaAlternative[] = [];
+  alternatives: any[] = [
+    {
+      preliminaryName: {
+        typeProject: 'Proyecto 1...',
+        proccess: 'Process...',
+        object: 'Object...'
+      },
+      projectDescription: {
+        complexity: 'Alto...'
+      }
+    }
+  ];
 
   constructor(
     private ideaStore: Store<IdeaStore>,
