@@ -16,6 +16,9 @@ import { RevelanceMatrixComponent } from './pages/revelance-matrix/revelance-mat
 import { IdeaCardComponent } from './components/idea-card/idea-card.component';
 import { AlternativesComponent } from './components/alternatives/alternatives.component';
 import { NewAlternativeComponent } from './components/new-alternative/new-alternative.component';
+import { SendIdeasComponent } from './pages/send-ideas/send-ideas.component';
+import { DoneIdeasComponent } from './pages/done-ideas/done-ideas.component';
+import { IdeaCardMiniComponent } from './components/idea-card-mini/idea-card-mini.component';
 
 
 
@@ -29,6 +32,9 @@ import { NewAlternativeComponent } from './components/new-alternative/new-altern
     IdeaCardComponent,
     AlternativesComponent,
     NewAlternativeComponent,
+    SendIdeasComponent,
+    DoneIdeasComponent,
+    IdeaCardMiniComponent,
   ],
   imports: [
     CommonModule,
