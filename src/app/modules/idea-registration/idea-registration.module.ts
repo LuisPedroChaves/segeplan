@@ -19,6 +19,7 @@ import { NewAlternativeComponent } from './components/new-alternative/new-altern
 import { SendIdeasComponent } from './pages/send-ideas/send-ideas.component';
 import { DoneIdeasComponent } from './pages/done-ideas/done-ideas.component';
 import { IdeaCardMiniComponent } from './components/idea-card-mini/idea-card-mini.component';
+import { NewRevelanceMatrixComponent } from './components/new-revelance-matrix/new-revelance-matrix.component';
 
 
 
@@ -35,6 +36,7 @@ import { IdeaCardMiniComponent } from './components/idea-card-mini/idea-card-min
     SendIdeasComponent,
     DoneIdeasComponent,
     IdeaCardMiniComponent,
+    NewRevelanceMatrixComponent,
   ],
   imports: [
     CommonModule,

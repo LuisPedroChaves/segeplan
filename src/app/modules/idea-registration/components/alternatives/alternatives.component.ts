@@ -23,7 +23,18 @@ export class AlternativesComponent implements OnInit {
   currentIdea: GeneralInformation = null;
   products: IProduct[] = [];
 
-  alternatives: IdeaAlternative[] = [];
+  alternatives: any[] = [
+    {
+      preliminaryName: {
+        typeProject: 'Proyecto 1...',
+        proccess: 'Process...',
+        object: 'Object...'
+      },
+      projectDescription: {
+        complexity: 'Alto...'
+      }
+    }
+  ];
 
   constructor(
     private ideaStore: Store<IdeaStore>,

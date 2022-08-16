@@ -1,0 +1,262 @@
+<ngx-simplebar fxLayoutAlign="center start" class="my-content">
+  <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
+
+    <mat-step [stepControl]="criterio1">
+      <ng-template matStepLabel>Descripción de la problemática y el indicadore (LÍnea base)</ng-template>
+
+      <form [formGroup]="criterio1" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-title">{{ matrix.criterio1.baseLine }}</p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-hint>El especialista analizará si el planteamiento de la problemática es adecuada y si existe el
+            indicador para establecer una línea base.</mat-hint>
+
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio2">
+      <ng-template matStepLabel>Objetivo General y resultado</ng-template>
+
+      <form [formGroup]="criterio2" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-body-1">{{ matrix.criterio2.generalObjective }}</p>
+          <p class="mat-body-2">{{ matrix.criterio2.expectedChange }}</p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-hint>Se establece si el objetivo general tiene viabilidad y tiene coherencia con el resultado definido.
+          </mat-hint>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio3">
+      <ng-template matStepLabel>Análisis de la delimitación preliminar de beneficiarios.</ng-template>
+
+      <form [formGroup]="criterio3" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-body">
+            <span class="mat-body-strong">Población total: </span><br>
+            {{ matrix.criterio3.totalPopulation }} - {{ matrix.criterio3.gender }}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Estimación de beneficiarios:</span><br>
+            {{ matrix.criterio3.estimateBeneficiaries }}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Caracterización Preliminar:</span><br>
+            {{ matrix.criterio3.preliminaryCharacterization }}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Cobertura:</span><br>
+            {{ matrix.criterio3.coverage }}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Población de referencia:</span><br>
+            {{ matrix.criterio3.referencePopulation }} - {{ matrix.criterio3.denomination }}
+          </p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-hint>La cantidad de beneficiarios es coherente, análisis de la caracterización preliminar.</mat-hint>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="criterio4">
+      <ng-template matStepLabel>Identificación del terreno.</ng-template>
+
+      <form [formGroup]="criterio4" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-body">
+            <span class="mat-body-strong">Se identifican varios terrenos disponibles: </span><br>
+            {{ matrix.criterio4.availableTerrain ? 'SI' : 'NO'}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Se identifica solo  un terreno disponible:</span><br>
+            {{ matrix.criterio4.oneAvailableTerrain ? 'SI' : 'NO'}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Es necesario invertir en la compra del terreno:</span><br>
+            {{ matrix.criterio4.investPurchase ? 'SI' : 'NO'}}
+          </p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-hint>En base al siguiente rango: Se identifican varios terrenos = Excelente; Se identifica un terreno = Bueno / Aceptable; Es necesario invertir en la compra del terreno = Deficiente / Replantear.
+          </mat-hint>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio5">
+      <ng-template matStepLabel>Situación legal del posible bien inmueble.</ng-template>
+
+      <form [formGroup]="criterio5" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-body">
+            <span class="mat-body-strong">Terreno a nombre del Estado: </span><br>
+            {{ matrix.criterio5.registerGovernmentTerrain ? 'SI' : 'NO'}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Se debe de inscribir el terreno a nombre del Estado:</span><br>
+            {{ matrix.criterio5.registerGovernmentTerrain ? 'NO' : 'SI'}}
+          </p>
+          <p class="mat-body">
+            {{ matrix.criterio5.statusDescribe }}
+          </p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-hint>En base al siguiente rango: Terreno a nombre del Estado (A nombre del Estado) = Excelente / Bueno / Aceptable; Se debe inscribir a nombre del Estado = Deficiente / Replantear (El especialista revisará la descripción en base a si ya tiene el título, se encuentra en trámite, se encuentran conformando los documentos para el trámite, no tienen certeza jurídica)
+          </mat-hint>
+
+          <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio6">
+      <ng-template matStepLabel>Análisis de la descripción de la idea.</ng-template>
+
+      <form [formGroup]="criterio6" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p class="mat-body">
+            <span class="mat-body-strong">Tipo de proyecto: </span><br>
+            {{ matrix.criterio6.projectType}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Proceso de formulación:</span><br>
+            {{ matrix.criterio6.formulationProcess}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Descripción de Intervenciones:</span><br>
+            {{ matrix.criterio6.descriptionInterventions}}
+          </p>
+          <p class="mat-body">
+            <span class="mat-body-strong">Complejidad:</span><br>
+            {{ matrix.criterio6.complexity}}
+          </p>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Puntuación</mat-label>
+            <mat-select formControlName="rating">
+              <mat-optgroup *ngFor="let group of ratingGroups" [label]="group.name">
+                <mat-option *ngFor="let rating of group.ratings" [value]="rating">
+                  {{rating}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+            <mat-hint>El especialista realizará un análisis en relación a la problemática planteada en relación a los objetivos buscados y la propuesta de solución, con los distintos puntos ingresados dentro del registro.
+            </mat-hint>
+          </mat-form-field>
+
+
+        </div>
+      </form>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div>
+        <button mat-button color="primary">Finalizar</button>
+        <span fxFlex></span>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button (click)="stepper.reset()">Restablecer</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</ngx-simplebar>

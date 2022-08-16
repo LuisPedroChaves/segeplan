@@ -14,7 +14,7 @@
     <div *ngFor="let item of alternatives" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="50" fxFlex.sm="100"
       fxFlex.lt-sm="100">
 
-      <mat-card matRipple class="alternative-card pointer active-elevation">
+      <mat-card matRipple (click)="openFullDrawer2('Matriz de pertinencia', 'NEW_RELEVANCE_MATRIX')" class="alternative-card pointer active-elevation">
         <mat-card-header>
           <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
           <mat-card-title>
