@@ -16,7 +16,6 @@ export class NewIdeasComponent implements OnInit {
 
   constructor(
     private ideaStore: Store<IdeaStore>,
-
   ) { }
 
   ngOnInit(): void {
@@ -31,12 +30,4 @@ export class NewIdeasComponent implements OnInit {
   ngOnDestroy(): void {
     this.ideaStoreSubscription?.unsubscribe();
   }
-
-  openFullDrawer(idea: GeneralInformation): void {
-
-    this.ideaStore.dispatch(SET_IDEA({idea}))
-
-    this.ideaStore.dispatch(OPEN_FULL_DRAWER({fullTitle: idea.registerCode, fullComponent: 'SELECTED_IDEA'}))
-  }
-
 }

@@ -1,10 +1,10 @@
 <ngx-simplebar class="sub-content-desktop">
 
-  <app-not-found *ngIf="ideas.length === 0"></app-not-found>
+  <app-not-found *ngIf="sendIdeas.length === 0"></app-not-found>
 
   <div fxLayout="row wrap" fxLayoutGap="15px grid">
 
-    <div *ngFor="let item of ideas" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="50" fxFlex.sm="100" fxFlex.lt-sm="100">
+    <div *ngFor="let item of sendIdeas" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="50" fxFlex.sm="100" fxFlex.lt-sm="100">
 
       <app-idea-card-mini [idea]="item"></app-idea-card-mini>
 
