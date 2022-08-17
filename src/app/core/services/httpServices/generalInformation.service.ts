@@ -61,7 +61,7 @@ export class GeneralInformationService {
         const url = this.API_URL + this.urlAlternative + 'denomination';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }
@@ -70,7 +70,7 @@ export class GeneralInformationService {
         const url = this.API_URL + this.urlAlternative + 'referencePopulation';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }

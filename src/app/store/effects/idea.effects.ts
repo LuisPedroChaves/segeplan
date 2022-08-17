@@ -21,158 +21,158 @@ export class IdeaEffects {
       .pipe(
         ofType(actions.READ_IDEAS),
         //TODO: AGREGAR A LOS FILTROS EL ID DE LA INSTITUCION CUANDO SE TENGA EL LOGIN
-        // mergeMap(
-        //     () => this.generalInformationService.getIdeas({state: 'CREADA'})
-        //         .pipe(
-        //             map(ideas => actions.SET_IDEAS({ ideas }))
-        //         )
-        // )
-        map(() => actions.SET_IDEAS({ ideas: [
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          }
-        ] }))
+        mergeMap(
+            () => this.generalInformationService.getIdeas({state: 'CREADA'})
+                .pipe(
+                    map(ideas => actions.SET_IDEAS({ ideas }))
+                )
+        )
+        // map(() => actions.SET_IDEAS({ ideas: [
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   }
+        // ] }))
       )
   )
 
@@ -180,158 +180,158 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.READ_SEND_IDEAS),
-        // mergeMap(
-        //     (filtro) => this.generalInformationService.getIdeas(filtro)
-        //         .pipe(
-        //             map(ideas => actions.SET_IDEAS({ ideas }))
-        //         )
-        // )
-        map((filtro) => actions.SET_SEND_IDEAS({ ideas: [
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          }
-        ] }))
+        mergeMap(
+            (filtro) => this.generalInformationService.getIdeas({state: 'ENVIADA'})
+                .pipe(
+                    map(ideas => actions.SET_IDEAS({ ideas }))
+                )
+        )
+        // map((filtro) => actions.SET_SEND_IDEAS({ ideas: [
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   }
+        // ] }))
       )
   )
 
@@ -339,158 +339,158 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.READ_DONE_IDEAS),
-        // mergeMap(
-        //     (filtro) => this.generalInformationService.getIdeas(filtro)
-        //         .pipe(
-        //             map(ideas => actions.SET_IDEAS({ ideas }))
-        //         )
-        // )
-        map((filtro) => actions.SET_DONE_IDEAS({ ideas: [
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          },
-          {
-            "productId": "1",
-            "productName": "Producto 3",
-            "date": "2022-08-09T17:37:17.713Z",
-            "planningInstrument": true,
-            "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
-            "idEntity": "",
-            "nameEntity": "",
-            "responsibleName": "Luis Pedro Chaves",
-            "email": "mail@mail.com",
-            "phone": "22332233",
-            "possibleEffects": [
-              {
-                "description": "Efecto 1"
-              },
-              {
-                "description": "Efecto 2"
-              },
-              {
-                "description": "Efecto 3"
-              }
-            ],
-            "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
-            "possibleCauses": [
-              {
-                "description": "Causa 1"
-              },
-              {
-                "description": "Causa 2"
-              },
-              {
-                "description": "Causa 3"
-              }
-            ],
-            "baseLine": "Indice de analfabetismo 75% en 2020",
-            "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
-            "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
-            "possibleAlternatives": [
-              {
-                "description": "Alternativa 1"
-              },
-              {
-                "description": "Alternativa 2"
-              }
-            ],
-            alternatives: []
-          }
-        ] }))
+        mergeMap(
+            (filtro) => this.generalInformationService.getIdeas({state: 'CALIFICADA'})
+                .pipe(
+                    map(ideas => actions.SET_IDEAS({ ideas }))
+                )
+        )
+        // map((filtro) => actions.SET_DONE_IDEAS({ ideas: [
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   },
+        //   {
+        //     "productId": "1",
+        //     "productName": "Producto 3",
+        //     "date": "2022-08-09T17:37:17.713Z",
+        //     "planningInstrument": true,
+        //     "description": "\nfdg fdgsdfgdfsgsd sgdfgsdfgdfg dfg\nDescripción *\nSegún la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de planificación, PEI, PDM-OT, agregar otro. Hasta 200",
+        //     "idEntity": "",
+        //     "nameEntity": "",
+        //     "responsibleName": "Luis Pedro Chaves",
+        //     "email": "mail@mail.com",
+        //     "phone": "22332233",
+        //     "possibleEffects": [
+        //       {
+        //         "description": "Efecto 1"
+        //       },
+        //       {
+        //         "description": "Efecto 2"
+        //       },
+        //       {
+        //         "description": "Efecto 3"
+        //       }
+        //     ],
+        //     "definitionPotentiality": "sjdjklfjsdkl f;sdklfj;skldjf;ioejlsdjflis dl;fkj3el;ijsl;dkfjlskdjflksjdklfj",
+        //     "possibleCauses": [
+        //       {
+        //         "description": "Causa 1"
+        //       },
+        //       {
+        //         "description": "Causa 2"
+        //       },
+        //       {
+        //         "description": "Causa 3"
+        //       }
+        //     ],
+        //     "baseLine": "Indice de analfabetismo 75% en 2020",
+        //     "descriptionCurrentSituation": "skldfjlskdjf ;lskdjfl;skdjfl;sidfjskldjflksdjflk sdlkf",
+        //     "generalObjective": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "expectedChange": "sdfoasjdfklas ;dlfkajs;dlkfjas;difjlkejl;isd f;lskdjflisejl;ksjfliej fl;ksjdfli liesj sd",
+        //     "possibleAlternatives": [
+        //       {
+        //         "description": "Alternativa 1"
+        //       },
+        //       {
+        //         "description": "Alternativa 2"
+        //       }
+        //     ],
+        //     alternatives: []
+        //   }
+        // ] }))
       )
   )
 
@@ -498,13 +498,13 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.CREATE_IDEA),
-        // mergeMap(
-        //     ({ idea }) => this.generalInformationService.sendGeneralInformation(idea)
-        //         .pipe(
-        //             map(idea => actions.SET_NEW_IDEA({ idea }))
-        //         )
-        // )
-        map(({ idea }) => actions.SET_NEW_IDEA({ idea }))
+        mergeMap(
+            ({ idea }) => this.generalInformationService.sendGeneralInformation(idea)
+                .pipe(
+                    map(idea => actions.SET_NEW_IDEA({ idea }))
+                )
+        )
+        // map(({ idea }) => actions.SET_NEW_IDEA({ idea }))
       )
   )
 

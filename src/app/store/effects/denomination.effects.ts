@@ -22,7 +22,9 @@ export class DenominationEffects {
         mergeMap(
             () => this.generalInformationService.getDenomination()
                 .pipe(
-                    map(denominations => actions.SET_DENOMINATIONS({ denominations }))
+                    map(denominations => {
+                      return actions.SET_DENOMINATIONS({ denominations })
+                    })
                 )
         )
       )

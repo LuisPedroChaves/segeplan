@@ -7,16 +7,16 @@
           <mat-card-header>
             <mat-icon mat-card-avatar color="accent">lightbulb</mat-icon>
             <mat-card-title>
-              {{currentIdea.registerCode}}
+              {{currentIdea?.registerCode}}
             </mat-card-title>
             <mat-card-subtitle>Información general</mat-card-subtitle>
             <span fxFlex></span>
             <mat-chip-list aria-label="Fish selection">
-              <mat-chip *ngIf="currentIdea.state" color="light" selected>
+              <mat-chip *ngIf="currentIdea?.state" color="light" selected>
                 <mat-icon matChipAvatar>pending</mat-icon>
                 SIN ENVIAR
               </mat-chip>
-              <mat-chip *ngIf="!currentIdea.state" color="accent" selected>
+              <mat-chip *ngIf="!currentIdea?.state" color="accent" selected>
                 <mat-icon matChipAvatar>schedule</mat-icon>
                 EN REVISION
               </mat-chip>
@@ -24,18 +24,23 @@
           </mat-card-header>
 
           <mat-card-content class="idea-card-content">
-            <p>{{currentIdea.generalObjective}} </p>
+            <p>{{currentIdea?.generalObjective}} </p>
             <hr>
             <mat-tab-group mat-align-tabs="center" color="accent">
               <mat-tab label="Información general">
                 <div class="generalInformation">
-                  <p><b>Encargado: </b>{{currentIdea.responsibleName}}</p>
-                  <p><b>Creada: </b> {{ currentIdea.createdAt | date:'dd/MM/yyyy'}}</p>
+                  <p><b>Encargado: </b>{{currentIdea?.responsibleName}}</p>
+                  <p><b>Entidad Responsable: </b>{{currentIdea?.nameEntity}}</p>
+                  <p><b>Producto: </b>{{currentIdea?.productName}}</p>
+                  <p><b>Linea Base: </b>{{currentIdea?.baseLine}}</p>
+                  <p><b>Descripción de la situación actual: </b>{{currentIdea?.descriptionCurrentSituation}}</p>
+                  <p><b>Descripción de objetivo general : </b>{{currentIdea?.generalObjective}}</p>
+                  <p><b>Resultado o cambio esperado respecto a indicadores: </b>{{currentIdea?.expectedChange}}</p>
                 </div>
               </mat-tab>
               <mat-tab label="Posibles Efectos">
                 <div class="generalInformation">
-                  <div *ngFor="let efect of currentIdea.possibleEffects; index as i">
+                  <div *ngFor="let efect of currentIdea?.Effects; index as i">
                     <p><b>
                         <mat-icon>flare</mat-icon>
                       </b>{{ efect.description}}</p>
@@ -44,7 +49,7 @@
               </mat-tab>
               <mat-tab label="Posibles Causas">
                 <div class="generalInformation">
-                  <div *ngFor="let cause of currentIdea.possibleCauses; index as i">
+                  <div *ngFor="let cause of currentIdea?.Causes; index as i">
                     <p><b>
                         <mat-icon>view_in_ar</mat-icon>
                       </b>{{ cause.description}}</p>
@@ -53,7 +58,7 @@
               </mat-tab>
               <mat-tab label="Posibles Alternativas">
                 <div class="generalInformation">
-                  <div *ngFor="let alternative of currentIdea.possibleAlternatives; index as i">
+                  <div *ngFor="let alternative of currentIdea?.Alternatives; index as i">
                     <p><b>
                         <mat-icon>view_in_ar</mat-icon>
                       </b>{{ alternative.description}}</p>
@@ -64,11 +69,14 @@
             </mat-card-content>
               
               <mat-card-actions>
-            <button mat-button (click)="openFullDrawer('Editar Idea', 'NEW_IDEA')" color="accent">
+            <!-- <button mat-button (click)="openFullDrawer('Editar Idea', 'NEW_IDEA')" color="accent">
               Editar
             </button>
             <button mat-button color="warn">
               Eliminar
+            </button> -->
+            <button mat-button color="warn">
+              Enviar
             </button>
           </mat-card-actions>
 

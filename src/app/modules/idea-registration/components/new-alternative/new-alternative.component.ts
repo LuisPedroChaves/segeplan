@@ -13,6 +13,12 @@ import { ResponsibleEntity } from 'src/app/core/models/alternative/ResponsibleEn
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { IdeaStore } from 'src/app/store/reducers';
 import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
+import { Denomination } from '../../../../core/models/alternative/Denomination';
+import { Departament } from '../../../../core/models/adicionales/department';
+import { IObject } from '../../../../core/models/adicionales/objeto';
+import { Procesos } from '../../../../core/models/adicionales/process';
+import { DenominationStore } from '../../../../store/reducers/denomination.reducer';
+import { READ_DENOMINATIONS } from '../../../../store/actions/denomination.actions';
 
 @Component({
   selector: 'app-new-alternative',
@@ -20,6 +26,21 @@ import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlterna
   styleUrls: ['./new-alternative.component.scss']
 })
 export class NewAlternativeComponent implements OnInit {
+
+  // Catalogos
+  denominations: Denomination[] = [];
+  denominationStoreSubscription = new Subscription();
+
+  departamentos: Departament[] = [];
+  departamentoStoreSubscription = new Subscription();
+
+  objetos: IObject[] = [];
+  objetoStoreSubscription = new Subscription();
+
+  processes: Procesos[] = [];
+  processStoreSubscription = new Subscription();
+
+  // END Catalogos
 
   preliminaryName = new FormGroup({
     typeProject: new FormControl('Forma Capital Fijo', Validators.required),
@@ -108,10 +129,25 @@ export class NewAlternativeComponent implements OnInit {
 
   constructor(
     private ideaStore: Store<IdeaStore>,
+    private denominationStore: Store<DenominationStore>,
     private FormBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+
+    //#region Catalogos
+    this.denominationStoreSubscription = this.denominationStore.select('denomination')
+    .subscribe(state => {
+      this.denominations = state.denominations;
+    })
+
+    this.denominationStore.dispatch(READ_DENOMINATIONS())
+
+
+
+
+
+    //#endregion
 
     this.ideaStoreSubscription = this.ideaStore.select('idea')
       .subscribe(state => {

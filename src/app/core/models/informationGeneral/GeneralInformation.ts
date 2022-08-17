@@ -31,9 +31,9 @@ export interface GeneralInformation {
     generalObjective: string;
     expectedChange: string;
 
-    possibleEffects: PossibleEffect[];
-    possibleCauses: PossibleCause[];
-    possibleAlternatives: PossibleAlternative[];
+    Effects: PossibleEffect[];
+    Causes: PossibleCause[];
+    Alternatives: PossibleAlternative[];
     stage?: Stage;
     qualification?: Qualification;
 
