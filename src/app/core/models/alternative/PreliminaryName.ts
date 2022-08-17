@@ -1,6 +1,6 @@
 export interface PreliminaryName {
     codigo?: string;
-    ideaAlternativeId?: string;
+    AlternativeId?: string;
     typeProject: string;
     proccess: string;
     object: string;

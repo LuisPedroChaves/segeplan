@@ -2,7 +2,7 @@ import { ExecutionTime } from "./ExecutionTime";
 
 export interface ProjectDescription {
     codigo?: string;
-    ideaAlternativeId?: string;
+    AlternativeId?: string;
     projectType: string;
     formulationProcess: string;
     formulationProcessDescription: string;

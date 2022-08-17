@@ -2,7 +2,7 @@ import { Coordinates } from "./Coordinates";
 
 export interface GeographicArea {
     codigo?: string;
-    ideaAlternativeId?: string;
+    AlternativeId?: string;
     availableTerrain: boolean;
     oneAvailableTerrain: boolean;
     investPurchase: boolean;

@@ -1,6 +1,6 @@
 export interface PopulationDelimitation {
     codigo?: string;
-    ideaAlternativeId?: string;
+    AlternativeId?: string;
     referencePopulationId: string;
     denominationId: string;
     totalPopulation: number;
