@@ -8,9 +8,9 @@ export interface IdeaAlternative {
     codigo?: string;
     sectionBIId: string;
     state?: boolean;
-    preliminaryName: PreliminaryName;
-    responsibleEntity: ResponsibleEntity;
-    populationDelimitation: PopulationDelimitation;
+    preName: PreliminaryName;
+    resEntity: ResponsibleEntity;
+    popDelimit: PopulationDelimitation;
     geographicArea: GeographicArea;
     projectDescription: ProjectDescription;
 }

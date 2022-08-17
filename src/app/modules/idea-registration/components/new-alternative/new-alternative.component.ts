@@ -526,9 +526,9 @@ export class NewAlternativeComponent implements OnInit {
 
     const NEW_ALTERNATIVE: IdeaAlternative = {
       sectionBIId: null,
-      preliminaryName: PRELIMINAR_NAME,
-      responsibleEntity: RESPONSIBLE_ENTITY,
-      populationDelimitation: POPULATION_DELIMITATION,
+      preName: PRELIMINAR_NAME,
+      resEntity: RESPONSIBLE_ENTITY,
+      popDelimit: POPULATION_DELIMITATION,
       geographicArea: GEOGRAPHIC_AREA,
       projectDescription: PROJECT_DESCRIPTION
     }
