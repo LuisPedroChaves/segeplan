@@ -5,7 +5,8 @@ export const environment = {
   production: true,
 
   /* API Services Config */
-  root: 'http://localhost:3000/',
+  // root: 'http://192.168.6.97:3000/',
+  root: 'http://192.168.6.97/',
 
   /* Version Config */
   version: '1.0',
