@@ -14,20 +14,6 @@
         <div fxLayout="column" fxLayoutGap="15px">
 
           <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
-            <div fxFlex.lt-md="100" fxFlex.gt-sm="59">
-              <mat-form-field fxFill appearance="outline">
-                <mat-label>Selección del Producto</mat-label>
-                <mat-select formControlName="_product" name="Producto">
-                  <mat-option *ngFor="let product of products" [value]="product">
-                    {{product.nombre}}
-                  </mat-option>
-                </mat-select>
-                <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
-                <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
-                  El producto es <strong>requerido</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
             <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
               <mat-form-field fxFill appearance="outline">
                 <mat-label>Fecha</mat-label>
@@ -46,6 +32,30 @@
               </mat-form-field>
             </div>
           </div>
+
+          <p class="mat-subheading-2">{{ selectedProduct() }}</p>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Selección del Producto</mat-label>
+            <input type="text"
+                   placeholder="Buscar producto..."
+                   matInput
+                   formControlName="_product"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
+              <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+                {{product.nombre}}
+              </mat-option>
+            </mat-autocomplete>
+            <button *ngIf="generalInformation.get('_product').value" matSuffix mat-icon-button (click)="generalInformation.get('_product').setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
+            <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
+              El producto es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
           <p class="mat-subheading-2">Origen de la idea de proyecto</p>
           <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un
             instrumento de planificación</mat-slide-toggle>

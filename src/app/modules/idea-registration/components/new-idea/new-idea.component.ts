@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
@@ -34,7 +35,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   }
 
   generalInformation = new FormGroup({
-    _product: new FormControl(null, Validators.required),
+    _product: new FormControl<string | IProduct>('', Validators.required),
     date: new FormControl(moment(), Validators.required),
     planningInstrument: new FormControl(true, Validators.required),
     description: new FormControl('', [Validators.required, Validators.maxLength(200)]),
@@ -61,6 +62,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   alternativesSource = new BehaviorSubject<AbstractControl[]>([]);
 
   products: IProduct[] = [];
+  filteredProducts: Observable<IProduct[]>;
   productStoreSubscription = new Subscription();
 
   idea: GeneralInformation = null!
@@ -92,6 +94,14 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       })
 
       this.productStore.dispatch(READ_PRODUCTS())
+
+      this.filteredProducts = this.generalInformation.controls['_product'].valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          const nombre = typeof value === 'string' ? value : value?.nombre;
+          return nombre ? this._filter(nombre as string) : this.products;
+        }),
+      );
   }
 
   ngOnDestroy(): void {
@@ -115,7 +125,22 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     description!.disable();
   }
 
+  private _filter(nombre: string): IProduct[] {
+    const filterValue = nombre.toLowerCase();
+
+    return this.products.filter(product => product.nombre.toLowerCase().includes(filterValue));
+  }
+
+  selectedProduct(): string {
+    const PRODUCT = this.generalInformation.controls['_product'].value;
+    return typeof PRODUCT === 'string' ? '' : PRODUCT?.nombre
+  }
+
   /* #region  formArrays */
+
+  displayProduct(product: IProduct) : string {
+    return product ? product.nombre : '';
+  }
 
   addEffect(): void {
     const NEW_DETAIL: FormGroup = this.FormBuilder.group({
@@ -184,8 +209,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     } = this.generalInformation.value;
 
     const idea: GeneralInformation = {
-      productId: _product.codigo,
-      productName: _product.nombre,
+      productId: typeof _product === 'string' ? null : _product?.codigo,
+      productName: typeof _product === 'string' ? null : _product?.nombre,
       date,
       planningInstrument,
       description,
@@ -212,6 +237,9 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     //   }))
     //   return;
     // }
+
+    console.log(idea);
+
 
     this.ideaStore.dispatch(CREATE_IDEA({
       idea
