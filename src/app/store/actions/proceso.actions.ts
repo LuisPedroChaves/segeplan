@@ -8,5 +8,5 @@ export const READ_PROCESOS = createAction(
 
 export const SET_PROCESOS = createAction(
 	'[PROCESOS] Asignar procesos',
-	props<{ procesos: Procesos[] }>()
+	props<{ procesos: Procesos }>()
 )

@@ -12,5 +12,5 @@ export interface ProjectDescription {
     investmentCost: number;
     fundingSources: number;
     foundingSourcesName: string;
-    executionTime: ExecutionTime;
+    execTime: ExecutionTime;
 }

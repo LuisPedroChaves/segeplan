@@ -20,6 +20,9 @@ import { SendIdeasComponent } from './pages/send-ideas/send-ideas.component';
 import { DoneIdeasComponent } from './pages/done-ideas/done-ideas.component';
 import { IdeaCardMiniComponent } from './components/idea-card-mini/idea-card-mini.component';
 import { NewRevelanceMatrixComponent } from './components/new-revelance-matrix/new-revelance-matrix.component';
+import { GeograficoReducer } from '../../store/reducers/geografico.reducer';
+import { ObjectReducer } from '../../store/reducers/object.reducer';
+import { ProcesoReducer } from '../../store/reducers/proceso.reducer';
 
 
 
@@ -43,6 +46,9 @@ import { NewRevelanceMatrixComponent } from './components/new-revelance-matrix/n
     RouterModule.forChild(IdeaRegistrationRoutes),
     SharedModule,
     StoreModule.forFeature('denomination', DenominationReducer),
+    StoreModule.forFeature('geografico', GeograficoReducer),
+    StoreModule.forFeature('object', ObjectReducer),
+    StoreModule.forFeature('proceso', ProcesoReducer),
     StoreModule.forFeature('product', ProductReducer),
     StoreModule.forFeature('idea', IdeaReducer),
     EffectsModule.forFeature([IdeaEffects]),

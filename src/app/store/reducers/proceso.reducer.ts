@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import { AppState } from '../app.reducer';
 
 export interface ProcesoState {
-    procesos: Procesos[],
+    procesos: Procesos,
 }
 
 export interface ProcesoStore extends AppState {
@@ -13,14 +13,15 @@ export interface ProcesoStore extends AppState {
 }
 
 export const PROCESO_STATE: ProcesoState = {
-    procesos: [],
+    procesos: { noFormaCapital: [], formaCapital: [] },
 }
 
 const _PROCESO_REDUCER = createReducer(PROCESO_STATE,
-  on(actions.SET_PROCESOS, (state, { procesos: procesos }) => ({
-    ...state,
-    procesos: [...procesos],
-})),
+    on(actions.SET_PROCESOS, (state, { procesos: procesos }) => (
+        {
+            ...state,
+             procesos: procesos,
+        })),
 )
 
 export function ProcesoReducer(state: ProcesoState, action: any) {

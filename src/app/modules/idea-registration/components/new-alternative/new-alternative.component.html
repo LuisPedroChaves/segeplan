@@ -29,11 +29,8 @@
             <mat-form-field fxFlex appearance="outline">
               <mat-label>Proceso</mat-label>
               <mat-select formControlName="proccess">
-                <mat-option value="Proceso1">
-                  Proceso 1
-                </mat-option>
-                <mat-option value="Proceso2">
-                  Proceso 2
+                <mat-option *ngFor="let proceso of dataSourceProcesos" [value]="proceso.DESCRIPCION">
+                  {{proceso.DESCRIPCION}}
                 </mat-option>
               </mat-select>
               <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -47,11 +44,8 @@
             <mat-form-field fxFlex appearance="outline">
               <mat-label>Objeto</mat-label>
               <mat-select formControlName="object">
-                <mat-option value="Objecto1">
-                  Objeto 1
-                </mat-option>
-                <mat-option value="Objeto2">
-                  Objeto 2
+                <mat-option  *ngFor="let objeto of objetos"  [value]="objeto.NOMBRE">
+                  {{objeto.NOMBRE}}
                 </mat-option>
               </mat-select>
               <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -69,30 +63,30 @@
               <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
                 <mat-form-field fxFlex appearance="outline">
                   <mat-label>Departamento</mat-label>
-                  <mat-select formControlName="departament">
-                    <mat-option value="Guatemala">
-                      Guatemala
+                  <mat-select formControlName="departament" (selectionChange)="selecDepartament()">
+                    <mat-option *ngFor="let depto of departamentos"  [value]="depto.NOMBRE">
+                      {{depto.NOMBRE}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex appearance="outline">
                   <mat-label>Municipio</mat-label>
                   <mat-select formControlName="municipality">
-                    <mat-option value="Guatemala">
-                      Guatemala
+                    <mat-option *ngFor="let mncpio of municipios" [value]="mncpio.NOMBRE">
+                      {{mncpio.NOMBRE}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
 
-              <mat-form-field fxFlex appearance="outline">
+              <!-- <mat-form-field fxFlex appearance="outline">
                 <mat-label>Aldea</mat-label>
                 <mat-select formControlName="village">
                   <mat-option value="Carmen">
                     Carmen
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
 
             </div>
 
@@ -597,7 +591,7 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Posibles fuentes de financiamiento</mat-label>
-            <mat-select formControlName="fundingSources">
+            <mat-select formControlName="foundingSourcesName">
 
               <mat-option value="Fuente 1">
                 Fuente 1
@@ -607,7 +601,7 @@
               </mat-option>
 
             </mat-select>
-            <mat-error *ngIf="projectDescription.get('fundingSources')?.hasError('required')">
+            <mat-error *ngIf="projectDescription.get('foundingSourcesName')?.hasError('required')">
               Las Posibles fuentes de financiamiento son <strong>requeridas</strong>
             </mat-error>
           </mat-form-field>

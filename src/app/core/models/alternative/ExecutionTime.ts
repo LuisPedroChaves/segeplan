@@ -7,5 +7,5 @@ export interface ExecutionTime {
     executionDateYear: string;
     finishDateMonth: string;
     finishDateYear: string;
-    annual: boolean;
+    annual: number;
 }

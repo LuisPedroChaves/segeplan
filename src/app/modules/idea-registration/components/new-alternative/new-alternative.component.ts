@@ -11,14 +11,19 @@ import { PreliminaryName } from 'src/app/core/models/alternative/PreliminaryName
 import { ProjectDescription } from 'src/app/core/models/alternative/ProjectDescription';
 import { ResponsibleEntity } from 'src/app/core/models/alternative/ResponsibleEntity';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { IdeaStore } from 'src/app/store/reducers';
+import { GeograficoStore, IdeaStore, ObjectStore, ProcesoStore } from 'src/app/store/reducers';
 import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
 import { Denomination } from '../../../../core/models/alternative/Denomination';
 import { Departament } from '../../../../core/models/adicionales/department';
 import { IObject } from '../../../../core/models/adicionales/objeto';
-import { Procesos } from '../../../../core/models/adicionales/process';
+import { Procesos, Process } from '../../../../core/models/adicionales/process';
 import { DenominationStore } from '../../../../store/reducers/denomination.reducer';
 import { READ_DENOMINATIONS } from '../../../../store/actions/denomination.actions';
+import { READ_GEOGRAFICOS } from '../../../../store/actions/geografico.actions';
+import { READ_OBJECTS } from '../../../../store/actions/object.actions';
+import { READ_PROCESOS } from '../../../../store/actions/proceso.actions';
+import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
+import { CLOSE_FULL_DRAWER } from '../../../../store/actions';
 
 @Component({
   selector: 'app-new-alternative',
@@ -32,13 +37,16 @@ export class NewAlternativeComponent implements OnInit {
   denominationStoreSubscription = new Subscription();
 
   departamentos: Departament[] = [];
+  municipios: Departament[] = [];
   departamentoStoreSubscription = new Subscription();
 
   objetos: IObject[] = [];
   objetoStoreSubscription = new Subscription();
 
-  processes: Procesos[] = [];
+  processes: Procesos = {noFormaCapital: [], formaCapital: []};
   processStoreSubscription = new Subscription();
+
+  dataSourceProcesos: Process[] = [];
 
   // END Catalogos
 
@@ -109,7 +117,7 @@ export class NewAlternativeComponent implements OnInit {
     complexity: new FormControl('', Validators.required),
     estimatedCost: new FormControl<number>(null, Validators.required),
     investmentCost: new FormControl<number>(null, Validators.required),
-    fundingSources: new FormControl<number>(null, Validators.required),
+    foundingSourcesName: new FormControl(null, Validators.required),
   })
 
   executionTime = new FormGroup({
@@ -132,6 +140,10 @@ export class NewAlternativeComponent implements OnInit {
   constructor(
     private ideaStore: Store<IdeaStore>,
     private denominationStore: Store<DenominationStore>,
+    private geograficoStore: Store<GeograficoStore>,
+    private objectStore: Store<ObjectStore>,
+    private procesoStore: Store<ProcesoStore>,
+    private generalInformationService: GeneralInformationService,
     private FormBuilder: FormBuilder,
   ) { }
 
@@ -145,11 +157,32 @@ export class NewAlternativeComponent implements OnInit {
 
     this.denominationStore.dispatch(READ_DENOMINATIONS())
 
+    this.departamentoStoreSubscription = this.geograficoStore.select('geografico')
+      .subscribe(state => {
+        this.departamentos = state.geograficos;
+      })
+
+    this.geograficoStore.dispatch(READ_GEOGRAFICOS())
 
 
+    this.objetoStoreSubscription = this.objectStore.select('object')
+      .subscribe(state => {
+        this.objetos = state.objects;
+      })
 
+    this.objectStore.dispatch(READ_OBJECTS())
 
+    this.processStoreSubscription = this.procesoStore.select('proceso')
+      .subscribe(state => {
+        this.processes = state.procesos;
+        this.dataSourceProcesos = this.processes.formaCapital;
+
+      })
+
+    this.procesoStore.dispatch(READ_PROCESOS())
     //#endregion
+
+    
 
     this.ideaStoreSubscription = this.ideaStore.select('idea')
       .subscribe(state => {
@@ -363,26 +396,34 @@ export class NewAlternativeComponent implements OnInit {
     this.coordinatesSource.next(this.formCoordinates.controls);
   }
 
+  selecDepartament(): void {
+    let dptoSelect = this.preliminaryName.controls['departament'].value;
+    let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
+    if (dpto){this.municipios = dpto.municipios }
+  }
+
   enableTypeProject(): void {
     const TYPE = this.preliminaryName.controls['typeProject'].value
 
     if (TYPE === 'Forma Capital Fijo') {
-      this.preliminaryName.controls['proccess'].enable()
-      this.preliminaryName.controls['object'].enable()
-      this.preliminaryName.controls['departament'].enable()
-      this.preliminaryName.controls['municipality'].enable()
+      this.dataSourceProcesos = this.processes.formaCapital
+      // this.preliminaryName.controls['proccess'].enable()
+      // this.preliminaryName.controls['object'].enable()
+      // this.preliminaryName.controls['departament'].enable()
+      // this.preliminaryName.controls['municipality'].enable()
       this.preliminaryName.controls['village'].enable()
       return
     }
 
     this.preliminaryName.controls['proccess'].setValue(null)
-    this.preliminaryName.controls['proccess'].disable()
+    this.dataSourceProcesos = this.processes.noFormaCapital
+    // this.preliminaryName.controls['proccess'].disable()
     this.preliminaryName.controls['object'].setValue(null)
-    this.preliminaryName.controls['object'].disable()
+    // this.preliminaryName.controls['object'].disable()
     this.preliminaryName.controls['departament'].setValue(null)
-    this.preliminaryName.controls['departament'].disable()
+    // this.preliminaryName.controls['departament'].disable()
     this.preliminaryName.controls['municipality'].setValue(null)
-    this.preliminaryName.controls['municipality'].disable()
+    // this.preliminaryName.controls['municipality'].disable()
     this.preliminaryName.controls['village'].setValue(null)
     this.preliminaryName.controls['village'].disable()
   }
@@ -499,7 +540,13 @@ export class NewAlternativeComponent implements OnInit {
       executionDateYear,
       finishDateMonth,
       finishDateYear,
-      annual
+      annual: 0
+    }
+
+    if (this.executionTime.value.annual) {
+      EXECUTION_TIME.annual = 1
+    } else if (!this.executionTime.value.annual) {
+      EXECUTION_TIME.annual = 0
     }
 
     const {
@@ -510,7 +557,7 @@ export class NewAlternativeComponent implements OnInit {
       complexity,
       estimatedCost,
       investmentCost,
-      fundingSources,
+      foundingSourcesName,
     } = this.projectDescription.value
 
     const PROJECT_DESCRIPTION: ProjectDescription = {
@@ -521,13 +568,13 @@ export class NewAlternativeComponent implements OnInit {
       complexity,
       estimatedCost,
       investmentCost,
-      fundingSources,
-      foundingSourcesName: '',
-      executionTime: EXECUTION_TIME
+      foundingSourcesName,
+      fundingSources: 1,
+      execTime: EXECUTION_TIME
     }
 
     const NEW_ALTERNATIVE: IdeaAlternative = {
-      sectionBIId: null,
+      sectionBIId: this.currentIdea.codigo,
       preName: PRELIMINAR_NAME,
       resEntity: RESPONSIBLE_ENTITY,
       popDelimit: POPULATION_DELIMITATION,
@@ -536,6 +583,11 @@ export class NewAlternativeComponent implements OnInit {
     }
     console.log("🚀 ~ file: new-alternative.component.ts ~ line 499 ~ NewAlternativeComponent ~ saveIdeaAlternative ~ NEW_ALTERNATIVE", NEW_ALTERNATIVE)
     //TODO: Enlazar con servicio
+
+
+    this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
+      this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+    });
   }
 
 }

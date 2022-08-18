@@ -6,6 +6,6 @@ export interface PreliminaryName {
     object: string;
     departament: string;
     municipality: string;
-    village: string;
+    village?: string;
     preliminaryName: string;
 }

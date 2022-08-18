@@ -18,7 +18,7 @@ export class IntegrationsService {
         const url = this.API_URL + this.urlIntegrations + 'geograficos';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }
@@ -27,7 +27,7 @@ export class IntegrationsService {
         const url = this.API_URL + this.urlIntegrations + 'procesos';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }
@@ -36,7 +36,7 @@ export class IntegrationsService {
         const url = this.API_URL + this.urlIntegrations + 'objetos';
         return this.http.get(url).pipe(
             map((res: any) => {
-                return res;
+                return res.data;
             })
         );
     }
