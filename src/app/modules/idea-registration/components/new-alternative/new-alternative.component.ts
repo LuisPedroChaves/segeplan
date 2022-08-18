@@ -42,6 +42,7 @@ export class NewAlternativeComponent implements OnInit {
 
   // END Catalogos
 
+  /* #region  Formularios */
   preliminaryName = new FormGroup({
     typeProject: new FormControl('Forma Capital Fijo', Validators.required),
     proccess: new FormControl(''),
@@ -123,6 +124,7 @@ export class NewAlternativeComponent implements OnInit {
 
   coordinatesColumns: string[] = ['geographicAreaId', 'latitude', 'length', 'remove'];
   coordinatesSource = new BehaviorSubject<AbstractControl[]>([]);
+  /* #endregion */
 
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
@@ -137,9 +139,9 @@ export class NewAlternativeComponent implements OnInit {
 
     //#region Catalogos
     this.denominationStoreSubscription = this.denominationStore.select('denomination')
-    .subscribe(state => {
-      this.denominations = state.denominations;
-    })
+      .subscribe(state => {
+        this.denominations = state.denominations;
+      })
 
     this.denominationStore.dispatch(READ_DENOMINATIONS())
 
