@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from 'src/app/shared/shared.module';
-import { IdeaReducer, ProductReducer } from 'src/app/store/reducers';
+import { IdeaReducer, ProductReducer, DenominationReducer } from 'src/app/store/reducers';
 import { IdeaEffects } from 'src/app/store/effects/idea.effects';
 import { IndexComponent } from './pages/index/index.component';
 import { IdeaRegistrationRoutes } from './idea-registration.routing';
@@ -42,6 +42,7 @@ import { NewRevelanceMatrixComponent } from './components/new-revelance-matrix/n
     CommonModule,
     RouterModule.forChild(IdeaRegistrationRoutes),
     SharedModule,
+    StoreModule.forFeature('denomination', DenominationReducer),
     StoreModule.forFeature('product', ProductReducer),
     StoreModule.forFeature('idea', IdeaReducer),
     EffectsModule.forFeature([IdeaEffects]),
