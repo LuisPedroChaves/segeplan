@@ -1,6 +1,6 @@
 export interface Qualification {
     codigo?: string;
-    generalInformationId?: string;
+    AlterId?: string;
     descriptionProblem?: number;
     generalObjective?: number;
     analysisDelimitation?: number;

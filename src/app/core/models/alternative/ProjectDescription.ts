@@ -2,7 +2,7 @@ import { ExecutionTime } from "./ExecutionTime";
 
 export interface ProjectDescription {
     codigo?: string;
-    AlternativeId?: string;
+    AlterId?: string;
     projectType: string;
     formulationProcess: string;
     formulationProcessDescription: string;

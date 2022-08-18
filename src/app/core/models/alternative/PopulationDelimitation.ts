@@ -1,8 +1,8 @@
 export interface PopulationDelimitation {
     codigo?: string;
-    AlternativeId?: string;
-    referencePopulationId: string;
-    denominationId: string;
+    AlterId?: string;
+    refPopId: string;
+    denId: string;
     totalPopulation: number;
     gender: string;
     estimateBeneficiaries: number;

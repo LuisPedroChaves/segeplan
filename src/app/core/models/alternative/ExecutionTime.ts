@@ -1,6 +1,6 @@
 export interface ExecutionTime {
     codigo?: string;
-    projectDescriptionId?: string;
+    projDescId?: string;
     tentativeTermMonth: string;
     tentativeTermYear: string;
     executionDateMonth: string;

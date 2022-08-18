@@ -1,6 +1,6 @@
 export interface Coordinates {
     codigo?: string;
-    geographicAreaId?: string;
+    geoAreaId?: string;
     latitude: string;
     length: string;
 }

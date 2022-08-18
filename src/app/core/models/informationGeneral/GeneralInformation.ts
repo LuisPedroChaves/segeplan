@@ -35,7 +35,7 @@ export interface GeneralInformation {
     Causes: PossibleCause[];
     Alternatives: PossibleAlternative[];
     stage?: Stage;
-    qualification?: Qualification;
+    score?: Qualification;
 
     createdAt?: string;
     alternatives: IdeaAlternative[];

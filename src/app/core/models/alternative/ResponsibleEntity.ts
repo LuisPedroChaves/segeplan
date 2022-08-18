@@ -1,6 +1,6 @@
 export interface ResponsibleEntity {
     codigo?: string;
-    AlternativeId?: string;
+    AlterId?: string;
     nameEPI: string;
     leaderName: string;
     email: string;

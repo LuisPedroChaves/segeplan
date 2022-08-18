@@ -121,7 +121,7 @@ export class NewAlternativeComponent implements OnInit {
     annual: new FormControl(true, Validators.required),
   })
 
-  coordinatesColumns: string[] = ['geographicAreaId', 'latitude', 'length', 'remove'];
+  coordinatesColumns: string[] = ['geoAreaId', 'latitude', 'length', 'remove'];
   coordinatesSource = new BehaviorSubject<AbstractControl[]>([]);
 
   ideaStoreSubscription = new Subscription();
@@ -430,8 +430,8 @@ export class NewAlternativeComponent implements OnInit {
     } = this.populationDelimitation.value
 
     const POPULATION_DELIMITATION: PopulationDelimitation = {
-      referencePopulationId,
-      denominationId,
+      refPopId: referencePopulationId,
+      denId: denominationId,
       totalPopulation,
       gender,
       estimateBeneficiaries,
@@ -529,8 +529,8 @@ export class NewAlternativeComponent implements OnInit {
       preName: PRELIMINAR_NAME,
       resEntity: RESPONSIBLE_ENTITY,
       popDelimit: POPULATION_DELIMITATION,
-      geographicArea: GEOGRAPHIC_AREA,
-      projectDescription: PROJECT_DESCRIPTION
+      geoArea: GEOGRAPHIC_AREA,
+      projDesc: PROJECT_DESCRIPTION
     }
     console.log("🚀 ~ file: new-alternative.component.ts ~ line 499 ~ NewAlternativeComponent ~ saveIdeaAlternative ~ NEW_ALTERNATIVE", NEW_ALTERNATIVE)
     //TODO: Enlazar con servicio

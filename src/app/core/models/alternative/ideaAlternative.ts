@@ -11,6 +11,6 @@ export interface IdeaAlternative {
     preName: PreliminaryName;
     resEntity: ResponsibleEntity;
     popDelimit: PopulationDelimitation;
-    geographicArea: GeographicArea;
-    projectDescription: ProjectDescription;
+    geoArea: GeographicArea;
+    projDesc: ProjectDescription;
 }
