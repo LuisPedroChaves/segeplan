@@ -9,7 +9,7 @@ import { preInvestment } from "./preInvestment";
 export interface IdeaAlternative {
     codigo?: string;
     sectionBIId: string;
-    state?: boolean;
+    state?: string;
     preName: PreliminaryName;
     resEntity: ResponsibleEntity;
     popDelimit: PopulationDelimitation;
