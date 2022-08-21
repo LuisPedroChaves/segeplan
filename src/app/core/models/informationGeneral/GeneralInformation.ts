@@ -1,4 +1,3 @@
-import { Qualification } from "./Qyualification";
 import { Stage } from "./Stage";
 import * as moment from 'moment';
 import { PossibleAlternative } from "./PossibleAlternative";
@@ -35,7 +34,6 @@ export interface GeneralInformation {
     Causes: PossibleCause[];
     Alternatives: PossibleAlternative[];
     stage?: Stage;
-    score?: Qualification;
 
     createdAt?: string;
     alternatives: IdeaAlternative[];
