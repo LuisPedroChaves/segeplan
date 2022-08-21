@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IPertinence } from 'src/app/core/models/adicionales/pertinence';
+import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
 
 @Component({
   selector: 'app-new-revelance-matrix',
@@ -85,9 +86,15 @@ export class NewRevelanceMatrixComponent implements OnInit {
     },
   ]
 
-  constructor() { }
+  constructor(private generalInformationService: GeneralInformationService) {
+    this.generalInformationService.getMatrizPertinencia('9c0af3f9-d55b-4a50-8ce0-5bff6d409b48').subscribe((res: any) => {
+      this.matrix = res;
+      console.log(this.matrix)
+    })
+   }
 
   ngOnInit(): void {
+
   }
 
 }
