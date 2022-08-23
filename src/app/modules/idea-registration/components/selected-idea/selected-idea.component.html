@@ -1,21 +1,3 @@
-<header fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
-  <button mat-icon-button (click)="closeFullDrawer()">
-    <mat-icon>close</mat-icon>
-  </button>
-  <div>
-    <span class="mat-title">{{ fullTitle }}</span>
-  </div>
-  <mat-chip-list>
-    <mat-chip color="primary" (click)="currentView = 'generalInformation'" [selected]="currentView === 'generalInformation'" class="pointer active-elevation">
-      <mat-icon matChipAvatar>lightbulb</mat-icon>
-      Información general
-    </mat-chip>
-    <mat-chip color="accent" (click)="currentView = 'alternatives'" [selected]="currentView === 'alternatives'" class="pointer active-elevation">
-      <mat-icon matChipAvatar>alt_route</mat-icon>
-      Alternativas
-    </mat-chip>
-  </mat-chip-list>
-</header>
 <mat-drawer-container>
   <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer">
 
@@ -29,6 +11,26 @@
     <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
     <app-new-revelance-matrix *ngIf="fullComponent2 === 'NEW_RELEVANCE_MATRIX'"></app-new-revelance-matrix>
   </mat-drawer>
+
+  <mat-toolbar fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
+    <button mat-icon-button (click)="closeFullDrawer()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div>
+      <span class="mat-title">{{ fullTitle }}</span>
+    </div>
+    <span fxFlex></span>
+    <mat-chip-list>
+      <mat-chip color="primary" (click)="currentView = 'generalInformation'" [selected]="currentView === 'generalInformation'" class="pointer active-elevation">
+        <mat-icon matChipAvatar>lightbulb</mat-icon>
+        Información general
+      </mat-chip>
+      <mat-chip color="accent" (click)="currentView = 'alternatives'" [selected]="currentView === 'alternatives'" class="pointer active-elevation">
+        <mat-icon matChipAvatar>alt_route</mat-icon>
+        Alternativas
+      </mat-chip>
+    </mat-chip-list>
+  </mat-toolbar>
 
   <ngx-simplebar class="sub-content-desktop">
 
