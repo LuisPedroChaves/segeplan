@@ -55,23 +55,9 @@ const _IDEA_REDUCER = createReducer(IDEA_STATE,
             return {
               ...idea
             }
-        })
+        }),
+        sendIdeas: [...state.sendIdeas, idea]
     })),
-    // on(actions.SET_BANK_ACCOUNT_BALANCE, (state, { idBankAccount, amount }) => ({
-    //     ...state, bankAccount: { ...state.bankAccount, balance: amount },
-    //     bankAccounts: state.bankAccounts.map(account => {
-    //         if (account._id !== idBankAccount) {
-    //             return {
-    //                 ...account
-    //             }
-    //         }
-
-    //         return {
-    //             ...account,
-    //             balance: amount,
-    //         }
-    //     })
-    // })),
 )
 
 export function IdeaReducer(state: IdeaState, action: Action) {

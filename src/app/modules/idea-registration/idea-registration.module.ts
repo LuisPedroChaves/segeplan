@@ -24,6 +24,8 @@ import { GeograficoReducer } from '../../store/reducers/geografico.reducer';
 import { ObjectReducer } from '../../store/reducers/object.reducer';
 import { ProcesoReducer } from '../../store/reducers/proceso.reducer';
 import { ReferenceReducer } from '../../store/reducers/popRef.reducer';
+import { AlternativeReducer } from '../../store/reducers/alternative.reducer';
+import { SelectedAlternativeComponent } from './components/selected-alternative/selected-alternative.component';
 
 
 
@@ -41,11 +43,13 @@ import { ReferenceReducer } from '../../store/reducers/popRef.reducer';
     DoneIdeasComponent,
     IdeaCardMiniComponent,
     NewRevelanceMatrixComponent,
+    SelectedAlternativeComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(IdeaRegistrationRoutes),
     SharedModule,
+    StoreModule.forFeature('alternative', AlternativeReducer),
     StoreModule.forFeature('reference', ReferenceReducer),
     StoreModule.forFeature('denomination', DenominationReducer),
     StoreModule.forFeature('geografico', GeograficoReducer),

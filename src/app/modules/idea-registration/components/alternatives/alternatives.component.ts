@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
-import { OPEN_FULL_DRAWER2 } from 'src/app/store/actions';
-import { IdeaStore, ProductStore } from 'src/app/store/reducers';
+import { OPEN_FULL_DRAWER2, SET_ALTERNATIVE } from 'src/app/store/actions';
+import { AlternativeStore, IdeaStore, ProductStore } from 'src/app/store/reducers';
 import { IProduct } from '../../../../core/models/adicionales/Product';
 import { IntegrationsService } from '../../../../core/services/httpServices/integrations.service';
 import * as actions from '../../../../store/actions'
@@ -16,12 +16,10 @@ import * as actions from '../../../../store/actions'
   templateUrl: './alternatives.component.html',
   styleUrls: ['./alternatives.component.scss']
 })
-export class AlternativesComponent implements OnInit {
+export class AlternativesComponent implements OnInit, OnDestroy {
 
   ideaStoreSubscription = new Subscription();
-  productStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
-  products: IProduct[] = [];
 
   alternatives: any[] = [
     {
@@ -38,10 +36,7 @@ export class AlternativesComponent implements OnInit {
 
   constructor(
     private ideaStore: Store<IdeaStore>,
-    private productStore: Store<ProductStore>,
     private generalInformationService: GeneralInformationService,
-    private integrationsService: IntegrationsService,
-
   ) { }
 
   ngOnInit(): void {
@@ -51,10 +46,14 @@ export class AlternativesComponent implements OnInit {
         this.currentIdea = state.idea;
         this.getAlternatives()
       });
-
   }
 
-  openFullDrawer2(fullTitle2: string, fullComponent2: string): void {
+  ngOnDestroy(): void {
+    this.ideaStoreSubscription?.unsubscribe()
+  }
+
+  openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {
+    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative }))
     this.ideaStore.dispatch(OPEN_FULL_DRAWER2({ fullTitle2, fullComponent2 }))
   }
 
