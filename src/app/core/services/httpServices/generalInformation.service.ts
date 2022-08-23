@@ -13,6 +13,7 @@ import { GeneralInformation } from '../../models/informationGeneral/GeneralInfor
 export class GeneralInformationService {
     private API_URL = environment.root;
     private urlGeneralInformation = 'api/general/information';
+    private urlIdeas = 'api/general/';
     private urlAlternative = 'api/alternative/';
 
     constructor(private http: HttpClient, private router: Router) { }
@@ -86,6 +87,33 @@ export class GeneralInformationService {
 
     getMatrizPertinencia(idAlternative: string): Observable<any> {
         const url = this.API_URL + this.urlAlternative + 'pertinencia/' + idAlternative;
+        return this.http.get(url).pipe(
+            map((res: any) => {
+                return res.data;
+            })
+        );
+    }
+
+    getMatrizPreinversion(idAlternative: string): Observable<any> {
+        const url = this.API_URL + this.urlAlternative + 'preinversion/' + idAlternative;
+        return this.http.get(url).pipe(
+            map((res: any) => {
+                return res.preInversion;
+            })
+        );
+    }
+
+    enviarIdea(idIdea: string): Observable<any> {
+        const url = this.API_URL + this.urlIdeas + 'send-idea/' + idIdea;
+        return this.http.get(url).pipe(
+            map((res: any) => {
+                return res.data;
+            })
+        );
+    }
+
+    retornarIdea(idIdea: string): Observable<any> {
+        const url = this.API_URL + this.urlIdeas + 'return-idea/' + idIdea;
         return this.http.get(url).pipe(
             map((res: any) => {
                 return res.data;

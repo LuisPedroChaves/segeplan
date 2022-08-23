@@ -23,6 +23,7 @@ import { NewRevelanceMatrixComponent } from './components/new-revelance-matrix/n
 import { GeograficoReducer } from '../../store/reducers/geografico.reducer';
 import { ObjectReducer } from '../../store/reducers/object.reducer';
 import { ProcesoReducer } from '../../store/reducers/proceso.reducer';
+import { ReferenceReducer } from '../../store/reducers/popRef.reducer';
 
 
 
@@ -45,6 +46,7 @@ import { ProcesoReducer } from '../../store/reducers/proceso.reducer';
     CommonModule,
     RouterModule.forChild(IdeaRegistrationRoutes),
     SharedModule,
+    StoreModule.forFeature('reference', ReferenceReducer),
     StoreModule.forFeature('denomination', DenominationReducer),
     StoreModule.forFeature('geografico', GeograficoReducer),
     StoreModule.forFeature('object', ObjectReducer),

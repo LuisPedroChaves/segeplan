@@ -101,8 +101,7 @@
               B. {{ preliminaryName.get('object')?.value }}&nbsp;
             </span>
             <span *ngIf="preliminaryName.get('departament')?.value">
-              C. {{ preliminaryName.get('village')?.value }}
-              {{ preliminaryName.get('municipality')?.value }},
+              C. {{ preliminaryName.get('municipality')?.value }},
               {{ preliminaryName.get('departament')?.value }}
             </span>
           </p>
@@ -182,22 +181,14 @@
           <br>
 
           <mat-form-field fxFill appearance="outline">
-            <mat-label>Población de referencia (Según INE)</mat-label>
+            <mat-label>Población de referencia</mat-label>
             <input type="text" placeholder="Seleccione o ingrese un valor" matInput
               formControlName="referencePopulationId" [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option value="Nacional">
-                Nacional
+              <mat-option *ngFor="let ref of references" [value]="ref.codigo">
+                {{ref.name}}
               </mat-option>
-              <mat-option value="Departamental">
-                Departamental
-              </mat-option>
-              <mat-option value="Municipal">
-                Municipal
-              </mat-option>
-              <mat-option value="Comunal">
-                Comunal
-              </mat-option>
+
             </mat-autocomplete>
             <mat-hint>Nacional / Departamental / Municipal / Comunal / Otra</mat-hint>
             <mat-error *ngIf="populationDelimitation.get('typeProject')?.hasError('required')">
@@ -224,6 +215,9 @@
                 <mat-option value="Mujeres">
                   Mujeres
                 </mat-option>
+                <mat-option value="Hombres y Mujeres">
+                  Hombres y Mujeres
+                </mat-option>
                 <mat-option value="No aplica">
                   No aplica
                 </mat-option>
@@ -237,14 +231,8 @@
             <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="denominationId"
               [matAutocomplete]="auto2">
             <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-              <mat-option value="Alumnos">
-                Alumnos
-              </mat-option>
-              <mat-option value="Pacientes">
-                Pacientes
-              </mat-option>
-              <mat-option value="Agricultores">
-                Agricultores
+              <mat-option *ngFor="let denomination of denominations" [value]="denomination.codigo">
+                {{denomination.name}}
               </mat-option>
             </mat-autocomplete>
             <mat-hint>Alumnos / Pacientes / Agricultores / Otra: Especifique</mat-hint>
@@ -593,11 +581,26 @@
             <mat-label>Posibles fuentes de financiamiento</mat-label>
             <mat-select formControlName="foundingSourcesName">
 
-              <mat-option value="Fuente 1">
-                Fuente 1
+              <mat-option value="Ingresos corrientes">
+                Ingresos corrientes
               </mat-option>
-              <mat-option value="Fuente 2">
-                fuente 2
+              <mat-option value="Ingresos tributarios IVA paz">
+                Ingresos tributarios IVA paz
+              </mat-option>
+              <mat-option value="Ingresos ordinarios de aporte constitucional">
+                Ingresos ordinarios de aporte constitucional
+              </mat-option>
+              <mat-option value="Ingresos propios">
+                Ingresos propios
+              </mat-option>
+              <mat-option value="Crédito externo – Prestamos externos">
+                Crédito externo – Prestamos externos
+              </mat-option>
+              <mat-option value="Donaciones externas">
+                Donaciones externas
+              </mat-option>
+              <mat-option value="Otro">
+                Otro
               </mat-option>
 
             </mat-select>
