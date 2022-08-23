@@ -1,23 +1,23 @@
 export interface Qualification {
     codigo?: string;
     AlterId?: string;
-    descriptionProblem?: number;
-    descriptionProblemDescription?: string;
+    descProblem?: number;
+    descProblemComment?: string;
 
-    generalObjective?: number;
-    generalObjectiveDescription?: string;
+    generalObjct?: number;
+    generalObjctComment?: string;
 
-    analysisDelimitation?: number;
-    analysisDelimitationDescription?: string;
+    anlysDelimitation?: number;
+    anlysDelimitationComment?: string;
 
-    terrainIdentification?: number;
-    terrainIdentificationDescription?: string;
+    terrainIdent?: number;
+    terrainIdentComment?: string;
 
     legalSituation: number;
-    legalSituationDescription: string;
+    legalSituationComment: string;
 
-    descriptionAnalysis?: number;
-    descriptionAnalysisDescription?: string;
+    descAnlys?: number;
+    descAnlysComment?: string;
     
     descriptionGeneral?: number,
     total?: number,

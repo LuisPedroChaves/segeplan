@@ -24,6 +24,9 @@ import { READ_OBJECTS } from '../../../../store/actions/object.actions';
 import { READ_PROCESOS } from '../../../../store/actions/proceso.actions';
 import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
 import { CLOSE_FULL_DRAWER } from '../../../../store/actions';
+import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
+import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
+import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
 
 @Component({
   selector: 'app-new-alternative',
@@ -33,6 +36,9 @@ import { CLOSE_FULL_DRAWER } from '../../../../store/actions';
 export class NewAlternativeComponent implements OnInit {
 
   // Catalogos
+  references: ReferencePopulation[] = [];
+  referenceStoreSubscription = new Subscription();
+
   denominations: Denomination[] = [];
   denominationStoreSubscription = new Subscription();
 
@@ -139,6 +145,7 @@ export class NewAlternativeComponent implements OnInit {
 
   constructor(
     private ideaStore: Store<IdeaStore>,
+    private referenceStore: Store<ReferenceStore>,
     private denominationStore: Store<DenominationStore>,
     private geograficoStore: Store<GeograficoStore>,
     private objectStore: Store<ObjectStore>,
@@ -180,6 +187,15 @@ export class NewAlternativeComponent implements OnInit {
       })
 
     this.procesoStore.dispatch(READ_PROCESOS())
+
+
+    this.referenceStoreSubscription = this.referenceStore.select('reference')
+    .subscribe(state => {
+      this.references = state.references;
+    })
+
+    this.referenceStore.dispatch(READ_REFERENCES())
+
     //#endregion
 
     
@@ -446,7 +462,7 @@ export class NewAlternativeComponent implements OnInit {
       departament,
       municipality,
       village,
-      preliminaryName: `A. ${proccess} B. ${object} C. ${village} ${municipality}, ${departament}`
+      preliminaryName: `A. ${proccess} B. ${object} C. ${municipality}, ${departament}`
     }
 
     const {

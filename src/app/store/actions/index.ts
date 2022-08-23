@@ -1,3 +1,4 @@
+export * from './popRef.actions';
 export * from './denomination.actions';
 export * from './object.actions';
 export * from './proceso.actions';

@@ -1,3 +1,4 @@
+export * from './popRef.reducer'
 export * from './denomination.reducer'
 export * from './object.reducer'
 export * from './proceso.reducer'
