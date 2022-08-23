@@ -74,8 +74,8 @@ export class NewAlternativeComponent implements OnInit {
   })
 
   populationDelimitation = new FormGroup({
-    referencePopulationId: new FormControl('', Validators.required),
-    denominationId: new FormControl(''),
+    referencePopulation: new FormControl('', Validators.required),
+    denomination: new FormControl(''),
     totalPopulation: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
     gender: new FormControl('Hombres', Validators.required),
     estimateBeneficiaries: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
@@ -197,8 +197,6 @@ export class NewAlternativeComponent implements OnInit {
     this.referenceStore.dispatch(READ_REFERENCES())
 
     //#endregion
-
-    
 
     this.ideaStoreSubscription = this.ideaStore.select('idea')
       .subscribe(state => {
@@ -480,8 +478,8 @@ export class NewAlternativeComponent implements OnInit {
     }
 
     const {
-      referencePopulationId,
-      denominationId,
+      referencePopulation,
+      denomination,
       totalPopulation,
       gender,
       estimateBeneficiaries,
@@ -489,8 +487,8 @@ export class NewAlternativeComponent implements OnInit {
     } = this.populationDelimitation.value
 
     const POPULATION_DELIMITATION: PopulationDelimitation = {
-      refPopId: referencePopulationId,
-      denId: denominationId,
+      refPopId: referencePopulation,
+      denId: denomination,
       totalPopulation,
       gender,
       estimateBeneficiaries,

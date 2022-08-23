@@ -37,7 +37,7 @@ export class IdeaEffects {
         mergeMap(
             (filtro) => this.generalInformationService.getIdeas({state: 'ENVIADA'})
                 .pipe(
-                    map(ideas => actions.SET_IDEAS({ ideas }))
+                    map(ideas => actions.SET_SEND_IDEAS({ ideas }))
                 )
         )
       )
@@ -50,7 +50,7 @@ export class IdeaEffects {
         mergeMap(
             (filtro) => this.generalInformationService.getIdeas({state: 'CALIFICADA'})
                 .pipe(
-                    map(ideas => actions.SET_IDEAS({ ideas }))
+                    map(ideas => actions.SET_DONE_IDEAS({ ideas }))
                 )
         )
       )
