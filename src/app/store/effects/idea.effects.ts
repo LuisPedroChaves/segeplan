@@ -73,13 +73,14 @@ export class IdeaEffects {
     () => this.actions$
       .pipe(
         ofType(actions.UPDATE_IDEA),
-        // mergeMap(
-        //     ({ idea }) => this.ideaService.update(idea)
-        //         .pipe(
-        //             map(idea => actions.SET_EDIT_IDEA({ idea }))
-        //         )
-        // )
-        map(({ idea }) => actions.SET_EDIT_IDEA({ idea }))
+        mergeMap(
+            ({ idea }) => this.generalInformationService.submitToQualify(idea.codigo) // Enviar para Calificar, 
+            // el servicio para idea calificada es: generalInformationService.qualifiedIdea(idea.codigo)
+                .pipe(
+                    map(idea => actions.SET_EDIT_IDEA({ idea }))
+                )
+        )
+        // map(({ idea }) => actions.SET_EDIT_IDEA({ idea }))
       )
   )
 

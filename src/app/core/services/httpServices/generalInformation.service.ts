@@ -103,7 +103,7 @@ export class GeneralInformationService {
         );
     }
 
-    enviarIdea(idIdea: string): Observable<any> {
+    submitToQualify(idIdea: string): Observable<any> {
         const url = this.API_URL + this.urlIdeas + 'send-idea/' + idIdea;
         return this.http.get(url).pipe(
             map((res: any) => {

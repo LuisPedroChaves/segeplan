@@ -1,14 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { IPertinence } from 'src/app/core/models/adicionales/pertinence';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
+import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
+import { Store } from '@ngrx/store';
+import { AlternativeStore } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-new-revelance-matrix',
   templateUrl: './new-revelance-matrix.component.html',
   styleUrls: ['./new-revelance-matrix.component.scss']
 })
-export class NewRevelanceMatrixComponent implements OnInit {
+export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
+
+  alternativeStoreSubscription = new Subscription()
+
+  currentAlternative: IdeaAlternative = null!;
+
 
   criterio1 = new FormGroup({
     rating: new FormControl('', Validators.required)
@@ -86,15 +95,25 @@ export class NewRevelanceMatrixComponent implements OnInit {
     },
   ]
 
-  constructor(private generalInformationService: GeneralInformationService) {
-    this.generalInformationService.getMatrizPertinencia('9c0af3f9-d55b-4a50-8ce0-5bff6d409b48').subscribe((res: any) => {
+  constructor(private generalInformationService: GeneralInformationService,
+    private alternativeStore: Store<AlternativeStore>,
+  ) {
+    this.alternativeStoreSubscription = this.alternativeStore.select('alternative')
+    .subscribe(state => {
+      this.currentAlternative = state.alternative
+    })
+    this.generalInformationService.getMatrizPertinencia(this.currentAlternative.codigo).subscribe((res: any) => {
       this.matrix = res;
       console.log(this.matrix)
     })
-   }
+  }
 
   ngOnInit(): void {
 
   }
+  ngOnDestroy(): void {
+    this.alternativeStoreSubscription?.unsubscribe()
+  }
+
 
 }
