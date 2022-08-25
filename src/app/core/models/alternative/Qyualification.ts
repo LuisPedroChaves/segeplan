@@ -19,7 +19,7 @@ export interface Qualification {
     descAnlys?: number;
     descAnlysComment?: string;
     
-    descriptionGeneral?: number,
+    descriptionGeneral?: string,
     total?: number,
-    result?: number,
+    result?: string,
 }

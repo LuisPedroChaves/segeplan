@@ -112,7 +112,7 @@ export class GeneralInformationService {
         );
     }
 
-    retornarIdea(idIdea: string): Observable<any> {
+    qualifiedIdea(idIdea: string): Observable<any> {
         const url = this.API_URL + this.urlIdeas + 'return-idea/' + idIdea;
         return this.http.get(url).pipe(
             map((res: any) => {

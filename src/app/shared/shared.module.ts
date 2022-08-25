@@ -3,25 +3,26 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* #region Material  */
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatCardModule } from '@angular/material/card';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 /* #endregion */
 
@@ -63,27 +64,28 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FormsModule,
     ReactiveFormsModule,
     /* #region  Material */
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatMenuModule,
-    MatCardModule,
-    MatSidenavModule,
-    MatStepperModule,
-    MatInputModule,
-    MatCheckboxModule,
+    MatAutocompleteModule,
     MatBottomSheetModule,
-    MatTooltipModule,
-    MatRippleModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatRippleModule,
     MatSelectModule,
+    MatSidenavModule,
     MatSlideToggleModule,
-    MatAutocompleteModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
@@ -92,27 +94,28 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FormsModule,
     ReactiveFormsModule,
     /* #region  Material */
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatMenuModule,
-    MatCardModule,
-    MatSidenavModule,
-    MatStepperModule,
-    MatInputModule,
-    MatCheckboxModule,
+    MatAutocompleteModule,
     MatBottomSheetModule,
-    MatTooltipModule,
-    MatRippleModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatRippleModule,
     MatSelectModule,
+    MatSidenavModule,
     MatSlideToggleModule,
-    MatAutocompleteModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule,

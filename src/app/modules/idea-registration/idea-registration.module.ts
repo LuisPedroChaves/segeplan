@@ -31,19 +31,19 @@ import { SelectedAlternativeComponent } from './components/selected-alternative/
 
 @NgModule({
   declarations: [
-    IndexComponent,
-    NewIdeasComponent,
-    NewIdeaComponent,
-    SelectedIdeaComponent,
-    RevelanceMatrixComponent,
-    IdeaCardComponent,
     AlternativesComponent,
-    NewAlternativeComponent,
-    SendIdeasComponent,
     DoneIdeasComponent,
+    IdeaCardComponent,
     IdeaCardMiniComponent,
+    IndexComponent,
+    NewAlternativeComponent,
+    NewIdeaComponent,
+    NewIdeasComponent,
     NewRevelanceMatrixComponent,
+    RevelanceMatrixComponent,
     SelectedAlternativeComponent,
+    SelectedIdeaComponent,
+    SendIdeasComponent,
   ],
   imports: [
     CommonModule,
