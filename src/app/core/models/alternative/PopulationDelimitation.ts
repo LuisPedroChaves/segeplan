@@ -1,3 +1,5 @@
+import { ReferencePopulation } from "./ReferencePopulation";
+
 export interface PopulationDelimitation {
     codigo?: string;
     AlterId?: string;
@@ -8,4 +10,5 @@ export interface PopulationDelimitation {
     estimateBeneficiaries: number;
     preliminaryCharacterization: string;
     coverage?: number;
+    refPop?: ReferencePopulation;
 }

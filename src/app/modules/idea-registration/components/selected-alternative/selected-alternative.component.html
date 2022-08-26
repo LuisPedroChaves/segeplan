@@ -1,3 +1,123 @@
-<ngx-simplebar fxLayoutAlign="center start" class="my-content">
+<!-- <ngx-simplebar fxLayoutAlign="center start" class="my-content">
   {{ currentAlternative | json }}
 </ngx-simplebar>
+ -->
+
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxFlex.gt-lg="60" fxFlex.lg="80" fxFlex.md="80" fxFlex.sm="100" fxFlex.lt-sm="100">
+
+    <mat-card class="idea-card mat-elevation-z2">
+
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
+        <mat-card-title>
+          {{currentAlternative?.preName?.preliminaryName}}
+        </mat-card-title>
+        <mat-card-subtitle>Alternativa</mat-card-subtitle>
+        <span fxFlex></span>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngIf="currentAlternative?.state == 'CREADA'" color="light" selected>
+            <mat-icon matChipAvatar>pending</mat-icon>
+            SIN ENVIAR
+          </mat-chip>
+          <mat-chip *ngIf="currentAlternative?.state == 'ENVIADA'" color="accent" selected>
+            <mat-icon matChipAvatar>schedule</mat-icon>
+            EN REVISION
+          </mat-chip>
+          <mat-chip *ngIf="currentAlternative?.state == 'CALIFICADA'" color="accent" selected>
+            <mat-icon matChipAvatar>rate_review</mat-icon>
+            ANALIZADA
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+
+      <mat-card-content class="idea-card-content">
+        <hr>
+        <mat-tab-group mat-align-tabs="center" color="accent">
+          <mat-tab label="Nombre preliminar">
+            <div class="generalInformation">
+              <br>
+              <h2><b> Nombre preliminar de la idea de  proyecto de inversión en relación a la alternativa seleccionada: </b></h2>
+              <h3>{{currentAlternative?.preName?.preliminaryName}}</h3>
+              <br>
+              <br>
+                <p><b>Tipo de Proyecto: </b>{{currentAlternative?.preName?.typeProject}}</p>
+                <p><b>Proceso: </b>{{currentAlternative?.preName?.proccess}}</p>
+                <p><b>Objeto: </b>{{currentAlternative?.preName?.object}}</p>
+                <mat-divider></mat-divider>
+                <h3>Lugar:</h3>
+                <p><b>Departamento: </b>{{currentAlternative?.preName?.departament}}</p>
+                <p><b>Municipio: </b>{{currentAlternative?.preName?.municipality}}</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Entidad Responsable">
+            <div class="generalInformation">
+              <br>
+              <h2><b> Entidad Responsable: </b></h2>
+              <br>
+              <br>
+                <p><b>Nombre de la EPI: </b>{{currentAlternative?.resEntity?.nameEPI}}</p>
+                <p><b>Nombre del Responsable del Proyecto: </b>{{currentAlternative?.resEntity?.leaderName}}</p>
+                <p><b>Correo: </b>{{currentAlternative?.resEntity?.email}}</p>
+                <p><b>Teléfono: </b>+502 {{currentAlternative?.resEntity?.phone}}</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Delimitación Preliminar">
+            <div class="generalInformation">
+              <br>
+              <h2><b> Delimitación preliminar del área geográfica: </b></h2>
+              <br>
+              <br>
+                <p><b>Población de referencia: </b>{{currentAlternative?.popDelimit?.refPop?.name}}</p>
+                <p><b>Total de Población de Referencia: </b>{{currentAlternative?.popDelimit?.totalPopulation}}</p>
+                <p><b>Denominacion: </b>{{currentAlternative?.popDelimitdenmtion?.name}}</p>
+                <mat-divider></mat-divider>
+                <br>
+                <p><b>Estimación preliminar de beneficiarios: </b>{{currentAlternative?.popDelimit?.estimateBeneficiaries}}</p>
+                <p><b>Cobertura: </b>{{currentAlternative?.popDelimit?.coverage}}</p>
+                <p><b>Caracterización preliminar: </b>{{currentAlternative?.popDelimit?.preliminaryCharacterization}}</p>
+            </div>
+          </mat-tab>
+          
+
+          <!-- <mat-tab label="Posibles Efectos">
+            <div class="generalInformation">
+              <div *ngFor="let efect of currentIdea?.Effects; index as i">
+                <p><b>
+                    <mat-icon>flare</mat-icon>
+                  </b>{{ efect.description}}</p>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Posibles Causas">
+            <div class="generalInformation">
+              <div *ngFor="let cause of currentIdea?.Causes; index as i">
+                <p><b>
+                    <mat-icon>view_in_ar</mat-icon>
+                  </b>{{ cause.description}}</p>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Posibles Alternativas">
+            <div class="generalInformation">
+              <div *ngFor="let alternative of currentIdea?.Alternatives; index as i">
+                <p><b>
+                    <mat-icon>view_in_ar</mat-icon>
+                  </b>{{ alternative.description}}</p>
+              </div>
+            </div>
+          </mat-tab> -->
+        </mat-tab-group>
+      </mat-card-content>
+
+      <!-- <mat-card-actions>
+        <button mat-button (click)="sendIdea()" color="warn">
+          <mat-icon>send</mat-icon>
+          ENVIAR IDEA
+        </button>
+      </mat-card-actions> -->
+
+    </mat-card>
+
+  </div>
+</div>

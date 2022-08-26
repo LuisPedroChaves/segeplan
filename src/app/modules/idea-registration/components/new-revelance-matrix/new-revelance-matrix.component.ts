@@ -7,9 +7,10 @@ import { Store } from '@ngrx/store';
 import { IPertinence } from 'src/app/core/models/adicionales/pertinence';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
 import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
-import { AlternativeStore } from 'src/app/store/reducers';
+import { AlternativeStore, IdeaStore } from 'src/app/store/reducers';
 import { Qualification } from '../../../../core/models/alternative/Qyualification';
 import { preInvestmentResult } from '../../../../core/models/alternative/preInvestmentResult';
+import { CLOSE_FULL_DRAWER } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-new-revelance-matrix',
@@ -119,6 +120,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 
   constructor(private generalInformationService: GeneralInformationService,
     private alternativeStore: Store<AlternativeStore>,
+    private ideaStore: Store<IdeaStore>,
+
   ) { }
 
   ngOnInit(): void {
@@ -140,6 +143,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   }
 
   loadMatrix(): void {
+    this.preSend = false;
 
     let rsult = ''
     let valProblem = parseInt(this.criterio1.value.descProblem, 10) * 2;
@@ -191,6 +195,17 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       this.loadingPre = false;
     })
   }
+
+  savePertinenceMatrix(): void {
+    this.relevanceMatrix.descriptionGeneral = this.resume.value.descriptionGeneral;
+
+    this.generalInformationService.saveMatrixPertinence(this.relevanceMatrix).subscribe((res: any) => {
+      console.log(res);
+      this.ideaStore.dispatch(CLOSE_FULL_DRAWER());
+      this.stepper.reset();
+    })
+  }
+
 
 }
 function viewChild(arg0: string) {

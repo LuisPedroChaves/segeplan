@@ -11,13 +11,17 @@
         <mat-card-subtitle>Información general</mat-card-subtitle>
         <span fxFlex></span>
         <mat-chip-list aria-label="Fish selection">
-          <mat-chip *ngIf="currentIdea?.state" color="light" selected>
+          <mat-chip *ngIf="currentIdea?.state == 'CREADA'" color="light" selected>
             <mat-icon matChipAvatar>pending</mat-icon>
             SIN ENVIAR
           </mat-chip>
-          <mat-chip *ngIf="!currentIdea?.state" color="accent" selected>
+          <mat-chip *ngIf="currentIdea?.state == 'ENVIADA'" color="accent" selected>
             <mat-icon matChipAvatar>schedule</mat-icon>
             EN REVISION
+          </mat-chip>
+          <mat-chip *ngIf="currentIdea?.state == 'CALIFICADA'" color="accent" selected>
+            <mat-icon matChipAvatar>rate_review</mat-icon>
+            ANALIZADA
           </mat-chip>
         </mat-chip-list>
       </mat-card-header>

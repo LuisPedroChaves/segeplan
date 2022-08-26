@@ -466,9 +466,12 @@
                                     <br>
                                     <br>
                                 </div>
+                                <mat-divider [vertical]="true"></mat-divider>
 
                                 <div *ngIf="!loadingPre && !preSend && totalMatrix >= 60" class="load-spin" fxFlex>
-                                    <h2>IDEA PERTINENTE, APLICAR MATRIZ DE PREINVERSIÓN</h2>
+                                    <h2>IDEA PERTINENTE</h2>
+                                    <h2>APLICAR MATRIZ DE PREINVERSIÓN</h2>
+                                    <br>
                                     <button (click)="generateMatrixPreinvent()" mat-raised-button>Generar Matriz de PreInversión</button>
                                 </div>
                                 <div *ngIf="!loadingPre && !preSend && totalMatrix < 60" class="load-spin" fxFlex>
@@ -532,7 +535,7 @@
             <mat-divider></mat-divider>
             <br>
             <div>
-                <button mat-button color="primary">Finalizar</button>
+                <button mat-button color="primary" (click)="savePertinenceMatrix()">Finalizar</button>
                 <span fxFlex></span>
                 <button mat-button matStepperPrevious>Volver</button>
                 <button mat-button (click)="stepper.reset()">Restablecer</button>

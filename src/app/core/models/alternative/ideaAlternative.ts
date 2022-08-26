@@ -5,6 +5,7 @@ import { ProjectDescription } from "./ProjectDescription";
 import { ResponsibleEntity } from "./ResponsibleEntity";
 import { Qualification } from './Qyualification';
 import { preInvestment } from "./preInvestment";
+import { Denomination } from "./Denomination";
 
 export interface IdeaAlternative {
     codigo?: string;
@@ -13,6 +14,7 @@ export interface IdeaAlternative {
     preName: PreliminaryName;
     resEntity: ResponsibleEntity;
     popDelimit: PopulationDelimitation;
+    popDelimitdenmtion?: Denomination;
     geoArea: GeographicArea;
     projDesc: ProjectDescription;
     qualification?: Qualification;

@@ -92,7 +92,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Teléfono </mat-label>
             <span matPrefix>+502 &nbsp;</span>
-            <input formControlName="phone" type="tel" matInput placeholder="12345678">
+            <input formControlName="phone" type="number" matInput placeholder="12345678"
+              onKeyPress="if(this.value.length==8) return false;">
             <mat-icon matSuffix>contact_phone</mat-icon>
             <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
           </mat-form-field>
