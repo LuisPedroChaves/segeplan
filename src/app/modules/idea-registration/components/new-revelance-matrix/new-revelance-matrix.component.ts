@@ -143,6 +143,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   }
 
   loadMatrix(): void {
+    this.preSend = false;
 
     let rsult = ''
     let valProblem = parseInt(this.criterio1.value.descProblem, 10) * 2;
