@@ -15,20 +15,37 @@
       fxFlex.lt-sm="100">
 
       <mat-card class="alternative-card mat-elevation-z4">
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngIf="item?.state == 'CREADA'" color="light" selected>
+            <mat-icon matChipAvatar>pending</mat-icon>
+            SIN ENVIAR
+          </mat-chip>
+          <mat-chip *ngIf="item?.state == 'ENVIADA'" color="accent" selected>
+            <mat-icon matChipAvatar>schedule</mat-icon>
+            EN REVISION
+          </mat-chip>
+          <mat-chip *ngIf="item.state == 'CALIFICADA'" color="accent" selected>
+            <mat-icon matChipAvatar>rate_review</mat-icon>
+            ANALIZADA
+          </mat-chip>
+        </mat-chip-list>
+        <br>
         <mat-card-header>
           <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
           <mat-card-title>
             {{item?.preName?.preliminaryName}}
           </mat-card-title>
-          <mat-card-subtitle>Información general</mat-card-subtitle>
+
         </mat-card-header>
         <mat-card-content>
-          <p>{{item?.preName?.proccess}} </p>
           <br>
-          <p>{{item?.preName?.object}} </p>
+          <p><b>Estimación preliminar de beneficiarios: </b>{{item?.popDelimit?.estimateBeneficiaries}}</p>
           <br>
+          <p><b>Costo estimado de la preinversión: </b>Q.{{item?.projDesc?.estimatedCost}}</p>
+          <br>
+          <p><b>Costo estimado de la inversión: </b>Q.{{item?.projDesc?.investmentCost}}</p>
           <hr>
-          <p>{{ item?.projDesc?.complexity }}</p>
+          <p> <b>Complejidad: </b>{{ item?.projDesc?.complexity }}</p>
         </mat-card-content>
 
         <mat-card-actions>

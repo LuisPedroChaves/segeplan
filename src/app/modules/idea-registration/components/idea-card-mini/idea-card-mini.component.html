@@ -7,9 +7,11 @@
     <mat-card-subtitle>Información general</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{idea.generalObjective}} </p>
+    <p><b>Objetivo General: </b>{{idea.generalObjective}} </p>
     <hr>
+    <p><b>Linea Base: </b>{{idea?.baseLine}}</p>
     <p><b>Encargado: </b>{{idea.responsibleName}}</p>
+    <p><b>Entidad: </b>{{idea.nameEntity}}</p>
     <p><b>Creada: </b> {{ idea.createdAt | date:'dd/MM/yyyy'}}</p>
     <mat-chip-list aria-label="Fish selection">
       <mat-chip *ngIf="idea.state == 'CREADA'" color="light" selected>
@@ -19,6 +21,10 @@
       <mat-chip *ngIf="idea.state == 'ENVIADA'" color="accent" selected>
         <mat-icon matChipAvatar>schedule</mat-icon>
         EN REVISION
+      </mat-chip>
+      <mat-chip *ngIf="idea.state == 'CALIFICADA'" color="accent" selected>
+        <mat-icon matChipAvatar>rate_review</mat-icon>
+        ANALIZADA
       </mat-chip>
     </mat-chip-list>
   </mat-card-content>
