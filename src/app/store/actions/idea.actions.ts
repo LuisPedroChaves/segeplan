@@ -47,17 +47,22 @@ export const SET_IDEA = createAction(
 	props<{ idea: GeneralInformation }>()
 )
 
-export const UPDATE_IDEA = createAction(
-	'[IDEA] Editar idea',
+export const UPDATE_CREATED_IDEA = createAction(
+	'[IDEA] Cambiar estado a enviada',
 	props<{ idea: GeneralInformation }>()
 )
 
-export const SET_EDIT_IDEA = createAction(
+export const SET_SEND_IDEA = createAction(
 	'[IDEA] Asignar idea editada',
 	props<{ idea: GeneralInformation }>()
 )
 
-// export const SET_BANK_ACCOUNT_BALANCE = createAction(
-// 	'[BANK_ACCOUNT] Asignar balance a cuenta bancaria',
-// 	props<{ idBankAccount: string, amount: number }>()
-// )
+export const UPDATE_SEND_IDEA = createAction(
+	'[IDEA] Cambiar estado a calificada',
+	props<{ idea: GeneralInformation }>()
+)
+
+export const SET_DONE_IDEA = createAction(
+	'[IDEA] Asignar idea editada',
+	props<{ idea: GeneralInformation }>()
+)

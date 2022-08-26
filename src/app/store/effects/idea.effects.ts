@@ -69,18 +69,29 @@ export class IdeaEffects {
       )
   )
 
-  updateIdea = createEffect(
+  updateCreatedIdea = createEffect(
     () => this.actions$
       .pipe(
-        ofType(actions.UPDATE_IDEA),
+        ofType(actions.UPDATE_CREATED_IDEA),
         mergeMap(
-            ({ idea }) => this.generalInformationService.submitToQualify(idea.codigo) // Enviar para Calificar, 
-            // el servicio para idea calificada es: generalInformationService.qualifiedIdea(idea.codigo)
+            ({ idea }) => this.generalInformationService.submitToQualify(idea.codigo) // Enviar para Calificar,
                 .pipe(
-                    map(idea => actions.SET_EDIT_IDEA({ idea }))
+                    map(idea2 => actions.SET_SEND_IDEA({ idea }))
                 )
         )
-        // map(({ idea }) => actions.SET_EDIT_IDEA({ idea }))
+      )
+  )
+
+  updateSendIdea = createEffect(
+    () => this.actions$
+      .pipe(
+        ofType(actions.UPDATE_SEND_IDEA),
+        mergeMap(
+            ({ idea }) => this.generalInformationService.qualifiedIdea(idea.codigo) // Enviar para Calificar,
+                .pipe(
+                    map(idea2 => actions.SET_DONE_IDEA({ idea }))
+                )
+        )
       )
   )
 
