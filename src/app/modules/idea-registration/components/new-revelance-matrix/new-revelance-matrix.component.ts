@@ -192,6 +192,15 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
     })
   }
 
+  savePertinenceMatrix(): void {
+    this.relevanceMatrix.descriptionGeneral = this.resume.value.descriptionGeneral;
+
+    this.generalInformationService.saveMatrixPertinence(this.relevanceMatrix).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
+
 }
 function viewChild(arg0: string) {
   throw new Error('Function not implemented.');

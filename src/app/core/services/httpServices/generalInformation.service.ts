@@ -5,6 +5,7 @@ import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { FiltroIdeas } from '../../models/adicionales/filtroIdeas';
 import { IdeaAlternative } from '../../models/alternative/ideaAlternative';
+import { Qualification } from '../../models/alternative/Qyualification';
 import { GeneralInformation } from '../../models/informationGeneral/GeneralInformation';
 
 @Injectable({
@@ -115,6 +116,15 @@ export class GeneralInformationService {
     qualifiedIdea(idIdea: string): Observable<any> {
         const url = this.API_URL + this.urlIdeas + 'return-idea/' + idIdea;
         return this.http.get(url).pipe(
+            map((res: any) => {
+                return res.data;
+            })
+        );
+    }
+
+    saveMatrixPertinence(matrixPertinence: Qualification): Observable<any> {
+        const url = this.API_URL + this.urlAlternative + 'send-pertinencia/';
+        return this.http.post(url, matrixPertinence).pipe(
             map((res: any) => {
                 return res.data;
             })
