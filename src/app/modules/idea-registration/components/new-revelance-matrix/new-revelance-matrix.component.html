@@ -513,6 +513,13 @@
                                             <td>{{preInvestment?.etapa?.resultado}}</td>
                                         </tr>
                                     </table>
+
+                                    <div class="load-spin">
+                                        <br>
+                                        <br>
+                                        <button (click)="printReport()" mat-raised-button>Imprimir Reporte Unificado</button>
+                                        <br>
+                                      </div>
                                 </div>
 
                             </div>
@@ -533,7 +540,7 @@
             </form>
             <br>
             <mat-divider></mat-divider>
-            <br>
+              <br>
             <div>
                 <button mat-button color="primary" (click)="savePertinenceMatrix()">Finalizar</button>
                 <span fxFlex></span>

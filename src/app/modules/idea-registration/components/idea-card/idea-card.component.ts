@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER, UPDATE_CREATED_IDEA } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER, UPDATE_CREATED_IDEA, UPDATE_SEND_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 
 @Component({
@@ -39,6 +39,16 @@ export class IdeaCardComponent implements OnInit {
       state: 'ENVIADA'
     }
     this.ideaStore.dispatch( UPDATE_CREATED_IDEA({idea: this.currentIdea}) )
+    this.ideaStore.dispatch( CLOSE_FULL_DRAWER() )
+  }
+
+  finishIdea(): void {
+
+    this.currentIdea = {
+      ...this.currentIdea,
+      state: 'CALIFICADA'
+    }
+    this.ideaStore.dispatch( UPDATE_SEND_IDEA({idea: this.currentIdea}) )
     this.ideaStore.dispatch( CLOSE_FULL_DRAWER() )
   }
 

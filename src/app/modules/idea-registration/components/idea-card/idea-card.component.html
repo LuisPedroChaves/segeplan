@@ -72,9 +72,13 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-button (click)="sendIdea()" color="warn">
+        <button *ngIf="currentIdea.state === 'CREADA'" mat-button (click)="sendIdea()" color="warn">
           <mat-icon>send</mat-icon>
           ENVIAR IDEA
+        </button>
+        <button *ngIf="currentIdea.state === 'ENVIADA'" mat-button (click)="finishIdea()" color="warn">
+          <mat-icon>send</mat-icon>
+          FINALIZAR ANALISIS
         </button>
       </mat-card-actions>
 
