@@ -53,11 +53,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
     MobileMenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AlertDialogComponent
   ],
   imports: [
     CommonModule,
@@ -71,6 +74,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
@@ -101,6 +105,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatListModule,

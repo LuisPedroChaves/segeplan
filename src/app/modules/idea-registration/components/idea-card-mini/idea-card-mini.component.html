@@ -13,6 +13,7 @@
     <p><b>Encargado: </b>{{idea.responsibleName}}</p>
     <p><b>Entidad: </b>{{idea.nameEntity}}</p>
     <p><b>Creada: </b> {{ idea.createdAt | date:'dd/MM/yyyy'}}</p>
+    <p *ngIf="idea.result != 'PENDIENTE'"><b>Resultado: </b> {{ idea.result}}</p>
     <mat-chip-list aria-label="Fish selection">
       <mat-chip *ngIf="idea.state == 'CREADA'" color="light" selected>
         <mat-icon matChipAvatar>pending</mat-icon>
