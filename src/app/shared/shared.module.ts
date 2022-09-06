@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 /* #endregion */
 
 /* #region  Configuración de fechas */
@@ -86,6 +87,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatProgressBarModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
@@ -116,6 +118,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatProgressBarModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule,
