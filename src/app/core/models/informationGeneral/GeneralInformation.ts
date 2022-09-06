@@ -26,6 +26,7 @@ export interface GeneralInformation {
     definitionPotentiality: string,
     baseLine: string,
     descriptionCurrentSituation: string;
+    result?: string;
 
     generalObjective: string;
     expectedChange: string;

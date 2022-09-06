@@ -34,79 +34,235 @@
       <mat-card-content class="idea-card-content">
         <hr>
         <mat-tab-group mat-align-tabs="center" color="accent">
+
+
           <mat-tab label="Nombre preliminar">
             <div class="generalInformation">
               <br>
-              <h2><b> Nombre preliminar de la idea de  proyecto de inversión en relación a la alternativa seleccionada: </b></h2>
+              <h2><b> Nombre preliminar de la idea de proyecto de inversión en relación a la alternativa seleccionada:
+                </b></h2>
               <h3>{{currentAlternative?.preName?.preliminaryName}}</h3>
               <br>
-              <br>
-                <p><b>Tipo de Proyecto: </b>{{currentAlternative?.preName?.typeProject}}</p>
-                <p><b>Proceso: </b>{{currentAlternative?.preName?.proccess}}</p>
-                <p><b>Objeto: </b>{{currentAlternative?.preName?.object}}</p>
-                <mat-divider></mat-divider>
-                <h3>Lugar:</h3>
-                <p><b>Departamento: </b>{{currentAlternative?.preName?.departament}}</p>
-                <p><b>Municipio: </b>{{currentAlternative?.preName?.municipality}}</p>
+              <p><b>Tipo de Proyecto: </b>{{currentAlternative?.preName?.typeProject}}</p>
+              <p><b>Proceso: </b>{{currentAlternative?.preName?.proccess}}</p>
+              <p><b>Objeto: </b>{{currentAlternative?.preName?.object}}</p>
+              <mat-divider></mat-divider>
+              <h3>Lugar:</h3>
+              <p><b>Departamento: </b>{{currentAlternative?.preName?.departament}}</p>
+              <p><b>Municipio: </b>{{currentAlternative?.preName?.municipality}}</p>
             </div>
           </mat-tab>
+
+
           <mat-tab label="Entidad Responsable">
             <div class="generalInformation">
               <br>
               <h2><b> Entidad Responsable: </b></h2>
               <br>
-              <br>
-                <p><b>Nombre de la EPI: </b>{{currentAlternative?.resEntity?.nameEPI}}</p>
-                <p><b>Nombre del Responsable del Proyecto: </b>{{currentAlternative?.resEntity?.leaderName}}</p>
-                <p><b>Correo: </b>{{currentAlternative?.resEntity?.email}}</p>
-                <p><b>Teléfono: </b>+502 {{currentAlternative?.resEntity?.phone}}</p>
+              <p><b>Nombre de la EPI: </b>{{currentAlternative?.resEntity?.nameEPI}}</p>
+              <p><b>Nombre del Responsable del Proyecto: </b>{{currentAlternative?.resEntity?.leaderName}}</p>
+              <p><b>Correo: </b>{{currentAlternative?.resEntity?.email}}</p>
+              <p><b>Teléfono: </b>+502 {{currentAlternative?.resEntity?.phone}}</p>
             </div>
           </mat-tab>
+
+
           <mat-tab label="Delimitación Preliminar">
+            <div class="generalInformation">
+              <br>
+              <h2><b> Delimitación preliminar de los posibles beneficiarios: </b></h2>
+              <br>
+              <p><b>Población de referencia: </b>{{currentAlternative?.popDelimit?.refPop?.name}}</p>
+              <p><b>Total de Población de Referencia: </b>{{currentAlternative?.popDelimit?.totalPopulation}}</p>
+              <p><b>Denominacion: </b>{{currentAlternative?.popDelimitdenmtion?.name}}</p>
+              <mat-divider></mat-divider>
+              <br>
+              <p><b>Estimación preliminar de beneficiarios:
+                </b>{{currentAlternative?.popDelimit?.estimateBeneficiaries}}</p>
+              <p><b>Cobertura: </b>{{currentAlternative?.popDelimit?.coverage}}</p>
+              <p><b>Caracterización preliminar: </b>{{currentAlternative?.popDelimit?.preliminaryCharacterization}}</p>
+            </div>
+          </mat-tab>
+
+
+          <mat-tab label="Área Geográfica">
             <div class="generalInformation">
               <br>
               <h2><b> Delimitación preliminar del área geográfica: </b></h2>
               <br>
-              <br>
-                <p><b>Población de referencia: </b>{{currentAlternative?.popDelimit?.refPop?.name}}</p>
-                <p><b>Total de Población de Referencia: </b>{{currentAlternative?.popDelimit?.totalPopulation}}</p>
-                <p><b>Denominacion: </b>{{currentAlternative?.popDelimitdenmtion?.name}}</p>
-                <mat-divider></mat-divider>
-                <br>
-                <p><b>Estimación preliminar de beneficiarios: </b>{{currentAlternative?.popDelimit?.estimateBeneficiaries}}</p>
-                <p><b>Cobertura: </b>{{currentAlternative?.popDelimit?.coverage}}</p>
-                <p><b>Caracterización preliminar: </b>{{currentAlternative?.popDelimit?.preliminaryCharacterization}}</p>
+              <h3> Identificación del terreno: </h3>
+              <p><b>¿Se identifican varios terrenos disponibles?: </b>
+                <label *ngIf="currentAlternative?.geoArea?.availableTerrain">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.availableTerrain">NO</label>
+              </p>
+              <p><b>¿Se identifica solo un terreno disponible?: </b>
+                <label *ngIf="currentAlternative?.geoArea?.oneAvailableTerrain">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.oneAvailableTerrain">NO</label>
+              </p>
+              <p><b>¿Es necesario invertir en la compra del terreno?: </b>
+                <label *ngIf="currentAlternative?.geoArea?.investPurchase">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.investPurchase">NO</label>
+              </p>
+              <mat-divider></mat-divider>
+              <h3> Situacion legal del posible bien inmueble: </h3>
+              <p><b>¿Terreno a nombre del Estado?: </b>
+                <label *ngIf="currentAlternative?.geoArea?.governmentTerrain">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.governmentTerrain">NO</label>
+              </p>
+              <p><b>¿Se debe de inscribir el terreno a nombre del Estado?: </b>
+                <label *ngIf="currentAlternative?.geoArea?.registerGovernmentTerrain">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.registerGovernmentTerrain">NO</label>
+              </p>
+              <p *ngIf="currentAlternative?.geoArea?.statusDescribe"><b>Observación:
+                </b>{{currentAlternative?.geoArea?.statusDescribe}}</p>
+              <p *ngIf="currentAlternative?.geoArea?.finca"><b>Finca: </b>{{currentAlternative?.geoArea?.finca}}</p>
+              <p *ngIf="currentAlternative?.geoArea?.folio"><b>Folio: </b>{{currentAlternative?.geoArea?.folio}}</p>
+              <p *ngIf="currentAlternative?.geoArea?.libro"><b>Libro: </b>{{currentAlternative?.geoArea?.libro}}</p>
+              <mat-divider></mat-divider>
+              <h3> Características del posible terreno: </h3>
+              <p><b>Plano: </b>
+                <label *ngIf="currentAlternative?.geoArea?.plano">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.plano">NO</label>
+              </p>
+              <p><b>Inclinación Leve: </b>
+                <label *ngIf="currentAlternative?.geoArea?.slightIncline">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.slightIncline">NO</label>
+              </p>
+              <p><b>Servicios básicos del posible terreno: </b>
+                <label *ngIf="currentAlternative?.geoArea?.basicServices">SI</label>
+                <label *ngIf="!currentAlternative?.geoArea?.basicServices">NO</label>
+              </p>
+              <p *ngIf="currentAlternative?.geoArea?.descriptionBasicServices"><b>Descripcion de Servicios Básicos:
+                </b>{{currentAlternative?.geoArea?.descriptionBasicServices}}</p>
+              <p *ngIf="currentAlternative?.geoArea?.descriptionLocation"><b>Descripcion de la posible ubicación:
+                </b>{{currentAlternative?.geoArea?.descriptionLocation}}</p>
             </div>
           </mat-tab>
-          
 
-          <!-- <mat-tab label="Posibles Efectos">
+
+          <mat-tab label="Idea de Proyecto">
             <div class="generalInformation">
-              <div *ngFor="let efect of currentIdea?.Effects; index as i">
-                <p><b>
-                    <mat-icon>flare</mat-icon>
-                  </b>{{ efect.description}}</p>
-              </div>
+              <br>
+              <h2><b> Descripción preliminar de la idea proyecto: </b></h2>
+              <br>
+              <p><b>Tipo de Proyecto: </b>{{currentAlternative?.projDesc?.projectType}}</p>
+              <p><b>Proceso de Formulación: </b>{{currentAlternative?.projDesc?.formulationProcess}}</p>
+              <p><b>Descripcion del Proceso de Formulación:
+                </b>{{currentAlternative?.projDesc?.formulationProcessDescription}}
+              </p>
+              <p><b>Breve descripción de las posibles intervenciones o acciones a desarrollar:
+                </b>{{currentAlternative?.projDesc?.descriptionInterventions}}</p>
+              <p><b>Complejidad: </b>{{currentAlternative?.projDesc?.complexity}}</p>
+              <mat-divider></mat-divider>
+              <br>
+              <p><b>Costo estimado de la Preinversión: </b>{{currentAlternative?.projDesc?.estimatedCost}}</p>
+              <p><b>Costo estimado de la Inversión: </b>{{currentAlternative?.projDesc?.investmentCost}}</p>
+              <p><b>Posibles fuentes de financiamiento: </b>{{currentAlternative?.projDesc?.foundingSourcesName}}</p>
+              <mat-divider></mat-divider>
+              <br>
+              <h3> Plazo tentativo de ejecución: </h3>
+              <p><b>Plazo tentativo de la Preinversión:
+                </b>{{currentAlternative?.projDesc?.execTime?.tentativeTermMonth}} del
+                20{{currentAlternative?.projDesc?.execTime?.tentativeTermYear}}</p>
+              <p><b>Fecha probable de inicio de ejecución:
+                </b>{{currentAlternative?.projDesc?.execTime?.executionDateMonth}} del
+                20{{currentAlternative?.projDesc?.execTime?.executionDateYear}}</p>
+              <p><b>Fecha probable de finalización de la ejecución:
+                </b>{{currentAlternative?.projDesc?.execTime?.finishDateMonth}} del
+                20{{currentAlternative?.projDesc?.execTime?.finishDateYear}}</p>
+              <p><b>Anual o Multianual: </b>
+                <label *ngIf="currentAlternative?.projDesc?.execTime?.annual">Anual</label>
+                <label *ngIf="!currentAlternative?.projDesc?.execTime?.annual">Multianual</label>
+              </p>
             </div>
           </mat-tab>
-          <mat-tab label="Posibles Causas">
+
+
+
+
+          <mat-tab *ngIf="currentAlternative.qualification" label="Resultados de Pertinencia">
             <div class="generalInformation">
-              <div *ngFor="let cause of currentIdea?.Causes; index as i">
-                <p><b>
-                    <mat-icon>view_in_ar</mat-icon>
-                  </b>{{ cause.description}}</p>
-              </div>
+              <br>
+              <h2><b> Resultados Matriz de Pertinencia: </b> {{ currentAlternative?.qualification?.result}}</h2>
+              <br>
+              <p class="mat-body">
+                <span class="mat-body-strong">Descripción de la problemática y el Indicador:
+                </span>
+                {{ currentAlternative?.qualification?.descProblem}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Objetivo General y resultado:</span>
+                {{ currentAlternative?.qualification?.generalObjct}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Análisis de la delimitación preliminar de
+                  beneficiarios:</span>
+                {{ currentAlternative?.qualification?.anlysDelimitation}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Identificación del terreno:</span>
+                {{ currentAlternative?.qualification?.terrainIdent}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Situación legal del posible bien
+                  inmueble:</span>
+                {{ currentAlternative?.qualification?.legalSituation}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Análisis de la descripción de la idea:</span>
+                {{ currentAlternative?.qualification?.descAnlys}}
+              </p>
+              <p class="mat-body">
+                <span class="mat-body-strong">Total:</span>
+                {{ currentAlternative?.qualification?.total}}
+              </p>
             </div>
           </mat-tab>
-          <mat-tab label="Posibles Alternativas">
+
+
+          <mat-tab *ngIf="currentAlternative?.preInvestment" label="Resultados de PreInversión">
             <div class="generalInformation">
-              <div *ngFor="let alternative of currentIdea?.Alternatives; index as i">
-                <p><b>
-                    <mat-icon>view_in_ar</mat-icon>
-                  </b>{{ alternative.description}}</p>
+              <br>
+              <h2><b> Resultados Matriz de PreInversión: </b> {{ currentAlternative?.preInvestment?.etapaResultado}}
+              </h2>
+              <br>
+              <div class="load-spin">
+                <table>
+                  <tr>
+                    <th>Descripción</th>
+                    <th>%</th>
+                    <th>Resultados Rango</th>
+                  </tr>
+                  <tr>
+                    <td>RANGO DE INVERSIÓN</td>
+                    <td>{{currentAlternative?.preInvestment?.rangoValor}}</td>
+                    <td>{{currentAlternative?.preInvestment?.rangoResultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>ESTIMACIÓN BENEFICIARIOS (Personas)</td>
+                    <td>{{currentAlternative?.preInvestment?.estimacionValor}}</td>
+                    <td>{{currentAlternative?.preInvestment?.estimacionResultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>COMPLEJIDAD</td>
+                    <td>{{currentAlternative?.preInvestment?.complejidadValor}}</td>
+                    <td>{{currentAlternative?.preInvestment?.complejidadResultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>ETAPA SUGERIDA</td>
+                    <td>{{currentAlternative?.preInvestment.etapaValor}}</td>
+                    <td>{{currentAlternative?.preInvestment.etapaResultado}}</td>
+                  </tr>
+                </table>
               </div>
+              <div class="load-spin">
+                <br>
+                <button (click)="printReport()" mat-raised-button>Imprimir Reporte Unificado</button>
+              </div>
+              <br>
             </div>
-          </mat-tab> -->
+          </mat-tab>
+
         </mat-tab-group>
       </mat-card-content>
 

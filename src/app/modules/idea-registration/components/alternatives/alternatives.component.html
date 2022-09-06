@@ -1,5 +1,5 @@
 <mat-toolbar fxLayoutGap="16px">
-  <button mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE', null)" color="accent">
+  <button *ngIf="currentIdea.state === 'CREADA'" mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE', null)" color="accent">
     <mat-icon>add</mat-icon>
     Crear alternativa
   </button>
@@ -16,9 +16,9 @@
 
       <mat-card class="alternative-card mat-elevation-z4">
         <mat-chip-list aria-label="Fish selection">
-          <mat-chip *ngIf="item?.state == 'CREADA'" color="light" selected>
+          <mat-chip *ngIf="item?.state == 'CREADA'" color="light" selected >
             <mat-icon matChipAvatar>pending</mat-icon>
-            SIN ENVIAR
+            PENDIENTE DE REVISION
           </mat-chip>
           <mat-chip *ngIf="item?.state == 'ENVIADA'" color="accent" selected>
             <mat-icon matChipAvatar>schedule</mat-icon>
