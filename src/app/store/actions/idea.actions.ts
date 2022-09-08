@@ -4,7 +4,9 @@ import { GeneralInformation } from 'src/app/core/models/informationGeneral/Gener
 import { FiltroIdeas } from 'src/app/core/models/adicionales/filtroIdeas';
 
 export const READ_IDEAS = createAction(
-	'[IDEAS] Leer ideas'
+	'[IDEAS] Leer ideas',
+	props<{ filtro: FiltroIdeas }>()
+
 )
 
 export const READ_SEND_IDEAS = createAction(
@@ -14,7 +16,7 @@ export const READ_SEND_IDEAS = createAction(
 
 export const READ_DONE_IDEAS = createAction(
 	'[IDEAS] Leer ideas calificadas',
-  props<{ filtro: FiltroIdeas }>()
+	props<{ filtro: FiltroIdeas }>()
 )
 
 export const SET_IDEAS = createAction(

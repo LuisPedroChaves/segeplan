@@ -13,6 +13,8 @@ import { OPEN_FULL_DRAWER, READ_IDEAS, SET_IDEA } from 'src/app/store/actions';
 export class NewIdeasComponent implements OnInit {
   ideaStoreSubscription = new Subscription();
   ideas: GeneralInformation[] = []!
+  state = 'TODAS';
+  author = 'TODOS';
 
   constructor(
     private ideaStore: Store<IdeaStore>,
@@ -20,11 +22,19 @@ export class NewIdeasComponent implements OnInit {
 
   ngOnInit(): void {
     this.ideaStoreSubscription = this.ideaStore.select('idea')
-    .subscribe(state => {
-      this.ideas = state.ideas;
-    })
+      .subscribe(state => {
+        this.ideas = state.ideas;
+      })
 
-    this.ideaStore.dispatch(READ_IDEAS())
+    this.ideaStore.dispatch(READ_IDEAS({ filtro: { state: this.state } }))
+  }
+
+  sendFilter(): void {
+    // this.ideaStoreSubscription = this.ideaStore.select('idea')
+    //   .subscribe(state => {
+    //     this.ideas = state.ideas;
+    //   });
+    this.ideaStore.dispatch(READ_IDEAS({ filtro: { state: this.state } }))
   }
 
   ngOnDestroy(): void {

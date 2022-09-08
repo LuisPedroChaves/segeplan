@@ -1,6 +1,32 @@
 <ngx-simplebar class="sub-content-desktop">
 
-  <app-not-found *ngIf="ideas.length === 0"></app-not-found>
+  <p>Filtros:</p>
+  <div fxLayout="row wrap" fxLayoutGap="15px grid">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Autor</mat-label>
+      <mat-select [(value)]="author">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option value="Mis Ideas">Mis Ideas</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select [(value)]="state">
+        <mat-option value="TODAS">Todas</mat-option>
+        <mat-option value="CREADA">Creadas</mat-option>
+        <mat-option value="ENVIADA">Enviadas</mat-option>
+        <mat-option value="CALIFICADA">Calificadas</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button class="center-obj" (click)="sendFilter()" mat-raised-button>Buscar</button>
+    </div>
+
+  </div>
+  <app-not-found *ngIf="ideas?.length === 0"></app-not-found>
+
 
   <div fxLayout="row wrap" fxLayoutGap="15px grid">
 
