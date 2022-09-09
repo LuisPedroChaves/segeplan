@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
@@ -7,13 +7,15 @@ import {map, startWith} from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CLOSE_FULL_DRAWER, CREATE_IDEA, READ_PRODUCTS } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, CREATE_IDEA, OPEN_FULL_DRAWER2, READ_PRODUCTS, SET_ALTERNATIVE } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
 import { IProduct } from 'src/app/core/models/adicionales/Product';
 import { PossibleEffect } from 'src/app/core/models/informationGeneral/PossibleEffect';
 import { PossibleCause } from 'src/app/core/models/informationGeneral/PossibleCause';
 import { PossibleAlternative } from 'src/app/core/models/informationGeneral/PossibleAlternative';
+import { MatDrawer } from '@angular/material/sidenav';
+import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 
 @Component({
   selector: 'app-new-idea',
@@ -21,6 +23,8 @@ import { PossibleAlternative } from 'src/app/core/models/informationGeneral/Poss
   styleUrls: ['./new-idea.component.scss']
 })
 export class NewIdeaComponent implements OnInit, OnDestroy {
+
+  @ViewChild('fullDrawer2') fullDrawer2!: MatDrawer;
 
   get formEffects(): FormArray {
     return this.generalInformation.get('possibleEffects') as FormArray;
@@ -70,6 +74,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   drawerSubscription = new Subscription();
   fullTitle = '';
+  fullTitle2 = '';
+  fullComponent2 = '';
 
   constructor(
     private productStore: Store<ProductStore>,
@@ -81,6 +87,12 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     this.drawerSubscription = this.ideaStore.select('drawer')
       .subscribe(state => {
         this.fullTitle = state.fullTitle
+
+        if (this.fullDrawer2) {
+          this.fullDrawer2.opened = state.fullDrawer2
+        }
+        this.fullTitle2 = state.fullTitle2
+        this.fullComponent2 = state.fullComponent2
       });
 
     this.productStoreSubscription = this.productStore.select('product')
@@ -112,6 +124,15 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   closeFullDrawer(): void {
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+  }
+
+  openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {
+    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative }))
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER2({ fullTitle2, fullComponent2 }))
+  }
+
+  closeFullDrawer2(): void {
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
   }
 
   changeDescription(event: MatSlideToggleChange): void {
@@ -234,7 +255,10 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
 
     this.ideaStore.dispatch(CREATE_IDEA({
-      idea
+      idea: {
+        ...idea,
+        alternatives: this.idea.alternatives
+      }
     }))
 
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER())

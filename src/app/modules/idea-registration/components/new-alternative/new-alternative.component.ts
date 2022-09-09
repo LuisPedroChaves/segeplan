@@ -23,7 +23,7 @@ import { READ_GEOGRAFICOS } from '../../../../store/actions/geografico.actions';
 import { READ_OBJECTS } from '../../../../store/actions/object.actions';
 import { READ_PROCESOS } from '../../../../store/actions/proceso.actions';
 import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
-import { CLOSE_FULL_DRAWER } from '../../../../store/actions';
+import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
 import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
 import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
@@ -587,21 +587,43 @@ export class NewAlternativeComponent implements OnInit {
       execTime: EXECUTION_TIME
     }
 
+    if (this.currentIdea.codigo) {
+      const NEW_ALTERNATIVE: IdeaAlternative = {
+        sectionBIId: this.currentIdea.codigo,
+        preName: PRELIMINAR_NAME,
+        resEntity: RESPONSIBLE_ENTITY,
+        popDelimit: POPULATION_DELIMITATION,
+        geoArea: GEOGRAPHIC_AREA,
+        projDesc: PROJECT_DESCRIPTION
+      }
+
+      this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
+        this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+      });
+
+      return
+    }
+
+    // Esto aplica solo cuando se esta creado una idea con sus alternativas al mismo timepo
     const NEW_ALTERNATIVE: IdeaAlternative = {
-      sectionBIId: this.currentIdea.codigo,
+      sectionBIId: '',
       preName: PRELIMINAR_NAME,
       resEntity: RESPONSIBLE_ENTITY,
       popDelimit: POPULATION_DELIMITATION,
       geoArea: GEOGRAPHIC_AREA,
       projDesc: PROJECT_DESCRIPTION
     }
-    console.log("🚀 ~ file: new-alternative.component.ts ~ line 499 ~ NewAlternativeComponent ~ saveIdeaAlternative ~ NEW_ALTERNATIVE", NEW_ALTERNATIVE)
-    //TODO: Enlazar con servicio
+
+    let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
+
+    console.log(alternatives);
 
 
-    this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
-      this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
-    });
+    alternatives.push(NEW_ALTERNATIVE)
+
+    this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives  }))
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+
   }
 
 }

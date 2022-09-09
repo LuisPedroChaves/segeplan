@@ -3,7 +3,6 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import * as actions from '../actions';
 import { AppState } from '../app.reducer';
-
 export interface IdeaState {
   ideas: GeneralInformation[],
   sendIdeas: GeneralInformation[],
@@ -42,6 +41,13 @@ const _IDEA_REDUCER = createReducer(IDEA_STATE,
   on(actions.SET_IDEA, (state, { idea }) => ({
     ...state,
     idea: { ...idea }
+  })),
+  on(actions.SET_IDEA_ALTERNATIVES, (state, { alternatives }) => ({
+    ...state,
+    idea: {
+      ...state.idea,
+      alternatives: [...alternatives]
+    }
   })),
   on(actions.SET_SEND_IDEA, (state, { idea }) => ({
     ...state,

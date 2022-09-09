@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { FiltroIdeas } from 'src/app/core/models/adicionales/filtroIdeas';
+import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 
 export const READ_IDEAS = createAction(
 	'[IDEAS] Leer ideas',
@@ -47,6 +48,11 @@ export const SET_NEW_IDEA = createAction(
 export const SET_IDEA = createAction(
 	'[IDEA] Asignar idea',
 	props<{ idea: GeneralInformation }>()
+)
+
+export const SET_IDEA_ALTERNATIVES = createAction(
+	'[IDEA] Asignar  alternativa temporal a  idea',
+	props<{ alternatives: IdeaAlternative[] }>()
 )
 
 export const UPDATE_CREATED_IDEA = createAction(
