@@ -10,8 +10,8 @@
     <button mat-mini-fab *ngIf="theme === 'lightMode'" (click)="changeMode()" color="primary" matTooltip="Modo oscuro">
       <mat-icon>dark_mode</mat-icon>
     </button>
-    <button mat-mini-fab color="accent" matTooltip="Mi cuenta">
-      <mat-icon>account_circle</mat-icon>
+    <button mat-mini-fab *ngIf="session" (click)="logout()" color="accent" matTooltip="Cerrar Sesión">
+      <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>
   <router-outlet></router-outlet>

@@ -3,7 +3,7 @@ import * as reducers from './reducers';
 
 
 export interface AppState {
-  //  session: reducers.SessionState;
+   session: reducers.SessionState;
   //  config: reducers.ConfigState;
    drawer: reducers.DrawerState;
 }
@@ -11,7 +11,7 @@ export interface AppState {
 
 
 export const appReducers: ActionReducerMap<AppState> = {
-  //  session: reducers.sessionReducer,
+   session: reducers.SessionReducer,
   //  config: reducers.configReducer,
    drawer: reducers.DrawerReducer
 };

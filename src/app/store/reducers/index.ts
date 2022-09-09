@@ -7,3 +7,4 @@ export * from './product.reducer'
 export * from './drawer.reducer'
 export * from './idea.reducer'
 export * from './alternative.reducer'
+export * from './session.reducer';

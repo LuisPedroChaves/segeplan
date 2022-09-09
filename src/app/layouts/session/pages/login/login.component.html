@@ -11,21 +11,18 @@
 
 
       <mat-form-field fxFill appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
-        <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
-          Por favor, introduzca una dirección de correo electrónico válida
+        <mat-label>Usuario</mat-label>
+        <input type="text" matInput formControlName="username" placeholder="Ej. juan01">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+          El usuario es <strong>requerido</strong>
         </mat-error>
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-          El correo electrónico es <strong>requerido</strong>
-        </mat-error>
-        <mat-icon matSuffix>alternate_email</mat-icon>
+        <mat-icon matSuffix>user</mat-icon>
       </mat-form-field>
 
 
       <mat-form-field fxFill appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="pass" placeholder="**********">
+        <input type="password" matInput formControlName="password" placeholder="**********">
         <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
           Por favor, introduzca una dirección de correo electrónico válida
         </mat-error>
