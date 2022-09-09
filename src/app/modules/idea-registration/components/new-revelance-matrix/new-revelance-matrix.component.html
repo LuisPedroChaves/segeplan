@@ -92,17 +92,80 @@
                   definido.
                 </mat-hint>
               </div>
+<<<<<<< HEAD
             </div>
+=======
+              <div *ngIf="!loadingPre && preSend" class="load-spin" fxFlex>
+                <h1>Matriz de PreInversión</h1>
+                <br>
+                <br>
+                <table>
+                  <tr>
+                    <th>Descripción</th>
+                    <th>%</th>
+                    <th>Resultados Rango</th>
+                  </tr>
+                  <tr>
+                    <td>RANGO DE INVERSIÓN</td>
+                    <td>{{preInvestment?.rango?.valor}}</td>
+                    <td>{{preInvestment?.rango?.resultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>ESTIMACIÓN BENEFICIARIOS (Personas)</td>
+                    <td>{{preInvestment?.estimacion?.valor}}</td>
+                    <td>{{preInvestment?.estimacion?.resultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>COMPLEJIDAD</td>
+                    <td>{{preInvestment?.complejidad?.valor}}</td>
+                    <td>{{preInvestment?.complejidad?.resultado}}</td>
+                  </tr>
+                  <tr>
+                    <td>ETAPA SUGERIDA</td>
+                    <td>{{preInvestment?.etapa?.valor}}</td>
+                    <td>{{preInvestment?.etapa?.resultado}}</td>
+                  </tr>
+                </table>
+
+                <div class="load-spin">
+                  <br>
+                  <br>
+                  <button (click)="printReport()" mat-raised-button>Imprimir Reporte Unificado</button>
+                  <br>
+                </div>
+              </div>
+
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Agregar Comentario</mat-label>
+              <textarea matInput formControlName="descriptionGeneral" placeholder="Máximo 200 caracteres..."
+                rows="4"></textarea>
+              <!-- <mat-hint>Hasta {{200 - geographicArea.get('description')?.value.length}} caracteres.</mat-hint> -->
+              <!-- <mat-error *ngIf="geographicArea.get('description')?.hasError('maxlength')">
+                                  Máximo 200 caracteres.
+                                </mat-error> -->
+            </mat-form-field>
+>>>>>>> 9730bcf91a2d9247a3683d529be16bb0a2cc5add
           </div>
-
-
-          <div>
-            <button mat-button matStepperPrevious>Volver</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-
         </div>
+
       </form>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div>
+        <button mat-button color="primary" (click)="savePertinenceMatrix()">Finalizar</button>
+        <span fxFlex></span>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button (click)="stepper.reset()">Restablecer</button>
+      </div>
+
+
+      <div>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+
     </mat-step>
 
     <mat-step [stepControl]="criterio3">

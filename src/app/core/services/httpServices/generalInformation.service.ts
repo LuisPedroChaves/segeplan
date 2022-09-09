@@ -23,7 +23,7 @@ export class GeneralInformationService {
         const url = this.API_URL + this.urlGeneralInformation;
         return this.http.post(url, generalInformationSend).pipe(
             map((res: any) => {
-                return res;
+                return res.informationInsert;
             })
         );
     }
