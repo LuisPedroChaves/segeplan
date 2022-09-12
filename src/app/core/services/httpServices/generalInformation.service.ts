@@ -21,7 +21,7 @@ export class GeneralInformationService {
 
     sendGeneralInformation(generalInformationSend: GeneralInformation): Observable<any> {
         const url = this.API_URL + this.urlGeneralInformation;
-        console.log('NUEVA IDEA *** : ' + generalInformationSend);
+        console.log('NUEVA IDEA *** : ', generalInformationSend);
 
         return this.http.post(url, generalInformationSend).pipe(
             map((res: any) => {

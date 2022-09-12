@@ -255,7 +255,7 @@
             <textarea matInput formControlName="preliminaryCharacterization"
               placeholder="Describir aspectos a nivel socioeconómicos del área de influencia del proyecto -Ejemplo: Pobreza, educación, salud, otros-"
               rows="4"></textarea>
-            <mat-hint>Hasta {{500 - populationDelimitation.value.preliminaryCharacterization.length}} caracteres.
+            <mat-hint>Hasta {{500 - populationDelimitation?.value?.preliminaryCharacterization?.length}} caracteres.
             </mat-hint>
             <mat-error *ngIf="populationDelimitation.get('preliminaryCharacterization')?.hasError('maxlength')">
               Máximo 500 caracteres.
@@ -301,7 +301,7 @@
             <mat-label>Observación</mat-label>
             <textarea matInput formControlName="statusDescribe" placeholder="Describir el estatus..."
               rows="4"></textarea>
-            <mat-hint>Hasta {{200 - geographicArea.get('statusDescribe')?.value.length}} caracteres.</mat-hint>
+            <mat-hint>Hasta {{200 - geographicArea?.get('statusDescribe')?.value?.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('statusDescribe')?.hasError('maxlength')">
               Máximo 200 caracteres.
             </mat-error>
@@ -348,7 +348,7 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>Descripción del terreno</mat-label>
             <textarea matInput formControlName="description" placeholder="Máximo 200 caracteres..." rows="4"></textarea>
-            <mat-hint>Hasta {{200 - geographicArea.get('description')?.value.length}} caracteres.</mat-hint>
+            <mat-hint>Hasta {{200 - geographicArea.get('description')?.value?.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('description')?.hasError('maxlength')">
               Máximo 200 caracteres.
             </mat-error>
@@ -362,7 +362,7 @@
             <textarea matInput formControlName="descriptionBasicServices"
               placeholder="Indique que servicios hay para el terreno (Ejemplo: Agua potable, luz eléctrica, drenajes sanitarios, otros."
               rows="4"></textarea>
-            <mat-hint>Hasta {{200 - geographicArea.get('descriptionBasicServices')?.value.length}} caracteres.
+            <mat-hint>Hasta {{200 - geographicArea.get('descriptionBasicServices')?.value?.length}} caracteres.
             </mat-hint>
             <mat-error *ngIf="geographicArea.get('descriptionBasicServices')?.hasError('maxlength')">
               Máximo 200 caracteres.
@@ -424,7 +424,7 @@
             <textarea matInput formControlName="descriptionLocation"
               placeholder="Describir ventajas y desventajas de cada uno de los terrenos, colindancias, posibles riesgos; cualquier aspecto que considere relevante."
               rows="4"></textarea>
-            <mat-hint>Hasta {{200 - geographicArea.get('descriptionLocation')?.value.length}} caracteres.</mat-hint>
+            <mat-hint>Hasta {{200 - geographicArea.get('descriptionLocation')?.value?.length}} caracteres.</mat-hint>
             <mat-error *ngIf="geographicArea.get('descriptionLocation')?.hasError('maxlength')">
               Máximo 200 caracteres.
             </mat-error>
@@ -501,7 +501,7 @@
             <mat-label>Observación</mat-label>
             <textarea matInput formControlName="formulationProcessDescription" placeholder="Máximo 200 caracteres..."
               rows="4"></textarea>
-            <mat-hint>Hasta {{200 - projectDescription.get('formulationProcessDescription')?.value.length}} caracteres.
+            <mat-hint>Hasta {{200 - projectDescription.get('formulationProcessDescription')?.value?.length}} caracteres.
             </mat-hint>
             <mat-error *ngIf="projectDescription.get('formulationProcessDescription')?.hasError('maxlength')">
               Máximo 200 caracteres.
@@ -515,7 +515,7 @@
             <textarea matInput formControlName="descriptionInterventions"
               placeholder="Describir de manera general lo que se pretende con el proyecto de manera cualitativa; puede ser infraestructura, mobiliario u otros para el buen funcionamiento de este."
               rows="4"></textarea>
-            <mat-hint>Hasta {{250 - projectDescription.get('descriptionInterventions')?.value.length}} caracteres.
+            <mat-hint>Hasta {{250 - projectDescription.get('descriptionInterventions')?.value?.length}} caracteres.
             </mat-hint>
             <mat-error *ngIf="projectDescription.get('descriptionInterventions')?.hasError('maxlength')">
               Máximo 200 caracteres.

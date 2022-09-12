@@ -34,13 +34,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       // this.showError = false;
       // if (session.error !== null) {
       //   this.error = session.error.errorMsg;
-      //   this.showError = true;
+      //   this.showError = true; 
       // }
       // this.loaded = session.loaded;
       console.log(session);
 
       if (session.session) {
-        this.router.navigate(['/']);
+        if (session.session.usuario.role == 'USER_ROLE') {
+          this.router.navigate(['/']);
+        } else if ( session.session.usuario.role == 'ADMIN_ROLE') {
+          this.router.navigate(['/revelanceMatrix']);
+
+        }
       }
     });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
@@ -27,6 +27,7 @@ import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, SET_IDEA_ALTERNATIVES } from '..
 import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
 import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-new-alternative',
@@ -34,6 +35,7 @@ import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
   styleUrls: ['./new-alternative.component.scss']
 })
 export class NewAlternativeComponent implements OnInit {
+  @ViewChild('stepper') stepper: MatStepper;
 
   // Catalogos
   references: ReferencePopulation[] = [];
@@ -155,6 +157,7 @@ export class NewAlternativeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.stepper)
 
     //#region Catalogos
     this.denominationStoreSubscription = this.denominationStore.select('denomination')
@@ -599,6 +602,7 @@ export class NewAlternativeComponent implements OnInit {
 
       this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
         this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+        this.stepper.reset();
       });
 
       return
@@ -616,13 +620,13 @@ export class NewAlternativeComponent implements OnInit {
 
     let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
 
-    console.log(alternatives);
-
-
     alternatives.push(NEW_ALTERNATIVE)
+    console.log(alternatives);
+    this.stepper.reset();
 
     this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives  }))
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+
 
   }
 

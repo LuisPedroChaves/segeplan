@@ -10,6 +10,8 @@ import { AlternativeStore, IdeaStore, ProductStore } from 'src/app/store/reducer
 import { IProduct } from '../../../../core/models/adicionales/Product';
 import { IntegrationsService } from '../../../../core/services/httpServices/integrations.service';
 import * as actions from '../../../../store/actions'
+import { AppState } from 'src/app/store/app.reducer';
+import { User } from '../../../../core/models/adicionales/user';
 
 @Component({
   selector: 'app-alternatives',
@@ -34,12 +36,20 @@ export class AlternativesComponent implements OnInit, OnDestroy {
     }
   ];
 
+  sessionSubscription: Subscription;
+  usuario: User;
+
   constructor(
     private ideaStore: Store<IdeaStore>,
+    public store: Store<AppState>,
     private generalInformationService: GeneralInformationService,
   ) { }
 
   ngOnInit(): void {
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+      console.log(this.usuario);
+    });
 
     this.ideaStoreSubscription = this.ideaStore.select('idea')
       .subscribe(state => {

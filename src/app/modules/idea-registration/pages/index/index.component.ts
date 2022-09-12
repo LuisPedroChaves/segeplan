@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AppState } from 'src/app/store/app.reducer';
+import { User } from '../../../../core/models/adicionales/user';
 import * as actions from '../../../../store/actions'
 
 @Component({
@@ -20,6 +21,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   fullComponent = '';
 
+  sessionSubscription: Subscription;
+  usuario: User;
+
   constructor(
     public store: Store<AppState>,
   ) { }
@@ -34,6 +38,11 @@ export class IndexComponent implements OnInit, OnDestroy {
           this.fullDrawer.opened = state.fullDrawer;
           this.fullComponent = state.fullComponent
         }
+      });
+
+      this.sessionSubscription = this.store.select('session').subscribe(session => {
+        this.usuario = session.session.usuario;
+        console.log(this.usuario);
       });
   }
 

@@ -11,6 +11,7 @@ import { IdeaStore } from 'src/app/store/reducers';
   styleUrls: ['./idea-card-mini.component.scss']
 })
 export class IdeaCardMiniComponent implements OnInit {
+  panelOpenState = false;
 
   @Input('idea') idea: GeneralInformation;
 

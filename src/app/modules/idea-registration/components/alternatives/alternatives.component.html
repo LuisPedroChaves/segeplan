@@ -50,7 +50,7 @@
 
         <mat-card-actions>
           <button mat-button (click)="openFullDrawer2('Detalles de la alternativa', 'SELECTED_ALTERNATIVE', item)" color="accent">Detalles</button>
-          <button mat-button (click)="openFullDrawer2('Matriz de pertinencia', 'NEW_RELEVANCE_MATRIX', item)"
+          <button mat-button  *ngIf="usuario.role == 'ADMIN_ROLE'" (click)="openFullDrawer2('Matriz de pertinencia', 'NEW_RELEVANCE_MATRIX', item)"
             color="warn">Matriz de
             pertinencia</button>
         </mat-card-actions>

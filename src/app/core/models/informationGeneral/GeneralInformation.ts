@@ -38,4 +38,7 @@ export interface GeneralInformation {
 
     createdAt?: string;
     alternatives: IdeaAlternative[];
+
+    author?: string;
+    analizer?: string;
 }

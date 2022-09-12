@@ -2,6 +2,6 @@ import { User } from './user';
 
 export interface ISession {
   id: string;
-  user: User;
+  usuario: User;
   token: string;
 }

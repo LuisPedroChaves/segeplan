@@ -10,21 +10,22 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 /* #endregion */
 
 /* #region  Configuración de fechas */
@@ -76,12 +77,14 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
@@ -91,7 +94,6 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatProgressBarModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule
@@ -108,12 +110,14 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
@@ -123,7 +127,6 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatProgressBarModule,
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule,

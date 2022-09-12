@@ -16,6 +16,8 @@ import { PossibleCause } from 'src/app/core/models/informationGeneral/PossibleCa
 import { PossibleAlternative } from 'src/app/core/models/informationGeneral/PossibleAlternative';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
+import { AppState } from '../../../../store/app.reducer';
+import { User } from '../../../../core/models/adicionales/user';
 
 @Component({
   selector: 'app-new-idea',
@@ -72,6 +74,9 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   idea: GeneralInformation = null!
   ideaStoreSubscription = new Subscription();
 
+  sessionSubscription: Subscription;
+  usuario: User;
+
   drawerSubscription = new Subscription();
   fullTitle = '';
   fullTitle2 = '';
@@ -80,6 +85,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   constructor(
     private productStore: Store<ProductStore>,
     private ideaStore: Store<IdeaStore>,
+    public store: Store<AppState>,
     private FormBuilder: FormBuilder
   ) { }
 
@@ -114,6 +120,18 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
           return nombre ? this._filter(nombre as string) : this.products;
         }),
       );
+      this.sessionSubscription = this.store.select('session').subscribe(session => {
+        // this.loading = session.loading;
+        // this.errormsg = null;
+        // this.showError = false;
+        // if (session.error !== null) {
+        //   this.error = session.error.errorMsg;
+        //   this.showError = true;
+        // }
+        // this.loaded = session.loaded;
+        this.usuario = session.session.usuario;
+      });
+
   }
 
   ngOnDestroy(): void {
@@ -236,7 +254,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       planningInstrument,
       description,
       idEntity: '122',
-      nameEntity: 'Entidad de Prueba',
+      nameEntity: this.usuario.name_inst,
       responsibleName,
       email,
       phone,
@@ -248,7 +266,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       generalObjective,
       expectedChange,
       Alternatives: possibleAlternatives,
-      alternatives: []
+      alternatives: [],
+      author: this.usuario.name
     }
 
     console.log(idea);
