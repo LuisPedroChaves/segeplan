@@ -1,5 +1,5 @@
 <mat-card matRipple class="idea-card pointer active-elevation">
-  <mat-card-header>
+  <mat-card-header  (click)="openFullDrawer(idea)">
     <mat-icon mat-card-avatar color="accent">lightbulb</mat-icon>
     <mat-card-title>
       {{idea.registerCode}}
@@ -43,7 +43,18 @@
            <label *ngIf="!idea?.alternatives?.length">Sin Alternativas Registradas</label> 
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
+      <div *ngFor="let alternative of idea?.alternatives">
+      
+        <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+          <div fxFlex>
+            <p>{{alternative?.preName?.preliminaryName}}</p>
+          </div>
+          <div fxFlex>
+            <button mat-button>Imprimir Informe</button>
+          </div>
+        </div>
+      </div>
+      
+      </mat-expansion-panel>
   </mat-accordion>
 </mat-card>

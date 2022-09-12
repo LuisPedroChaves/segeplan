@@ -60,6 +60,7 @@ export class AlternativesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ideaStoreSubscription?.unsubscribe()
+    this.sessionSubscription?.unsubscribe()
   }
 
   openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {

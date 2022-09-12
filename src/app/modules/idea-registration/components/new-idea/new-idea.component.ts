@@ -138,6 +138,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     this.drawerSubscription?.unsubscribe();
     this.productStoreSubscription?.unsubscribe();
     this.ideaStoreSubscription?.unsubscribe();
+    this.sessionSubscription?.unsubscribe();
   }
 
   closeFullDrawer(): void {

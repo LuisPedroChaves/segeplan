@@ -48,6 +48,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.storeSubscription?.unsubscribe();
+    this.sessionSubscription?.unsubscribe();
   }
 
   chengeDrawer(): void {
