@@ -70,10 +70,7 @@ export class AlternativesComponent implements OnInit, OnDestroy {
 
   getAlternatives(): void {
     console.log(this.currentIdea);
-    this.generalInformationService.getAlternatives(this.currentIdea.codigo)
-      .subscribe(data => {
-        this.alternatives = data
-      });
+    this.alternatives = this.currentIdea.alternatives
   }
 
 

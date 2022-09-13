@@ -28,6 +28,8 @@ import { ReferencePopulation } from '../../../../core/models/alternative/Referen
 import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
 import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
 import { MatStepper } from '@angular/material/stepper';
+import { User } from '../../../../core/models/adicionales/user';
+import { AppState } from '../../../../store/app.reducer';
 
 @Component({
   selector: 'app-new-alternative',
@@ -36,7 +38,8 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class NewAlternativeComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
-
+  sessionSubscription: Subscription;
+  usuario!: User;
   // Catalogos
   references: ReferencePopulation[] = [];
   referenceStoreSubscription = new Subscription();
@@ -145,6 +148,8 @@ export class NewAlternativeComponent implements OnInit {
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
 
+
+
   constructor(
     private ideaStore: Store<IdeaStore>,
     private referenceStore: Store<ReferenceStore>,
@@ -154,10 +159,24 @@ export class NewAlternativeComponent implements OnInit {
     private procesoStore: Store<ProcesoStore>,
     private generalInformationService: GeneralInformationService,
     private FormBuilder: FormBuilder,
+    public store: Store<AppState>,
+
   ) { }
 
   ngOnInit(): void {
     console.log(this.stepper)
+
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+      this.responsibleEntity.setValue({
+        nameEPI: this.usuario?.name_inst,
+        leaderName: '',
+        email: '',
+        phone: '',
+      })
+
+      console.log(this.usuario);
+    });
 
     //#region Catalogos
     this.denominationStoreSubscription = this.denominationStore.select('denomination')

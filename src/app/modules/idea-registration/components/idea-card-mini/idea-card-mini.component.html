@@ -49,8 +49,8 @@
           <div fxFlex>
             <p>{{alternative?.preName?.preliminaryName}}</p>
           </div>
-          <div fxFlex>
-            <button mat-button>Imprimir Informe</button>
+          <div *ngIf="alternative?.state !== 'CREADA'" fxFlex>
+            <button (click)="printReport(alternative)" mat-button>Imprimir Informe</button>
           </div>
         </div>
       </div>

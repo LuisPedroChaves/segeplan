@@ -1,4 +1,9 @@
-<ngx-simplebar fxLayoutAlign="center start" class="my-content">
+<div *ngIf="loading" class="load-spin" fxFlex>
+  <mat-spinner></mat-spinner>
+</div>
+
+
+<ngx-simplebar *ngIf="!loading" fxLayoutAlign="center start" class="my-content">
   <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
     <mat-step [stepControl]="criterio1">
@@ -100,13 +105,6 @@
       <br>
       <mat-divider></mat-divider>
       <br>
-      <div>
-        <button mat-button color="primary" (click)="savePertinenceMatrix()">Finalizar</button>
-        <span fxFlex></span>
-        <button mat-button matStepperPrevious>Volver</button>
-        <button mat-button (click)="stepper.reset()">Restablecer</button>
-      </div>
-
 
       <div>
         <button mat-button matStepperPrevious>Volver</button>

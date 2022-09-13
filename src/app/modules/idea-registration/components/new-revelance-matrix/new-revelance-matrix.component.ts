@@ -40,6 +40,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 
   totalMatrix = 0;
 
+  loading = true;
   loadingPre = false;
   preSend = false;
 
@@ -151,6 +152,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   }
 
   getMatrix(): void {
+    this.loading = false;
     this.generalInformationService.getMatrizPertinencia(this.currentAlternative.codigo).subscribe((res: any) => {
       this.matrix = res;
       console.log(this.matrix)

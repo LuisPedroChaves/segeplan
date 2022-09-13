@@ -25,7 +25,7 @@ export class GeneralInformationService {
 
         return this.http.post(url, generalInformationSend).pipe(
             map((res: any) => {
-                return res.informationInsert;
+                return res.informationIsert;
             })
         );
     }
