@@ -7,6 +7,8 @@ import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER, UPDATE_CREATED_IDEA, UPDATE_SEND_I
 import { IdeaStore } from 'src/app/store/reducers';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
+import { User } from '../../../../core/models/adicionales/user';
+import { AppState } from '../../../../store/app.reducer';
 
 @Component({
   selector: 'app-idea-card',
@@ -30,10 +32,15 @@ export class IdeaCardComponent implements OnInit {
 
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
+  
+  sessionSubscription: Subscription;
+  usuario: User;
+
 
   constructor(
     public dialog: MatDialog,
     private generalInformationService: GeneralInformationService,
+    public store: Store<AppState>,
     private ideaStore: Store<IdeaStore>,
   ) { }
 
@@ -43,7 +50,11 @@ export class IdeaCardComponent implements OnInit {
     .subscribe(state => {
       this.currentIdea = state.idea;
     })
-
+    
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+      console.log(this.usuario);
+    });
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {

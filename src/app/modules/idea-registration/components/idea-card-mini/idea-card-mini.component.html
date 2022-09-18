@@ -49,7 +49,10 @@
           <div fxFlex>
             <p>{{alternative?.preName?.preliminaryName}}</p>
           </div>
-          <div *ngIf="alternative?.state !== 'CREADA'" fxFlex>
+          <div *ngIf="idea?.state == 'ENVIADA' && alternative?.state == 'CALIFICADA' && usuario.role == 'ADMIN_ROLE'" fxFlex>
+            <button (click)="printReport(alternative)" mat-button>Imprimir Informe</button>
+          </div>
+          <div  *ngIf="idea?.state == 'CALIFICADA' && alternative?.state == 'CALIFICADA'" fxFlex>
             <button (click)="printReport(alternative)" mat-button>Imprimir Informe</button>
           </div>
         </div>

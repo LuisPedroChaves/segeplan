@@ -76,12 +76,12 @@
           <mat-icon>send</mat-icon>
           ENVIAR IDEA
         </button>
-        <button *ngIf="currentIdea.state === 'ENVIADA'" mat-button (click)="finishIdea()" color="warn">
+        <button *ngIf="currentIdea.state === 'ENVIADA' && usuario.role == 'ADMIN_ROLE'" mat-button
+          (click)="finishIdea()" color="warn">
           <mat-icon>send</mat-icon>
           FINALIZAR ANALISIS
         </button>
       </mat-card-actions>
-
     </mat-card>
 
   </div>
