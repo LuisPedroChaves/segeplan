@@ -9,6 +9,7 @@ import { AlertDialogComponent } from '../../../../shared/components/alert-dialog
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
+import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
 
 @Component({
   selector: 'app-idea-card',
@@ -32,7 +33,7 @@ export class IdeaCardComponent implements OnInit {
 
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
-  
+
   sessionSubscription: Subscription;
   usuario: User;
 
@@ -46,11 +47,11 @@ export class IdeaCardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ideaStoreSubscription =  this.ideaStore.select('idea')
-    .subscribe(state => {
-      this.currentIdea = state.idea;
-    })
-    
+    this.ideaStoreSubscription = this.ideaStore.select('idea')
+      .subscribe(state => {
+        this.currentIdea = state.idea;
+      })
+
     this.sessionSubscription = this.store.select('session').subscribe(session => {
       this.usuario = session.session.usuario;
       console.log(this.usuario);
@@ -58,7 +59,7 @@ export class IdeaCardComponent implements OnInit {
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
-    this.ideaStore.dispatch(OPEN_FULL_DRAWER({fullTitle, fullComponent}))
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
   }
 
   sendIdea(): void {
@@ -69,36 +70,45 @@ export class IdeaCardComponent implements OnInit {
         if (data?.length <= 0) {
           const dialogRef = this.dialog.open(AlertDialogComponent, {
             width: '250px',
-            data: {title: 'No se puede enviar la Idea', description: 'Para Enviar la idea, es necesario crear al menos una alternativa'}
+            data: { title: 'No se puede enviar la Idea', description: 'Para Enviar la idea, es necesario crear al menos una alternativa' }
           });
-      
+
           dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed', result);
           });
           return;
         }
-        else{
+        else {
           this.currentIdea = {
             ...this.currentIdea,
             state: 'ENVIADA'
           }
-          this.ideaStore.dispatch( UPDATE_CREATED_IDEA({idea: this.currentIdea}) )
-          this.ideaStore.dispatch( CLOSE_FULL_DRAWER() )
+          this.ideaStore.dispatch(UPDATE_CREATED_IDEA({ idea: this.currentIdea }))
+          this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
         }
       });
-
-
-
   }
 
   finishIdea(): void {
 
-    if(this.currentIdea.result === 'PENDIENTE'){
+    let alternativesPending = this.currentIdea.alternatives.find((alternative: IdeaAlternative) => alternative.state == 'CREADA');
+
+    if (this.currentIdea.result === 'PENDIENTE') {
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
-        data: {title: 'No se puede finalizar el analisis', description: 'Para finalizar el analisis, es necesario que califique al menos una alternativa'}
+        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario iniciar con el analisis antes de finalizar' }
       });
-  
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+      });
+      return;
+    } else if (alternativesPending) {
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario que califique todas las alternativas para finalizar el analisis, ' }
+      });
+
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed', result);
       });
@@ -109,8 +119,8 @@ export class IdeaCardComponent implements OnInit {
       ...this.currentIdea,
       state: 'CALIFICADA'
     }
-    this.ideaStore.dispatch( UPDATE_SEND_IDEA({idea: this.currentIdea}) )
-    this.ideaStore.dispatch( CLOSE_FULL_DRAWER() )
+    this.ideaStore.dispatch(UPDATE_SEND_IDEA({ idea: this.currentIdea }))
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
   }
   getAlternatives(): void {
     console.log(this.currentIdea);
