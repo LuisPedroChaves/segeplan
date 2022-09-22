@@ -1,0 +1,29 @@
+mat-toolbar {
+  background-color: transparent !important;
+  height: 52px;
+}
+
+.my-menu-container {
+  height: calc(100% - 52px);
+}
+
+.my-menu-drawer {
+  width: 252px;
+  padding-top: 16px;
+  padding-bottom: 10px;
+  border-right: 0px !important;
+}
+
+.my-menu {
+  height: 100%;
+}
+
+.my-content-desktop {
+  height: calc(100vh - 164px);
+  padding: 48px 32px 0px;
+}
+
+.my-content-mobile {
+  height: calc(100vh - 212px);
+  padding: 48px 16px 0px;
+}

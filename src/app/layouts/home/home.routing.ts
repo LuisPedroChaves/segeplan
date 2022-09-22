@@ -13,6 +13,13 @@ export const HomeRoutes: Routes = [
             (m) => m.IdeaRegistrationModule
           ),
       },
+      {
+        path: 'sinafip',
+        loadChildren: () =>
+          import('../../modules/sinafip/sinafip.module').then(
+            (m) => m.SinafipModule
+          ),
+      },
     ]
   }
 ];

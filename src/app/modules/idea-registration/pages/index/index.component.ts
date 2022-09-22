@@ -60,4 +60,9 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.store.dispatch(actions.OPEN_FULL_DRAWER({fullTitle, fullComponent}))
   }
 
+  closeDrawers(): void {
+    this.store.dispatch( actions.CLOSE_FULL_DRAWER() )
+    this.store.dispatch( actions.CLOSE_FULL_DRAWER2() )
+  }
+
 }
