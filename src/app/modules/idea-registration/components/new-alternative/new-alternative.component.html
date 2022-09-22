@@ -242,12 +242,18 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Estimación preliminar beneficiarios</mat-label>
-            <input matInput formControlName="estimateBeneficiaries" type="number" placeholder="Ej. 125000">
+            <input matInput formControlName="estimateBeneficiaries" (keyup)="calculaCobertura()" type="number" placeholder="Ej. 125000">
             <mat-hint>Representa la cantidad estimada de beneficiarios que tendrá el proyecto.</mat-hint>
             <mat-error *ngIf="populationDelimitation.get('estimateBeneficiaries')?.hasError('max')">
               Máximo 15 números.
             </mat-error>
           </mat-form-field>
+
+          <p class="mat-subheading-2">COBERTURA: {{coverageText}}</p>
+          <p class="mat-title" fxLayoutAlign="center center">
+
+          </p>
+          
 
 
           <mat-form-field fxFill appearance="outline">

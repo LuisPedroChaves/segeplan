@@ -37,6 +37,9 @@ import { AppState } from '../../../../store/app.reducer';
   styleUrls: ['./new-alternative.component.scss']
 })
 export class NewAlternativeComponent implements OnInit {
+
+  coverageText = '0'
+
   @ViewChild('stepper') stepper: MatStepper;
   sessionSubscription: Subscription;
   usuario!: User;
@@ -482,7 +485,7 @@ export class NewAlternativeComponent implements OnInit {
       departament,
       municipality,
       village,
-      preliminaryName: `A. ${proccess} B. ${object} C. ${municipality}, ${departament}`
+      preliminaryName: `${proccess}, ${object}, ${municipality}, ${departament}`
     }
 
     const {
@@ -647,6 +650,20 @@ export class NewAlternativeComponent implements OnInit {
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
 
 
+  }
+
+  calculaCobertura():void {
+    console.log(this.populationDelimitation.value.estimateBeneficiaries, this.populationDelimitation.value.totalPopulation)
+    if (this.populationDelimitation.value.estimateBeneficiaries && this.populationDelimitation.value.totalPopulation) {
+      let estBenefic = this.populationDelimitation.value.estimateBeneficiaries;
+      let tpop = this.populationDelimitation.value.totalPopulation;
+
+      let multCov = (estBenefic / tpop);
+      let resCov = (multCov * 100);
+
+      this.coverageText = resCov.toFixed(2);
+
+    }
   }
 
 }
