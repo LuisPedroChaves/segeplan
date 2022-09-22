@@ -153,6 +153,72 @@
 
         <div fxLayout="column" fxLayoutGap="15px">
 
+          <p class="mat-subheading-2">Problema central (deberia estar vinculado a la problematica establecida en el PEI), objetivo central, medios, alternativas con opciones de proyecto .</p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del proyecto</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Objetivo del proyecto</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <p>Descripción y justificación del proyecto; su relación con la Política General de Gobierno, Plan Nacional de Desarrollo, importancia del proyecto, razones fundamentales o beneficios que justifican su realización:</p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción y justificación del proyecto</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <p>Información sobre los estudios previos realizados. (De considerarse necesario se solicitará la documentación).</p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Información sobre los estudios previos realizados</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Costo estimado del proyecto, fuentes de recursos previstas</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>MODALIDAD DE FINANCIAMIENTO SOLICITADA</mat-label>
+            <mat-select>
+              <mat-option value="Aportaciones del Estado">
+                Aportaciones del Estado
+              </mat-option>
+              <mat-option value="Préstamo">
+               Préstamo
+              </mat-option>
+              <mat-option value="Transferencia no reembolsable">
+               Trasnferencia no reembolsable
+              </mat-option>
+              <mat-option value="Otros mecanismos no reembolsables">
+               Otros mecanismos no reembolsables
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
 
           <div>
             <button mat-button matStepperPrevious>Volver</button>
@@ -165,6 +231,32 @@
       <mat-step>
         <ng-template matStepLabel>Descripción de los estudios </ng-template>
         <div fxLayout="column" fxLayoutGap="15px">
+
+          <p class="mat-subheading-2">Se describe el servicio y se define el indicador en cuanto a los valores de brecha identificados en los instrumentos de planificación estrategica.</p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del estudio requerido</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Objetivo General y especificos establecidos en TDR</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Costo estimado del estudio e indicación del monto del financiamiento solicitado</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
 
 
           <div>
