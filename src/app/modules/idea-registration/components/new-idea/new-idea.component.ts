@@ -260,7 +260,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       date,
       planningInstrument,
       description,
-      idEntity: '122',
+      idEntity: this.usuario.id_inst,
       nameEntity: this.usuario.name_inst,
       responsibleName,
       email,
@@ -274,7 +274,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
       expectedChange,
       Alternatives: possibleAlternatives,
       alternatives: [],
-      author: this.usuario.name
+      author: this.usuario.id
     }
 
     console.log(idea);

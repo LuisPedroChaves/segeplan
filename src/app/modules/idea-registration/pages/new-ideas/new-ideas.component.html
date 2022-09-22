@@ -20,6 +20,13 @@
         <mat-option value="CALIFICADA">Calificadas</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Número de Idea</mat-label>
+      <input matInput type="text" [(ngModel)]="number">
+      <button *ngIf="number" matSuffix mat-icon-button aria-label="Clear" (click)="number=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
     <div>
       <button class="center-obj" (click)="sendFilter()" mat-raised-button>Buscar</button>
     </div>

@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 import { IdeaStore } from 'src/app/store/reducers';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { OPEN_FULL_DRAWER, READ_IDEAS, SET_IDEA } from 'src/app/store/actions';
+import { FiltroIdeas } from '../../../../core/models/adicionales/filtroIdeas';
+import { User } from '../../../../core/models/adicionales/user';
+import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-new-ideas',
@@ -15,9 +18,17 @@ export class NewIdeasComponent implements OnInit {
   ideas: GeneralInformation[] = []!
   state = 'TODAS';
   author = 'TODOS';
+  number = '';
+
+  filtro: FiltroIdeas;
+
+  sessionSubscription: Subscription;
+  usuario: User;
 
   constructor(
     private ideaStore: Store<IdeaStore>,
+    public store: Store<AppState>,
+
   ) { }
 
   ngOnInit(): void {
@@ -27,17 +38,26 @@ export class NewIdeasComponent implements OnInit {
       })
 
     this.ideaStore.dispatch(READ_IDEAS({ filtro: { state: this.state } }))
+
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+    });
   }
 
   sendFilter(): void {
-    // this.ideaStoreSubscription = this.ideaStore.select('idea')
-    //   .subscribe(state => {
-    //     this.ideas = state.ideas;
-    //   });
-    this.ideaStore.dispatch(READ_IDEAS({ filtro: { state: this.state } }))
+
+    this.filtro = { state: this.state };
+    if (this.author !=  'TODOS') {
+      // this.filtro.
+    }
+    if (this.number && this.number != '') {
+      this.filtro.number = this.number;
+    }
+    this.ideaStore.dispatch(READ_IDEAS({ filtro: this.filtro }))
   }
 
   ngOnDestroy(): void {
     this.ideaStoreSubscription?.unsubscribe();
+    this.sessionSubscription.unsubscribe();
   }
 }

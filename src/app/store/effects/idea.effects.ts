@@ -22,7 +22,7 @@ export class IdeaEffects {
         ofType(actions.READ_IDEAS),
         //TODO: AGREGAR A LOS FILTROS EL ID DE LA INSTITUCION CUANDO SE TENGA EL LOGIN
         mergeMap(
-            (filtro) => this.generalInformationService.getIdeas({state: filtro.filtro.state})
+            (filtro) => this.generalInformationService.getIdeas(filtro.filtro)
                 .pipe(
                     map(ideas => actions.SET_IDEAS({ ideas }))
                 )
