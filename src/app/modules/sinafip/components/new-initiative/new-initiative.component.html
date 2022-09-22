@@ -9,94 +9,137 @@
 
     <form [formGroup]="" autocomplete="off">
       <mat-step>
-        <ng-template matStepLabel>Información general</ng-template>
+        <ng-template matStepLabel>Aspectos generales</ng-template>
 
         <div fxLayout="column" fxLayoutGap="15px">
 
-          <!-- <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
-            <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
-              <mat-form-field fxFill appearance="outline">
-                <mat-label>Fecha</mat-label>
-                <input matInput formControlName="date" [matDatepicker]="datepicker">
-                <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-error *ngIf="generalInformation.get('date')?.hasError('required')">
-                  La fecha es <strong>requerida</strong>
-                </mat-error>
-                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                <mat-datepicker #datepicker>
-                  <mat-datepicker-actions>
-                    <button mat-button matDatepickerCancel>Cancelar</button>
-                    <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
-                  </mat-datepicker-actions>
-                </mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div> -->
-
-          <!-- <p class="mat-subheading-2">{{ selectedProduct() }}</p> -->
-
-          <!-- <mat-form-field fxFill appearance="outline">
-            <mat-label>Selección del Producto</mat-label>
-            <input type="text"
-                   placeholder="Buscar producto..."
-                   matInput
-                   formControlName="_product"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
-              <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
-                {{product.nombre}}
-              </mat-option>
-            </mat-autocomplete>
-            <button *ngIf="generalInformation.get('_product').value" matSuffix mat-icon-button (click)="generalInformation.get('_product').setValue('')">
-              <mat-icon>close</mat-icon>
-            </button>
-            <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
-            <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
-              El producto es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field> -->
-
-          <!-- <p class="mat-subheading-2">Origen de la idea de proyecto</p>
-          <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un
-            instrumento de planificación</mat-slide-toggle>
-          <mat-form-field appearance="outline">
-            <mat-label>Descripción</mat-label>
-            <textarea matInput formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
-            <mat-hint>Según la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de
-              planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
-            <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
-              Máximo 200 caracteres.
-            </mat-error>
-          </mat-form-field>
-          <br>
-          <mat-divider></mat-divider>
-          <p class="mat-subheading-2">Datos de quien propone</p>
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input matInput placeholder="Nombre completo" formControlName="responsibleName">
-            <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
-          </mat-form-field>
           <mat-form-field fxFill appearance="outline">
-            <mat-label>Correo electrónico</mat-label>
-            <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
-            <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
-            <mat-error
-              *ngIf="generalInformation.get('email')?.hasError('email') && !generalInformation.get('email')?.hasError('required')">
+            <mat-label>Nombre de la entidad (Presidencia y Ministerios de Estado, Secretarias u otras dependencias)</mat-label>
+            <mat-select>
+              <mat-option value="AMSA">
+                AMSA
+              </mat-option>
+              <mat-option value="CAMINOS">
+               CAMINOS
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Función de proyectos</mat-label>
+            <mat-select>
+              <mat-option value="EDUCACION">
+                EDUCACIÓN
+              </mat-option>
+              <mat-option value="MEDIO AMBIENTE">
+               MEDIO AMBIENTE
+              </mat-option>
+              <mat-option value="VIVIENDA">
+               VIVIENDA
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Estudios generales para evaluar la conveniencia y oportunidad de realizar programasy/o proyectos.</mat-label>
+            <mat-select>
+              <mat-option value="Estudios técnicos">
+                Estudios técnicos
+              </mat-option>
+              <mat-option value="Estudios económicos">
+               Estudios económicos
+              </mat-option>
+              <mat-option value="Estudios sociales">
+               Estudios sociales
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Documento de  preinversión que requiere financiar</mat-label>
+            <mat-select>
+              <mat-option value="Perfil">
+                Perfil
+              </mat-option>
+              <mat-option value="Prefactibilidad">
+               Prefactibilidad
+              </mat-option>
+              <mat-option value="Factibilidad">
+               Factibilidad
+              </mat-option>
+              <mat-option value="Megaproyecto">
+               Megaproyecto
+              </mat-option>
+              <mat-option value="De impacto">
+               De impacto
+              </mat-option>
+              <mat-option value="Estructural">
+               Estructural
+              </mat-option>
+              <mat-option value="Diseño final de ingeniería">
+                Diseño final de ingeniería
+              </mat-option>
+              <mat-option value="Diseño final de arquitectura">
+                Diseño final de arquitectura
+              </mat-option>
+              <mat-option value="Complementarios (Cuya factibilidad haya sido demostrada)">
+                Complementarios (Cuya factibilidad haya sido demostrada)
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
+              El tipo de idea es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Documento de proyecto en PDF (cuando este a nivel de perfil o prefactibilidad )</mat-label>
+            <input type="text" matInput placeholder="Seleccione un archivo">
+            <mat-icon matSuffix>attach_file</mat-icon>
+            <!-- <mat-error *ngIf="responsibleEntity.get('nameEPI')?.hasError('required')">
+              El nombre de la entidad es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del responsable institucional</mat-label>
+            <input matInput type="text">
+            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
+              El nombre del responsable es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFill appearance="outline">
+            <mat-label>Correo de contacto</mat-label>
+            <input type="email" matInput>
+            <!-- <mat-error
+              *ngIf="responsibleEntity.get('email')?.hasError('email') && !responsibleEntity.get('email')?.hasError('required')">
               Por favor, introduzca una dirección de correo electrónico válida
             </mat-error>
-            <mat-error *ngIf="generalInformation.get('email')?.hasError('required')">
+            <mat-error *ngIf="responsibleEntity.get('email')?.hasError('required')">
               El correo electrónico es <strong>requerido</strong>
-            </mat-error>
+            </mat-error> -->
             <mat-icon matSuffix>alternate_email</mat-icon>
           </mat-form-field>
+
           <mat-form-field appearance="outline">
-            <mat-label>Teléfono </mat-label>
+            <mat-label>No. telefónico </mat-label>
             <span matPrefix>+502 &nbsp;</span>
-            <input formControlName="phone" type="number" matInput placeholder="12345678"
-              onKeyPress="if(this.value.length==8) return false;">
+            <input type="number" matInput>
             <mat-icon matSuffix>contact_phone</mat-icon>
-            <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
-          </mat-form-field> -->
+            <!-- <mat-error *ngIf="responsibleEntity.get('phone')?.hasError('required')">
+              El teléfono de contacto es <strong>requerido</strong>
+            </mat-error> -->
+          </mat-form-field>
+
           <div>
             <button mat-button matStepperNext>Siguiente</button>
           </div>
@@ -105,7 +148,7 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Definición del problema, necesidad o potencialidad de inversión, causas y efectos
+        <ng-template matStepLabel>Descripción del proyecto de inversión
         </ng-template>
 
         <div fxLayout="column" fxLayoutGap="15px">
@@ -120,9 +163,8 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Definición del cambio esperado </ng-template>
+        <ng-template matStepLabel>Descripción de los estudios </ng-template>
         <div fxLayout="column" fxLayoutGap="15px">
-
 
 
           <div>
@@ -133,7 +175,7 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Identificación preliminar de alternativas</ng-template>
+        <ng-template matStepLabel>Documentos requeridos</ng-template>
 
         <div fxLayout="row wrap" fxLayoutGap="15px grid">
 
