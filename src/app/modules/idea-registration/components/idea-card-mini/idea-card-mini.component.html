@@ -15,7 +15,7 @@
     <p><b>Creada: </b> {{ idea.createdAt | date:'dd/MM/yyyy'}}</p>
     <p *ngIf="idea.result != 'PENDIENTE'"><b>Resultado: </b> {{ idea.result}}</p>
    
-    <mat-chip-list aria-label="Fish selection">
+    <!-- <mat-chip-list aria-label="Fish selection">
       <mat-chip *ngIf="idea.state == 'CREADA'" color="light" selected>
         <mat-icon matChipAvatar>pending</mat-icon>
         SIN ENVIAR
@@ -28,7 +28,14 @@
         <mat-icon matChipAvatar>rate_review</mat-icon>
         ANALIZADA
       </mat-chip>
-    </mat-chip-list>
+    </mat-chip-list> -->
+
+    <ul>
+      <li *ngIf="idea.state == 'CREADA'" class="status pending">SIN ENVIAR</li>
+      <li *ngIf="idea.state == 'ENVIADA'" class="status in-progress">EN REVISIÓN</li>
+      <li *ngIf="idea.state == 'CALIFICADA' && idea.result == 'PERTINENTE'" class="status open">CALIFICADA</li>
+      <li *ngIf="idea.state == 'CALIFICADA' && idea.result == 'NO PERTINENTE'" class="status dead">CALIFICADA</li>
+    </ul>
   </mat-card-content>
   <mat-accordion>
 

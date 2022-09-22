@@ -10,7 +10,7 @@
         </mat-card-title>
         <mat-card-subtitle>Información general</mat-card-subtitle>
         <span fxFlex></span>
-        <mat-chip-list aria-label="Fish selection">
+        <!-- <mat-chip-list aria-label="Fish selection">
           <mat-chip *ngIf="currentIdea?.state == 'CREADA'" color="light" selected>
             <mat-icon matChipAvatar>pending</mat-icon>
             SIN ENVIAR
@@ -23,7 +23,13 @@
             <mat-icon matChipAvatar>rate_review</mat-icon>
             ANALIZADA
           </mat-chip>
-        </mat-chip-list>
+        </mat-chip-list> -->
+        <ul>
+          <li *ngIf="currentIdea.state == 'CREADA'" class="status pending">SIN ENVIAR</li>
+          <li *ngIf="currentIdea.state == 'ENVIADA'" class="status in-progress">EN REVISIÓN</li>
+          <li *ngIf="currentIdea.state == 'CALIFICADA' && currentIdea.result == 'PERTINENTE'" class="status open">PERTINENTE</li>
+          <li *ngIf="currentIdea.state == 'CALIFICADA' && currentIdea.result == 'NO PERTINENTE'" class="status dead">NO PERTINENTE</li>
+        </ul>
       </mat-card-header>
 
       <mat-card-content class="idea-card-content">
