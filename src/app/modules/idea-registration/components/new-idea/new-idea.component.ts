@@ -81,6 +81,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   fullTitle = '';
   fullTitle2 = '';
   fullComponent2 = '';
+  idEntidad = '';
 
   constructor(
     private productStore: Store<ProductStore>,
@@ -90,6 +91,19 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      // this.loading = session.loading;
+      // this.errormsg = null;
+      // this.showError = false;
+      // if (session.error !== null) {
+      //   this.error = session.error.errorMsg;
+      //   this.showError = true;
+      // }
+      // this.loaded = session.loaded;
+      this.usuario = session.session.usuario;
+      this.idEntidad = session.session.usuario.id_inst.toString()
+    });
     this.drawerSubscription = this.ideaStore.select('drawer')
       .subscribe(state => {
         this.fullTitle = state.fullTitle
@@ -111,26 +125,18 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
         this.idea = state.idea;
       })
 
-      this.productStore.dispatch(READ_PRODUCTS())
+    
 
-      this.filteredProducts = this.generalInformation.controls['_product'].valueChanges.pipe(
-        startWith(''),
-        map(value => {
-          const nombre = typeof value === 'string' ? value : value?.nombre;
-          return nombre ? this._filter(nombre as string) : this.products;
-        }),
-      );
-      this.sessionSubscription = this.store.select('session').subscribe(session => {
-        // this.loading = session.loading;
-        // this.errormsg = null;
-        // this.showError = false;
-        // if (session.error !== null) {
-        //   this.error = session.error.errorMsg;
-        //   this.showError = true;
-        // }
-        // this.loaded = session.loaded;
-        this.usuario = session.session.usuario;
-      });
+    this.productStore.dispatch(READ_PRODUCTS({ filtro: this.idEntidad }))
+
+    this.filteredProducts = this.generalInformation.controls['_product'].valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const nombre = typeof value === 'string' ? value : value?.nombre;
+        return nombre ? this._filter(nombre as string) : this.products;
+      }),
+    );
+
 
   }
 

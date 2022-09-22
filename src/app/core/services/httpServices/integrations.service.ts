@@ -41,9 +41,9 @@ export class IntegrationsService {
         );
     }
 
-    getProductos(): Observable<any> {
+    getProductos(idEntidad: string): Observable<any> {
         console.log('Hoola')
-        const url = this.API_URL + this.urlIntegrations + 'productos';
+        const url = this.API_URL + this.urlIntegrations + `productos?idEntidad=${idEntidad}`;
         return this.http.get(url).pipe(
             map((res: any) => {
                 return res.data;

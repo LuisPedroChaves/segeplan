@@ -20,7 +20,7 @@ export class ProductEffects {
       .pipe(
         ofType(actions.READ_PRODUCTS),
         mergeMap(
-          () => this.integrationsService.getProductos()
+          (insto) => this.integrationsService.getProductos(insto.filtro)
             .pipe(
               map((products:any) => {
                 console.log(products)
