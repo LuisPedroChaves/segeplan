@@ -1,4 +1,4 @@
-import { Coordinates } from "./Coordinates";
+import { DataGeo } from "./DataGeo";
 
 export interface GeographicArea {
     codigo?: string;
@@ -6,20 +6,5 @@ export interface GeographicArea {
     availableTerrain: boolean;
     oneAvailableTerrain: boolean;
     investPurchase: boolean;
-    governmentTerrain: boolean;
-    registerGovernmentTerrain: boolean;
-    statusDescribe: string;
-    finca: string;
-    folio: string;
-    libro: string;
-    plano: boolean;
-    slightIncline: boolean;
-    broken: boolean;
-    image?: string;
-    imageUrl?: string;
-    description: string;
-    basicServices: boolean;
-    descriptionBasicServices: string;
-    descriptionLocation: string;
-    coordinates: Coordinates[];
+    dataGeo?: DataGeo[];
 }

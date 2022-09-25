@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
-import { Coordinates } from 'src/app/core/models/alternative/Coordinates';
+import { DataGeo } from 'src/app/core/models/alternative/DataGeo';
 import { ExecutionTime } from 'src/app/core/models/alternative/ExecutionTime';
 import { GeographicArea } from 'src/app/core/models/alternative/GeographicArea';
 import { PopulationDelimitation } from 'src/app/core/models/alternative/PopulationDelimitation';
@@ -57,7 +57,7 @@ export class NewAlternativeComponent implements OnInit {
   objetos: IObject[] = [];
   objetoStoreSubscription = new Subscription();
 
-  processes: Procesos = {noFormaCapital: [], formaCapital: []};
+  processes: Procesos = { noFormaCapital: [], formaCapital: [] };
   processStoreSubscription = new Subscription();
 
   dataSourceProcesos: Process[] = [];
@@ -91,7 +91,7 @@ export class NewAlternativeComponent implements OnInit {
   })
 
   get formCoordinates(): FormArray {
-    return this.geographicArea.get('coordinates') as FormArray;
+    return this.geographicArea.get('dataGeo') as FormArray;
   }
 
   geographicArea = new FormGroup({
@@ -119,7 +119,7 @@ export class NewAlternativeComponent implements OnInit {
     description: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
     basicServices: new FormControl(false),
     descriptionBasicServices: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
-    coordinates: this.FormBuilder.array<Coordinates>([]),
+    dataGeo: this.FormBuilder.array<DataGeo>([]),
     descriptionLocation: new FormControl('', [Validators.maxLength(200)]),
   })
 
@@ -215,9 +215,9 @@ export class NewAlternativeComponent implements OnInit {
 
 
     this.referenceStoreSubscription = this.referenceStore.select('reference')
-    .subscribe(state => {
-      this.references = state.references;
-    })
+      .subscribe(state => {
+        this.references = state.references;
+      })
 
     this.referenceStore.dispatch(READ_REFERENCES())
 
@@ -283,7 +283,7 @@ export class NewAlternativeComponent implements OnInit {
           this.geographicArea.controls['basicServices'].disable()
           this.geographicArea.controls['descriptionBasicServices'].disable()
           this.geographicArea.controls['descriptionLocation'].disable()
-          this.geographicArea.controls['coordinates'].disable()
+          this.geographicArea.controls['dataGeo'].disable()
           this.geographicArea.controls['switchStatus'].disable()
           this.geographicArea.controls['withImage'].disable()
           return
@@ -298,7 +298,7 @@ export class NewAlternativeComponent implements OnInit {
         this.geographicArea.controls['broken'].enable()
         this.geographicArea.controls['basicServices'].enable()
         this.geographicArea.controls['descriptionLocation'].enable()
-        this.geographicArea.controls['coordinates'].enable()
+        this.geographicArea.controls['dataGeo'].enable()
         this.geographicArea.controls['switchStatus'].enable()
         this.geographicArea.controls['withImage'].enable()
       });
@@ -438,7 +438,7 @@ export class NewAlternativeComponent implements OnInit {
   selecDepartament(): void {
     let dptoSelect = this.preliminaryName.controls['departament'].value;
     let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
-    if (dpto){this.municipios = dpto.municipios }
+    if (dpto) { this.municipios = dpto.municipios }
   }
 
   enableTypeProject(): void {
@@ -538,28 +538,28 @@ export class NewAlternativeComponent implements OnInit {
       basicServices,
       descriptionBasicServices,
       descriptionLocation,
-      coordinates
+      dataGeo: coordinates
     } = this.geographicArea.value
 
     const GEOGRAPHIC_AREA: GeographicArea = {
       availableTerrain,
       oneAvailableTerrain,
       investPurchase,
-      governmentTerrain,
-      registerGovernmentTerrain,
-      statusDescribe,
-      finca,
-      folio,
-      libro,
-      plano,
-      slightIncline,
-      broken,
-      image,
-      description,
-      basicServices,
-      descriptionBasicServices,
-      descriptionLocation,
-      coordinates
+      // governmentTerrain,
+      // registerGovernmentTerrain,
+      // statusDescribe,
+      // finca,
+      // folio,
+      // libro,
+      // plano,
+      // slightIncline,
+      // broken,
+      // image,
+      // description,
+      // basicServices,
+      // descriptionBasicServices,
+      // descriptionLocation,
+      // coordinates
     }
 
     const {
@@ -646,13 +646,13 @@ export class NewAlternativeComponent implements OnInit {
     console.log(alternatives);
     this.stepper.reset();
 
-    this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives  }))
+    this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
 
 
   }
 
-  calculaCobertura():void {
+  calculaCobertura(): void {
     console.log(this.populationDelimitation.value.estimateBeneficiaries, this.populationDelimitation.value.totalPopulation)
     if (this.populationDelimitation.value.estimateBeneficiaries && this.populationDelimitation.value.totalPopulation) {
       let estBenefic = this.populationDelimitation.value.estimateBeneficiaries;
