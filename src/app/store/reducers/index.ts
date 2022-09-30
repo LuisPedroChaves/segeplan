@@ -1,3 +1,5 @@
+export * from './projectFunction.reducer'
+export * from './entity.reducer'
 export * from './popRef.reducer'
 export * from './denomination.reducer'
 export * from './object.reducer'

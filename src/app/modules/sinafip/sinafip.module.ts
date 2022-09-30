@@ -7,6 +7,8 @@ import { IndexComponent } from './pages/index/index.component';
 import { SinafipRoutes } from './sinafip.routing';
 import { NewInitiativeComponent } from './components/new-initiative/new-initiative.component';
 import { NewIniciativesComponent } from './pages/new-iniciatives/new-iniciatives.component';
+import { StoreModule } from '@ngrx/store';
+import { EntityReducer } from '../../store/reducers';
 
 
 
@@ -19,7 +21,9 @@ import { NewIniciativesComponent } from './pages/new-iniciatives/new-iniciatives
   imports: [
     CommonModule,
     RouterModule.forChild(SinafipRoutes),
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('entity', EntityReducer),
+
   ]
 })
 export class SinafipModule { }

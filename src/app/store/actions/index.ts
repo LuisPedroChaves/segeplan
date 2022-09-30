@@ -1,3 +1,5 @@
+export * from './projectFunction.action';
+export * from './entity.actions';
 export * from './popRef.actions';
 export * from './denomination.actions';
 export * from './object.actions';
