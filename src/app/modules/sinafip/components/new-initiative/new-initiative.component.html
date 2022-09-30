@@ -16,11 +16,8 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>Nombre de la entidad (Presidencia y Ministerios de Estado, Secretarias u otras dependencias)</mat-label>
             <mat-select>
-              <mat-option value="AMSA">
-                AMSA
-              </mat-option>
-              <mat-option value="CAMINOS">
-               CAMINOS
+              <mat-option *ngFor="let entity of entities" [value]="entity.name">
+                {{entity.name}}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -31,14 +28,8 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>Función de proyectos</mat-label>
             <mat-select>
-              <mat-option value="EDUCACION">
-                EDUCACIÓN
-              </mat-option>
-              <mat-option value="MEDIO AMBIENTE">
-               MEDIO AMBIENTE
-              </mat-option>
-              <mat-option value="VIVIENDA">
-               VIVIENDA
+              <mat-option *ngFor="let projectFunction of projectFunctions" [value]="projectFunction.name">
+                {{projectFunction.name}}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -49,14 +40,8 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>Estudios generales para evaluar la conveniencia y oportunidad de realizar programasy/o proyectos.</mat-label>
             <mat-select>
-              <mat-option value="Estudios técnicos">
-                Estudios técnicos
-              </mat-option>
-              <mat-option value="Estudios económicos">
-               Estudios económicos
-              </mat-option>
-              <mat-option value="Estudios sociales">
-               Estudios sociales
+              <mat-option *ngFor="let generalStudy of generalStudies" [value]="generalStudy.name">
+                {{generalStudy.name}}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -67,32 +52,8 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>Documento de  preinversión que requiere financiar</mat-label>
             <mat-select>
-              <mat-option value="Perfil">
-                Perfil
-              </mat-option>
-              <mat-option value="Prefactibilidad">
-               Prefactibilidad
-              </mat-option>
-              <mat-option value="Factibilidad">
-               Factibilidad
-              </mat-option>
-              <mat-option value="Megaproyecto">
-               Megaproyecto
-              </mat-option>
-              <mat-option value="De impacto">
-               De impacto
-              </mat-option>
-              <mat-option value="Estructural">
-               Estructural
-              </mat-option>
-              <mat-option value="Diseño final de ingeniería">
-                Diseño final de ingeniería
-              </mat-option>
-              <mat-option value="Diseño final de arquitectura">
-                Diseño final de arquitectura
-              </mat-option>
-              <mat-option value="Complementarios (Cuya factibilidad haya sido demostrada)">
-                Complementarios (Cuya factibilidad haya sido demostrada)
+              <mat-option *ngFor="let preinvDocument of preinvDocuments" [value]="preinvDocument.name">
+                {{preinvDocument.name}}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
@@ -202,17 +163,8 @@
           <mat-form-field fxFill appearance="outline">
             <mat-label>MODALIDAD DE FINANCIAMIENTO SOLICITADA</mat-label>
             <mat-select>
-              <mat-option value="Aportaciones del Estado">
-                Aportaciones del Estado
-              </mat-option>
-              <mat-option value="Préstamo">
-               Préstamo
-              </mat-option>
-              <mat-option value="Transferencia no reembolsable">
-               Trasnferencia no reembolsable
-              </mat-option>
-              <mat-option value="Otros mecanismos no reembolsables">
-               Otros mecanismos no reembolsables
+              <mat-option *ngFor="let modalityFinancing of modalityFinancings" [value]="modalityFinancing.name">
+                {{modalityFinancing.name}}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">

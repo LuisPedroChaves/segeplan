@@ -7,11 +7,15 @@ import { DenominationEffects } from './denomination.effects';
 import { ReferenceEffects } from './popRef.effects';
 import { EntityEffects } from './entity.effects';
 import { ProjectFunctionEffects } from './projectFunction.effects';
+import { GeneralStudyEffects } from './generalStudy.effects';
+import { PreinvDocumentEffects } from './preinvDocument.effects';
+import { ModalityFinancingEffects } from './modalityFinancing.effects';
 export const effectsArray: any[] = [
     SessionEffects, ProductEffects, 
     GeograficoEffects, ProcesoEffects, 
     ObjectEffects, DenominationEffects, 
     ReferenceEffects, EntityEffects,
-    ProjectFunctionEffects
+    ProjectFunctionEffects, GeneralStudyEffects,
+    PreinvDocumentEffects, ModalityFinancingEffects
 ];
 

@@ -1,3 +1,6 @@
+export * from './modalityFinancing.reducer'
+export * from './preinvDocument.reducer'
+export * from './generalStudy.reducer'
 export * from './projectFunction.reducer'
 export * from './entity.reducer'
 export * from './popRef.reducer'

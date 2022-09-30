@@ -3,7 +3,7 @@ import { ProjectFunction } from '../../core/models/sinafip/projectFunction';
 
 
 export const READ_PROJECTFUNCTIONS = createAction(
-	'[PROJECTFUNCTIONS] Leer entities'
+	'[PROJECTFUNCTIONS] Leer projectFunctions'
 );
 
 export const SET_PROJECTFUNCTIONS = createAction(

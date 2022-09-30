@@ -12,9 +12,9 @@ export interface Request {
     advser?: string;
     reviewd?: string;
     created?: string;
-    institutionInfo: Institution;
+    institution: Institution;
     investment: InvestmentProject;
-    studyDescriptionInfo: StudyDescription;
+    studyDescription: StudyDescription;
+    delimit: Delimit
     requirementsDocuments: RequiredDocument;
-    delimitInfo: Delimit
 }

@@ -1,3 +1,6 @@
+export * from './modalityFinancing.actions';
+export * from './preinvDocument.actions';
+export * from './generalStudy.actions';
 export * from './projectFunction.action';
 export * from './entity.actions';
 export * from './popRef.actions';
