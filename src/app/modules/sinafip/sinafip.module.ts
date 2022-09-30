@@ -12,6 +12,9 @@ import { EntityReducer, ProjectFunctionReducer } from '../../store/reducers';
 import { GeneralStudyReducer } from '../../store/reducers/generalStudy.reducer';
 import { PreinvDocumentReducer } from '../../store/reducers/preinvDocument.reducer';
 import { ModalityFinancingReducer } from '../../store/reducers/modalityFinancing.reducer';
+import { SelectedInitiativeComponent } from './components/selected-initiative/selected-initiative.component';
+import { InitiativeCardComponent } from './components/initiative-card/initiative-card.component';
+import { InitiativeReducer } from '../../store/reducers/initiative.reducer';
 
 
 
@@ -19,12 +22,15 @@ import { ModalityFinancingReducer } from '../../store/reducers/modalityFinancing
   declarations: [
     IndexComponent,
     NewInitiativeComponent,
-    NewIniciativesComponent
+    NewIniciativesComponent,
+    SelectedInitiativeComponent,
+    InitiativeCardComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(SinafipRoutes),
     SharedModule,
+    StoreModule.forFeature('initiative', InitiativeReducer),
     StoreModule.forFeature('entity', EntityReducer),
     StoreModule.forFeature('projectFunction', ProjectFunctionReducer),
     StoreModule.forFeature('generalStudy', GeneralStudyReducer),

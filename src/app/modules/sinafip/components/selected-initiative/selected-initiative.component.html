@@ -1,0 +1,16 @@
+<mat-toolbar fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
+  <button mat-icon-button (click)="closeFullDrawer()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div>
+    <span class="mat-title">{{ fullTitle }}</span>
+  </div>
+  <span fxFlex></span>
+
+</mat-toolbar>
+
+<ngx-simplebar class="sub-content-desktop">
+
+  <app-initiative-card></app-initiative-card>
+
+</ngx-simplebar>

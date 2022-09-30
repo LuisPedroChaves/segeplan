@@ -1,0 +1,230 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxFlex.gt-lg="60" fxFlex.lg="80" fxFlex.md="80" fxFlex.sm="100" fxFlex.lt-sm="100">
+
+    <mat-card class="initiative-card mat-elevation-z2">
+
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="accent">start</mat-icon>
+        <mat-card-title>
+          {{initiative?.studyDescription.nameStudy}}
+        </mat-card-title>
+        <mat-card-subtitle> {{initiative?.author}}</mat-card-subtitle>
+        <span fxFlex></span>
+        <ul>
+          <li *ngIf="initiative.status == 'CREADA'" class="status pending">SIN ENVIAR</li>
+        </ul>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <ngx-simplebar class="card-content">
+
+          <div fxLayout="column" fxLayoutGap="16px">
+
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <button mat-button (click)="accordion.openAll()">Expandir Todo</button>
+              <button mat-button (click)="accordion.closeAll()">Contraer Todo</button>
+            </div>
+
+            <mat-accordion class="accordion-headers-align" multi>
+
+              <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Institución
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ initiative.institution.entityName }}
+                    <mat-icon>account_balance</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <br>
+                <p>
+                  <b>Nombre: </b>
+                  {{ initiative.institution.functionProjName }}
+                </p>
+
+                <p>
+                  <b>Estudio general: </b>
+                  {{ initiative.institution.generalStudy }}
+                </p>
+
+                <p>
+                  <b>Documento de preinversión: </b>
+                  {{ initiative.institution.dcmntPreinvest }}
+                </p>
+
+                <p>
+                  <b>Nombre del responsable: </b>
+                  {{ initiative.institution.responsibleName }}
+                </p>
+
+                <p>
+                  <b>Email del contácto: </b>
+                  {{ initiative.institution.contactEmail }}
+                </p>
+
+                <p>
+                  <b>Número de teléfono: </b>
+                  {{ initiative.institution.phoneNumber }}
+                </p>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Inversión
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ initiative.investment.nameProject }}
+                    <mat-icon>paid</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <br>
+                <p>
+                  <b>Objetivo del proyecto: </b>
+                  {{ initiative.investment.objetiveProject }}
+                </p>
+
+                <p>
+                  <b>Descripción y justificación del proyecto: </b>
+                  {{ initiative.investment.descAdnJust }}
+                </p>
+
+                <p>
+                  <b>Información de estudios: </b>
+                  {{ initiative.investment.infoStudies }}
+                </p>
+
+                <p>
+                  <b>Costo estimado: </b>
+                  Q{{ initiative.investment.estimatedProject | number: '.2' }}
+                </p>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Estudios
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ initiative.studyDescription.nameStudy }}
+                    <mat-icon>menu_book</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <br>
+                <p>
+                  <b>Objetivo del proyecto: </b>
+                  {{ initiative.studyDescription.objetiveGeneral }}
+                </p>
+
+                <p>
+                  <b>Costo estimado: </b>
+                  Q{{ initiative.studyDescription.costEstimted | number: '.2' }}
+                </p>
+
+                <p>
+                  <b>Financiamiento: </b>
+                  {{ initiative.studyDescription.modalityFinancing }}
+                </p>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Delimitación
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ initiative.delimit.denomination }}
+                    <mat-icon>diversity_3</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <br>
+                <p>
+                  <b>Referencia de población: </b>
+                  {{ initiative.delimit.nameRefPop }}
+                </p>
+
+                <p>
+                  <b>Estimación de beneficiados: </b>
+                  {{ initiative.delimit.estimatedBenef }}
+                </p>
+
+              </mat-expansion-panel>
+
+            </mat-accordion>
+
+            <mat-divider></mat-divider>
+
+            <table mat-table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="activity">
+                <th mat-header-cell *matHeaderCellDef> Actividad </th>
+                <td mat-cell *matCellDef="let element"> {{element.activity}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="unitMeasure">
+                <th mat-header-cell *matHeaderCellDef> Unidad de medida </th>
+                <td mat-cell *matCellDef="let element"> {{element.unitMeasure}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cant">
+                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td mat-cell *matCellDef="let element"> {{element.cant}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="priceU">
+                <th mat-header-cell *matHeaderCellDef> Precio U. </th>
+                <td mat-cell *matCellDef="let element">Q{{element.priceU | number: '.2'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="subTotal">
+                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                <td mat-cell *matCellDef="let element">Q{{element.subTotal | number: '.2'}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <p class="mat-title" fxLayoutAlign="center center">
+              <b>Total estimado: </b>
+              Q{{ initiative.requirementsDocuments.stimatedBudget.totalStimated | number: '.2' }}
+            </p>
+
+          </div>
+
+        </ngx-simplebar>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button *ngIf="initiative.status === 'CREADA'" mat-button (click)="null" color="warn">
+          <mat-icon>send</mat-icon>
+          ENVIAR INICIATIVA
+        </button>
+        <!-- <button *ngIf="currentIdea.state === 'CALIFICADA' && currentIdea.result == 'NO PERTINENTE'" mat-button (click)="sendIdea()" color="warn">
+          <mat-icon>send</mat-icon>
+          REENVIAR IDEA
+        </button>
+        <button *ngIf="currentIdea.state === 'ENVIADA' && usuario.role == 'ADMIN_ROLE'" mat-button
+          (click)="finishIdea()" color="warn">
+          <mat-icon>send</mat-icon>
+          FINALIZAR ANALISIS
+        </button> -->
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</div>

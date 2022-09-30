@@ -38,7 +38,7 @@
     <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
 
       <app-new-initiative *ngIf="fullComponent === 'NEW_INITIATIVE'"></app-new-initiative>
-      <!-- <app-selected-idea *ngIf="fullComponent === 'SELECTED_IDEA'"></app-selected-idea> -->
+      <app-selected-initiative *ngIf="fullComponent === 'SELECTED_INITIATIVE'"></app-selected-initiative>
 
     </mat-drawer>
 

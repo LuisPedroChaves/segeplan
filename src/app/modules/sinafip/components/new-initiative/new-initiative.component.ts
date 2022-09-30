@@ -13,6 +13,7 @@ import { ModalityFinancing } from '../../../../core/models/sinafip/modalityFinan
 import { GeneralStudyStore } from '../../../../store/reducers/generalStudy.reducer';
 import { READ_PROJECTFUNCTIONS } from '../../../../store/actions/projectFunction.action';
 import { READ_GENERALSTUDIES } from '../../../../store/actions/generalStudy.actions';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-initiative',
@@ -41,6 +42,13 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   modalityFinancingStoreSubscription = new Subscription();
 
   // END LISTADOS
+
+  institution = new FormGroup({
+    entityName: new FormControl('', Validators.required),
+    functionProjName: new FormControl('', Validators.required),
+    generalStudy: new FormControl('', Validators.required),
+    dcmntPreinvest: new FormControl('', Validators.required),
+  })
 
   constructor(
     public store: Store<AppState>,

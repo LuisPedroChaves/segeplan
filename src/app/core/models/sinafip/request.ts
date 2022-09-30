@@ -4,7 +4,7 @@ import { RequiredDocument } from "./requiredDocument";
 import { StudyDescription } from "./studyDescription";
 import { Delimit } from './delimit';
 
-export interface Request {
+export interface IRequest {
     id?: string;
     result?: string;
     status?: string;

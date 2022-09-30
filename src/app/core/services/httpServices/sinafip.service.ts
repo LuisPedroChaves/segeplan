@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { IRequest } from '../../models/sinafip/request';
 
 @Injectable({
     providedIn: 'root',
@@ -12,6 +13,15 @@ export class SinafipService {
     private url = 'api/sinafip/';
 
     constructor(private http: HttpClient, private router: Router) { }
+
+    getAllRequest(): Observable<IRequest[]> {
+        const url = this.API_URL + this.url + 'request/get-all';
+        return this.http.get(url).pipe(
+            map((res: any) => {
+                return res.data;
+            })
+        );
+    }
 
     getEntities(): Observable<any> {
         const url = this.API_URL + this.url + 'entities';
