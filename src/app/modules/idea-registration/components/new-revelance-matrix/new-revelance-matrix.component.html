@@ -190,9 +190,10 @@
 
       <form [formGroup]="criterio4" autocomplete="off">
         <div fxLayout="column" fxLayoutGap="15px">
-
+          <span class="mat-body-strong">Informacion no disponible: </span><br>
+          <!--TODO: Criterios, solventar -->
           <br>
-          <p class="mat-body">
+          <!-- <p class="mat-body">
             <span class="mat-body-strong">Se identifican varios terrenos disponibles: </span><br>
             {{ matrix.criterio4.availableTerrain ? 'SI' : 'NO'}}
           </p>
@@ -204,7 +205,7 @@
             <span class="mat-body-strong">Es necesario invertir en la compra del terreno:</span><br>
             {{ matrix.criterio4.investPurchase ? 'SI' : 'NO'}}
           </p>
-          <br>
+          <br> -->
 
           <div fxLayout="row wrap">
             <div fxFlex fxLayout="column">
@@ -258,8 +259,10 @@
 
       <form [formGroup]="criterio5" autocomplete="off">
         <div fxLayout="column" fxLayoutGap="15px">
+          <span class="mat-body-strong">Informacion no disponible: </span><br>
+          <!--TODO: Criterios, solventar -->
 
-          <br>
+          <!-- <br>
           <p class="mat-body">
             <span class="mat-body-strong">Terreno a nombre del Estado: </span><br>
             {{ matrix.criterio5.registerGovernmentTerrain ? 'SI' : 'NO'}}
@@ -271,7 +274,7 @@
           <p class="mat-body">
             {{ matrix.criterio5.statusDescribe }}
           </p>
-          <br>
+          <br> -->
 
 
           <div fxLayout="row wrap">
@@ -293,10 +296,7 @@
                   <mat-label>Agregar Comentario</mat-label>
                   <textarea matInput formControlName="legalSituationComment" placeholder="Máximo 200 caracteres..."
                     rows="4"></textarea>
-                  <!-- <mat-hint>Hasta {{200 - geographicArea.get('description')?.value.length}} caracteres.</mat-hint> -->
-                  <!-- <mat-error *ngIf="geographicArea.get('description')?.hasError('maxlength')">
-                                      Máximo 200 caracteres.
-                                    </mat-error> -->
+
                 </mat-form-field>
 
                 <mat-hint>En base al siguiente rango: Terreno a nombre del Estado (A nombre del Estado)
