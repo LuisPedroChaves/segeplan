@@ -1,0 +1,52 @@
+<form [formGroup]="activity" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <div fxLayout="column" fxLayoutGap="10px" class="my-form">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Actividad</mat-label>
+      <input matInput formControlName="activity" type="text">
+      <mat-error *ngIf="activity.get('activity')?.hasError('required')">
+        La actividad es <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Unidad de medida</mat-label>
+      <input matInput formControlName="unitMeasure" type="text">
+      <mat-error *ngIf="activity.get('unitMeasure')?.hasError('required')">
+        La unidad de medida es <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad </mat-label>
+      <span matPrefix>Q &nbsp;</span>
+      <input formControlName="cant" type="number" matInput placeholder="Ingrese una cantidad">
+      <mat-error *ngIf="activity.get('cant')?.hasError('required')">
+        La cantidad es <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Precio U. </mat-label>
+      <span matPrefix>Q &nbsp;</span>
+      <input formControlName="priceU" type="number" matInput placeholder="Ingrese un precio">
+      <mat-error *ngIf="activity.get('priceU')?.hasError('required')">
+        El precio unitario es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Subtotal </mat-label>
+      <span matPrefix>Q &nbsp;</span>
+      <input formControlName="subTotal" type="number" matInput placeholder="Ingrese un subtotal">
+      <mat-error *ngIf="activity.get('subTotal')?.hasError('required')">
+        El subtotal es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit"  color="accent">Agregar</button>
+
+  </div>
+
+</form>

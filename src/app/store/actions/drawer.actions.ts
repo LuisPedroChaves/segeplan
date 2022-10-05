@@ -21,3 +21,12 @@ export const OPEN_FULL_DRAWER2 = createAction(
 export const CLOSE_FULL_DRAWER2 = createAction(
     '[DRAWER] Cerrar cajón 2',
 )
+
+export const OPEN_FORM_DRAWER = createAction(
+	'[DRAWER] Abir cajón de formulario',
+	props<{ formTitle: string, formComponent: string }>()
+);
+
+export const CLOSE_FORM_DRAWER = createAction(
+    '[DRAWER] Cerrar cajón de formulario',
+)

@@ -15,6 +15,7 @@ import { ModalityFinancingReducer } from '../../store/reducers/modalityFinancing
 import { SelectedInitiativeComponent } from './components/selected-initiative/selected-initiative.component';
 import { InitiativeCardComponent } from './components/initiative-card/initiative-card.component';
 import { InitiativeReducer } from '../../store/reducers/initiative.reducer';
+import { NewActivityComponent } from './components/new-activity/new-activity.component';
 
 
 
@@ -24,7 +25,8 @@ import { InitiativeReducer } from '../../store/reducers/initiative.reducer';
     NewInitiativeComponent,
     NewIniciativesComponent,
     SelectedInitiativeComponent,
-    InitiativeCardComponent
+    InitiativeCardComponent,
+    NewActivityComponent
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,9 @@ export interface DrawerState {
   fullDrawer2: boolean,
   fullTitle2: string,
   fullComponent2: string,
+  formDrawer: boolean,
+  formTitle: string,
+  formComponent: string,
 }
 
 export interface DrawerStore extends AppState {
@@ -25,14 +28,25 @@ export const DRAWER_STATE: DrawerState = {
   fullDrawer2: false,
   fullTitle2: '',
   fullComponent2: '',
+  formDrawer: false,
+  formTitle: '',
+  formComponent: '',
 }
 
 const _DRAWER_REDUCER = createReducer(DRAWER_STATE,
-  on(actions.CHANGE_MENU_DRAWER, (state) => ({...state, menuDrawer: !state.menuDrawer})),
+  on(actions.CHANGE_MENU_DRAWER, (state) => ({ ...state, menuDrawer: !state.menuDrawer })),
   on(actions.OPEN_FULL_DRAWER, (state, { fullTitle, fullComponent }) => ({ ...state, fullDrawer: true, fullTitle, fullComponent })),
   on(actions.CLOSE_FULL_DRAWER, (state) => ({ ...state, fullDrawer: false })),
   on(actions.OPEN_FULL_DRAWER2, (state, { fullTitle2, fullComponent2 }) => ({ ...state, fullDrawer2: true, fullTitle2, fullComponent2 })),
   on(actions.CLOSE_FULL_DRAWER2, (state) => ({ ...state, fullDrawer2: false })),
+
+  on(actions.OPEN_FORM_DRAWER, (state, { formTitle, formComponent }) => ({
+    ...state, formDrawer: true, formTitle, formComponent
+  })),
+
+  on(actions.CLOSE_FORM_DRAWER, (state) => ({
+    ...state, formDrawer: false
+  })),
 )
 
 export function DrawerReducer(state: any, action: any) {

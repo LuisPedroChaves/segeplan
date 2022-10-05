@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
@@ -41,6 +41,8 @@ export class NewAlternativeComponent implements OnInit {
   coverageText = '0'
 
   @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
+
   sessionSubscription: Subscription;
   usuario!: User;
   // Catalogos
@@ -465,6 +467,12 @@ export class NewAlternativeComponent implements OnInit {
     // this.preliminaryName.controls['municipality'].disable()
     this.preliminaryName.controls['village'].setValue(null)
     this.preliminaryName.controls['village'].disable()
+  }
+
+  scrollToTop(): void {
+    setTimeout(() => {
+      this.myScrollContainer.nativeElement.scrollTop = 0;
+    }, 500);
   }
 
   saveIdeaAlternative(): void {

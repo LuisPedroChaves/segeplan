@@ -1,4 +1,4 @@
-<ngx-simplebar fxLayoutAlign="center start" class="my-content">
+<div #formDrawer fxLayoutAlign="center start" class="my-content">
   <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
     <mat-step [stepControl]="preliminaryName">
@@ -107,7 +107,7 @@
           </p>
 
           <div>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
           </div>
 
         </div>
@@ -165,8 +165,8 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperPrevious>Volver</button>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+            <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
           </div>
 
         </div>
@@ -253,7 +253,7 @@
           <p class="mat-title" fxLayoutAlign="center center">
 
           </p>
-          
+
 
 
           <mat-form-field fxFill appearance="outline">
@@ -272,8 +272,8 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperPrevious>Volver</button>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+            <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
           </div>
 
         </div>
@@ -437,8 +437,8 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperPrevious>Volver</button>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+            <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
           </div>
 
         </div>
@@ -615,8 +615,8 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperPrevious>Volver</button>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+            <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
           </div>
 
         </div>
@@ -840,10 +840,10 @@
       <div>
         <button mat-button (click)="saveIdeaAlternative()" [disabled]="executionTime.invalid" color="primary">Finalizar</button>
         <span fxFlex></span>
-        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
         <button mat-button (click)="stepper.reset()">Restablecer</button>
       </div>
     </mat-step>
 
   </mat-stepper>
-</ngx-simplebar>
+</div>

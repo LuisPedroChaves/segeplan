@@ -163,6 +163,37 @@
 
               </mat-expansion-panel>
 
+              <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Documentos
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Archivos adjuntos
+                    <mat-icon>attach_file</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <br>
+
+                <p *ngIf="initiative.institution.documentProject">
+                  <b>Documento del proyecto:</b>
+                  <a mat-button color="warn" mat-line [href]="initiative.institution.documentProject" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                </p>
+
+                <p *ngIf="initiative.requirementsDocuments.tdr">
+                  <b>TDR:</b>
+                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.tdr" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                </p>
+
+                <p *ngIf="initiative.requirementsDocuments.scheduleActiv">
+                  <b>Cronograma de actividades:</b>
+                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.scheduleActiv" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                </p>
+
+              </mat-expansion-panel>
+
             </mat-accordion>
 
             <mat-divider></mat-divider>

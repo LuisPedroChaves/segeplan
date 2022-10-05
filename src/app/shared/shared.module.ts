@@ -57,6 +57,7 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatTooltipModule,
     /* #endregion */
     FlexLayoutModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
+    MaterialFileInputModule
   ],
   exports: [
     FormsModule,
@@ -130,6 +132,7 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule,
+    MaterialFileInputModule,
     /* #region  Components */
     NotFoundComponent
     /* #endregion */

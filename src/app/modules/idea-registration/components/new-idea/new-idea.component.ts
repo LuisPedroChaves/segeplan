@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
@@ -27,6 +27,7 @@ import { User } from '../../../../core/models/adicionales/user';
 export class NewIdeaComponent implements OnInit, OnDestroy {
 
   @ViewChild('fullDrawer2') fullDrawer2!: MatDrawer;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
   get formEffects(): FormArray {
     return this.generalInformation.get('possibleEffects') as FormArray;
@@ -125,7 +126,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
         this.idea = state.idea;
       })
 
-    
+
 
     this.productStore.dispatch(READ_PRODUCTS({ filtro: this.idEntidad }))
 
@@ -230,6 +231,12 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     this.alternativesSource.next(this.formAlternatives.controls);
   }
   /* #endregion */
+
+  scrollToTop(): void {
+    setTimeout(() => {
+      this.myScrollContainer.nativeElement.scrollTop = 0;
+    }, 500);
+  }
 
   saveGeneralInformation(): void {
 

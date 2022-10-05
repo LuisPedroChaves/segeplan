@@ -1,248 +1,464 @@
-<mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
-  <button mat-icon-button (click)="closeFullDrawer()">
-    <mat-icon>close</mat-icon>
-  </button>
-  <span class="mat-title">{{ fullTitle }}</span>
-</mat-toolbar>
-<ngx-simplebar fxLayoutAlign="center start" class="sub-content-desktop">
-  <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
+<mat-drawer-container autosize class="my-menu-container">
+  <mat-drawer #formDrawer mode="over" class="my-form-drawer">
 
-    <mat-step [stepControl]="institution">
-      <form [formGroup]="institution" autocomplete="off">
+    <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <button mat-icon-button (click)="closeFormDrawer()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="mat-title">{{ formTitle }}</span>
+    </mat-toolbar>
 
-        <ng-template matStepLabel>Aspectos generales</ng-template>
+    <app-new-activity *ngIf="formComponent === 'NEW_ACTIVITY'"></app-new-activity>
 
-        <div fxLayout="column" fxLayoutGap="15px">
+  </mat-drawer>
 
-          <mat-form-field fxFill appearance="outline">
-            <mat-label>Nombre de la entidad (Presidencia y Ministerios de Estado, Secretarias u otras dependencias)
-            </mat-label>
-            <mat-select formControlName="entityName">
-              <mat-option *ngFor="let entity of entities" [value]="entity.name">
-                {{entity.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="institution.get('entityName')?.hasError('required')">
-              El nombre de la entidad es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
+  <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+    <button mat-icon-button (click)="closeFullDrawer()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="mat-title">{{ fullTitle }}</span>
+  </mat-toolbar>
+  <div  #scrollMe fxLayoutAlign="center start" class="sub-content-desktop">
+    <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
-          <mat-form-field fxFill appearance="outline">
-            <mat-label>Función de proyectos</mat-label>
-            <mat-select formControlName="functionProjName">
-              <mat-option *ngFor="let projectFunction of projectFunctions" [value]="projectFunction.name">
-                {{projectFunction.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="institution.get('functionProjName')?.hasError('required')">
-              La función de proyectos es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
+      <mat-step [stepControl]="institution">
+        <form [formGroup]="institution" autocomplete="off">
 
-          <mat-form-field fxFill appearance="outline">
-            <mat-label>Estudios generales para evaluar la conveniencia y oportunidad de realizar programasy/o proyectos.
-            </mat-label>
-            <mat-select formControlName="generalStudy">
-              <mat-option *ngFor="let generalStudy of generalStudies" [value]="generalStudy.name">
-                {{generalStudy.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="institution.get('generalStudy')?.hasError('required')">
-              El estudio general es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
+          <ng-template matStepLabel>Aspectos generales</ng-template>
 
-          <mat-form-field fxFill appearance="outline">
-            <mat-label>Documento de preinversión que requiere financiar</mat-label>
-            <mat-select formControlName="dcmntPreinvest">
-              <mat-option *ngFor="let preinvDocument of preinvDocuments" [value]="preinvDocument.name">
-                {{preinvDocument.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="institution.get('dcmntPreinvest')?.hasError('required')">
-              El Documento de preinversión es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
+          <div fxLayout="column" fxLayoutGap="15px">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Documento de proyecto en PDF (cuando este a nivel de perfil o prefactibilidad )</mat-label>
-            <input type="text" matInput placeholder="Seleccione un archivo">
-            <mat-icon matSuffix>attach_file</mat-icon>
-            <!-- <mat-error *ngIf="responsibleEntity.get('nameEPI')?.hasError('required')">
-              El nombre de la entidad es <strong>requerido</strong>
-            </mat-error> -->
-          </mat-form-field>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Nombre de la entidad (Presidencia y Ministerios de Estado, Secretarias u otras dependencias)
+              </mat-label>
+              <mat-select formControlName="entityName">
+                <mat-option *ngFor="let entity of entities" [value]="entity.name">
+                  {{entity.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="institution.get('entityName')?.hasError('required')">
+                El nombre de la entidad es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre del responsable institucional</mat-label>
-            <input matInput type="text">
-            <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-          </mat-form-field>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Función de proyectos</mat-label>
+              <mat-select formControlName="functionProjName">
+                <mat-option *ngFor="let projectFunction of projectFunctions" [value]="projectFunction.name">
+                  {{projectFunction.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="institution.get('functionProjName')?.hasError('required')">
+                La función de proyectos es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field fxFill appearance="outline">
-            <mat-label>Correo de contacto</mat-label>
-            <input type="email" matInput>
-            <!-- <mat-error
-              *ngIf="responsibleEntity.get('email')?.hasError('email') && !responsibleEntity.get('email')?.hasError('required')">
-              Por favor, introduzca una dirección de correo electrónico válida
-            </mat-error>
-            <mat-error *ngIf="responsibleEntity.get('email')?.hasError('required')">
-              El correo electrónico es <strong>requerido</strong>
-            </mat-error> -->
-            <mat-icon matSuffix>alternate_email</mat-icon>
-          </mat-form-field>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Estudios generales para evaluar la conveniencia y oportunidad de realizar programasy/o
+                proyectos.
+              </mat-label>
+              <mat-select formControlName="generalStudy">
+                <mat-option *ngFor="let generalStudy of generalStudies" [value]="generalStudy.name">
+                  {{generalStudy.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="institution.get('generalStudy')?.hasError('required')">
+                El estudio general es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>No. telefónico </mat-label>
-            <span matPrefix>+502 &nbsp;</span>
-            <input type="number" matInput>
-            <mat-icon matSuffix>contact_phone</mat-icon>
-            <!-- <mat-error *ngIf="responsibleEntity.get('phone')?.hasError('required')">
-              El teléfono de contacto es <strong>requerido</strong>
-            </mat-error> -->
-          </mat-form-field>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Documento de preinversión que requiere financiar</mat-label>
+              <mat-select formControlName="dcmntPreinvest">
+                <mat-option *ngFor="let preinvDocument of preinvDocuments" [value]="preinvDocument.name">
+                  {{preinvDocument.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="institution.get('dcmntPreinvest')?.hasError('required')">
+                El Documento de preinversión es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
 
-          <div>
-            <button mat-button matStepperNext>Siguiente</button>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Documento de proyecto en PDF</mat-label>
+              <ngx-mat-file-input #removableInput formControlName="documentProject"
+                placeholder="Seleccione un documento">
+              </ngx-mat-file-input>
+              <mat-hint>(cuando este a nivel de perfil o prefactibilidad )</mat-hint>
+              <button mat-icon-button matSuffix *ngIf="!removableInput.empty" (click)="removableInput.clear($event)">
+                <mat-icon>clear</mat-icon>
+              </button>
+              <mat-error *ngIf="institution.get('documentProject')?.hasError('required')">
+                El documento es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre del responsable institucional</mat-label>
+              <input matInput formControlName="responsibleName" type="text">
+              <mat-error *ngIf="institution.get('responsibleName')?.hasError('required')">
+                El nombre del responsable es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Correo de contacto</mat-label>
+              <input type="email" formControlName="contactEmail" matInput>
+              <mat-error
+                *ngIf="institution.get('contactEmail')?.hasError('email') && !institution.get('contactEmail')?.hasError('required')">
+                Por favor, introduzca una dirección de correo electrónico válida
+              </mat-error>
+              <mat-error *ngIf="institution.get('contactEmail')?.hasError('required')">
+                El correo electrónico es <strong>requerido</strong>
+              </mat-error>
+              <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>No. telefónico </mat-label>
+              <span matPrefix>+502 &nbsp;</span>
+              <input type="number" formControlName="phoneNumber" matInput>
+              <mat-icon matSuffix>contact_phone</mat-icon>
+              <mat-error *ngIf="institution.get('phoneNumber')?.hasError('required')">
+                El teléfono de contacto es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+            </div>
+
           </div>
 
-        </div>
+        </form>
+      </mat-step>
 
-      </form>
-    </mat-step>
+      <mat-step [stepControl]="investmentProject">
+        <form [formGroup]="investmentProject" autocomplete="off">
 
-    <mat-step>
-      <ng-template matStepLabel>Descripción del proyecto de inversión
-      </ng-template>
+          <ng-template matStepLabel>Descripción del proyecto de inversión
+          </ng-template>
 
-      <div fxLayout="column" fxLayoutGap="15px">
+          <div fxLayout="column" fxLayoutGap="15px">
 
-        <p class="mat-subheading-2">Problema central (deberia estar vinculado a la problematica establecida en el PEI),
-          objetivo central, medios, alternativas con opciones de proyecto .</p>
+            <p class="mat-subheading-2">Problema central (deberia estar vinculado a la problematica establecida en el
+              PEI),
+              objetivo central, medios, alternativas con opciones de proyecto .</p>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre del proyecto</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre del proyecto</mat-label>
+              <input matInput formControlName="nameProject" type="text">
+              <mat-error *ngIf="investmentProject.get('nameProject')?.hasError('required')">
+                El nombre del proyecto es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Objetivo del proyecto</mat-label>
+              <input matInput formControlName="objetiveProject" type="text">
+              <mat-error *ngIf="investmentProject.get('objetiveProject')?.hasError('required')">
+                El objetivo del proyecto es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <p>Descripción y justificación del proyecto; su relación con la Política General de Gobierno, Plan Nacional
+              de
+              Desarrollo, importancia del proyecto, razones fundamentales o beneficios que justifican su realización:
+            </p>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Descripción y justificación del proyecto</mat-label>
+              <input matInput formControlName="descAdnJust" type="text">
+              <mat-error *ngIf="investmentProject.get('descAdnJust')?.hasError('required')">
+                La Descripción y justificación son <strong>requeridas</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <p>Información sobre los estudios previos realizados. (De considerarse necesario se solicitará la
+              documentación).</p>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Información sobre los estudios previos realizados</mat-label>
+              <input matInput formControlName="infoStudies" type="text">
+              <mat-error *ngIf="investmentProject.get('infoStudies')?.hasError('required')">
+                Los estudios previos son <strong>requeridos</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Costo estimado del proyecto, fuentes de recursos previstas</mat-label>
+              <input matInput formControlName="estimatedProject" type="text">
+              <mat-error *ngIf="investmentProject.get('estimatedProject')?.hasError('required')">
+                El costo estimado del proyeecto es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+            </div>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="studyDescription">
+        <form [formGroup]="studyDescription" autocomplete="off">
+
+          <ng-template matStepLabel>Descripción de los estudios </ng-template>
+
+          <div fxLayout="column" fxLayoutGap="15px">
+
+            <p class="mat-subheading-2">Se describe el servicio y se define el indicador en cuanto a los valores de
+              brecha
+              identificados en los instrumentos de planificación estrategica.</p>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre del estudio requerido</mat-label>
+              <input matInput formControlName="nameStudy" type="text">
+              <mat-error *ngIf="studyDescription.get('nameStudy')?.hasError('required')">
+                El nombre del estudio es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Objetivo General y especificos establecidos en TDR</mat-label>
+              <input matInput formControlName="objetiveGeneral" type="text">
+              <mat-error *ngIf="studyDescription.get('objetiveGeneral')?.hasError('required')">
+                Los objetivos son <strong>requeridos</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Costo estimado del estudio e indicación del monto del financiamiento solicitado</mat-label>
+              <input matInput formControlName="costEstimted" type="text">
+              <mat-error *ngIf="studyDescription.get('costEstimted')?.hasError('required')">
+                El costo estimado es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Modalidad de financiamiento solicitada</mat-label>
+              <mat-select formControlName="modalityFinancing">
+                <mat-option *ngFor="let modalityFinancing of modalityFinancings" [value]="modalityFinancing.name">
+                  {{modalityFinancing.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="studyDescription.get('modalityFinancing')?.hasError('required')">
+                La modalidad de financiamiento es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+            </div>
+
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="requiredDocument">
+        <form [formGroup]="requiredDocument" autocomplete="off">
+
+          <ng-template matStepLabel>Documentos requeridos</ng-template>
+
+          <div fxLayout="column" fxLayoutGap="15px">
+
+            <p class=" mat-subheading-2">Terminos de referencia del estudio, cronograma de actividades y presupuesto
+              estimado.</p>
+
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>TDR</mat-label>
+              <ngx-mat-file-input #removableInput1 formControlName="tdr" placeholder="Seleccione un documento">
+              </ngx-mat-file-input>
+              <button mat-icon-button matSuffix *ngIf="!removableInput1.empty" (click)="removableInput1.clear($event)">
+                <mat-icon>clear</mat-icon>
+              </button>
+              <mat-error *ngIf="requiredDocument.get('documentProject')?.hasError('required')">
+                El documento es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Cronograma de actividades</mat-label>
+              <ngx-mat-file-input #removableInput2 formControlName="scheduleActiv"
+                placeholder="Seleccione un documento">
+              </ngx-mat-file-input>
+              <button mat-icon-button matSuffix *ngIf="!removableInput2.empty" (click)="removableInput2.clear($event)">
+                <mat-icon>clear</mat-icon>
+              </button>
+              <mat-error *ngIf="requiredDocument.get('scheduleActiv')?.hasError('required')">
+                El documento es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <p class=" mat-subheading-2">Presupuesto estimado:</p>
+
+            <table mat-table fxFill [dataSource]="dataSource">
+
+              <ng-container matColumnDef="activity">
+                <th mat-header-cell *matHeaderCellDef> Actividad </th>
+                <td mat-cell *matCellDef="let element"> {{element.activity}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="unitMeasure">
+                <th mat-header-cell *matHeaderCellDef> Unidad de medida </th>
+                <td mat-cell *matCellDef="let element"> {{element.unitMeasure}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cant">
+                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td mat-cell *matCellDef="let element"> {{element.cant}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="priceU">
+                <th mat-header-cell *matHeaderCellDef> Precio U. </th>
+                <td mat-cell *matCellDef="let element">Q{{element.priceU | number: '.2'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="subTotal">
+                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                <td mat-cell *matCellDef="let element">Q{{element.subTotal | number: '.2'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+
+                  <button mat-icon-button (click)="removeActivity(element)">
+                    <mat-icon>close</mat-icon>
+                  </button>
+
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <div fxFill fxLayout="row" fxLayoutAlign="center center">
+
+              <button mat-button (click)="openFormDrawer('Nueva actividad', 'NEW_ACTIVITY')" color="accent">Agregar
+                actividad</button>
+
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Total estimado </mat-label>
+              <span matPrefix>Q &nbsp;</span>
+              <input formControlName="totalStimated" type="number" matInput placeholder="Ingrese una cantidad">
+              <mat-error *ngIf="requiredDocument.get('totalStimated')?.hasError('required')">
+                El total estimado es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+            </div>
+
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="delimit">
+        <form [formGroup]="delimit" autocomplete="off">
+
+          <ng-template matStepLabel>Delimitación preliminar de los posibles beneficiarios</ng-template>
+
+          <div fxLayout="row wrap" fxLayoutGap="15px grid">
+
+            <p class=" mat-subheading-2">(población por beneficiarse directamente)</p>
+
+
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Población de referencia</mat-label>
+              <input type="text" placeholder="Seleccione o ingrese un valor" matInput [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <!-- <mat-option *ngFor="let ref of references" [value]="ref.name">
+                {{ref.name}}
+              </mat-option> -->
+              </mat-autocomplete>
+              <mat-hint>Nacional / Departamental / Municipal / Comunal / Otra</mat-hint>
+              <!-- <mat-error *ngIf="delimit.get('referencePopulation')?.hasError('required')">
+              La población de referencia es <strong>requerida</strong>
             </mat-error> -->
-        </mat-form-field>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Objetivo del proyecto</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
+            <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
 
-        <p>Descripción y justificación del proyecto; su relación con la Política General de Gobierno, Plan Nacional de
-          Desarrollo, importancia del proyecto, razones fundamentales o beneficios que justifican su realización:</p>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Total de población de referencia</mat-label>
+                <input matInput type="number" placeholder="Ej. 125000">
+                <!-- <mat-error *ngIf="delimit.get('totalPopulation')?.hasError('max')">
+                Máximo 15 números.
+              </mat-error> -->
+              </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Descripción y justificación del proyecto</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Género</mat-label>
+                <mat-select>
+                  <mat-option value="Hombres">
+                    Hombres
+                  </mat-option>
+                  <mat-option value="Mujeres">
+                    Mujeres
+                  </mat-option>
+                  <mat-option value="Hombres y Mujeres">
+                    Hombres y Mujeres
+                  </mat-option>
+                  <mat-option value="No aplica">
+                    No aplica
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-        <p>Información sobre los estudios previos realizados. (De considerarse necesario se solicitará la
-          documentación).</p>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Información sobre los estudios previos realizados</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Costo estimado del proyecto, fuentes de recursos previstas</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
-
-        <mat-form-field fxFill appearance="outline">
-          <mat-label>MODALIDAD DE FINANCIAMIENTO SOLICITADA</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let modalityFinancing of modalityFinancings" [value]="modalityFinancing.name">
-              {{modalityFinancing.name}}
-            </mat-option>
-          </mat-select>
-          <!-- <mat-error *ngIf="preliminaryName.get('typeProject')?.hasError('required')">
-              El tipo de idea es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
-
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </div>
-
-    </mat-step>
-
-    <mat-step>
-      <ng-template matStepLabel>Descripción de los estudios </ng-template>
-      <div fxLayout="column" fxLayoutGap="15px">
-
-        <p class="mat-subheading-2">Se describe el servicio y se define el indicador en cuanto a los valores de brecha
-          identificados en los instrumentos de planificación estrategica.</p>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre del estudio requerido</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Objetivo General y especificos establecidos en TDR</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Costo estimado del estudio e indicación del monto del financiamiento solicitado</mat-label>
-          <input matInput type="text">
-          <!-- <mat-error *ngIf="responsibleEntity.get('leaderName')?.hasError('required')">
-              El nombre del responsable es <strong>requerido</strong>
-            </mat-error> -->
-        </mat-form-field>
+            </div>
 
 
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </div>
-    </mat-step>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Denominación</mat-label>
+              <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="denomination"
+                [matAutocomplete]="auto2">
+              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+                <!-- <mat-option *ngFor="let denomination of denominations" [value]="denomination.name">
+                {{denomination.name}}
+              </mat-option> -->
+              </mat-autocomplete>
+              <mat-hint>Alumnos / Pacientes / Agricultores / Otra: Especifique</mat-hint>
+              <mat-error *ngIf="delimit.get('denomination')?.hasError('required')">
+                La denominación es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
 
-    <mat-step>
-      <ng-template matStepLabel>Documentos requeridos</ng-template>
+            <mat-form-field fxFill appearance="outline">
+              <mat-label>Estimación preliminar beneficiarios</mat-label>
+              <input matInput formControlName="estimatedBenef" type="number" placeholder="Ej. 125000">
+              <mat-hint>Representa la cantidad estimada de beneficiarios que tendrá el proyecto.</mat-hint>
+              <mat-error *ngIf="delimit.get('estimatedBenef')?.hasError('max')">
+                Máximo 15 números.
+              </mat-error>
+            </mat-form-field>
 
-      <div fxLayout="row wrap" fxLayoutGap="15px grid">
+          </div>
 
-      </div>
+          <br>
 
-      <br>
+          <div>
+            <button mat-button (click)="saveInitiative()" color="primary">Finalizar</button>
+            <span fxFlex></span>
+            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+            <button mat-button (click)="stepper.reset()">Restablecer</button>
+          </div>
 
-      <div>
-        <button mat-button color="primary">Finalizar</button>
-        <span fxFlex></span>
-        <button mat-button matStepperPrevious>Volver</button>
-        <button mat-button (click)="stepper.reset()">Restablecer</button>
-      </div>
-    </mat-step>
+        </form>
+      </mat-step>
 
-  </mat-stepper>
-</ngx-simplebar>
+    </mat-stepper>
+  </div>
+
+</mat-drawer-container>
