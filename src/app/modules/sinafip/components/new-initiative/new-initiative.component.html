@@ -81,7 +81,7 @@
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>Documento de proyecto en PDF</mat-label>
-              <ngx-mat-file-input #removableInput formControlName="documentProject"
+              <ngx-mat-file-input #removableInput formControlName="documentProject" [accept]="'.pdf'"
                 placeholder="Seleccione un documento">
               </ngx-mat-file-input>
               <mat-hint>(cuando este a nivel de perfil o prefactibilidad )</mat-hint>
@@ -188,7 +188,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Costo estimado del proyecto, fuentes de recursos previstas</mat-label>
-              <input matInput formControlName="estimatedProject" type="text">
+              <input matInput formControlName="estimatedProject" type="number">
               <mat-error *ngIf="investmentProject.get('estimatedProject')?.hasError('required')">
                 El costo estimado del proyeecto es <strong>requerido</strong>
               </mat-error>
@@ -232,7 +232,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Costo estimado del estudio e indicación del monto del financiamiento solicitado</mat-label>
-              <input matInput formControlName="costEstimted" type="text">
+              <input matInput formControlName="costEstimted" type="number">
               <mat-error *ngIf="studyDescription.get('costEstimted')?.hasError('required')">
                 El costo estimado es <strong>requerido</strong>
               </mat-error>
@@ -272,7 +272,7 @@
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>TDR</mat-label>
-              <ngx-mat-file-input #removableInput1 formControlName="tdr" placeholder="Seleccione un documento">
+              <ngx-mat-file-input #removableInput1 formControlName="tdr" placeholder="Seleccione un documento" [accept]="'.pdf'">
               </ngx-mat-file-input>
               <button mat-icon-button matSuffix *ngIf="!removableInput1.empty" (click)="removableInput1.clear($event)">
                 <mat-icon>clear</mat-icon>
@@ -284,7 +284,7 @@
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>Cronograma de actividades</mat-label>
-              <ngx-mat-file-input #removableInput2 formControlName="scheduleActiv"
+              <ngx-mat-file-input #removableInput2 formControlName="scheduleActiv" [accept]="'.pdf'"
                 placeholder="Seleccione un documento">
               </ngx-mat-file-input>
               <button mat-icon-button matSuffix *ngIf="!removableInput2.empty" (click)="removableInput2.clear($event)">
@@ -346,14 +346,14 @@
 
             </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Total estimado </mat-label>
-              <span matPrefix>Q &nbsp;</span>
+            <!-- <mat-form-field appearance="outline"> -->
+              <mat-label>Total estimado: {{total}} </mat-label>
+              <!-- <span matPrefix>Q &nbsp;</span>
               <input formControlName="totalStimated" type="number" matInput placeholder="Ingrese una cantidad">
               <mat-error *ngIf="requiredDocument.get('totalStimated')?.hasError('required')">
                 El total estimado es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
+              </mat-error> -->
+            <!-- </mat-form-field> -->
 
             <div>
               <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>

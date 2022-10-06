@@ -30,22 +30,23 @@
     <mat-form-field appearance="outline">
       <mat-label>Precio U. </mat-label>
       <span matPrefix>Q &nbsp;</span>
-      <input formControlName="priceU" type="number" matInput placeholder="Ingrese un precio">
+      <input formControlName="priceU" type="number" (ngModelChange)='updateSubtotal($event)' matInput
+        placeholder="Ingrese un precio">
       <mat-error *ngIf="activity.get('priceU')?.hasError('required')">
         El precio unitario es <strong>requerido</strong>
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Subtotal </mat-label>
-      <span matPrefix>Q &nbsp;</span>
+    <!-- <mat-form-field appearance="outline"> -->
+      <mat-label>Subtotal: {{subtotal}}</mat-label>
+      <!-- <span matPrefix>Q &nbsp;</span>
       <input formControlName="subTotal" type="number" matInput placeholder="Ingrese un subtotal">
       <mat-error *ngIf="activity.get('subTotal')?.hasError('required')">
         El subtotal es <strong>requerido</strong>
-      </mat-error>
-    </mat-form-field>
+      </mat-error>-->
+    <!-- </mat-form-field> -->
 
-    <button mat-raised-button type="submit"  color="accent">Agregar</button>
+    <button mat-raised-button type="submit" color="accent">Agregar</button>
 
   </div>
 

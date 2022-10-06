@@ -18,7 +18,11 @@
 
     <ng-container matColumnDef="cost">
       <th mat-header-cell *matHeaderCellDef> Costo </th>
-      <td mat-cell *matCellDef="let element">Q{{element.studyDescription.costEstimted | number: '.2'}} </td>
+      <td mat-cell *matCellDef="let element">
+        <label *ngIf="element.studyDescription.costEstimted">
+          Q{{element.studyDescription.costEstimted | number: '.2'}} 
+        </label>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="asingment">

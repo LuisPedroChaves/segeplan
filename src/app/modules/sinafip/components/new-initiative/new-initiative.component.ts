@@ -38,6 +38,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   @ViewChild('formDrawer') formDrawer!: MatDrawer;
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
+  total = 0;
+
   drawerSubscription = new Subscription();
   fullTitle = '';
   formTitle = ''
@@ -90,7 +92,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   requiredDocument = new FormGroup({
     tdr: new FormControl(null, Validators.required),
     scheduleActiv: new FormControl(null, Validators.required),
-    totalStimated: new FormControl<number>(null, Validators.required),
+    // totalStimated: new FormControl<number>(null, Validators.required),
   })
 
   delimit = new FormGroup({
@@ -135,6 +137,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.activities = state.activities
         this.dataSource = new MatTableDataSource<Activity>(this.activities)
+        this.total = this.activities.map(item => item.subTotal).reduce((prev, curr) => prev + curr, 0);
       })
 
     //LISTADOS
@@ -249,7 +252,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     const studyDescription: StudyDescription = {
       nameStudy,
       objetiveGeneral,
-      costEstimted,
+      costEstimted: parseInt(costEstimted),
       modalityFinancing,
     }
 
@@ -268,11 +271,11 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     const {
       tdr,
       scheduleActiv,
-      totalStimated,
+      // totalStimated,
     } = this.requiredDocument.value
 
     const stimatedBudget: EstimatedBudget = {
-      totalStimated,
+      totalStimated: this.total,
       activities: this.activities
     }
 

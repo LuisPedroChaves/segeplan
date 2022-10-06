@@ -32,6 +32,7 @@ export class NewIniciativesComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.initiatives = data
         this.dataSource =  new MatTableDataSource<IRequest>(this.initiatives);
+        console.log(this.dataSource)
       })
 
   }
