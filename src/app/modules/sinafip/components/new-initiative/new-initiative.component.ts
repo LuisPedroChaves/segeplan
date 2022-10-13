@@ -27,11 +27,18 @@ import { RequiredDocument } from 'src/app/core/models/sinafip/requiredDocument';
 import { EstimatedBudget } from 'src/app/core/models/sinafip/estimatedBudget';
 import { SinafipService } from 'src/app/core/services/httpServices/sinafip.service';
 import { UploadFileService } from 'src/app/core/services/httpServices/upload-file.service';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-new-initiative',
   templateUrl: './new-initiative.component.html',
-  styleUrls: ['./new-initiative.component.scss']
+  styleUrls: ['./new-initiative.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false},
+    },
+  ],
 })
 export class NewInitiativeComponent implements OnInit, OnDestroy {
 
@@ -75,6 +82,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   })
 
   investmentProject = new FormGroup({
+    coreProblem: new FormControl('', Validators.required),
     nameProject: new FormControl('', Validators.required),
     objetiveProject: new FormControl('', Validators.required),
     descAdnJust: new FormControl('', Validators.required),
@@ -227,6 +235,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     }
 
     const {
+      coreProblem,
       nameProject,
       objetiveProject,
       descAdnJust,
@@ -235,6 +244,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     } = this.investmentProject.value
 
     const investment: InvestmentProject = {
+      coreProblem,
       nameProject,
       objetiveProject,
       descAdnJust,

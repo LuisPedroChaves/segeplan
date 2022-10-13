@@ -12,6 +12,8 @@ export interface IRequest {
     advser?: string;
     reviewd?: string;
     created?: string;
+    hasFinancing?: boolean;
+    financing?: string;
     institution: Institution;
     investment: InvestmentProject;
     studyDescription: StudyDescription;

@@ -1,5 +1,6 @@
 export interface InvestmentProject {
     id?: string;
+    coreProblem: string;
     nameProject: string;
     objetiveProject: string;
     descAdnJust: string;

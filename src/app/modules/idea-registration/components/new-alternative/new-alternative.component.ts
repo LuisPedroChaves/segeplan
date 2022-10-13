@@ -30,11 +30,18 @@ import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
 import { MatStepper } from '@angular/material/stepper';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-new-alternative',
   templateUrl: './new-alternative.component.html',
-  styleUrls: ['./new-alternative.component.scss']
+  styleUrls: ['./new-alternative.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false},
+    },
+  ],
 })
 export class NewAlternativeComponent implements OnInit {
 

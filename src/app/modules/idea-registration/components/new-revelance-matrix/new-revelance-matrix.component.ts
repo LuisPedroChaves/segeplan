@@ -19,11 +19,18 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ConvertService } from '../../../../core/services/internal/convert.service';
 import * as moment from 'moment';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-new-revelance-matrix',
   templateUrl: './new-revelance-matrix.component.html',
-  styleUrls: ['./new-revelance-matrix.component.scss']
+  styleUrls: ['./new-revelance-matrix.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false},
+    },
+  ],
 })
 export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 

@@ -18,11 +18,18 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 import { AppState } from '../../../../store/app.reducer';
 import { User } from '../../../../core/models/adicionales/user';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-new-idea',
   templateUrl: './new-idea.component.html',
-  styleUrls: ['./new-idea.component.scss']
+  styleUrls: ['./new-idea.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false},
+    },
+  ],
 })
 export class NewIdeaComponent implements OnInit, OnDestroy {
 

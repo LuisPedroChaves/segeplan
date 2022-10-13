@@ -18,7 +18,7 @@
     </button>
     <span class="mat-title">{{ fullTitle }}</span>
   </mat-toolbar>
-  <div  #scrollMe fxLayoutAlign="center start" class="sub-content-desktop">
+  <div #scrollMe fxLayoutAlign="center start" class="sub-content-desktop">
     <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
       <mat-step [stepControl]="institution">
@@ -54,8 +54,7 @@
             </mat-form-field>
 
             <mat-form-field fxFill appearance="outline">
-              <mat-label>Estudios generales para evaluar la conveniencia y oportunidad de realizar programasy/o
-                proyectos.
+              <mat-label>Sector al que responde el estudio:
               </mat-label>
               <mat-select formControlName="generalStudy">
                 <mat-option *ngFor="let generalStudy of generalStudies" [value]="generalStudy.name">
@@ -141,10 +140,15 @@
           </ng-template>
 
           <div fxLayout="column" fxLayoutGap="15px">
-
-            <p class="mat-subheading-2">Problema central (deberia estar vinculado a la problematica establecida en el
-              PEI),
-              objetivo central, medios, alternativas con opciones de proyecto .</p>
+            <br>
+            <mat-form-field appearance="outline">
+              <mat-label>Problema central (deberia estar vinculado a la problematica establecida en el
+                PEI).</mat-label>
+              <input matInput formControlName="coreProblem" type="text">
+              <mat-error *ngIf="investmentProject.get('coreProblem')?.hasError('required')">
+                El Problema Central es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Nombre del proyecto</mat-label>
@@ -210,10 +214,6 @@
 
           <div fxLayout="column" fxLayoutGap="15px">
 
-            <p class="mat-subheading-2">Se describe el servicio y se define el indicador en cuanto a los valores de
-              brecha
-              identificados en los instrumentos de planificación estrategica.</p>
-
             <mat-form-field appearance="outline">
               <mat-label>Nombre del estudio requerido</mat-label>
               <input matInput formControlName="nameStudy" type="text">
@@ -272,7 +272,8 @@
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>TDR</mat-label>
-              <ngx-mat-file-input #removableInput1 formControlName="tdr" placeholder="Seleccione un documento" [accept]="'.pdf'">
+              <ngx-mat-file-input #removableInput1 formControlName="tdr" placeholder="Seleccione un documento"
+                [accept]="'.pdf'">
               </ngx-mat-file-input>
               <button mat-icon-button matSuffix *ngIf="!removableInput1.empty" (click)="removableInput1.clear($event)">
                 <mat-icon>clear</mat-icon>
@@ -347,8 +348,8 @@
             </div>
 
             <!-- <mat-form-field appearance="outline"> -->
-              <mat-label>Total estimado: {{total}} </mat-label>
-              <!-- <span matPrefix>Q &nbsp;</span>
+            <mat-label>Total estimado: {{total}} </mat-label>
+            <!-- <span matPrefix>Q &nbsp;</span>
               <input formControlName="totalStimated" type="number" matInput placeholder="Ingrese una cantidad">
               <mat-error *ngIf="requiredDocument.get('totalStimated')?.hasError('required')">
                 El total estimado es <strong>requerido</strong>
@@ -389,37 +390,6 @@
             </mat-error> -->
             </mat-form-field>
 
-            <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
-
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>Total de población de referencia</mat-label>
-                <input matInput type="number" placeholder="Ej. 125000">
-                <!-- <mat-error *ngIf="delimit.get('totalPopulation')?.hasError('max')">
-                Máximo 15 números.
-              </mat-error> -->
-              </mat-form-field>
-
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>Género</mat-label>
-                <mat-select>
-                  <mat-option value="Hombres">
-                    Hombres
-                  </mat-option>
-                  <mat-option value="Mujeres">
-                    Mujeres
-                  </mat-option>
-                  <mat-option value="Hombres y Mujeres">
-                    Hombres y Mujeres
-                  </mat-option>
-                  <mat-option value="No aplica">
-                    No aplica
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-            </div>
-
-
             <mat-form-field fxFill appearance="outline">
               <mat-label>Denominación</mat-label>
               <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="denomination"
@@ -436,7 +406,7 @@
             </mat-form-field>
 
             <mat-form-field fxFill appearance="outline">
-              <mat-label>Estimación preliminar beneficiarios</mat-label>
+              <mat-label>Estimación beneficiarios Directos</mat-label>
               <input matInput formControlName="estimatedBenef" type="number" placeholder="Ej. 125000">
               <mat-hint>Representa la cantidad estimada de beneficiarios que tendrá el proyecto.</mat-hint>
               <mat-error *ngIf="delimit.get('estimatedBenef')?.hasError('max')">

@@ -20,7 +20,6 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Cantidad </mat-label>
-      <span matPrefix>Q &nbsp;</span>
       <input formControlName="cant" type="number" matInput placeholder="Ingrese una cantidad">
       <mat-error *ngIf="activity.get('cant')?.hasError('required')">
         La cantidad es <strong>requerida</strong>
