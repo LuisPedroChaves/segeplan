@@ -11,6 +11,267 @@
 
 <ngx-simplebar class="sub-content-desktop">
 
-  <p> Acá va el mat-stepper xD</p>
+  <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
+    <mat-step [stepControl]="criterio1">
+      <ng-template matStepLabel>Planteamiento de la necesidad, problemas u oportunidades</ng-template>
+
+      <form [formGroup]="criterio1" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Planteamiento de la necesidad, problemas u oportunidades: </b></p>
+          <p class="mat-subheading-2">{{ initiative.investment.descAdnJust }}</p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="statementNeedValue">
+                    <mat-option *ngFor="let rating of rating20" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="statementNeedDescription" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio2">
+      <ng-template matStepLabel>Número de Beneficiarios</ng-template>
+
+      <form [formGroup]="criterio2" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Número de Beneficiarios: </b></p>
+          <p class="mat-subheading-2">{{ initiative.delimit.estimatedBenef }}</p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="numberBeneficiariesValue">
+                    <mat-option *ngFor="let rating of rating10" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="numberBeneficiariesValue" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio3">
+      <ng-template matStepLabel>Objetivos /Metas del Documento de Preinversión </ng-template>
+
+      <form [formGroup]="criterio3" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Objetivos /Metas del Documento de Preinversión: </b></p>
+          <p class="mat-subheading-2">{{ initiative.studyDescription.objetiveGeneral }}</p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="objetivesGoalsValue">
+                    <mat-option *ngFor="let rating of rating20" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="objetivesGoalsDescription" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio4">
+      <ng-template matStepLabel>TDR</ng-template>
+
+      <form [formGroup]="criterio4" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Objetivos /Metas del Documento de Preinversión: </b></p>
+          <p *ngIf="initiative.requirementsDocuments.tdr">
+            <b>TDR:</b>
+            <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.tdr" target="_blank">Abrir
+              <mat-icon>
+                launch</mat-icon></a>
+          </p>
+          <p *ngIf="!initiative.requirementsDocuments.tdr">
+            <b>TDR:</b>
+            No se Adjuntó un archivo
+          </p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="tdrValue">
+                    <mat-option *ngFor="let rating of rating30" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="tdrDescription" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio5">
+      <ng-template matStepLabel>Costo Estimado del documento preinversión </ng-template>
+
+      <form [formGroup]="criterio5" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Costo Estimado del documento preinversión: </b></p>
+          <p class="mat-subheading-2">Q. {{ initiative.requirementsDocuments.stimatedBudget.totalStimated }}</p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="estimatedCostValue">
+                    <mat-option *ngFor="let rating of rating10" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="estimatedCostDescription" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="criterio6">
+      <ng-template matStepLabel>Cronograma General del Estudio </ng-template>
+
+      <form [formGroup]="criterio6" autocomplete="off">
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <br>
+          <p><b>Cronograma General del Estudio: </b></p>
+          <p *ngIf="initiative.requirementsDocuments.scheduleActiv">
+            <b>TDR:</b>
+            <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.scheduleActiv"
+              target="_blank">Abrir <mat-icon>
+                launch</mat-icon></a>
+          </p>
+          <p *ngIf="!initiative.requirementsDocuments.tdr">
+            <b>TDR:</b>
+            No se Adjuntó un archivo
+          </p>
+          <br>
+
+          <div fxLayout="row wrap">
+            <div fxFlex fxLayout="column">
+              <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Puntuación</mat-label>
+                  <mat-select formControlName="generalScheduleValue">
+                    <mat-option *ngFor="let rating of rating10" [value]="rating">
+                      {{rating}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                  <mat-label>Agregar Comentario</mat-label>
+                  <textarea matInput formControlName="generalScheduleDescription" placeholder="Máximo 200 caracteres..."
+                    rows="4"></textarea>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+
+  </mat-stepper>
+
 
 </ngx-simplebar>
