@@ -3,6 +3,7 @@ import { InvestmentProject } from './investmentProject';
 import { RequiredDocument } from "./requiredDocument";
 import { StudyDescription } from "./studyDescription";
 import { Delimit } from './delimit';
+import { AdmissionQuanty } from './admissionQuanty';
 
 export interface IRequest {
     id?: string;
@@ -19,4 +20,5 @@ export interface IRequest {
     studyDescription: StudyDescription;
     delimit: Delimit
     requirementsDocuments: RequiredDocument;
+    admissionQuanty?: AdmissionQuanty;
 }
