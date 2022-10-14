@@ -20,6 +20,12 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    this.drawerSubscription = this.appStore.select('drawer')
+    .subscribe(state => {
+      this.fullTitle = state.fullTitle
+    });
+
   }
 
   ngOnDestroy(): void {
