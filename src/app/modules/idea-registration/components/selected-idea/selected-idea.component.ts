@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 
-import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER } from 'src/app/store/actions';
+import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 
 @Component({
@@ -15,6 +15,7 @@ import { IdeaStore } from 'src/app/store/reducers';
 export class SelectedIdeaComponent implements OnInit, OnDestroy {
 
   @ViewChild('fullDrawer2') fullDrawer2!: MatDrawer;
+  @ViewChild('formDrawer') formDrawer!: MatDrawer;
 
   ideaStoreSubscription = new Subscription();
   currentView = 'generalInformation';
@@ -23,6 +24,8 @@ export class SelectedIdeaComponent implements OnInit, OnDestroy {
   fullTitle = '';
   fullTitle2 = '';
   fullComponent2 = '';
+  formTitle = ''
+  formComponent = '';
 
   constructor(
     private ideaStore: Store<IdeaStore>,
@@ -39,6 +42,12 @@ export class SelectedIdeaComponent implements OnInit, OnDestroy {
       }
       this.fullTitle2 = state.fullTitle2
       this.fullComponent2 = state.fullComponent2
+
+      if (this.formDrawer) {
+        this.formDrawer.opened = state.formDrawer
+        this.formComponent = state.formComponent
+        this.formTitle = state.formTitle
+      }
     });
 
   }
@@ -54,6 +63,10 @@ export class SelectedIdeaComponent implements OnInit, OnDestroy {
 
   closeFullDrawer2(): void {
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+  }
+
+  closeFormDrawer(): void {
+    this.ideaStore.dispatch(CLOSE_FORM_DRAWER())
   }
 
 }

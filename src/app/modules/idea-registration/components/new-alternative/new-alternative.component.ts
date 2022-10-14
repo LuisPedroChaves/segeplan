@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
-import { DataGeo } from 'src/app/core/models/alternative/DataGeo';
+import { distinctUntilChanged, Subscription } from 'rxjs';
 import { ExecutionTime } from 'src/app/core/models/alternative/ExecutionTime';
 import { GeographicArea } from 'src/app/core/models/alternative/GeographicArea';
 import { PopulationDelimitation } from 'src/app/core/models/alternative/PopulationDelimitation';
@@ -11,7 +10,7 @@ import { PreliminaryName } from 'src/app/core/models/alternative/PreliminaryName
 import { ProjectDescription } from 'src/app/core/models/alternative/ProjectDescription';
 import { ResponsibleEntity } from 'src/app/core/models/alternative/ResponsibleEntity';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { GeograficoStore, IdeaStore, ObjectStore, ProcesoStore } from 'src/app/store/reducers';
+import { AlternativeStore, GeograficoStore, IdeaStore, ObjectStore, ProcesoStore } from 'src/app/store/reducers';
 import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
 import { Denomination } from '../../../../core/models/alternative/Denomination';
 import { Departament } from '../../../../core/models/adicionales/department';
@@ -23,7 +22,7 @@ import { READ_GEOGRAFICOS } from '../../../../store/actions/geografico.actions';
 import { READ_OBJECTS } from '../../../../store/actions/object.actions';
 import { READ_PROCESOS } from '../../../../store/actions/proceso.actions';
 import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
-import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
+import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FORM_DRAWER, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
 import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
 import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
@@ -31,6 +30,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { DataGeo } from 'src/app/core/models/alternative/DataGeo';
+import { MatTableDataSource } from '@angular/material/table';
+import { REMOVE_DATA_GEO, DELETE_DATA_GEOS } from '../../../../store/actions/alternative.actions';
 
 @Component({
   selector: 'app-new-alternative',
@@ -43,7 +45,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     },
   ],
 })
-export class NewAlternativeComponent implements OnInit {
+export class NewAlternativeComponent implements OnInit, OnDestroy {
 
   coverageText = '0'
 
@@ -99,37 +101,10 @@ export class NewAlternativeComponent implements OnInit {
     preliminaryCharacterization: new FormControl('', [Validators.required, Validators.maxLength(500)]),
   })
 
-  get formCoordinates(): FormArray {
-    return this.geographicArea.get('dataGeo') as FormArray;
-  }
-
   geographicArea = new FormGroup({
     oneAvailableTerrain: new FormControl(false),
     availableTerrain: new FormControl(false),
     investPurchase: new FormControl(false),
-    governmentTerrain: new FormControl(false),
-    registerGovernmentTerrain: new FormControl(false),
-    // Este campo solo sirve para habilitar finca folio y libro
-    // No se almacena en la DB
-    switchStatus: new FormControl(false),
-    // ----------------------------------
-    statusDescribe: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
-    finca: new FormControl({ value: '', disabled: true }),
-    folio: new FormControl({ value: '', disabled: true }),
-    libro: new FormControl({ value: '', disabled: true }),
-    plano: new FormControl(false),
-    slightIncline: new FormControl(false),
-    broken: new FormControl(false),
-    // Este campo solo sirve para habilitar imagen y descripción
-    // No se almacena en la DB
-    withImage: new FormControl(false),
-    // ----------------------------------
-    image: new FormControl({ value: '', disabled: true }),
-    description: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
-    basicServices: new FormControl(false),
-    descriptionBasicServices: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
-    dataGeo: this.FormBuilder.array<DataGeo>([]),
-    descriptionLocation: new FormControl('', [Validators.maxLength(200)]),
   })
 
   projectDescription = new FormGroup({
@@ -152,15 +127,15 @@ export class NewAlternativeComponent implements OnInit {
     finishDateYear: new FormControl('', Validators.required),
     annual: new FormControl(true, Validators.required),
   })
-
-  coordinatesColumns: string[] = ['geoAreaId', 'latitude', 'length', 'remove'];
-  coordinatesSource = new BehaviorSubject<AbstractControl[]>([]);
   /* #endregion */
 
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
 
-
+  alternativeStoreSubscription = new Subscription()
+  dataGeos: DataGeo[] = [];
+  displayedColumns = ['statusDescribe', 'actions'];
+  dataSource = new MatTableDataSource<DataGeo>([])
 
   constructor(
     private ideaStore: Store<IdeaStore>,
@@ -170,9 +145,8 @@ export class NewAlternativeComponent implements OnInit {
     private objectStore: Store<ObjectStore>,
     private procesoStore: Store<ProcesoStore>,
     private generalInformationService: GeneralInformationService,
-    private FormBuilder: FormBuilder,
     public store: Store<AppState>,
-
+    public alternativeStore: Store<AlternativeStore>
   ) { }
 
   ngOnInit(): void {
@@ -189,6 +163,12 @@ export class NewAlternativeComponent implements OnInit {
 
       console.log(this.usuario);
     });
+
+    this.alternativeStoreSubscription = this.alternativeStore.select('alternative')
+    .subscribe(state => {
+      this.dataGeos = state.dataGeos
+      this.dataSource = new MatTableDataSource<DataGeo>(this.dataGeos)
+    })
 
     //#region Catalogos
     this.denominationStoreSubscription = this.denominationStore.select('denomination')
@@ -240,6 +220,22 @@ export class NewAlternativeComponent implements OnInit {
     this.terrainValidators()
   }
 
+  ngOnDestroy(): void {
+      this.sessionSubscription?.unsubscribe()
+      this.referenceStoreSubscription?.unsubscribe()
+      this.denominationStoreSubscription?.unsubscribe()
+      this.departamentoStoreSubscription?.unsubscribe()
+      this.objetoStoreSubscription?.unsubscribe()
+      this.processStoreSubscription?.unsubscribe()
+
+      this.ideaStoreSubscription?.unsubscribe()
+      this.alternativeStoreSubscription?.unsubscribe()
+  }
+
+  openFormDrawer(formTitle: string, formComponent: string): void {
+    this.ideaStore.dispatch(OPEN_FORM_DRAWER({ formTitle, formComponent }))
+  }
+
   terrainValidators(): void {
     this.geographicArea.controls['oneAvailableTerrain'].valueChanges
       .pipe(
@@ -277,171 +273,12 @@ export class NewAlternativeComponent implements OnInit {
         if (value) {
           this.geographicArea.controls['oneAvailableTerrain'].disable()
           this.geographicArea.controls['availableTerrain'].disable()
-
-          this.geographicArea.controls['governmentTerrain'].disable()
-          this.geographicArea.controls['registerGovernmentTerrain'].disable()
-          this.geographicArea.controls['statusDescribe'].disable()
-          this.geographicArea.controls['finca'].disable()
-          this.geographicArea.controls['folio'].disable()
-          this.geographicArea.controls['libro'].disable()
-          this.geographicArea.controls['plano'].disable()
-          this.geographicArea.controls['slightIncline'].disable()
-          this.geographicArea.controls['broken'].disable()
-          this.geographicArea.controls['image'].disable()
-          this.geographicArea.controls['description'].disable()
-          this.geographicArea.controls['basicServices'].disable()
-          this.geographicArea.controls['descriptionBasicServices'].disable()
-          this.geographicArea.controls['descriptionLocation'].disable()
-          this.geographicArea.controls['dataGeo'].disable()
-          this.geographicArea.controls['switchStatus'].disable()
-          this.geographicArea.controls['withImage'].disable()
           return
         }
 
         this.geographicArea.controls['oneAvailableTerrain'].enable()
         this.geographicArea.controls['availableTerrain'].enable()
-        this.geographicArea.controls['governmentTerrain'].enable()
-        this.geographicArea.controls['registerGovernmentTerrain'].enable()
-        this.geographicArea.controls['plano'].enable()
-        this.geographicArea.controls['slightIncline'].enable()
-        this.geographicArea.controls['broken'].enable()
-        this.geographicArea.controls['basicServices'].enable()
-        this.geographicArea.controls['descriptionLocation'].enable()
-        this.geographicArea.controls['dataGeo'].enable()
-        this.geographicArea.controls['switchStatus'].enable()
-        this.geographicArea.controls['withImage'].enable()
       });
-
-    this.geographicArea.controls['governmentTerrain'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['registerGovernmentTerrain'].disable()
-          return
-        }
-
-        this.geographicArea.controls['registerGovernmentTerrain'].enable()
-      });
-    this.geographicArea.controls['registerGovernmentTerrain'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['governmentTerrain'].disable()
-          return
-        }
-
-        this.geographicArea.controls['governmentTerrain'].enable()
-      });
-
-    this.geographicArea.controls['switchStatus'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['statusDescribe'].enable()
-          this.geographicArea.controls['finca'].enable()
-          this.geographicArea.controls['folio'].enable()
-          this.geographicArea.controls['libro'].enable()
-          return
-        }
-
-        this.geographicArea.controls['statusDescribe'].disable()
-        this.geographicArea.controls['finca'].disable()
-        this.geographicArea.controls['folio'].disable()
-        this.geographicArea.controls['libro'].disable()
-      });
-
-    this.geographicArea.controls['plano'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['slightIncline'].disable()
-          this.geographicArea.controls['broken'].disable()
-          return
-        }
-
-        this.geographicArea.controls['slightIncline'].enable()
-        this.geographicArea.controls['broken'].enable()
-      });
-    this.geographicArea.controls['slightIncline'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['plano'].disable()
-          this.geographicArea.controls['broken'].disable()
-          return
-        }
-
-        this.geographicArea.controls['plano'].enable()
-        this.geographicArea.controls['broken'].enable()
-      });
-    this.geographicArea.controls['broken'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['slightIncline'].disable()
-          this.geographicArea.controls['plano'].disable()
-          return
-        }
-
-        this.geographicArea.controls['slightIncline'].enable()
-        this.geographicArea.controls['plano'].enable()
-      });
-
-    this.geographicArea.controls['withImage'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['image'].enable()
-          this.geographicArea.controls['description'].enable()
-          return
-        }
-
-        this.geographicArea.controls['image'].disable()
-        this.geographicArea.controls['description'].disable()
-      });
-
-    this.geographicArea.controls['basicServices'].valueChanges
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
-        if (value) {
-          this.geographicArea.controls['descriptionBasicServices'].enable()
-          return
-        }
-
-        this.geographicArea.controls['descriptionBasicServices'].disable()
-      });
-  }
-
-  addCoordinates(): void {
-    const NEW_DETAIL: FormGroup = this.FormBuilder.group({
-      geographicAreaId: new FormControl('', Validators.required),
-      latitude: new FormControl('', Validators.required),
-      length: new FormControl('', Validators.required),
-    });
-    this.formCoordinates.push(NEW_DETAIL);
-
-    this.coordinatesSource.next(this.formCoordinates.controls);
-  }
-
-  removeCoordinates(index: number): void {
-    this.formCoordinates.removeAt(index);
-    this.coordinatesSource.next(this.formCoordinates.controls);
   }
 
   selecDepartament(): void {
@@ -480,6 +317,10 @@ export class NewAlternativeComponent implements OnInit {
     setTimeout(() => {
       this.myScrollContainer.nativeElement.scrollTop = 0;
     }, 500);
+  }
+
+  removeDataGeo(dataGeo: DataGeo): void {
+    this.alternativeStore.dispatch(REMOVE_DATA_GEO({ dataGeo }))
   }
 
   saveIdeaAlternative(): void {
@@ -539,42 +380,13 @@ export class NewAlternativeComponent implements OnInit {
       availableTerrain,
       oneAvailableTerrain,
       investPurchase,
-      governmentTerrain,
-      registerGovernmentTerrain,
-      statusDescribe,
-      finca,
-      folio,
-      libro,
-      plano,
-      slightIncline,
-      broken,
-      image,
-      description,
-      basicServices,
-      descriptionBasicServices,
-      descriptionLocation,
-      dataGeo: coordinates
     } = this.geographicArea.value
 
     const GEOGRAPHIC_AREA: GeographicArea = {
       availableTerrain,
       oneAvailableTerrain,
       investPurchase,
-      // governmentTerrain,
-      // registerGovernmentTerrain,
-      // statusDescribe,
-      // finca,
-      // folio,
-      // libro,
-      // plano,
-      // slightIncline,
-      // broken,
-      // image,
-      // description,
-      // basicServices,
-      // descriptionBasicServices,
-      // descriptionLocation,
-      // coordinates
+      dataGeo: this.dataGeos
     }
 
     const {
@@ -662,6 +474,7 @@ export class NewAlternativeComponent implements OnInit {
     this.stepper.reset();
 
     this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
+    this.alternativeStore.dispatch( DELETE_DATA_GEOS() )
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
 
 

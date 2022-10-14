@@ -53,13 +53,14 @@ export class NewActivityComponent implements OnInit {
     this.initiativeStore.dispatch( CLOSE_FORM_DRAWER() )
 
   }
+
   updateSubtotal(event){
     console.log(event)
     const {
       cant,
       priceU,
     } = this.activity.value;
-    
+
     console.log(cant, priceU, this.subtotal);
     this.subtotal =  cant * priceU;
 

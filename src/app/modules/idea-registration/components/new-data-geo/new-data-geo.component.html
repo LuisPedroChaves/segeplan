@@ -1,0 +1,140 @@
+<form [formGroup]="dataGeo" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <div fxLayout="column" fxLayoutGap="10px" class="my-form">
+
+    <p class="mat-subheading-2">Situación legal del posible bien inmueble</p>
+    <mat-slide-toggle formControlName="governmentTerrain">Terreno a nombre del Estado</mat-slide-toggle>
+    <mat-slide-toggle formControlName="registerGovernmentTerrain">Se debe de inscribir el terreno a nombre del
+      Estado</mat-slide-toggle>
+
+    <mat-slide-toggle formControlName="switchStatus">Observación</mat-slide-toggle>
+
+    <mat-form-field fxFill appearance="outline">
+      <mat-label>Observación</mat-label>
+      <textarea matInput formControlName="statusDescribe" placeholder="Describir el estatus..." rows="4"></textarea>
+      <mat-hint>Hasta {{200 - dataGeo?.get('statusDescribe')?.value?.length}} caracteres.</mat-hint>
+      <mat-error *ngIf="dataGeo.get('statusDescribe')?.hasError('maxlength')">
+        Máximo 200 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Finca</mat-label>
+        <input matInput placeholder="Finca..." formControlName="finca">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Folio</mat-label>
+        <input matInput placeholder="Folio..." formControlName="folio">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Libro</mat-label>
+        <input matInput placeholder="Libro..." formControlName="libro">
+      </mat-form-field>
+
+    </div>
+
+    <mat-divider></mat-divider>
+    <p class="mat-subheading-2">Características del posible terreno</p>
+
+    <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+      <mat-slide-toggle fxFlex formControlName="plano">Plano</mat-slide-toggle>
+      <mat-slide-toggle fxFlex formControlName="slightIncline">Inclinación leve</mat-slide-toggle>
+      <mat-slide-toggle fxFlex formControlName="broken">Quebrado</mat-slide-toggle>
+    </div>
+
+    <mat-slide-toggle formControlName="withImage">Subir imagen del terreno</mat-slide-toggle>
+
+    <mat-form-field fxFill appearance="outline">
+      <mat-label>Imagen</mat-label>
+      <input matInput formControlName="image"
+        placeholder="Ingrese una imagen clara para el contexto actual del terreno">
+      <mat-icon matSuffix>file</mat-icon>
+      <mat-hint>Archivo JPG, no mayor a 10MB.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field fxFill appearance="outline">
+      <mat-label>Descripción del terreno</mat-label>
+      <textarea matInput formControlName="description" placeholder="Máximo 200 caracteres..." rows="4"></textarea>
+      <mat-hint>Hasta {{200 - dataGeo.get('description')?.value?.length}} caracteres.</mat-hint>
+      <mat-error *ngIf="dataGeo.get('description')?.hasError('maxlength')">
+        Máximo 200 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-divider></mat-divider>
+    <mat-slide-toggle formControlName="basicServices">Servicios básicos del posible terreno</mat-slide-toggle>
+
+    <mat-form-field fxFill appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descriptionBasicServices"
+        placeholder="Indique que servicios hay para el terreno (Ejemplo: Agua potable, luz eléctrica, drenajes sanitarios, otros."
+        rows="4"></textarea>
+      <mat-hint>Hasta {{200 - dataGeo.get('descriptionBasicServices')?.value?.length}} caracteres.
+      </mat-hint>
+      <mat-error *ngIf="dataGeo.get('descriptionBasicServices')?.hasError('maxlength')">
+        Máximo 200 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-divider></mat-divider>
+    <p class="mat-subheading-2">Coordenadas geográficas</p>
+
+
+    <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Grados x</mat-label>
+        <input matInput placeholder="Grados x..." formControlName="degreesx">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Minutos x</mat-label>
+        <input matInput placeholder="Minutos x..." formControlName="minutesx">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Segundos x</mat-label>
+        <input matInput placeholder="Segundos x..." formControlName="secondsx">
+      </mat-form-field>
+
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Grados y</mat-label>
+        <input matInput placeholder="Grados y..." formControlName="degreesy">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Minutos y</mat-label>
+        <input matInput placeholder="Minutos y..." formControlName="minutesy">
+      </mat-form-field>
+
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Segundos y</mat-label>
+        <input matInput placeholder="Segundos y..." formControlName="secondsy">
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field fxFill appearance="outline">
+      <mat-label>Breve descripción de la posible ubicación</mat-label>
+      <textarea matInput formControlName="descriptionLocation"
+        placeholder="Describir ventajas y desventajas de cada uno de los terrenos, colindancias, posibles riesgos; cualquier aspecto que considere relevante."
+        rows="4"></textarea>
+      <mat-hint>Hasta {{200 - dataGeo.get('descriptionLocation')?.value?.length}} caracteres.</mat-hint>
+      <mat-error *ngIf="dataGeo.get('descriptionLocation')?.hasError('maxlength')">
+        Máximo 200 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="accent">Agregar</button>
+
+  </div>
+
+</form>

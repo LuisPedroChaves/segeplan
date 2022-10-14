@@ -26,6 +26,7 @@ import { ProcesoReducer } from '../../store/reducers/proceso.reducer';
 import { ReferenceReducer } from '../../store/reducers/popRef.reducer';
 import { AlternativeReducer } from '../../store/reducers/alternative.reducer';
 import { SelectedAlternativeComponent } from './components/selected-alternative/selected-alternative.component';
+import { NewDataGeoComponent } from './components/new-data-geo/new-data-geo.component';
 
 
 
@@ -44,6 +45,7 @@ import { SelectedAlternativeComponent } from './components/selected-alternative/
     SelectedAlternativeComponent,
     SelectedIdeaComponent,
     SendIdeasComponent,
+    NewDataGeoComponent,
   ],
   imports: [
     CommonModule,
