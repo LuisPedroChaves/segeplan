@@ -44,18 +44,12 @@ export class NewIniciativesComponent implements OnInit, OnDestroy {
   }
 
 
-  openFullDrawer(initiative: IRequest): void {
+  openFullDrawer(initiative: IRequest, fullTitle: string, fullComponent: string): void {
 
     this.initiativeStore.dispatch(SET_INITIATIVE({ initiative }))
 
-    this.initiativeStore.dispatch(OPEN_FULL_DRAWER({ fullTitle: initiative.investment.nameProject, fullComponent: 'SELECTED_INITIATIVE' }))
+    this.initiativeStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
   }
 
 
 }
-
-const ELEMENT_DATA: any[] = [
-  {entity: 'INDE', name: 'Proyecto de ejecución', objetive: ' Ejecutar proyecto pactado', cost: 'Q.30000.00 ', state: 'CREADA', asingment: 'APORTACIONES DEL ESTADO', actions: null},
-  {entity: 'INACIF', name: 'Proyecto de construcción', objetive: 'Construir una nueva sede', cost: 'Q.25000.00', state: 'ADMITIDA', asingment: 'PRESTAMO', actions: null},
-  {entity: 'INGUAT', name: 'Proyecto para apliacion', objetive: 'Apliacion de presupuesto ', cost: 'Q.150000.00 ', state: 'EN RECEPCION', asingment: 'TRASFERENCIA NO REEMBOLSABLE', actions: null},
-];

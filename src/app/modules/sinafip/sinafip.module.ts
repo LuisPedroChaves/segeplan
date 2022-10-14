@@ -16,6 +16,7 @@ import { SelectedInitiativeComponent } from './components/selected-initiative/se
 import { InitiativeCardComponent } from './components/initiative-card/initiative-card.component';
 import { InitiativeReducer } from '../../store/reducers/initiative.reducer';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
+import { AdmitionMatrixComponent } from './components/admition-matrix/admition-matrix.component';
 
 
 
@@ -26,7 +27,8 @@ import { NewActivityComponent } from './components/new-activity/new-activity.com
     NewIniciativesComponent,
     SelectedInitiativeComponent,
     InitiativeCardComponent,
-    NewActivityComponent
+    NewActivityComponent,
+    AdmitionMatrixComponent
   ],
   imports: [
     CommonModule,
