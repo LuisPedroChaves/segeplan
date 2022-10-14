@@ -11,7 +11,14 @@
         <mat-card-subtitle> {{initiative?.author}}</mat-card-subtitle>
         <span fxFlex></span>
         <ul>
-          <li *ngIf="initiative.status == 'CREADA'" class="status pending">SIN ENVIAR</li>
+          <div *ngIf="initiative.status == 'CREADA'" class="status pending">SIN ENVIAR</div>
+          <div *ngIf="initiative.status == 'EN RECEPCIÓN'" class="status in-progress">EN REVISIÓN</div>
+          <div *ngIf="initiative.status == 'EN ANÁLISIS'" class="status in-progress">EN ANÁLISIS</div>
+          <div *ngIf="initiative.status == 'RECHAZADA'" class="status dead">RECHAZADA</div>
+          <div *ngIf="initiative.status == 'CALIFICADA' && initiative.result == 'ADMITIDA'" class="status open">ADMITIDA
+          </div>
+          <div *ngIf="initiative.status == 'CALIFICADA' && initiative.result == 'NO ADMITIDA'" class="status dead">NO
+            ADMITIDA</div>
         </ul>
       </mat-card-header>
 
@@ -179,17 +186,20 @@
 
                 <p *ngIf="initiative.institution.documentProject">
                   <b>Documento del proyecto:</b>
-                  <a mat-button color="warn" mat-line [href]="initiative.institution.documentProject" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                  <a mat-button color="warn" mat-line [href]="initiative.institution.documentProject"
+                    target="_blank">Abrir <mat-icon>launch</mat-icon></a>
                 </p>
 
                 <p *ngIf="initiative.requirementsDocuments.tdr">
                   <b>TDR:</b>
-                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.tdr" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.tdr"
+                    target="_blank">Abrir <mat-icon>launch</mat-icon></a>
                 </p>
 
                 <p *ngIf="initiative.requirementsDocuments.scheduleActiv">
                   <b>Cronograma de actividades:</b>
-                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.scheduleActiv" target="_blank">Abrir <mat-icon>launch</mat-icon></a>
+                  <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.scheduleActiv"
+                    target="_blank">Abrir <mat-icon>launch</mat-icon></a>
                 </p>
 
               </mat-expansion-panel>
@@ -241,14 +251,23 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button *ngIf="initiative.status === 'CREADA'" mat-button (click)="null" color="warn">
+        <button
+          *ngIf="initiative.status === 'CREADA' || initiative.status === 'RECHAZADA' && usuario.role === 'USER_ROLE'"
+          (click)="changeStatus('reception', initiative.id)" mat-button color="warn">
           <mat-icon>send</mat-icon>
           ENVIAR INICIATIVA
         </button>
-        <!-- <button *ngIf="currentIdea.state === 'CALIFICADA' && currentIdea.result == 'NO PERTINENTE'" mat-button (click)="sendIdea()" color="warn">
-          <mat-icon>send</mat-icon>
-          REENVIAR IDEA
+        <button *ngIf="initiative.status === 'EN RECEPCIÓN' && usuario.role === 'ADMIN_ROLE'"
+          (click)="changeStatus('analysis', initiative.id)" mat-button (click)="null" color="warn">
+          <mat-icon>check</mat-icon>
+          Aceptar
         </button>
+        <button *ngIf="initiative.status === 'EN RECEPCIÓN' && usuario.role === 'ADMIN_ROLE'"
+          (click)="changeStatus('denied', initiative.id)" mat-button color="warn">
+          <mat-icon>block</mat-icon>
+          Rechazar
+        </button>
+        <!-- 
         <button *ngIf="currentIdea.state === 'ENVIADA' && usuario.role == 'ADMIN_ROLE'" mat-button
           (click)="finishIdea()" color="warn">
           <mat-icon>send</mat-icon>

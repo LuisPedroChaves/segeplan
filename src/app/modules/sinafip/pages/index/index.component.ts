@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CHANGE_MENU_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER, SET_IDEA } from 'src/app/store/actions';
 import { AppState } from 'src/app/store/app.reducer';
+import { User } from '../../../../core/models/adicionales/user';
 
 @Component({
   selector: 'app-index',
@@ -19,12 +20,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   fullComponent = '';
 
+  sessionSubscription: Subscription;
+  usuario: User;
+
   constructor(
     public store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
-
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+    });
     this.storeSubscription = this.store.select('drawer')
     .subscribe(state => {
       if (this.menuDrawer) {

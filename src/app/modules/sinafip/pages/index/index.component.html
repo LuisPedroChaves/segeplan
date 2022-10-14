@@ -8,7 +8,7 @@
   <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button mat-raised-button (click)="openFullDrawer('Crear Iniciativa de Preinversión', 'NEW_INITIATIVE')" color="primary">Crear iniciativa de preinversión</button>
+      <button *ngIf="usuario.role === 'USER_ROLE'" mat-raised-button (click)="openFullDrawer('Crear Iniciativa de Preinversión', 'NEW_INITIATIVE')" color="primary">Crear iniciativa de preinversión</button>
       <br>
       <mat-selection-list #shoes [multiple]="false">
 

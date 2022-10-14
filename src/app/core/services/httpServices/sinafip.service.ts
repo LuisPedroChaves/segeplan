@@ -68,6 +68,17 @@ export class SinafipService {
     );
   }
 
+  // http://localhost:3000/api/sinafip/request/denied/:idSolicitud
+  //status pueden ser:  ['reception', 'analysis', 'denied'];
+  updateStatus(status: string, idSolicitud: string): Observable<any> {
+    const url = `${this.API_URL}${this.url}request/${status}/${idSolicitud}`;
+    return this.http.put(url, '').pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   createRequest(request: IRequest): Observable<IRequest> {
     const url = this.API_URL + this.url + 'request/new';
     return this.http.post(url, request).pipe(

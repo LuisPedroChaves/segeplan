@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { appReducers } from './store/app.reducer';
 import { effectsArray } from './store/effects/index';
 import { HttpClientModule } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoadingBarRouterModule,
     LoadingBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
