@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IRequest } from 'src/app/core/models/sinafip/request';
+import { AdmissionQuanty } from '../../models/sinafip/admissionQuanty';
 
 @Injectable({
   providedIn: 'root',
@@ -84,6 +85,15 @@ export class SinafipService {
     return this.http.post(url, request).pipe(
       map((res: any) => {
         return res.request;
+      })
+    )
+  }
+
+  saveRequestAdmission(idSolicitud: string, admission: AdmissionQuanty): Observable<IRequest> {
+    const url = `${this.API_URL}${this.url}request/admission/${idSolicitud}`;
+    return this.http.post(url, admission).pipe(
+      map((res: any) => {
+        return res;
       })
     )
   }

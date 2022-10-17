@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { CLOSE_FULL_DRAWER } from 'src/app/store/actions';
 import { AppState } from 'src/app/store/app.reducer';
+import { AdmissionQuanty } from '../../../../core/models/sinafip/admissionQuanty';
 import { IRequest } from '../../../../core/models/sinafip/request';
 import { SinafipService } from '../../../../core/services/httpServices/sinafip.service';
 import { InitiativeStore } from '../../../../store/reducers';
@@ -30,6 +31,7 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
   initiativeStoreSubscription = new Subscription()
   initiative: IRequest = null;
 
+  admissionResume: AdmissionQuanty;
 
   criterio1 = new FormGroup({
     statementNeedValue: new FormControl('', Validators.required),
@@ -64,8 +66,6 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
   rating10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
-
-
   constructor(
     private appStore: Store<AppState>,
     private initiativeStore: Store<InitiativeStore>,
@@ -97,6 +97,66 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
 
   closeFullDrawer(): void {
     this.appStore.dispatch(CLOSE_FULL_DRAWER())
+  }
+
+  resumeMatrix(): void {
+
+    const { statementNeedValue, statementNeedDescription } = this.criterio1.value;
+    const { numberBeneficiariesValue, numberBeneficiariesDescription } = this.criterio2.value;
+    const { objetivesGoalsValue, objetivesGoalsDescription } = this.criterio3.value;
+    const { tdrValue, tdrDescription } = this.criterio4.value;
+    const { estimatedCostValue, estimatedCostDescription } = this.criterio5.value;
+    const { generalScheduleValue, generalScheduleDescription } = this.criterio6.value;
+
+    const statementNeed = this.initiative.investment.descAdnJust;
+    const numberBeneficiaries = this.initiative.delimit.estimatedBenef;
+    const objetivesGoals = this.initiative.studyDescription.objetiveGeneral;
+    const tdr = this.initiative.requirementsDocuments.tdr;
+    const estimatedCost = this.initiative.requirementsDocuments.stimatedBudget.totalStimated;
+    const generalSchedule = this.initiative.requirementsDocuments.scheduleActiv;
+
+    let statementNeedValueInt = parseInt(statementNeedValue);
+    let numberBeneficiariesValueInt = parseInt(numberBeneficiariesValue);
+    let objetivesGoalsValueInt = parseInt(objetivesGoalsValue);
+    let tdrValueInt = parseInt(tdrValue);
+    let estimatedCostValueInt = parseInt(estimatedCostValue);
+    let generalScheduleValueInt = parseInt(generalScheduleValue);
+    let total = statementNeedValueInt + numberBeneficiariesValueInt + objetivesGoalsValueInt + tdrValueInt + estimatedCostValueInt + generalScheduleValueInt;
+
+
+    this.admissionResume = {
+      statementNeed,
+      statementNeedDescription,
+      statementNeedValue: statementNeedValueInt,
+      numberBeneficiaries,
+      numberBeneficiariesDescription,
+      numberBeneficiariesValue: numberBeneficiariesValueInt,
+      objetivesGoals,
+      objetivesGoalsDescription,
+      objetivesGoalsValue: objetivesGoalsValueInt,
+      tdr,
+      tdrDescription,
+      tdrValue: tdrValueInt,
+      estimatedCost: estimatedCost.toString(),
+      estimatedCostDescription,
+      estimatedCostValue: estimatedCostValueInt,
+      generalSchedule,
+      generalScheduleDescription,
+      generalScheduleValue: generalScheduleValueInt,
+      total,
+    }
+
+  }
+
+  saveAdmissionMatrix(): void {
+
+    this.sinafipService.saveRequestAdmission(this.initiative.id, this.admissionResume)
+    .subscribe((res: any) => {
+      console.log(res);
+      this.appStore.dispatch(CLOSE_FULL_DRAWER());
+      this.stepper.reset();
+    });
+
   }
 
 }

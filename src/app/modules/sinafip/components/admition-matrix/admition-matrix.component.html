@@ -86,6 +86,7 @@
             </div>
           </div>
           <div>
+            <button mat-button matStepperPrevious>Volver</button>
             <button mat-button matStepperNext>Siguiente</button>
           </div>
         </div>
@@ -126,6 +127,7 @@
             </div>
           </div>
           <div>
+            <button mat-button matStepperPrevious>Volver</button>
             <button mat-button matStepperNext>Siguiente</button>
           </div>
         </div>
@@ -144,7 +146,8 @@
             <b>TDR:</b>
             <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.tdr" target="_blank">Abrir
               <mat-icon>
-                launch</mat-icon></a>
+                launch</mat-icon>
+            </a>
           </p>
           <p *ngIf="!initiative.requirementsDocuments.tdr">
             <b>TDR:</b>
@@ -175,6 +178,7 @@
             </div>
           </div>
           <div>
+            <button mat-button matStepperPrevious>Volver</button>
             <button mat-button matStepperNext>Siguiente</button>
           </div>
         </div>
@@ -215,6 +219,7 @@
             </div>
           </div>
           <div>
+            <button mat-button matStepperPrevious>Volver</button>
             <button mat-button matStepperNext>Siguiente</button>
           </div>
         </div>
@@ -264,10 +269,106 @@
             </div>
           </div>
           <div>
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button (click)="resumeMatrix()" matStepperNext>Siguiente</button>
           </div>
         </div>
       </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Resumen de Admisión </ng-template>
+
+      <div fxLayout="column" fxLayoutGap="15px">
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">Planteamiento de la necesidad, problemas u oportunidades:</span>
+            <span class="mat-title">{{ admissionResume?.statementNeedValue}} / 20</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.statementNeedValue * 100) / 20"
+            color="accent">
+          </mat-progress-bar>
+        </div>
+      </div>
+      <div fxLayout="column" fxLayoutGap="15px">
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">Número de Beneficiarios:</span>
+            <span class="mat-title">{{ admissionResume?.numberBeneficiariesValue}} / 10</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.numberBeneficiariesValue * 100) / 10"
+            color="accent">
+          </mat-progress-bar>
+        </div>
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">Objetivos /Metas del Documento de Preinversión:</span>
+            <span class="mat-title">{{ admissionResume?.objetivesGoalsValue}} / 20</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.objetivesGoalsValue * 100) / 20"
+            color="accent">
+          </mat-progress-bar>
+        </div>
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">TDR:</span>
+            <span class="mat-title">{{ admissionResume?.tdrValue}} / 30</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.tdrValue * 100) / 30" color="accent">
+          </mat-progress-bar>
+        </div>
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">Costo Estimado del documento preinversión:</span>
+            <span class="mat-title">{{ admissionResume?.estimatedCostValue}} / 10</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.estimatedCostValue * 100) / 10"
+            color="accent">
+          </mat-progress-bar>
+        </div>
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-subheading-2">Cronograma General del Estudio:</span>
+            <span class="mat-title">{{ admissionResume?.generalScheduleValue}} / 10</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(admissionResume?.generalScheduleValue * 100) / 10"
+            color="accent">
+          </mat-progress-bar>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="mat-title">Total: </span>
+          <span class="mat-headline">{{ admissionResume?.total}} / 100</span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="admissionResume?.total" color="warn"></mat-progress-bar>
+        <br>
+        <div *ngIf="admissionResume?.total < 60" class="load-spin" fxFlex>
+          <h2>Solicitud No Admitida</h2>
+        </div>
+        <div *ngIf="admissionResume?.total >= 60" class="load-spin" fxFlex>
+          <h2>Solicitud Admitida</h2>
+        </div>
+
+      </div>
+
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div>
+        <button mat-button color="primary" (click)="saveAdmissionMatrix()">Finalizar</button>
+        <span fxFlex></span>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button (click)="stepper.reset()">Restablecer</button>
+      </div>
+
     </mat-step>
 
 
