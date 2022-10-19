@@ -26,7 +26,7 @@
         </mat-chip-list> -->
         <ul>
           <li *ngIf="currentIdea.state == 'CREADA'" class="status pending">SIN ENVIAR</li>
-          <li *ngIf="currentIdea.state == 'ENVIADA'" class="status in-progress">EN REVISIÓN</li>
+          <li *ngIf="currentIdea.state == 'ENVIADA'" class="status in-progress">ENVIADA</li>
           <li *ngIf="currentIdea.state == 'CALIFICADA' && currentIdea.result == 'PERTINENTE'" class="status open">PERTINENTE</li>
           <li *ngIf="currentIdea.state == 'CALIFICADA' && currentIdea.result == 'NO PERTINENTE'" class="status dead">NO PERTINENTE</li>
         </ul>

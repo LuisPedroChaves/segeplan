@@ -108,7 +108,7 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
     const { estimatedCostValue, estimatedCostDescription } = this.criterio5.value;
     const { generalScheduleValue, generalScheduleDescription } = this.criterio6.value;
 
-    const statementNeed = this.initiative.investment.descAdnJust;
+    const statementNeed = this.initiative.investment.coreProblem;
     const numberBeneficiaries = this.initiative.delimit.estimatedBenef;
     const objetivesGoals = this.initiative.studyDescription.objetiveGeneral;
     const tdr = this.initiative.requirementsDocuments.tdr;

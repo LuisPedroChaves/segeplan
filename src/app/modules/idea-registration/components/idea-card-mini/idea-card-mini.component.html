@@ -32,7 +32,7 @@
 
     <ul>
       <li *ngIf="idea.state == 'CREADA'" class="status pending">SIN ENVIAR</li>
-      <li *ngIf="idea.state == 'ENVIADA'" class="status in-progress">EN REVISIÓN</li>
+      <li *ngIf="idea.state == 'ENVIADA'" class="status in-progress">ENVIADA</li>
       <li *ngIf="idea.state == 'CALIFICADA' && idea.result == 'PERTINENTE'" class="status open">CALIFICADA</li>
       <li *ngIf="idea.state == 'CALIFICADA' && idea.result == 'NO PERTINENTE'" class="status dead">CALIFICADA</li>
     </ul>

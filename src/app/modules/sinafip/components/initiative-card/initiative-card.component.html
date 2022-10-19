@@ -12,9 +12,9 @@
         <span fxFlex></span>
         <ul>
           <div *ngIf="initiative.status == 'CREADA'" class="status pending">SIN ENVIAR</div>
-          <div *ngIf="initiative.status == 'EN RECEPCIÓN'" class="status in-progress">EN REVISIÓN</div>
-          <div *ngIf="initiative.status == 'EN ANÁLISIS'" class="status in-progress">EN ANÁLISIS</div>
-          <div *ngIf="initiative.status == 'RECHAZADA'" class="status dead">RECHAZADA</div>
+          <div *ngIf="initiative.status == 'EN RECEPCIÓN'" class="status in-progress">ENVIADA</div>
+          <div *ngIf="initiative.status == 'EN ANÁLISIS'" class="status in-progress">RECEPCIONADA</div>
+          <div *ngIf="initiative.status == 'RECHAZADA'" class="status dead">SIN RECEPCIONAR</div>
           <div *ngIf="initiative.status == 'CALIFICADA' && initiative.result == 'ADMITIDA'" class="status open">ADMITIDA
           </div>
           <div *ngIf="initiative.status == 'CALIFICADA' && initiative.result == 'NO ADMITIDA'" class="status dead">NO

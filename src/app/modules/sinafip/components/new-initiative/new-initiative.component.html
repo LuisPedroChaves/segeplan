@@ -374,20 +374,37 @@
           <div fxLayout="row wrap" fxLayoutGap="15px grid">
 
             <p class=" mat-subheading-2">(población por beneficiarse directamente)</p>
-
+            <br>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Departamento</mat-label>
+              <mat-select formControlName="departament" (selectionChange)="selecDepartament()">
+                <mat-option *ngFor="let depto of departamentos" [value]="depto.NOMBRE">
+                  {{depto.NOMBRE}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Municipio</mat-label>
+              <mat-select formControlName="municipality">
+                <mat-option *ngFor="let mncpio of municipios" [value]="mncpio.NOMBRE">
+                  {{mncpio.NOMBRE}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>Población de referencia</mat-label>
-              <input type="text" placeholder="Seleccione o ingrese un valor" matInput [matAutocomplete]="auto">
+              <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="nameRefPop"
+                [matAutocomplete]="auto">
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <!-- <mat-option *ngFor="let ref of references" [value]="ref.name">
-                {{ref.name}}
-              </mat-option> -->
+                <mat-option *ngFor="let ref of references" [value]="ref.name">
+                  {{ref.name}}
+                </mat-option>
               </mat-autocomplete>
               <mat-hint>Nacional / Departamental / Municipal / Comunal / Otra</mat-hint>
-              <!-- <mat-error *ngIf="delimit.get('referencePopulation')?.hasError('required')">
-              La población de referencia es <strong>requerida</strong>
-            </mat-error> -->
+              <mat-error *ngIf="delimit.get('nameRefPop')?.hasError('required')">
+                La población de referencia es <strong>requerida</strong>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFill appearance="outline">
@@ -395,9 +412,9 @@
               <input type="text" placeholder="Seleccione o ingrese un valor" matInput formControlName="denomination"
                 [matAutocomplete]="auto2">
               <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-                <!-- <mat-option *ngFor="let denomination of denominations" [value]="denomination.name">
-                {{denomination.name}}
-              </mat-option> -->
+                <mat-option *ngFor="let denomination of denominations" [value]="denomination.name">
+                  {{denomination.name}}
+                </mat-option>
               </mat-autocomplete>
               <mat-hint>Alumnos / Pacientes / Agricultores / Otra: Especifique</mat-hint>
               <mat-error *ngIf="delimit.get('denomination')?.hasError('required')">

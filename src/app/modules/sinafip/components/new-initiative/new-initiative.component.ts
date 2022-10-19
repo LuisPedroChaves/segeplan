@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, REMOVE_ACTIVITY } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
 import { Entity } from '../../../../core/models/sinafip/entity';
-import { EntityStore, ModalityFinancingStore, PreinvDocumentStore, ProjectFunctionStore } from '../../../../store/reducers';
+import { DenominationStore, EntityStore, GeograficoStore, ModalityFinancingStore, PreinvDocumentStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
 import { READ_ENTITIES } from '../../../../store/actions/entity.actions';
 import { ProjectFunction } from '../../../../core/models/sinafip/projectFunction';
 import { GeneralStudy } from '../../../../core/models/sinafip/generalStudy';
@@ -28,6 +28,9 @@ import { EstimatedBudget } from 'src/app/core/models/sinafip/estimatedBudget';
 import { SinafipService } from 'src/app/core/services/httpServices/sinafip.service';
 import { UploadFileService } from 'src/app/core/services/httpServices/upload-file.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Departament } from 'src/app/core/models/adicionales/department';
+import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
+import { Denomination } from '../../../../core/models/alternative/Denomination';
 
 @Component({
   selector: 'app-new-initiative',
@@ -36,7 +39,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
+      useValue: { displayDefaultIndicatorType: false },
     },
   ],
 })
@@ -67,6 +70,16 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
   modalityFinancings: ModalityFinancing[] = [];
   modalityFinancingStoreSubscription = new Subscription();
+
+  departamentos: Departament[] = [];
+  municipios: Departament[] = [];
+  departamentoStoreSubscription = new Subscription();
+
+  references: ReferencePopulation[] = [];
+  referenceStoreSubscription = new Subscription();
+
+  denominations: Denomination[] = [];
+  denominationStoreSubscription = new Subscription();
 
   // END LISTADOS
 
@@ -107,6 +120,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     nameRefPop: new FormControl('', Validators.required),
     denomination: new FormControl('', Validators.required),
     estimatedBenef: new FormControl(null, [Validators.required, Validators.max(999999999999999)]),
+    departament: new FormControl(''),
+    municipality: new FormControl(''),
   })
 
   activitiesStoreSubscription = new Subscription()
@@ -122,6 +137,11 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     private generalStudyStore: Store<GeneralStudyStore>,
     private preinvDocumentStore: Store<PreinvDocumentStore>,
     private modalityFinancingStore: Store<ModalityFinancingStore>,
+    private geograficoStore: Store<GeograficoStore>,
+    private referenceStore: Store<ReferenceStore>,
+    private denominationStore: Store<DenominationStore>,
+
+
     //END LISTADOS
     private sinafipService: SinafipService,
     private uploadService: UploadFileService
@@ -179,6 +199,23 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
       })
     this.modalityFinancingStore.dispatch(READ_MODALITYFINANCINGS())
 
+    this.departamentoStoreSubscription = this.geograficoStore.select('geografico')
+      .subscribe(state => {
+        this.departamentos = state.geograficos;
+      })
+    this.geograficoStore.dispatch(READ_GEOGRAFICOS());
+
+    this.denominationStoreSubscription = this.denominationStore.select('denomination')
+      .subscribe(state => {
+        this.denominations = state.denominations;
+      })
+    this.denominationStore.dispatch(READ_DENOMINATIONS());
+
+    this.referenceStoreSubscription = this.referenceStore.select('reference')
+      .subscribe(state => {
+        this.references = state.references;
+      })
+    this.referenceStore.dispatch(READ_REFERENCES())
     // END LISTADOS
 
   }
@@ -186,6 +223,12 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.drawerSubscription?.unsubscribe();
     this.activitiesStoreSubscription?.unsubscribe()
+    this.entityStoreSubscription.unsubscribe();
+    this.projectFunctionStoreSubscription.unsubscribe();
+    this.generalStudyStoreSubscription.unsubscribe();
+    this.preinvDocumentStoreSubscription.unsubscribe();
+    this.modalityFinancingStoreSubscription.unsubscribe();
+    this.departamentoStoreSubscription.unsubscribe();
   }
 
   closeFullDrawer(): void {
@@ -208,6 +251,12 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.myScrollContainer.nativeElement.scrollTop = 0;
     }, 500);
+  }
+
+  selecDepartament(): void {
+    let dptoSelect = this.delimit.controls['departament'].value;
+    let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
+    if (dpto) { this.municipios = dpto.municipios }
   }
 
   saveInitiative(): void {
@@ -324,8 +373,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
         this.delimit.reset()
         this.requiredDocument.reset()
 
-        this.initiativeStore.dispatch( DELETE_ACTIVITIES() )
-        this.initiativeStore.dispatch( CLOSE_FULL_DRAWER() )
+        this.initiativeStore.dispatch(DELETE_ACTIVITIES())
+        this.initiativeStore.dispatch(CLOSE_FULL_DRAWER())
 
       })
 
