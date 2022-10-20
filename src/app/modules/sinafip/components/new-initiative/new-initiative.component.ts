@@ -319,12 +319,16 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
       nameRefPop,
       denomination,
       estimatedBenef,
+      departament,
+      municipality
     } = this.delimit.value
 
     const delimit: Delimit = {
       nameRefPop,
       denomination,
       estimatedBenef,
+      departament,
+      municipality
     }
 
     const {

@@ -4,4 +4,6 @@ export interface Delimit {
     denomination: string;
     estimatedBenef: string;
     requestId?: string;
+    departament: string;
+    municipality: string;
 }
