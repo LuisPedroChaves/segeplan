@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -86,6 +87,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatNativeDateModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
@@ -120,6 +122,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatNativeDateModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     MatRippleModule,
     MatSelectModule,
     MatSidenavModule,

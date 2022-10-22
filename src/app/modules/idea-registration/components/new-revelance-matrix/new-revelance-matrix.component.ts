@@ -28,17 +28,19 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
+      useValue: { displayDefaultIndicatorType: false },
     },
   ],
 })
 export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 
+  terrainRequired = false;
+
   @ViewChild('stepper') stepper: MatStepper;
   ideaStoreSubscription = new Subscription();
   currentIdea: GeneralInformation = null;
 
-  
+
   alternativeStoreSubscription = new Subscription()
   currentAlternative: IdeaAlternative = null!;
 
@@ -70,6 +72,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   criterio5 = new FormGroup({
     legalSituation: new FormControl('', Validators.required),
     legalSituationComment: new FormControl(''),
+    terreno: new FormControl(''),
   })
   criterio6 = new FormGroup({
     descAnlys: new FormControl('', Validators.required),
@@ -102,8 +105,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       "investPurchase": false
     },
     "criterio5": {
-      "registerGovernmentTerrain": true,
-      "statusDescribe": "prueba descripcion"
+      "terrenos": [],
     },
     "criterio6": {
       "projectType": "Proyecto 1",
@@ -144,10 +146,10 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.ideaStoreSubscription = this.ideaStore.select('idea')
-    .subscribe(state => {
-      this.currentIdea = state.idea;
-      console.log(this.currentIdea);
-    })
+      .subscribe(state => {
+        this.currentIdea = state.idea;
+        console.log(this.currentIdea);
+      })
     this.alternativeStoreSubscription = this.alternativeStore.select('alternative')
       .subscribe(state => {
         this.currentAlternative = state.alternative
@@ -163,12 +165,13 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
     this.generalInformationService.getMatrizPertinencia(this.currentAlternative.codigo).subscribe((res: any) => {
       this.matrix = res;
       console.log(this.matrix)
+      if (this.matrix.criterio5.terrenos.length > 0){this.terrainRequired = true} else {this.terrainRequired = false}
     })
   }
 
   loadMatrix(): void {
     this.preSend = false;
-
+    console.log(this.criterio5.value)
     let rsult = ''
     let valProblem = parseInt(this.criterio1.value.descProblem, 10) * 2;
     let valObjGeneral = parseInt(this.criterio2.value.generalObjct, 10) * 2;
@@ -179,7 +182,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       + parseInt(this.criterio4.value.terrainIdent, 10) + parseInt(this.criterio5.value.legalSituation, 10);
 
     if (this.totalMatrix >= 60) {
-      rsult = 'PERTINENTE'
+      rsult = 'PERTINENTE';
+      this.generateMatrixPreinvent();
     } else { rsult = 'NO PERTINENTE' }
     //
     this.relevanceMatrix = {
@@ -194,6 +198,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       terrainIdentComment: this.criterio4.value.terrainIdentComment,
       legalSituation: parseInt(this.criterio5.value.legalSituation, 10),
       legalSituationComment: this.criterio5.value.legalSituationComment,
+      terreno: this.criterio5.value.terreno,
       descAnlys: valAnlys,
       descAnlysComment: this.criterio6.value.descAnlysComment,
       total: this.totalMatrix,
@@ -233,15 +238,15 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
 
   async printReport(): Promise<void> {
     let imageLogo = await ConvertService.getBase64ImageFromURL('assets/img/Logo-min.jpg');
-  
-  
+
+
     let today = moment().format('DD.MM.YYYY');
     let dateArr = today.split('.');
     let monthName = ConvertService.convertMonthToString(parseInt(dateArr[1]));
     let dateToday = `Guatemala, ${dateArr[0]} de ${monthName} de ${dateArr[2]}`
-  
+
     let dateCreateIdea = moment(this.currentIdea.createdAt).format('DD/MM/YYYY')
-  
+
     let tableBody: any[] =
       [
         {
@@ -261,10 +266,10 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
           border: [false, false, false, true]
         }
       ]
-  
+
     let rows = []
     let numberI = 0
-  
+
     if (this.relevanceMatrix.descProblemComment) {
       numberI = numberI + 1;
       let alt = [
@@ -285,8 +290,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
-  
+
+
     if (this.relevanceMatrix.generalObjctComment) {
       numberI = numberI + 1;
       let alt = [
@@ -307,7 +312,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
+
     if (this.relevanceMatrix.anlysDelimitationComment) {
       numberI = numberI + 1;
       let alt = [
@@ -328,8 +333,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
-  
+
+
     if (this.relevanceMatrix.terrainIdentComment) {
       numberI = numberI + 1;
       let alt = [
@@ -350,8 +355,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
-  
+
+
     if (this.relevanceMatrix.legalSituationComment) {
       numberI = numberI + 1;
       let alt = [
@@ -372,8 +377,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
-  
+
+
     if (this.relevanceMatrix.descAnlysComment) {
       numberI = numberI + 1;
       let alt = [
@@ -394,12 +399,12 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
+
     if (this.relevanceMatrix.total) {
-  
+
       let textDesc = this.relevanceMatrix.total.toString();
       (this.relevanceMatrix.descriptionGeneral) ? textDesc = textDesc + ' - ' + this.relevanceMatrix.descriptionGeneral : textDesc;
-  
+
       let alt = [
         {
           text: '',
@@ -418,13 +423,13 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
       ];
       rows.push(alt)
     }
-  
-  
+
+
     let resultadoPre = this.preInvestment.etapa.resultado.toUpperCase();
     // this.currentAlternative.qualification.
-  
-  
-  
+
+
+
     const pdfDefinition: any = {
       content: [
         {
@@ -523,10 +528,10 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
         },
       ]
     }
-  
+
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
-  
+
   }
 }
 

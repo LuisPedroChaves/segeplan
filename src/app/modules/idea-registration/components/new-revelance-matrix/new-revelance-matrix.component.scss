@@ -24,3 +24,14 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.example-radio-group {
+  display: wrap;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}

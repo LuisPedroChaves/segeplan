@@ -1,3 +1,5 @@
+import { DataGeo } from "./DataGeo";
+
 export interface Qualification {
     codigo?: string;
     AlterId?: string;
@@ -15,6 +17,7 @@ export interface Qualification {
 
     legalSituation: number;
     legalSituationComment: string;
+    terreno?: string;
 
     descAnlys?: number;
     descAnlysComment?: string;

@@ -1,3 +1,4 @@
+import { DataGeo } from '../alternative/DataGeo';
 
 export interface IPertinence {
     criterio1: criterio1,
@@ -33,8 +34,7 @@ export interface criterio4 {
 }
 
 export interface criterio5 {
-    registerGovernmentTerrain: boolean,
-    statusDescribe: string,
+    terrenos: DataGeo[],
 }
 
 export interface criterio6 {

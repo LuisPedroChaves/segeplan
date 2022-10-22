@@ -190,10 +190,10 @@
 
       <form [formGroup]="criterio4" autocomplete="off">
         <div fxLayout="column" fxLayoutGap="15px">
-          <span class="mat-body-strong">Informacion no disponible: </span><br>
+          <!-- <span class="mat-body-strong">Informacion no disponible: </span><br> -->
           <!--TODO: Criterios, solventar -->
           <br>
-          <!-- <p class="mat-body">
+          <p class="mat-body">
             <span class="mat-body-strong">Se identifican varios terrenos disponibles: </span><br>
             {{ matrix.criterio4.availableTerrain ? 'SI' : 'NO'}}
           </p>
@@ -205,7 +205,7 @@
             <span class="mat-body-strong">Es necesario invertir en la compra del terreno:</span><br>
             {{ matrix.criterio4.investPurchase ? 'SI' : 'NO'}}
           </p>
-          <br> -->
+          <br>
 
           <div fxLayout="row wrap">
             <div fxFlex fxLayout="column">
@@ -259,23 +259,29 @@
 
       <form [formGroup]="criterio5" autocomplete="off">
         <div fxLayout="column" fxLayoutGap="15px">
-          <span class="mat-body-strong">Informacion no disponible: </span><br>
-          <!--TODO: Criterios, solventar -->
+          <span *ngIf="matrix.criterio5.terrenos.length <= 0" class="mat-body-strong">No hay Información de Terrenos
+            Disponibles </span><br>
 
-          <!-- <br>
-          <p class="mat-body">
-            <span class="mat-body-strong">Terreno a nombre del Estado: </span><br>
-            {{ matrix.criterio5.registerGovernmentTerrain ? 'SI' : 'NO'}}
-          </p>
-          <p class="mat-body">
-            <span class="mat-body-strong">Se debe de inscribir el terreno a nombre del Estado:</span><br>
-            {{ matrix.criterio5.registerGovernmentTerrain ? 'NO' : 'SI'}}
-          </p>
-          <p class="mat-body">
-            {{ matrix.criterio5.statusDescribe }}
-          </p>
-          <br> -->
-
+          <br>
+          <mat-radio-group formControlName="terreno" aria-labelledby="example-radio-group-label"
+            class="example-radio-group" [disabled]="terrainRequired">
+            <mat-radio-button class="example-radio-button" *ngFor="let terreno of matrix.criterio5.terrenos"
+              [value]="terreno">
+              <mat-card>
+                <p class="mat-body">
+                  <span class="mat-body-strong">Terreno a nombre del Estado: </span><br>
+                  {{ terreno.registerGovernmentTerrain ? 'SI' : 'NO'}}
+                </p>
+                <p class="mat-body">
+                  <span class="mat-body-strong">Se debe de inscribir el terreno a nombre del Estado:</span><br>
+                  {{ terreno.registerGovernmentTerrain ? 'NO' : 'SI'}}
+                </p>
+                <p class="mat-body">
+                  {{ terreno.statusDescribe }}
+                </p>
+              </mat-card>
+            </mat-radio-button>
+          </mat-radio-group>
 
           <div fxLayout="row wrap">
             <div fxFlex fxLayout="column">
@@ -415,7 +421,7 @@
                 <span class="mat-title">{{ relevanceMatrix?.descProblem}} / 20</span>
               </div>
 
-              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.descProblem * 100) / 20" color="accent">
+              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.descProblem * 100) / 20" color="primary">
               </mat-progress-bar>
             </div>
 
@@ -425,7 +431,7 @@
                 <span class="mat-title">{{ relevanceMatrix?.generalObjct}} / 20</span>
               </div>
 
-              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.generalObjct * 100) / 20" color="accent">
+              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.generalObjct * 100) / 20" color="primary">
               </mat-progress-bar>
             </div>
 
@@ -437,7 +443,7 @@
               </div>
 
               <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.anlysDelimitation * 100) / 20"
-                color="accent"></mat-progress-bar>
+                color="primary"></mat-progress-bar>
             </div>
 
             <div fxLayout="column">
@@ -446,7 +452,7 @@
                 <span class="mat-title">{{ relevanceMatrix?.terrainIdent}} / 10</span>
               </div>
 
-              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.terrainIdent * 100) / 10" color="accent">
+              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.terrainIdent * 100) / 10" color="primary">
               </mat-progress-bar>
             </div>
 
@@ -458,7 +464,7 @@
               </div>
 
               <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.legalSituation * 100) / 10"
-                color="accent"></mat-progress-bar>
+                color="primary"></mat-progress-bar>
             </div>
 
             <div fxLayout="column">
@@ -467,7 +473,7 @@
                 <span class="mat-title">{{ relevanceMatrix?.descAnlys}} / 20</span>
               </div>
 
-              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.descAnlys * 100) / 20" color="accent">
+              <mat-progress-bar mode="determinate" [value]="(relevanceMatrix?.descAnlys * 100) / 20" color="primary">
               </mat-progress-bar>
             </div>
 
@@ -482,7 +488,11 @@
                 <span class="mat-headline">{{ relevanceMatrix?.total}} / 100</span>
               </div>
 
-              <mat-progress-bar mode="determinate" [value]="relevanceMatrix?.total" color="warn"></mat-progress-bar>
+              <mat-progress-bar *ngIf="relevanceMatrix?.total < 60" mode="determinate" [value]="relevanceMatrix?.total"
+                color="warn">
+              </mat-progress-bar>
+              <mat-progress-bar *ngIf="relevanceMatrix?.total >= 60" mode="determinate" [value]="relevanceMatrix?.total"
+                color="accent"></mat-progress-bar>
               <br>
 
               <div *ngIf="!loadingPre && !preSend && totalMatrix >= 60" class="load-spin" fxFlex>
