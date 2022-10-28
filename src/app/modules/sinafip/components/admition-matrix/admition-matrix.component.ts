@@ -11,6 +11,7 @@ import { AdmissionQuanty } from '../../../../core/models/sinafip/admissionQuanty
 import { IRequest } from '../../../../core/models/sinafip/request';
 import { SinafipService } from '../../../../core/services/httpServices/sinafip.service';
 import { InitiativeStore } from '../../../../store/reducers';
+import { IPriorizationMatrix } from '../../../../core/models/sinafip/priorizationMatrix';
 
 @Component({
   selector: 'app-admition-matrix',
@@ -26,12 +27,20 @@ import { InitiativeStore } from '../../../../store/reducers';
 export class AdmitionMatrixComponent implements OnInit, OnDestroy {
   @ViewChild('stepper') stepper: MatStepper;
 
+  isMatrixPriorization = false;
+  matrixPriorization: any = {};
+  matrices: any = {};
+
+  valuePlanning = 0;
+  totalPriorization = 0;
+
   drawerSubscription = new Subscription();
   fullTitle = '';
   initiativeStoreSubscription = new Subscription()
   initiative: IRequest = null;
 
   admissionResume: AdmissionQuanty;
+  priorizationMatrix: IPriorizationMatrix;
 
   criterio1 = new FormGroup({
     statementNeedValue: new FormControl('', Validators.required),
@@ -146,16 +155,44 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
       total,
     }
 
+    this.matrices = { admissionQuanty: this.admissionResume }
+
+
+    if (this.initiative.studyDescription.modalityFinancing == 'NO SE CUENTA CON FUENTE DE FINANCIAMIENTO' && total >= 60) {
+      if (this.initiative.investment?.productName) {
+        this.valuePlanning = 20;
+      }
+      let benefValue = this.admissionResume?.numberBeneficiariesValue * 2;
+
+
+      this.sinafipService.requestPriorizationData(this.initiative.id).subscribe((res: any) => {
+        this.matrixPriorization = res;
+        this.totalPriorization = this.valuePlanning + this.admissionResume?.objetivesGoalsValue + this.matrixPriorization?.indiceProbreza + this.matrixPriorization?.valueFunctions + benefValue;
+        this.priorizationMatrix = {
+          value1: this.valuePlanning,
+          value2: this.admissionResume?.objetivesGoalsValue,
+          value3: benefValue,
+          value4: this.matrixPriorization?.indiceProbreza,
+          value5: this.matrixPriorization?.valueFunctions,
+          total: this.totalPriorization
+        }
+
+        this.matrices.priorizationMatrix = this.priorizationMatrix;
+      })
+      this.isMatrixPriorization = true;
+
+
+    }
   }
 
   saveAdmissionMatrix(): void {
 
-    this.sinafipService.saveRequestAdmission(this.initiative.id, this.admissionResume)
-    .subscribe((res: any) => {
-      console.log(res);
-      this.appStore.dispatch(CLOSE_FULL_DRAWER());
-      this.stepper.reset();
-    });
+    this.sinafipService.saveRequestAdmission(this.initiative.id, this.matrices)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.appStore.dispatch(CLOSE_FULL_DRAWER());
+        this.stepper.reset();
+      });
 
   }
 

@@ -5,6 +5,7 @@ import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IRequest } from 'src/app/core/models/sinafip/request';
 import { AdmissionQuanty } from '../../models/sinafip/admissionQuanty';
+import { IPriorizationMatrix } from '../../models/sinafip/priorizationMatrix';
 
 @Injectable({
   providedIn: 'root',
@@ -89,11 +90,20 @@ export class SinafipService {
     )
   }
 
-  saveRequestAdmission(idSolicitud: string, admission: AdmissionQuanty): Observable<IRequest> {
+  saveRequestAdmission(idSolicitud: string, matrices: {admissionQuanty: AdmissionQuanty, priorizationMatrix?: IPriorizationMatrix}): Observable<IRequest> {
     const url = `${this.API_URL}${this.url}request/admission/${idSolicitud}`;
-    return this.http.post(url, admission).pipe(
+    return this.http.post(url, matrices).pipe(
       map((res: any) => {
         return res;
+      })
+    )
+  }
+
+  requestPriorizationData(idSolicitud: string): Observable<IRequest> {
+    const url = `${this.API_URL}${this.url}request/data-priorization/${idSolicitud}`;
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        return res.data;
       })
     )
   }

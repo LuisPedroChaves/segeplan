@@ -4,6 +4,7 @@ import { RequiredDocument } from "./requiredDocument";
 import { StudyDescription } from "./studyDescription";
 import { Delimit } from './delimit';
 import { AdmissionQuanty } from './admissionQuanty';
+import { IPriorizationMatrix } from "./priorizationMatrix";
 
 export interface IRequest {
     id?: string;
@@ -21,4 +22,5 @@ export interface IRequest {
     delimit: Delimit
     requirementsDocuments: RequiredDocument;
     admissionQuanty?: AdmissionQuanty;
+    priorizationQuanty?: IPriorizationMatrix;
 }
