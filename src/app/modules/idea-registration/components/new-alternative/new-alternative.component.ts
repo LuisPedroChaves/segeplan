@@ -33,6 +33,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DataGeo } from 'src/app/core/models/alternative/DataGeo';
 import { MatTableDataSource } from '@angular/material/table';
 import { REMOVE_DATA_GEO, DELETE_DATA_GEOS } from '../../../../store/actions/alternative.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-new-alternative',
@@ -41,7 +43,7 @@ import { REMOVE_DATA_GEO, DELETE_DATA_GEOS } from '../../../../store/actions/alt
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
+      useValue: { displayDefaultIndicatorType: false },
     },
   ],
 })
@@ -146,7 +148,9 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
     private procesoStore: Store<ProcesoStore>,
     private generalInformationService: GeneralInformationService,
     public store: Store<AppState>,
-    public alternativeStore: Store<AlternativeStore>
+    public alternativeStore: Store<AlternativeStore>,
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -165,10 +169,10 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
     });
 
     this.alternativeStoreSubscription = this.alternativeStore.select('alternative')
-    .subscribe(state => {
-      this.dataGeos = state.dataGeos
-      this.dataSource = new MatTableDataSource<DataGeo>(this.dataGeos)
-    })
+      .subscribe(state => {
+        this.dataGeos = state.dataGeos
+        this.dataSource = new MatTableDataSource<DataGeo>(this.dataGeos)
+      })
 
     //#region Catalogos
     this.denominationStoreSubscription = this.denominationStore.select('denomination')
@@ -221,15 +225,15 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.sessionSubscription?.unsubscribe()
-      this.referenceStoreSubscription?.unsubscribe()
-      this.denominationStoreSubscription?.unsubscribe()
-      this.departamentoStoreSubscription?.unsubscribe()
-      this.objetoStoreSubscription?.unsubscribe()
-      this.processStoreSubscription?.unsubscribe()
+    this.sessionSubscription?.unsubscribe()
+    this.referenceStoreSubscription?.unsubscribe()
+    this.denominationStoreSubscription?.unsubscribe()
+    this.departamentoStoreSubscription?.unsubscribe()
+    this.objetoStoreSubscription?.unsubscribe()
+    this.processStoreSubscription?.unsubscribe()
 
-      this.ideaStoreSubscription?.unsubscribe()
-      this.alternativeStoreSubscription?.unsubscribe()
+    this.ideaStoreSubscription?.unsubscribe()
+    this.alternativeStoreSubscription?.unsubscribe()
   }
 
   openFormDrawer(formTitle: string, formComponent: string): void {
@@ -409,6 +413,19 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       annual: 0
     }
 
+    if (tentativeTermYear > executionDateYear && tentativeTermYear > finishDateYear && executionDateYear > finishDateYear) {
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'Error al seleccionar Fechas', description: 'Verifique que las fechas seleccionadas cumplan con un periodo de trabajo real.' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+      });
+      return;
+    }
+
+
     if (this.executionTime.value.annual) {
       EXECUTION_TIME.annual = 1
     } else if (!this.executionTime.value.annual) {
@@ -474,7 +491,7 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
     this.stepper.reset();
 
     this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
-    this.alternativeStore.dispatch( DELETE_DATA_GEOS() )
+    this.alternativeStore.dispatch(DELETE_DATA_GEOS())
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
 
 
