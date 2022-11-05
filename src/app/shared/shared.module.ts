@@ -60,6 +60,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
+import { FullCalendarModule, CalendarOptions } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
+
 @NgModule({
   declarations: [
     MobileMenuComponent,
@@ -100,7 +109,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     /* #endregion */
     FlexLayoutModule,
     SimplebarAngularModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    FullCalendarModule
   ],
   exports: [
     FormsModule,
@@ -136,6 +146,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     FlexLayoutModule,
     SimplebarAngularModule,
     MaterialFileInputModule,
+    FullCalendarModule,
     /* #region  Components */
     NotFoundComponent
     /* #endregion */
