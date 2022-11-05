@@ -39,7 +39,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["core-js", "moment/locale/es", "lodash", "lodash/keys"],
+            "allowedCommonJsDependencies": [
+              "core-js",
+              "moment/locale/es",
+              "lodash",
+              "lodash/keys"
+            ],
             "outputPath": "dist/segeplan",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -47,7 +52,12 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/assets/styles/app.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/assets/styles/app.scss",
+              "./node_modules/@fullcalendar/common/main.css",
+              "./node_modules/@fullcalendar/daygrid/main.css"
+            ],
             "scripts": []
           },
           "configurations": {

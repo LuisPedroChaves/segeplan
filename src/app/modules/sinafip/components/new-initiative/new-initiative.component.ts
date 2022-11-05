@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_PRODUCTS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
@@ -31,6 +31,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Departament } from 'src/app/core/models/adicionales/department';
 import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { Denomination } from '../../../../core/models/alternative/Denomination';
+import { CalendarOptions } from '@fullcalendar/angular';
 import { IProduct } from '../../../../core/models/adicionales/Product';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
@@ -141,6 +142,20 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   displayedColumns = ['activity', 'unitMeasure', 'cant', 'priceU', 'subTotal', 'actions'];
   dataSource = new MatTableDataSource<Activity>([])
 
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    dateClick: this.handleDateClick.bind(this), // bind is important!
+    events: [
+      { title: 'event 1', date: '2022-11-01' },
+      { title: 'event 2', date: '2022-11-02' }
+    ],
+    locale: 'es'
+  };
+
+  handleDateClick(arg) {
+    alert('date click! ' + arg.dateStr)
+  }
   idEntidad = '';
 
 
@@ -161,7 +176,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
     //END LISTADOS
     private sinafipService: SinafipService,
-    private uploadService: UploadFileService
+    private uploadService: UploadFileService,
+    private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -185,6 +201,9 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
     this.activitiesStoreSubscription = this.initiativeStore.select('initiative')
       .subscribe(state => {
+        this.ref.detectChanges()
+        window.dispatchEvent(new Event('resize'));
+
         this.activities = state.activities
         this.dataSource = new MatTableDataSource<Activity>(this.activities)
         this.total = this.activities.map(item => item.subTotal).reduce((prev, curr) => prev + curr, 0);
