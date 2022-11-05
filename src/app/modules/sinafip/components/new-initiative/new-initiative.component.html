@@ -155,6 +155,29 @@
               </mat-error>
             </mat-form-field>
 
+            <p class="mat-subheading-2">{{ selectedProduct() }}</p>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Selección del Producto</mat-label>
+              <input type="text"
+                     placeholder="Buscar producto..."
+                     matInput
+                     formControlName="_product"
+                     [matAutocomplete]="autoProduct">
+              <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct">
+                <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+                  {{product.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+              <button *ngIf="investmentProject.get('_product').value" matSuffix mat-icon-button (click)="investmentProject.get('_product').setValue('')">
+                <mat-icon>close</mat-icon>
+              </button>
+              <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
+              <mat-error *ngIf="investmentProject.get('_product')?.hasError('required')">
+                El producto es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="outline">
               <mat-label>Nombre del proyecto</mat-label>
               <input matInput formControlName="nameProject" type="text">
@@ -377,10 +400,10 @@
           <ng-template matStepLabel>Delimitación preliminar de los posibles beneficiarios</ng-template>
 
           <div fxLayout="row wrap" fxLayoutGap="15px grid">
+              <p class="mat-subheading-2">(población por beneficiarse directamente) <br></p>
 
-            <p class=" mat-subheading-2">(población por beneficiarse directamente)</p>
             <br>
-            <mat-form-field fxFlex appearance="outline">
+            <mat-form-field fxFill appearance="outline">
               <mat-label>Departamento</mat-label>
               <mat-select formControlName="departament" (selectionChange)="selecDepartament()">
                 <mat-option *ngFor="let depto of departamentos" [value]="depto.NOMBRE">
@@ -388,7 +411,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex appearance="outline">
+            <mat-form-field fxFill appearance="outline">
               <mat-label>Municipio</mat-label>
               <mat-select formControlName="municipality">
                 <mat-option *ngFor="let mncpio of municipios" [value]="mncpio.NOMBRE">

@@ -95,7 +95,7 @@ export class IdeaCardComponent implements OnInit {
     if (this.currentIdea.result === 'PENDIENTE') {
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
-        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario iniciar con el analisis antes de finalizar' }
+        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario iniciar con el analisis antes de finalizar', confimation: false }
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +105,7 @@ export class IdeaCardComponent implements OnInit {
     } else if (alternativesPending) {
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
-        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario que califique todas las alternativas para finalizar el analisis, ' }
+        data: { title: 'No se puede finalizar el analisis', description: 'Es necesario que califique todas las alternativas para finalizar el analisis, ', confirmation: false }
       });
 
       dialogRef.afterClosed().subscribe(result => {

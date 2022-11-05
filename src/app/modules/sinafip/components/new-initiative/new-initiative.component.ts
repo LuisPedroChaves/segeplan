@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
+import { Observable, Subscription } from 'rxjs';
+import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_PRODUCTS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
 import { Entity } from '../../../../core/models/sinafip/entity';
-import { DenominationStore, EntityStore, GeograficoStore, ModalityFinancingStore, PreinvDocumentStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
+import { DenominationStore, EntityStore, GeograficoStore, ModalityFinancingStore, PreinvDocumentStore, ProductStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
 import { READ_ENTITIES } from '../../../../store/actions/entity.actions';
 import { ProjectFunction } from '../../../../core/models/sinafip/projectFunction';
 import { GeneralStudy } from '../../../../core/models/sinafip/generalStudy';
@@ -32,6 +32,10 @@ import { Departament } from 'src/app/core/models/adicionales/department';
 import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { Denomination } from '../../../../core/models/alternative/Denomination';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { IProduct } from '../../../../core/models/adicionales/Product';
+import { User } from '../../../../core/models/adicionales/user';
+import { AppState } from '../../../../store/app.reducer';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-initiative',
@@ -82,6 +86,10 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   denominations: Denomination[] = [];
   denominationStoreSubscription = new Subscription();
 
+  products: IProduct[] = [];
+  filteredProducts: Observable<IProduct[]>;
+  productStoreSubscription = new Subscription();
+
   // END LISTADOS
 
   institution = new FormGroup({
@@ -97,6 +105,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
   investmentProject = new FormGroup({
     coreProblem: new FormControl('', Validators.required),
+    _product: new FormControl<string | IProduct>('', Validators.required),
     nameProject: new FormControl('', Validators.required),
     objetiveProject: new FormControl('', Validators.required),
     descAdnJust: new FormControl('', Validators.required),
@@ -125,6 +134,9 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     municipality: new FormControl(''),
   })
 
+  sessionSubscription: Subscription;
+  usuario: User;
+
   activitiesStoreSubscription = new Subscription()
   activities: Activity[] = [];
   displayedColumns = ['activity', 'unitMeasure', 'cant', 'priceU', 'subTotal', 'actions'];
@@ -144,6 +156,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr)
   }
+  idEntidad = '';
 
 
   constructor(
@@ -157,6 +170,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     private geograficoStore: Store<GeograficoStore>,
     private referenceStore: Store<ReferenceStore>,
     private denominationStore: Store<DenominationStore>,
+    private productStore: Store<ProductStore>,
+    public store: Store<AppState>,
 
 
     //END LISTADOS
@@ -177,6 +192,11 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
           this.formTitle = state.formTitle
         }
 
+      });
+
+      this.sessionSubscription = this.store.select('session').subscribe(session => {
+        this.usuario = session.session.usuario;
+        this.idEntidad = session.session.usuario.id_inst.toString()
       });
 
     this.activitiesStoreSubscription = this.initiativeStore.select('initiative')
@@ -237,6 +257,22 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
         this.references = state.references;
       })
     this.referenceStore.dispatch(READ_REFERENCES())
+
+
+    this.productStoreSubscription = this.productStore.select('product')
+    .subscribe(state => {
+      this.products = state.products;
+    })
+
+    this.productStore.dispatch(READ_PRODUCTS({ filtro: this.idEntidad }))
+
+    this.filteredProducts = this.investmentProject.controls['_product'].valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const nombre = typeof value === 'string' ? value : value?.nombre;
+        return nombre ? this._filter(nombre as string) : this.products;
+      }),
+    );
     // END LISTADOS
 
   }
@@ -274,10 +310,24 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
+  displayProduct(product: IProduct) : string {
+    return product ? product.nombre : '';
+  }
+
   selecDepartament(): void {
     let dptoSelect = this.delimit.controls['departament'].value;
     let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
     if (dpto) { this.municipios = dpto.municipios }
+  }
+
+  private _filter(nombre: string): IProduct[] {
+    const filterValue = nombre.toLowerCase();
+
+    return this.products.filter(product => product.nombre.toLowerCase().includes(filterValue));
+  }
+  selectedProduct(): string {
+    const PRODUCT = this.investmentProject.controls['_product'].value;
+    return typeof PRODUCT === 'string' ? '' : PRODUCT?.nombre
   }
 
   saveInitiative(): void {
@@ -305,6 +355,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     }
 
     const {
+      _product,
       coreProblem,
       nameProject,
       objetiveProject,
@@ -315,6 +366,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
     const investment: InvestmentProject = {
       coreProblem,
+      productId: typeof _product === 'string' ? null : _product?.codigo,
+      productName: typeof _product === 'string' ? null : _product?.nombre,
       nameProject,
       objetiveProject,
       descAdnJust,

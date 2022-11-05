@@ -235,13 +235,13 @@
           <br>
           <p><b>Cronograma General del Estudio: </b></p>
           <p *ngIf="initiative.requirementsDocuments.scheduleActiv">
-            <b>TDR:</b>
+            <b>Cronograma:</b>
             <a mat-button color="warn" mat-line [href]="initiative.requirementsDocuments.scheduleActiv"
               target="_blank">Abrir <mat-icon>
                 launch</mat-icon></a>
           </p>
-          <p *ngIf="!initiative.requirementsDocuments.tdr">
-            <b>TDR:</b>
+          <p *ngIf="!initiative.requirementsDocuments.scheduleActiv">
+            <b>Cronograma:</b>
             No se Adjuntó un archivo
           </p>
           <br>
@@ -357,6 +357,42 @@
           <h2>Solicitud Admitida</h2>
         </div>
 
+      </div>
+
+      <div *ngIf="isMatrixPriorization">
+        <h2>Matriz de Priorizacion <small> (Estudio no cuenta con Fuente de Financiamiento)</small></h2>
+        <br>
+        <br>
+        <table>
+          <tr>
+            <th>Descripción</th>
+            <th>Punteo</th>
+          </tr>
+          <tr>
+            <td>Vinculacion de Proyectos </td>
+            <td>{{valuePlanning}}</td>
+          </tr>
+          <tr>
+            <td>Objetivos del proyecto </td>
+            <td>{{admissionResume?.objetivesGoalsValue}}</td>
+          </tr>
+          <tr>
+            <td>Cobertura en relación a beneficiarios </td>
+            <td>{{admissionResume?.numberBeneficiariesValue * 2}}</td>
+          </tr>
+          <tr>
+            <td>Punteo en relación a los Índices de Pobreza </td>
+            <td>{{matrixPriorization?.indiceProbreza}}</td>
+          </tr>
+          <tr>
+            <td>Manual de criterios de priorización de proyectos </td>
+            <td>{{matrixPriorization?.valueFunctions}}</td>
+          </tr>
+          <tr>
+            <td>Total de Priorizacion </td>
+            <td>{{totalPriorization}}</td>
+          </tr>
+        </table>
       </div>
 
       <br>

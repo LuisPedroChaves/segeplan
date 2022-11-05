@@ -3,6 +3,10 @@
   <p>{{data.description}}</p>
   
 </div>
-<div mat-dialog-actions>
+<div *ngIf="!body.confirmation" mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cerrar</button>
+</div>
+<div *ngIf="body.confirmation" mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Aceptar</button>
   <button mat-button (click)="onNoClick()">Cerrar</button>
 </div>

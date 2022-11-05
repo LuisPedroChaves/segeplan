@@ -67,11 +67,18 @@
             <span>Matriz de admisión</span>
           </button>
 
-          <button *ngIf="element.status === 'CREADA' || element.status === 'RECHAZADA' && usuario.role === 'USER_ROLE'" (click)="changeStatus('reception', element.id)" mat-menu-item>
+          <button *ngIf="element.status === 'RECHAZADA' && usuario.role != 'ADMIN_ROLE'" (click)="changeStatus('reception', element.id)" mat-menu-item>
             <!-- <button (click)="changeStatus('reception', element.id)" mat-menu-item> -->
             <mat-icon>send</mat-icon>
             <span>Enviar Iniciativa</span>
           </button>
+
+          <button *ngIf="element.status === 'CREADA' && usuario.role != 'ADMIN_ROLE'" (click)="changeStatus('reception', element.id)" mat-menu-item>
+            <!-- <button (click)="changeStatus('reception', element.id)" mat-menu-item> -->
+            <mat-icon>send</mat-icon>
+            <span>Enviar Iniciativa</span>
+          </button>
+
 
           <button *ngIf="element.status === 'EN RECEPCIÓN' && usuario.role === 'ADMIN_ROLE'" (click)="changeStatus('analysis', element.id)" mat-menu-item>
             <mat-icon>check</mat-icon>
@@ -80,7 +87,7 @@
 
           <button *ngIf="element.status === 'EN RECEPCIÓN' && usuario.role === 'ADMIN_ROLE'" (click)="changeStatus('denied', element.id)" mat-menu-item>
             <mat-icon>block</mat-icon>
-            <span>Rechazar</span>
+            <span>Denegar</span>
           </button>
           <!-- <button mat-menu-item>
             <mat-icon>edit</mat-icon>

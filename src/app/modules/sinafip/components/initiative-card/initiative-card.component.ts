@@ -50,6 +50,7 @@ export class InitiativeCardComponent implements OnInit, OnDestroy {
         }
 
       })
+      console.log(this.usuario);
   }
   changeStatus(status: string, idSolicitud: string): void {
     console.log(status, idSolicitud)
