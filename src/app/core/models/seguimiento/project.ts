@@ -1,6 +1,6 @@
-import { IProgress } from "./progress";
+import { ITrack } from './progress';
 
-export interface ITrack {
+export interface IProject {
     id?: string;
     author: string;
     correlative: number;
@@ -15,5 +15,5 @@ export interface ITrack {
     depto?: string;
     munic?: string;
     ministry?: string;
-    tracking: IProgress[];
+    tracking?: ITrack[];
 }
