@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+
+
+import { IProject } from 'src/app/core/models/seguimiento/project';
 
 @Component({
   selector: 'app-project-list',
@@ -6,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
+
+  displayedColumns = ['process', 'sector', 'munic', 'nameProject', 'state', 'actions'];
+  dataSource = new MatTableDataSource<IProject>([]);
 
   constructor() { }
 

@@ -6,6 +6,7 @@ import { CheckProjectRoutes } from './check-project.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { ProjectListComponent } from './pages/project-list/project-list.component';
+import { NewTrackComponent } from './components/new-track/new-track.component';
 
 
 
@@ -13,7 +14,8 @@ import { ProjectListComponent } from './pages/project-list/project-list.componen
   declarations: [
     IndexComponent,
     NewProjectComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    NewTrackComponent
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CLOSE_FULL_DRAWER } from 'src/app/store/actions';
+import { Departament } from 'src/app/core/models/adicionales/department';
+import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, OPEN_FORM_DRAWER, READ_GEOGRAFICOS } from 'src/app/store/actions';
 import { AppState } from 'src/app/store/app.reducer';
+import { GeograficoStore } from 'src/app/store/reducers';
+import { ITrack } from '../../../../core/models/seguimiento/progress';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-project',
@@ -19,8 +24,24 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   formTitle = ''
   formComponent = '';
 
+  project = new FormGroup({
+    process: new FormControl(),
+    sector: new FormControl(),
+    nameProject: new FormControl('Proyecto sin título'),
+    departament: new FormControl(),
+    municipality: new FormControl(),
+  })
+
+  departamentos: Departament[] = [];
+  municipios: Departament[] = [];
+  departamentoStoreSubscription = new Subscription();
+
+  displayedColumns = ['iapa', 'iapb', 'iapc', 'activity', 'reportDate', 'actions'];
+  dataSource = new MatTableDataSource<ITrack>([])
+
   constructor(
     public store: Store<AppState>,
+    private geograficoStore: Store<GeograficoStore>,
   ) { }
 
   ngOnInit(): void {
@@ -37,14 +58,42 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
     });
 
+
+    this.departamentoStoreSubscription = this.geograficoStore.select('geografico')
+      .subscribe(state => {
+        this.departamentos = state.geograficos;
+      })
+    this.geograficoStore.dispatch(READ_GEOGRAFICOS());
+
   }
 
   ngOnDestroy(): void {
       this.drawerSubscription?.unsubscribe()
+      this.departamentoStoreSubscription?.unsubscribe()
   }
 
   closeFullDrawer(): void {
     this.store.dispatch(CLOSE_FULL_DRAWER())
+  }
+
+
+  openFormDrawer(formTitle: string, formComponent: string): void {
+    this.store.dispatch(OPEN_FORM_DRAWER({ formTitle, formComponent }))
+  }
+
+  closeFormDrawer(): void {
+    this.store.dispatch(CLOSE_FORM_DRAWER())
+  }
+
+  selecDepartament(): void {
+    window.alert('Opción aun no habilitada')
+    // let dptoSelect = this.delimit.controls['departament'].value;
+    // let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
+    // if (dpto) { this.municipios = dpto.municipios }
+  }
+
+  onSubmit(): void {
+
   }
 
 }
