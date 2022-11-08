@@ -1,0 +1,33 @@
+<mat-drawer-container autosize class="my-menu-container">
+  <mat-drawer #formDrawer mode="over" class="my-form-drawer">
+
+    <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <!-- <button mat-icon-button (click)="closeFormDrawer()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="mat-title">{{ formTitle }}</span> -->
+    </mat-toolbar>
+
+    <!-- <app-new-activity *ngIf="formComponent === 'NEW_ACTIVITY'"></app-new-activity> -->
+
+  </mat-drawer>
+
+  <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+    <button mat-icon-button (click)="closeFullDrawer()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="mat-title">{{ fullTitle }}</span>
+  </mat-toolbar>
+  <div fxLayoutAlign="center start" class="sub-content-desktop">
+
+    <mat-card fxFlex.gt-sm="70" fxFlex.lt-md="100" class=" mat-elevation-z4">
+
+      <mat-card-content>
+        <h1>hola mundo</h1>
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+</mat-drawer-container>

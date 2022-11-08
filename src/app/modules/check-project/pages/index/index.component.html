@@ -2,33 +2,32 @@
   <button mat-icon-button (click)="chengeDrawer()" matTooltip="Mostrar/Ocultar Menú">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>SINAFIP</span>
+  <span>Seguimiento de proyectos</span>
 </mat-toolbar>
 <mat-drawer-container autosize class="my-menu-container">
   <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button *ngIf="usuario.role === 'USER_ROLE'" mat-raised-button (click)="openFullDrawer('Crear Iniciativa de Preinversión', 'NEW_INITIATIVE')" color="primary">
-        Crear iniciativa de preinversión
+
+      <button mat-raised-button (click)="openFullDrawer('Crear Proyecto', 'NEW_PROJECT')" color="primary">
+        <mat-icon>add</mat-icon>
+        Crear projecto
       </button>
+
       <br>
+
       <mat-selection-list #shoes [multiple]="false">
 
         <mat-list-option (click)="closeDrawers()"  routerLinkActive="mat-list-single-selected-option"
           [routerLinkActiveOptions]="{ exact: true }">
-          <mat-icon mat-list-icon>start</mat-icon>
-          Registro de Iniciativas
+          <mat-icon mat-list-icon>account_tree</mat-icon>
+         Proyectos
         </mat-list-option>
 
-        <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">
+        <!-- <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>request_quote</mat-icon>
           Solicitudes
-        </mat-list-option>
-
-        <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">
-          <mat-icon mat-list-icon>assignment_turned_in</mat-icon>
-          Admisiones
-        </mat-list-option>
+        </mat-list-option> -->
 
       </mat-selection-list>
     </div>
@@ -38,9 +37,7 @@
   <mat-drawer-container>
     <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
 
-      <app-new-initiative *ngIf="fullComponent === 'NEW_INITIATIVE'"></app-new-initiative>
-      <app-selected-initiative *ngIf="fullComponent === 'SELECTED_INITIATIVE'"></app-selected-initiative>
-      <app-admition-matrix *ngIf="fullComponent === 'ADMITION_MATRIX'"></app-admition-matrix>
+      <app-new-project *ngIf="fullComponent === 'NEW_PROJECT'"></app-new-project>
 
     </mat-drawer>
 

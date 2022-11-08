@@ -20,6 +20,13 @@ export const HomeRoutes: Routes = [
             (m) => m.SinafipModule
           ),
       },
+      {
+        path: 'checkProject',
+        loadChildren: () =>
+          import('../../modules/check-project/check-project.module').then(
+            (m) => m.CheckProjectModule
+          ),
+      },
     ]
   }
 ];

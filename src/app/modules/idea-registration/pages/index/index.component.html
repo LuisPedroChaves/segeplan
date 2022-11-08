@@ -8,7 +8,10 @@
   <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button *ngIf="usuario.role == 'USER_ROLE'" mat-raised-button (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')" color="primary">Crear idea</button>
+      <button *ngIf="usuario.role == 'USER_ROLE'" mat-raised-button (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')" color="primary">
+        <mat-icon>add</mat-icon>
+        Crear idea
+      </button>
       <br>
       <mat-selection-list #shoes [multiple]="false">
         <mat-list-option *ngIf="usuario.role == 'USER_ROLE'" (click)="closeDrawers()"  routerLink="/" routerLinkActive="mat-list-single-selected-option"
