@@ -1,9 +1,9 @@
-export interface IProgress {
+export interface ITrack {
     id?: string;
     iapa: number;
     iapb: number;
     iapc: number;
     activity: string;
     reportDate: string;
-    trackId?: number;
+    projectId?: number;
 }
