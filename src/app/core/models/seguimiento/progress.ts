@@ -1,3 +1,6 @@
+import { IAdvisoryEpi } from "./advisoryEpi";
+import { IAdvisoryDoc } from './advisoryDoc';
+
 export interface ITrack {
     id?: string;
     iapa: number;
@@ -6,4 +9,6 @@ export interface ITrack {
     activity: string;
     reportDate: string;
     projectId?: number;
+    advisoryEpi?: IAdvisoryEpi;
+    advisoryDoc?: IAdvisoryDoc;
 }
