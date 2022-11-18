@@ -21,6 +21,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   sessionSubscription: Subscription;
 
+  instrument = 'Sectorial'
+
   constructor(
     public store: Store<AppState>,
   ) { }

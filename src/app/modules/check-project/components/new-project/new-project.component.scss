@@ -1,11 +1,16 @@
-.my-form-drawer {
-  width: 375px;
-}
-
 .sub-content-desktop {
   padding-top: 24px;
 }
 
 mat-card {
   border-radius: 16px;
+}
+
+.mat-toolbar {
+  background: rgba(255, 255, 255, 0.2); // Make sure this color has an opacity of less than 1
+  backdrop-filter: blur(16px); // This be the blur
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }

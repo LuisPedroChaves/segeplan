@@ -3,6 +3,13 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Seguimiento de la Preinversión</span>
+  <span fxFlex></span>
+  <mat-chip-list>
+    <mat-chip (click)=" instrument = 'Sectorial' "  [selected]=" instrument === 'Sectorial' " color="primary" class="pointer">Territorial</mat-chip>
+    <mat-chip (click)=" instrument = 'Territorial' "  [selected]=" instrument === 'Territorial' " color="primary" class="pointer">Sectorial</mat-chip>
+  </mat-chip-list>
+
+
 </mat-toolbar>
 <mat-drawer-container autosize class="my-menu-container">
   <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
@@ -18,10 +25,10 @@
 
       <mat-selection-list #shoes [multiple]="false">
 
-        <mat-list-option (click)="closeDrawers()"  routerLinkActive="mat-list-single-selected-option"
+        <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option"
           [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon mat-list-icon>account_tree</mat-icon>
-         Proyectos
+          Proyectos
         </mat-list-option>
 
         <!-- <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">

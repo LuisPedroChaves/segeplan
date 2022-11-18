@@ -7,6 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { ProjectListComponent } from './pages/project-list/project-list.component';
 import { NewTrackComponent } from './components/new-track/new-track.component';
+import { StoreModule } from '@ngrx/store';
+import { EntityReducer } from 'src/app/store/reducers';
 
 
 
@@ -21,6 +23,7 @@ import { NewTrackComponent } from './components/new-track/new-track.component';
     CommonModule,
     RouterModule.forChild(CheckProjectRoutes),
     SharedModule,
+    StoreModule.forFeature('entity', EntityReducer),
   ]
 })
 export class CheckProjectModule { }
