@@ -36,6 +36,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   municipios: Departament[] = [];
   departamentoStoreSubscription = new Subscription();
 
+
   displayedColumns = ['iapa', 'iapb', 'iapc', 'activity', 'reportDate', 'actions'];
   dataSource = new MatTableDataSource<ITrack>([])
 
@@ -86,10 +87,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   selecDepartament(): void {
-    window.alert('Opción aun no habilitada')
-    // let dptoSelect = this.delimit.controls['departament'].value;
-    // let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
-    // if (dpto) { this.municipios = dpto.municipios }
+    // window.alert('Opción aun no habilitada')
+    let dptoSelect = this.project.controls['departament'].value;
+    let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
+    if (dpto) { this.municipios = dpto.municipios }
   }
 
   onSubmit(): void {

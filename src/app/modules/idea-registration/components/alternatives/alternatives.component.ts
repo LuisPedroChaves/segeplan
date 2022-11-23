@@ -12,6 +12,7 @@ import { IntegrationsService } from '../../../../core/services/httpServices/inte
 import * as actions from '../../../../store/actions'
 import { AppState } from 'src/app/store/app.reducer';
 import { User } from '../../../../core/models/adicionales/user';
+import { ConvertService } from '../../../../core/services/internal/convert.service';
 
 @Component({
   selector: 'app-alternatives',
@@ -35,6 +36,8 @@ export class AlternativesComponent implements OnInit, OnDestroy {
       }
     }
   ];
+
+
 
   sessionSubscription: Subscription;
   usuario: User;
@@ -73,6 +76,14 @@ export class AlternativesComponent implements OnInit, OnDestroy {
     this.alternatives = this.currentIdea.alternatives
   }
 
+  printReport(alternative: any): void {
 
+    if (alternative.qualification.result == 'PERTINENTE') {
+      let print = ConvertService.createIdeaReportPertinenceAndPreinvestment(this.currentIdea, alternative);
+    }
+    else {
+      let printf = ConvertService.createIdeaReportPertinence(this.currentIdea, alternative);
+    }
+  }
 
 }

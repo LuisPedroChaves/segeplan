@@ -199,7 +199,7 @@
 
             <mat-form-field fxFlex appearance="outline">
               <mat-label>Total de población de referencia</mat-label>
-              <input matInput formControlName="totalPopulation" type="number" placeholder="Ej. 125000">
+              <input matInput onKeyPress="if(this.value.length==15) return false;" formControlName="totalPopulation" type="number" placeholder="Ej. 125000">
               <mat-error *ngIf="populationDelimitation.get('totalPopulation')?.hasError('max')">
                 Máximo 15 números.
               </mat-error>
@@ -242,7 +242,7 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Estimación preliminar beneficiarios</mat-label>
-            <input matInput formControlName="estimateBeneficiaries" (keyup)="calculaCobertura()" type="number" placeholder="Ej. 125000">
+            <input matInput onKeyPress="if(this.value.length==15) return false;" formControlName="estimateBeneficiaries" (keyup)="calculaCobertura()" type="number" placeholder="Ej. 125000">
             <mat-hint>Representa la cantidad estimada de beneficiarios que tendrá el proyecto.</mat-hint>
             <mat-error *ngIf="populationDelimitation.get('estimateBeneficiaries')?.hasError('max')">
               Máximo 15 números.
@@ -258,7 +258,7 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Caracterización preliminar</mat-label>
-            <textarea matInput formControlName="preliminaryCharacterization"
+            <textarea matInput formControlName="preliminaryCharacterization" onKeyPress="if(this.value.length==500) return false;"
               placeholder="Describir aspectos a nivel socioeconómicos del área de influencia del proyecto -Ejemplo: Pobreza, educación, salud, otros-"
               rows="4"></textarea>
             <mat-hint>Hasta {{500 - populationDelimitation?.value?.preliminaryCharacterization?.length}} caracteres.
@@ -395,7 +395,7 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Observación</mat-label>
-            <textarea matInput formControlName="formulationProcessDescription" placeholder="Máximo 200 caracteres..."
+            <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="formulationProcessDescription" placeholder="Máximo 200 caracteres..."
               rows="4"></textarea>
             <mat-hint>Hasta {{200 - projectDescription.get('formulationProcessDescription')?.value?.length}} caracteres.
             </mat-hint>
@@ -408,7 +408,7 @@
 
           <mat-form-field fxFill appearance="outline">
             <mat-label>Breve descripción de las posibles intervenciones o acciones a desarrollar</mat-label>
-            <textarea matInput formControlName="descriptionInterventions"
+            <textarea matInput formControlName="descriptionInterventions" onKeyPress="if(this.value.length==250) return false;"
               placeholder="Describir de manera general lo que se pretende con el proyecto de manera cualitativa; puede ser infraestructura, mobiliario u otros para el buen funcionamiento de este."
               rows="4"></textarea>
             <mat-hint>Hasta {{250 - projectDescription.get('descriptionInterventions')?.value?.length}} caracteres.

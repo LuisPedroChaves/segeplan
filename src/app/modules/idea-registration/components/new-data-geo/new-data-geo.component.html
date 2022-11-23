@@ -11,7 +11,8 @@
 
     <mat-form-field fxFill appearance="outline">
       <mat-label>Observación</mat-label>
-      <textarea matInput formControlName="statusDescribe" placeholder="Describir el estatus..." rows="4"></textarea>
+      <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="statusDescribe"
+        placeholder="Describir el estatus..." rows="4"></textarea>
       <mat-hint>Hasta {{200 - dataGeo?.get('statusDescribe')?.value?.length}} caracteres.</mat-hint>
       <mat-error *ngIf="dataGeo.get('statusDescribe')?.hasError('maxlength')">
         Máximo 200 caracteres.
@@ -58,7 +59,8 @@
 
     <mat-form-field fxFill appearance="outline">
       <mat-label>Descripción del terreno</mat-label>
-      <textarea matInput formControlName="description" placeholder="Máximo 200 caracteres..." rows="4"></textarea>
+      <textarea onKeyPress="if(this.value.length==200) return false;" matInput formControlName="description"
+        placeholder="Máximo 200 caracteres..." rows="4"></textarea>
       <mat-hint>Hasta {{200 - dataGeo.get('description')?.value?.length}} caracteres.</mat-hint>
       <mat-error *ngIf="dataGeo.get('description')?.hasError('maxlength')">
         Máximo 200 caracteres.
@@ -71,6 +73,7 @@
     <mat-form-field fxFill appearance="outline">
       <mat-label>Descripción</mat-label>
       <textarea matInput formControlName="descriptionBasicServices"
+        onKeyPress="if(this.value.length==200) return false;"
         placeholder="Indique que servicios hay para el terreno (Ejemplo: Agua potable, luz eléctrica, drenajes sanitarios, otros."
         rows="4"></textarea>
       <mat-hint>Hasta {{200 - dataGeo.get('descriptionBasicServices')?.value?.length}} caracteres.
@@ -124,7 +127,7 @@
 
     <mat-form-field fxFill appearance="outline">
       <mat-label>Breve descripción de la posible ubicación</mat-label>
-      <textarea matInput formControlName="descriptionLocation"
+      <textarea matInput formControlName="descriptionLocation" onKeyPress="if(this.value.length==200) return false;"
         placeholder="Describir ventajas y desventajas de cada uno de los terrenos, colindancias, posibles riesgos; cualquier aspecto que considere relevante."
         rows="4"></textarea>
       <mat-hint>Hasta {{200 - dataGeo.get('descriptionLocation')?.value?.length}} caracteres.</mat-hint>

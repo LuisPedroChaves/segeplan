@@ -129,12 +129,24 @@ export class IdeaCardComponent implements OnInit {
       return;
     }
 
-    this.currentIdea = {
-      ...this.currentIdea,
-      state: 'CALIFICADA'
-    }
-    this.ideaStore.dispatch(UPDATE_SEND_IDEA({ idea: this.currentIdea }))
-    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
-  }
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Crear Idea', description: '¿Esta seguro que desea guardar los datos para crear una idea?', confirmation: true }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        // Code of Work
+        this.currentIdea = {
+          ...this.currentIdea,
+          state: 'CALIFICADA'
+        }
+        this.ideaStore.dispatch(UPDATE_SEND_IDEA({ idea: this.currentIdea }))
+        this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+      } else {
+        return;
+      }
+    });
+  }
 }
