@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 
 import { IProject } from 'src/app/core/models/seguimiento/project';
+import { ChekProjectService } from '../../../../core/services/httpServices/chek-project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -11,12 +12,28 @@ import { IProject } from 'src/app/core/models/seguimiento/project';
 })
 export class ProjectListComponent implements OnInit {
 
-  displayedColumns = ['process', 'sector', 'munic', 'nameProject', 'state', 'actions'];
+  projects: IProject[];
+
+  displayedColumns = ['process', 'sector', 'munic', 'nameProject', 'advance', 'actions'];
+  // displayedColumns = ['process', 'sector', 'munic', 'nameProject', 'actions'];
   dataSource = new MatTableDataSource<IProject>([]);
 
-  constructor() { }
+  constructor(
+    private chekProjectService: ChekProjectService,
+  ) { }
 
   ngOnInit(): void {
+    this.getProjects();
+
+  }
+
+  getProjects(): void {
+    this.chekProjectService.getAllProjects()
+    .subscribe(data => {
+      this.projects = data;
+      this.dataSource = new MatTableDataSource<IProject>(this.projects);
+      console.log(this.dataSource)
+    })
   }
 
 }

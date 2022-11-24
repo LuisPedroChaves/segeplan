@@ -2,8 +2,8 @@ import { ITrack } from './progress';
 
 export interface IProject {
     id?: string;
-    author: string;
-    correlative: number;
+    author?: string;
+    correlative?: number;
     process: string;
     sector: string;
     nameProject: string;
