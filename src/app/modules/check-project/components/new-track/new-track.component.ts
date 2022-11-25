@@ -15,11 +15,11 @@ import { EntityStore } from 'src/app/store/reducers';
 export class NewTrackComponent implements OnInit {
 
   track = new FormGroup({
-    iapa: new FormControl(),
-    iapb: new FormControl(),
-    iapc: new FormControl(),
+    iapa: new FormControl(null, Validators.required),
+    iapb: new FormControl(null, Validators.required),
+    iapc: new FormControl(null, Validators.required),
     activity: new FormControl('ASESORÍA A LA EPI', Validators.required),
-    reportDate: new FormControl(),
+    reportDate: new FormControl(null, Validators.required),
   })
 
   advisoryEpi = new FormGroup({
@@ -74,6 +74,27 @@ export class NewTrackComponent implements OnInit {
         this.entities = state.entities;
       })
     this.entityStore.dispatch(READ_ENTITIES())
+
+  }
+
+  addComment(): void {
+
+    const comment: IComment = {
+      theme: this.theme.value,
+      description: this.description.value
+    }
+
+    this.comments.push(comment)
+
+    this.theme.setValue(null)
+    this.description.setValue(null)
+  }
+
+  removeComment(index: number): void {
+
+    if (index > -1) {
+      this.comments.splice(index, 1)
+    }
 
   }
 

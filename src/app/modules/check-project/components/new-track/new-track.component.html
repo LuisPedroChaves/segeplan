@@ -13,16 +13,25 @@
           <mat-form-field appearance="outline">
             <mat-label>A 55 %</mat-label>
             <input matInput formControlName="iapa" type="text">
+            <mat-error *ngIf="track.get('iapa')?.hasError('required')">
+              A 55% es <strong>requerido</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>B 25 %</mat-label>
             <input formControlName="iapb" type="number" matInput>
+            <mat-error *ngIf="track.get('iapb')?.hasError('required')">
+              B 25% es <strong>requerido</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>C 20 % </mat-label>
             <input matInput formControlName="iapc" type="number">
+            <mat-error *ngIf="track.get('iapc')?.hasError('required')">
+              C 20% es <strong>requerido</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex appearance="outline">
@@ -38,6 +47,9 @@
                 VISITA DE CAMPO
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="track.get('activity')?.hasError('required')">
+              La actividad es <strong>requerida</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFill appearance="outline">
@@ -391,12 +403,15 @@
           </mat-form-field>
 
           <div fxLayout="row" fxLayoutAlign="center center">
-            <button mat-stroked-button color="warn">Agregar</button>
+            <button mat-stroked-button (click)="addComment()" color="warn">Agregar</button>
           </div>
 
-          <mat-list-item *ngFor="let comment of comments">
-            <div mat-line>{{comment.theme}}</div>
+          <mat-list-item *ngFor="let comment of comments, let i = index">
+            <div mat-line> <b>{{comment.theme}}</b> </div>
             <div mat-line> {{comment.description}} </div>
+            <div mat-line>
+              <button mat-button (click)="removeComment(i)" color="warn">Quitar</button>
+            </div>
           </mat-list-item>
 
         </div>

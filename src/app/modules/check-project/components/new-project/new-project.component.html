@@ -1,4 +1,4 @@
-<form [formGroup]="project" (ngSubmit)="onSubmit()" autocomplete="off">
+<form [formGroup]="newProject" (ngSubmit)="onSubmit()" autocomplete="off">
 
   <mat-drawer-container autosize class="my-menu-container">
     <mat-drawer #formDrawer mode="over">
@@ -42,9 +42,9 @@
             <mat-form-field fxFill appearance="outline">
               <mat-label>Nombre del proyecto</mat-label>
               <input matInput formControlName="nameProject" type="text">
-              <!-- <mat-error *ngIf="institution.get('nameProject')?.hasError('required')">
-                El nombre del responsable es <strong>requerido</strong>
-              </mat-error> -->
+              <mat-error *ngIf="newProject.get('nameProject')?.hasError('required')">
+                El nombre del proyecto es <strong>requerido</strong>
+              </mat-error>
             </mat-form-field>
 
             <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
@@ -68,11 +68,17 @@
                     Otra
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="newProject.get('process')?.hasError('required')">
+                  El proceso del proyecto es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>SECTOR</mat-label>
                 <input matInput formControlName="sector" type="text">
+                <mat-error *ngIf="newProject.get('sector')?.hasError('required')">
+                  El sector del proyecto es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
 
             </div>
@@ -86,6 +92,9 @@
                     {{depto.NOMBRE}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="newProject.get('departament')?.hasError('required')">
+                  El departamento del proyecto es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex appearance="outline">
@@ -95,6 +104,9 @@
                     {{mncpio.NOMBRE}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="newProject.get('municipality')?.hasError('required')">
+                  El municipio del proyecto es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
 
             </div>
@@ -102,21 +114,23 @@
             <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
 
               <div fxFlex fxLayout="column">
-                <mat-radio-group aria-label="Select an option">
+
+                <mat-radio-group formControlName="legalLand">
                   <mat-label>Existe Certeza Juridica:</mat-label><br />
-                  <br />
-                  <mat-radio-button value="1">Si</mat-radio-button> &nbsp;
-                  <mat-radio-button value="2">No</mat-radio-button>
+                  <br/>
+                  <mat-radio-button [value]="true">Si</mat-radio-button> &nbsp;
+                  <mat-radio-button [value]="false">No</mat-radio-button>
                 </mat-radio-group>
 
                 <br>
 
-                <mat-radio-group aria-label="Select an option">
+                <mat-radio-group formControlName="agripManage">
                   <mat-label>Gestion de la AGRIP:</mat-label><br />
-                  <br />
-                  <mat-radio-button value="1">Si</mat-radio-button> &nbsp;
-                  <mat-radio-button value="2">No</mat-radio-button>
+                  <br/>
+                  <mat-radio-button [value]="true">Si</mat-radio-button> &nbsp;
+                  <mat-radio-button [value]="false">No</mat-radio-button>
                 </mat-radio-group>
+
               </div>
 
               <mat-form-field fxFlex appearance="outline">
@@ -131,9 +145,9 @@
             <mat-form-field fxFill appearance="outline">
               <mat-label>Observaciones</mat-label>
               <textarea matInput formControlName="observations" placeholder="Observaciones..." rows="4"></textarea>
-              <!-- <mat-error *ngIf="advisoryEpi.get('place')?.hasError('maxlength')">
+              <mat-error *ngIf="newProject.get('place')?.hasError('maxlength')">
                 Máximo 200 caracteres.
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
           </mat-card-content>

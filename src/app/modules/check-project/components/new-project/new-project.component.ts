@@ -8,7 +8,7 @@ import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, OPEN_FORM_DRAWER, READ_GEOGRAFICO
 import { AppState } from 'src/app/store/app.reducer';
 import { GeograficoStore } from 'src/app/store/reducers';
 import { ITrack } from '../../../../core/models/seguimiento/progress';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-project',
@@ -24,12 +24,15 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   formTitle = ''
   formComponent = '';
 
-  project = new FormGroup({
-    process: new FormControl(),
-    sector: new FormControl(),
-    nameProject: new FormControl('Proyecto sin título'),
-    departament: new FormControl(),
-    municipality: new FormControl(),
+  newProject = new FormGroup({
+    process: new FormControl(null, Validators.required),
+    sector: new FormControl(null, Validators.required),
+    nameProject: new FormControl(null, Validators.required),
+    departament: new FormControl(null, Validators.required),
+    municipality: new FormControl(null, Validators.required),
+    legalLand: new FormControl(false, Validators.required),
+    agripManage: new FormControl(false, Validators.required),
+    observations: new FormControl(null, Validators.required),
   })
 
   departamentos: Departament[] = [];
