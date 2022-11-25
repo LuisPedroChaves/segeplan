@@ -413,17 +413,7 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       annual: 0
     }
 
-    if (tentativeTermYear > executionDateYear && tentativeTermYear > finishDateYear && executionDateYear > finishDateYear) {
-      const dialogRef = this.dialog.open(AlertDialogComponent, {
-        width: '250px',
-        data: { title: 'Error al seleccionar Fechas', description: 'Verifique que las fechas seleccionadas cumplan con un periodo de trabajo real.' }
-      });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
-      });
-      return;
-    }
 
 
     if (this.executionTime.value.annual) {
@@ -455,10 +445,52 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       fundingSources: 1,
       execTime: EXECUTION_TIME
     }
+    if (tentativeTermYear > executionDateYear && tentativeTermYear > finishDateYear && executionDateYear > finishDateYear) {
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'Error al seleccionar Fechas', description: 'Verifique que las fechas seleccionadas cumplan con un periodo de trabajo real.' }
+      });
 
-    if (this.currentIdea.codigo) {
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+      });
+      return;
+    } else {
+
+      if (this.currentIdea.codigo) {
+        const NEW_ALTERNATIVE: IdeaAlternative = {
+          sectionBIId: this.currentIdea.codigo,
+          preName: PRELIMINAR_NAME,
+          resEntity: RESPONSIBLE_ENTITY,
+          popDelimit: POPULATION_DELIMITATION,
+          geoArea: GEOGRAPHIC_AREA,
+          projDesc: PROJECT_DESCRIPTION
+        }
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '250px',
+          data: { title: 'Crear Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed', result);
+          if (result === true) {
+            // Code of Work
+
+            this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
+              this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+              this.stepper.reset();
+            });
+          }
+          else {
+            return;
+          }
+        });
+        return
+      }
+
+      // Esto aplica solo cuando se esta creado una idea con sus alternativas al mismo timepo
       const NEW_ALTERNATIVE: IdeaAlternative = {
-        sectionBIId: this.currentIdea.codigo,
+        sectionBIId: '',
         preName: PRELIMINAR_NAME,
         resEntity: RESPONSIBLE_ENTITY,
         popDelimit: POPULATION_DELIMITATION,
@@ -466,35 +498,32 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         projDesc: PROJECT_DESCRIPTION
       }
 
-      this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
-        this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
-        this.stepper.reset();
+      let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
+
+
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'Crear Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
       });
 
-      return
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+        if (result === true) {
+          // Code of Work
+          alternatives.push(NEW_ALTERNATIVE)
+          console.log(alternatives);
+          this.stepper.reset();
+
+          this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
+          this.alternativeStore.dispatch(DELETE_DATA_GEOS())
+          this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+
+        }
+        else {
+          return;
+        }
+      });
     }
-
-    // Esto aplica solo cuando se esta creado una idea con sus alternativas al mismo timepo
-    const NEW_ALTERNATIVE: IdeaAlternative = {
-      sectionBIId: '',
-      preName: PRELIMINAR_NAME,
-      resEntity: RESPONSIBLE_ENTITY,
-      popDelimit: POPULATION_DELIMITATION,
-      geoArea: GEOGRAPHIC_AREA,
-      projDesc: PROJECT_DESCRIPTION
-    }
-
-    let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
-
-    alternatives.push(NEW_ALTERNATIVE)
-    console.log(alternatives);
-    this.stepper.reset();
-
-    this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
-    this.alternativeStore.dispatch(DELETE_DATA_GEOS())
-    this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
-
-
   }
 
   calculaCobertura(): void {

@@ -121,7 +121,7 @@
             <mat-form-field appearance="outline">
               <mat-label>No. telefónico </mat-label>
               <span matPrefix>+502 &nbsp;</span>
-              <input type="number" formControlName="phoneNumber" matInput>
+              <input type="number" formControlName="phoneNumber" matInput onKeyPress="if(this.value.length==8) return false;">
               <mat-icon matSuffix>contact_phone</mat-icon>
               <mat-error *ngIf="institution.get('phoneNumber')?.hasError('required')">
                 El teléfono de contacto es <strong>requerido</strong>
@@ -452,7 +452,7 @@
 
             <mat-form-field fxFill appearance="outline">
               <mat-label>Estimación beneficiarios Directos</mat-label>
-              <input matInput formControlName="estimatedBenef" type="number" placeholder="Ej. 125000">
+              <input matInput formControlName="estimatedBenef" type="number" placeholder="Ej. 125000" onKeyPress="if(this.value.length==15) return false;">
               <mat-hint>Representa la cantidad estimada de beneficiarios que tendrá el proyecto.</mat-hint>
               <mat-error *ngIf="delimit.get('estimatedBenef')?.hasError('max')">
                 Máximo 15 números.

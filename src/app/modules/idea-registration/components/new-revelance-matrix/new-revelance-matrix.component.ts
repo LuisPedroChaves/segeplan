@@ -20,6 +20,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ConvertService } from '../../../../core/services/internal/convert.service';
 import * as moment from 'moment';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-new-revelance-matrix',
@@ -141,6 +143,8 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   constructor(private generalInformationService: GeneralInformationService,
     private alternativeStore: Store<AlternativeStore>,
     private ideaStore: Store<IdeaStore>,
+    public dialog: MatDialog,
+
 
   ) { }
 
@@ -165,7 +169,7 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
     this.generalInformationService.getMatrizPertinencia(this.currentAlternative.codigo).subscribe((res: any) => {
       this.matrix = res;
       console.log(this.matrix)
-      if (this.matrix.criterio5.terrenos.length > 0){this.terrainRequired = true} else {this.terrainRequired = false}
+      if (this.matrix.criterio5.terrenos.length > 0) { this.terrainRequired = true } else { this.terrainRequired = false }
     })
   }
 
@@ -228,11 +232,25 @@ export class NewRevelanceMatrixComponent implements OnInit, OnDestroy {
   savePertinenceMatrix(): void {
     this.relevanceMatrix.descriptionGeneral = this.resume.value.descriptionGeneral;
 
-    this.generalInformationService.saveMatrixPertinence(this.relevanceMatrix).subscribe((res: any) => {
-      console.log(res);
-      this.ideaStore.dispatch(CLOSE_FULL_DRAWER());
-      this.stepper.reset();
-    })
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Guardar Matriz', description: '¿Esta seguro que desea guardar la matriz?', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        // Code of Work
+        this.generalInformationService.saveMatrixPertinence(this.relevanceMatrix).subscribe((res: any) => {
+          console.log(res);
+          this.ideaStore.dispatch(CLOSE_FULL_DRAWER());
+          this.stepper.reset();
+        })
+      }
+      else {
+        return;
+      }
+    });
   }
 
 

@@ -75,7 +75,7 @@
               instrumento de planificación</mat-slide-toggle>
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
-              <textarea matInput formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
               <mat-hint>Según la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de
                 planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
               <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
@@ -155,7 +155,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Definición de la problemática o potencialidad central</mat-label>
-              <textarea matInput formControlName="definitionPotentiality" placeholder="Hasta 200 caracteres..."
+              <textarea onKeyPress="if(this.value.length==200) return false;" matInput formControlName="definitionPotentiality" placeholder="Hasta 200 caracteres..."
                 rows="4"></textarea>
               <mat-hint>Hasta {{200 - generalInformation?.value?.definitionPotentiality?.length}} caracteres.</mat-hint>
               <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('maxlength')">
@@ -206,7 +206,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Breve descripción de la situación actual</mat-label>
-              <textarea matInput formControlName="descriptionCurrentSituation" placeholder="Hasta 200 caracteres..."
+              <textarea onKeyPress="if(this.value.length==200) return false;" matInput formControlName="descriptionCurrentSituation" placeholder="Hasta 200 caracteres..."
                 rows="4"></textarea>
               <mat-hint>Hasta {{200 - generalInformation.value.descriptionCurrentSituation?.length}} caracteres.</mat-hint>
               <mat-error *ngIf="generalInformation.get('descriptionCurrentSituation')?.hasError('maxlength')">
@@ -231,7 +231,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Descripción de objetivo general</mat-label>
-              <textarea matInput formControlName="generalObjective" placeholder="Hasta 200 caracteres..."
+              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="generalObjective" placeholder="Hasta 200 caracteres..."
                 rows="4"></textarea>
               <mat-hint>Hasta {{200 - generalInformation.value.generalObjective?.length}} caracteres.</mat-hint>
               <mat-error *ngIf="generalInformation.get('generalObjective')?.hasError('maxlength')">
@@ -244,7 +244,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Resultado o cambio esperado respecto a indicadores</mat-label>
-              <textarea matInput formControlName="expectedChange" placeholder="Hasta 200 caracteres..."
+              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="expectedChange" placeholder="Hasta 200 caracteres..."
                 rows="4"></textarea>
               <mat-hint>Hasta {{200 - generalInformation.value.expectedChange?.length}} caracteres.</mat-hint>
               <mat-error *ngIf="generalInformation.get('expectedChange')?.hasError('maxlength')">

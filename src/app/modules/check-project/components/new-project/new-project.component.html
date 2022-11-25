@@ -1,4 +1,4 @@
-<form [formGroup]="newProject" (ngSubmit)="onSubmit()" autocomplete="off">
+<form [formGroup]="project" autocomplete="off">
 
   <mat-drawer-container autosize class="my-menu-container">
     <mat-drawer #formDrawer mode="over">
@@ -20,7 +20,7 @@
       </button>
       <span class="mat-title">{{ fullTitle }}</span>
       <span fxFlex></span>
-      <button mat-flat-button color="accent">
+      <button mat-flat-button (click)="onSubmit()" color="accent">
         Guardar
       </button>
       <button mat-flat-button>
@@ -114,28 +114,27 @@
             <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
 
               <div fxFlex fxLayout="column">
-
-                <mat-radio-group formControlName="legalLand">
+                <mat-radio-group  formControlName="legalLand" aria-label="Select an option">
                   <mat-label>Existe Certeza Juridica:</mat-label><br />
-                  <br/>
-                  <mat-radio-button [value]="true">Si</mat-radio-button> &nbsp;
-                  <mat-radio-button [value]="false">No</mat-radio-button>
+                  <br />
+                  <mat-radio-button value="1">Si</mat-radio-button> &nbsp;
+                  <mat-radio-button value="0">No</mat-radio-button>
                 </mat-radio-group>
 
                 <br>
 
-                <mat-radio-group formControlName="agripManage">
+                <mat-radio-group formControlName="agripManage" aria-label="Select an option">
                   <mat-label>Gestion de la AGRIP:</mat-label><br />
-                  <br/>
-                  <mat-radio-button [value]="true">Si</mat-radio-button> &nbsp;
-                  <mat-radio-button [value]="false">No</mat-radio-button>
+                  <br />
+                  <mat-radio-button value="1">Si</mat-radio-button> &nbsp;
+                  <mat-radio-button value="0">No</mat-radio-button>
                 </mat-radio-group>
 
               </div>
 
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Codigo SNIP</mat-label>
-                <input matInput formControlName="sector" type="text">
+                <input matInput formControlName="snipCode" type="text">
               </mat-form-field>
 
             </div>

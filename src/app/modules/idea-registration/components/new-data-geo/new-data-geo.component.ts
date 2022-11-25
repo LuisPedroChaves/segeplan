@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged } from 'rxjs';
 import { CLOSE_FORM_DRAWER, SET_DATA_GEO } from 'src/app/store/actions';
 import { AlternativeStore } from 'src/app/store/reducers';
 import { DataGeo } from '../../../../core/models/alternative/DataGeo';
+import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-new-data-geo',
@@ -45,7 +47,9 @@ export class NewDataGeoComponent implements OnInit {
   })
 
   constructor(
-    private alternativeStore: Store<AlternativeStore>
+    private alternativeStore: Store<AlternativeStore>,
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -215,10 +219,23 @@ export class NewDataGeoComponent implements OnInit {
       descriptionLocation,
     }
 
-    this.alternativeStore.dispatch(SET_DATA_GEO({ dataGeo: NEW_DATA_GEO }))
-    this.alternativeStore.dispatch(CLOSE_FORM_DRAWER())
-    this.dataGeo.reset()
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Agregar', description: '¿Esta seguro que desea agregar los detalles del terreno?', confirmation: true }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        // Code of Work
+        this.alternativeStore.dispatch(SET_DATA_GEO({ dataGeo: NEW_DATA_GEO }))
+        this.alternativeStore.dispatch(CLOSE_FORM_DRAWER())
+        this.dataGeo.reset()
+      }
+      else {
+        return;
+      }
+    });
   }
 
 }

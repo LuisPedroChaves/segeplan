@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators, FormBuilder, AbstractCon
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
@@ -19,6 +19,8 @@ import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative
 import { AppState } from '../../../../store/app.reducer';
 import { User } from '../../../../core/models/adicionales/user';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-new-idea',
@@ -27,7 +29,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
+      useValue: { displayDefaultIndicatorType: false },
     },
   ],
 })
@@ -95,7 +97,9 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     private productStore: Store<ProductStore>,
     private ideaStore: Store<IdeaStore>,
     public store: Store<AppState>,
-    private FormBuilder: FormBuilder
+    private FormBuilder: FormBuilder,
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -192,7 +196,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   /* #region  formArrays */
 
-  displayProduct(product: IProduct) : string {
+  displayProduct(product: IProduct): string {
     return product ? product.nombre : '';
   }
 
@@ -292,21 +296,33 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
     }
 
     console.log(idea);
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Crear Idea', description: '¿Esta seguro que desea guardar los datos para crear una idea?', confirmation: true }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        // Code of Work
+        this.ideaStore.dispatch(CREATE_IDEA({
+          idea: {
+            ...idea,
+            alternatives: this.idea.alternatives
+          }
+        }))
 
-    this.ideaStore.dispatch(CREATE_IDEA({
-      idea: {
-        ...idea,
-        alternatives: this.idea.alternatives
+        this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+
+        this.generalInformation.reset({
+          date: moment(),
+          planningInstrument: true
+        })
       }
-    }))
-
-    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
-
-    this.generalInformation.reset({
-      date: moment(),
-      planningInstrument: true
-    })
+      else {
+        return;
+      }
+    });
   }
 
 }
