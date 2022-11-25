@@ -23,6 +23,7 @@
     <ng-container matColumnDef="advance">
       <th mat-header-cell *matHeaderCellDef> AVANCE </th>
       <td mat-cell *matCellDef="let element">
+        73%
         <!-- <div *ngIf="element.status == 'CREADA'" class="status pending">SIN ENVIAR</div>
         <div *ngIf="element.status == 'EN RECEPCIÓN'" class="status in-progress">EN REVISIÓN</div>
         <div *ngIf="element.status == 'EN ANÁLISIS'" class="status in-progress">RECEPCIONADA</div>
@@ -42,15 +43,15 @@
         </button>
 
         <mat-menu #menu="matMenu">
-          <button  mat-menu-item>
+          <button  mat-menu-item  (click)="openFormDrawer('Nuevo seguimiento', 'NEW_TRACK')">
             <!-- <button (click)="changeStatus('reception', element.id)" mat-menu-item> -->
-            <mat-icon>send</mat-icon>
+            <mat-icon>more_time</mat-icon>
             <span>Agregar Progreso</span>
           </button>
 
           <button  mat-menu-item>
             <!-- <button (click)="changeStatus('reception', element.id)" mat-menu-item> -->
-            <mat-icon>send</mat-icon>
+            <mat-icon>info</mat-icon>
             <span>Ver Detalles</span>
           </button>
         </mat-menu>
