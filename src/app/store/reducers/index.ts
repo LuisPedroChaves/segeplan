@@ -14,3 +14,4 @@ export * from './idea.reducer'
 export * from './alternative.reducer'
 export * from './session.reducer';
 export * from './initiative.reducer';
+export * from './checkProject.reducer'

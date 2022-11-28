@@ -2,8 +2,15 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CHANGE_MENU_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER } from 'src/app/store/actions';
-import { AppState } from 'src/app/store/app.reducer';
+
+import {
+  CHANGE_MENU_DRAWER,
+  CLOSE_FULL_DRAWER,
+  CLOSE_FULL_DRAWER2,
+  OPEN_FULL_DRAWER
+} from 'src/app/store/actions';
+import { CheckProjectStore } from 'src/app/store/reducers/checkProject.reducer';
+import { CHANGE_IS_MINISTRY } from '../../../../store/actions/checkProject.actions';
 
 @Component({
   selector: 'app-index',
@@ -15,20 +22,23 @@ export class IndexComponent implements OnInit, OnDestroy {
   @ViewChild('menuDrawer') menuDrawer!: MatDrawer;
   @ViewChild('fullDrawer') fullDrawer!: MatDrawer;
 
-  storeSubscription = new Subscription;
+  drawerSubscription = new Subscription;
 
-  fullComponent = '';
+  checkProjectSubscription = new Subscription
 
   sessionSubscription: Subscription;
 
-  instrument = 'Sectorial'
+  fullComponent = '';
+
+  isMinistry = false
 
   constructor(
-    public store: Store<AppState>,
+    public checkProjectStore: Store<CheckProjectStore>,
   ) { }
 
   ngOnInit(): void {
-    this.storeSubscription = this.store.select('drawer')
+
+    this.drawerSubscription = this.checkProjectStore.select('drawer')
       .subscribe(state => {
         if (this.menuDrawer) {
           this.menuDrawer.opened = state.menuDrawer;
@@ -38,24 +48,36 @@ export class IndexComponent implements OnInit, OnDestroy {
           this.fullComponent = state.fullComponent
         }
       });
+
+      this.checkProjectSubscription = this.checkProjectStore.select('checkProject')
+        .subscribe(state => {
+
+          this.isMinistry = state.isMinistry
+
+        })
   }
 
   ngOnDestroy(): void {
-    this.storeSubscription?.unsubscribe();
+    this.drawerSubscription?.unsubscribe();
+    this.checkProjectSubscription?.unsubscribe();
   }
 
 
   chengeDrawer(): void {
-    this.store.dispatch(CHANGE_MENU_DRAWER())
+    this.checkProjectStore.dispatch(CHANGE_MENU_DRAWER())
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
-    this.store.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
+    this.checkProjectStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
   }
 
   closeDrawers(): void {
-    this.store.dispatch(CLOSE_FULL_DRAWER())
-    this.store.dispatch(CLOSE_FULL_DRAWER2())
+    this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
+    this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER2())
+  }
+
+  checkIsMinistry(isMinistry: boolean): void {
+    this.checkProjectStore.dispatch( CHANGE_IS_MINISTRY({ isMinistry }) )
   }
 
 }
