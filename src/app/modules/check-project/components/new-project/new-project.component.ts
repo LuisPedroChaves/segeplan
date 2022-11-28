@@ -28,7 +28,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   formTitle = ''
   formComponent = '';
 
-  project = new FormGroup({
+  newProject = new FormGroup({
     process: new FormControl(null, Validators.required),
     sector: new FormControl(null, Validators.required),
     nameProject: new FormControl(null, Validators.required),
@@ -96,16 +96,16 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
   selecDepartament(): void {
     // window.alert('Opción aun no habilitada')
-    let dptoSelect = this.project.controls['departament'].value;
+    let dptoSelect = this.newProject.controls['departament'].value;
     let dpto = this.departamentos.find((dto: Departament) => dto.NOMBRE == dptoSelect);
     if (dpto) { this.municipios = dpto.municipios }
   }
 
   onSubmit(): void {
-    console.log(this.project.value)
+    console.log(this.newProject.value)
 
     const { process, sector, nameProject, departament, municipality,
-      observations, agripManage, legalLand, snipCode } = this.project.value;
+      observations, agripManage, legalLand, snipCode } = this.newProject.value;
 
     const projectModel: IProject = {
       process, sector, nameProject, isMinistry: false, depto: departament, munic: municipality,
@@ -123,7 +123,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
         // Code of Work
         this.chekProjectService.createProject(projectModel)
           .subscribe(res => {
-            this.project.reset();
+            this.newProject.reset();
             this.store.dispatch(CLOSE_FORM_DRAWER())
           })
       } else {

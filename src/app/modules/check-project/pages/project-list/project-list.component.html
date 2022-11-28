@@ -2,22 +2,22 @@
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="nameProject">
       <th mat-header-cell *matHeaderCellDef> PROYECTO </th>
-      <td mat-cell *matCellDef="let element"> {{element.project.nameProject}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.nameProject}} </td>
     </ng-container>
 
     <ng-container matColumnDef="process">
       <th mat-header-cell *matHeaderCellDef> PROCESO </th>
-      <td mat-cell *matCellDef="let element"> {{element.project.process}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.process}} </td>
     </ng-container>
 
     <ng-container matColumnDef="sector">
       <th mat-header-cell *matHeaderCellDef> SECTOR</th>
-      <td mat-cell *matCellDef="let element"> {{element.project.sector}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.sector}} </td>
     </ng-container>
 
     <ng-container matColumnDef="munic">
       <th mat-header-cell *matHeaderCellDef> MUNICIPIO </th>
-      <td mat-cell *matCellDef="let element"> {{element.project.munic}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.munic}} </td>
     </ng-container>
 
     <ng-container matColumnDef="advance">
