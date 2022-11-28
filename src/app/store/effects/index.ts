@@ -10,12 +10,13 @@ import { ProjectFunctionEffects } from './projectFunction.effects';
 import { GeneralStudyEffects } from './generalStudy.effects';
 import { PreinvDocumentEffects } from './preinvDocument.effects';
 import { ModalityFinancingEffects } from './modalityFinancing.effects';
+import { CheckProjectEffects } from './checkProject.effects'
 export const effectsArray: any[] = [
-    SessionEffects, ProductEffects, 
-    GeograficoEffects, ProcesoEffects, 
-    ObjectEffects, DenominationEffects, 
+    SessionEffects, ProductEffects,
+    GeograficoEffects, ProcesoEffects,
+    ObjectEffects, DenominationEffects,
     ReferenceEffects, EntityEffects,
     ProjectFunctionEffects, GeneralStudyEffects,
-    PreinvDocumentEffects, ModalityFinancingEffects
+    PreinvDocumentEffects, ModalityFinancingEffects,
+    CheckProjectEffects
 ];
-

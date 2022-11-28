@@ -14,3 +14,4 @@ export * from './idea.actions'
 export * from './alternative.actions'
 export * from './session.actions';
 export * from './initiative.actions'
+export * from './checkProject.actions'
