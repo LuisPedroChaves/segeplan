@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map, Observable, Subject } from 'rxjs';
 import { IProject } from '../../models/seguimiento/project';
 import { ITrack } from '../../models/seguimiento/progress';
+import { IFiltroCheckProjects } from '../../models/adicionales/filtro-check-projects';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,17 @@ export class ChekProjectService {
 
   constructor(private http: HttpClient,) { }
 
-  getAllProjects(): Observable<any> {
+  getAllProjects(filtros: IFiltroCheckProjects): Observable<any> {
     const url = this.API_URL + this.url + 'project/get-all';
-    return this.http.get(url).pipe(
-      map((res: any) => {
-        return res.projects;
+    return this.http.get(url,
+      {
+        params: new HttpParams({ fromObject: { ...filtros } })
       })
-    );
+      .pipe(
+        map((res: any) => {
+          return res.projects;
+        })
+      );
   }
 
   getProjectById(idProject: string): Observable<any> {
@@ -41,11 +46,11 @@ export class ChekProjectService {
     )
   }
 
-  addTrack(track: ITrack, idProject: string): Observable<ITrack> {
+  addTrack(track: ITrack, idProject: string): Observable<IProject> {
     const url = this.API_URL + this.url + 'project/track/' + idProject;
     return this.http.post(url, track).pipe(
-      map((res: any) => {
-        return res.project;
+      map((project: IProject) => {
+        return project;
       })
     )
   }

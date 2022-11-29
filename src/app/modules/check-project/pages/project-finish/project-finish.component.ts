@@ -1,21 +1,19 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
-
+import { IFiltroCheckProjects } from 'src/app/core/models/adicionales/filtro-check-projects';
 import { IProject } from 'src/app/core/models/seguimiento/project';
-import { OPEN_FORM_DRAWER, OPEN_FULL_DRAWER, READ_CHECK_PROJECTS, SET_PROJECT } from 'src/app/store/actions';
+import { OPEN_FULL_DRAWER, READ_CHECK_PROJECTS, SET_PROJECT } from 'src/app/store/actions';
 import { CheckProjectStore } from 'src/app/store/reducers';
-import { IFiltroCheckProjects } from '../../../../core/models/adicionales/filtro-check-projects';
 
 @Component({
-  selector: 'app-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss']
+  selector: 'app-project-finish',
+  templateUrl: './project-finish.component.html',
+  styleUrls: ['./project-finish.component.scss']
 })
-export class ProjectListComponent implements OnInit, OnDestroy {
+export class ProjectFinishComponent implements OnInit, OnDestroy {
 
   @ViewChild('formDrawer') formDrawer!: MatDrawer;
 
@@ -66,6 +64,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       })
 
     this.checkProjectStore.dispatch(READ_CHECK_PROJECTS({ filtros: this.filtros }))
+
   }
 
   ngOnDestroy(): void {

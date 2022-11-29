@@ -53,7 +53,9 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   isMinistry = false;
 
   editProject = false
+  editTracking = false
   elevationProject = 'mat-elevation-z0'
+  elevationTracking = 'mat-elevation-z0'
 
   constructor(
     public checkProjectStore: Store<CheckProjectStore>,
@@ -88,6 +90,8 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
         if (state.project) {
           this.setProject(state.project)
+        }else {
+          this.resetNewProject()
         }
 
       })
@@ -105,6 +109,50 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   openFormDrawer(formTitle: string, formComponent: string): void {
+
+    if (this.newProject.invalid) {
+
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'Completar información', description: 'Primero debe completar toda la información del proyecto', confirmation: false }
+      });
+
+      return;
+    }
+
+    if (!this.project) {
+
+      const {
+        process,
+        sector,
+        nameProject,
+        departament,
+        municipality,
+        observations,
+        agripManage,
+        legalLand,
+        snipCode } = this.newProject.value;
+
+      this.project = {
+        process,
+        sector,
+        nameProject,
+        isMinistry: this.isMinistry,
+        depto: departament,
+        munic: municipality,
+        observations,
+        agripManage,
+        legalLand,
+        snipCode
+      }
+
+      this.checkProjectStore.dispatch(CREATE_CHECK_PROJECT({ checkProject: this.project }))
+      this.checkProjectStore.dispatch(OPEN_FORM_DRAWER({ formTitle, formComponent }))
+      return
+    }
+
+    //TODO: Actualizar proyecto si existe el ID
+
     this.checkProjectStore.dispatch(OPEN_FORM_DRAWER({ formTitle, formComponent }))
   }
 
@@ -126,9 +174,12 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       legalLand: false
     })
 
+    this.project = null
+    this.dataSource = new MatTableDataSource<ITrack>([])
+
   }
 
-  projectStyle($event): void{
+  projectStyle($event): void {
 
     if (this.editProject === true) {
       this.elevationProject = 'mat-elevation-z8'
@@ -143,7 +194,22 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     this.elevationProject = 'mat-elevation-z0'
   }
 
-  setProject(project: IProject):void {
+  trackingStyle($event): void {
+
+    if (this.editTracking === true) {
+      this.elevationTracking = 'mat-elevation-z8'
+      return
+    }
+
+    this.elevationTracking = $event.type == 'mouseover' ? 'mat-elevation-z8' : 'mat-elevation-z0';
+  }
+
+  outTracking(): void {
+    this.editTracking = false
+    this.elevationTracking = 'mat-elevation-z0'
+  }
+
+  setProject(project: IProject): void {
     this.project = project
 
     this.newProject.controls['process'].setValue(project.process)
@@ -152,9 +218,14 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     this.newProject.controls['departament'].setValue(project.depto)
     this.newProject.controls['municipality'].setValue(project.munic)
     this.newProject.controls['observations'].setValue(project.observations)
-    this.newProject.controls['agripManage'].setValue(project.agripManage)
-    this.newProject.controls['legalLand'].setValue(project.legalLand)
+    this.newProject.controls['agripManage'].setValue(Boolean(project.agripManage))
+    this.newProject.controls['legalLand'].setValue(Boolean(project.legalLand))
     this.newProject.controls['snipCode'].setValue(project.snipCode)
+
+    setTimeout(() => {
+      this.selecDepartament()
+    }, 500);
+    this.dataSource = new MatTableDataSource<ITrack>(this.project.tracking)
   }
 
   onSubmit(): void {
@@ -191,11 +262,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
 
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
-        data: { title: 'Registrar Proyecto', description: '¿Esta Seguro que desea registrar los datos del Proyecto?', confirmation: true }
+        data: { title: 'Registrar proyecto', description: '¿Esta Seguro que desea registrar los datos del Proyecto?', confirmation: true }
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
         if (result === true) {
 
           this.checkProjectStore.dispatch(CREATE_CHECK_PROJECT({ checkProject: this.project }))
@@ -208,10 +278,39 @@ export class NewProjectComponent implements OnInit, OnDestroy {
         }
       });
 
-
+      return
     }
 
-    //TODO: Agregar editar
+    this.project = {
+      ...this.project,
+      process,
+      sector,
+      nameProject,
+      depto: departament,
+      munic: municipality,
+      observations,
+      agripManage,
+      legalLand,
+      snipCode
+    }
+
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Actualizar proyecto', description: '¿Esta Seguro que desea actualizar los datos del Proyecto?', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+
+        this.checkProjectStore.dispatch(CREATE_CHECK_PROJECT({ checkProject: this.project }))
+        this.checkProjectStore.dispatch(CLOSE_FORM_DRAWER())
+        this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
+        this.resetNewProject()
+
+      } else {
+        return;
+      }
+    });
 
   }
 

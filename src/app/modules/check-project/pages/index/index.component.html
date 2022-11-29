@@ -23,18 +23,18 @@
 
       <br>
 
-      <mat-selection-list #shoes [multiple]="false">
+      <mat-selection-list fxFill [multiple]="false">
 
-        <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option"
+        <mat-list-option (click)="closeDrawers()" routerLink="/checkProject" routerLinkActive="mat-list-single-selected-option"
           [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon mat-list-icon>account_tree</mat-icon>
           Proyectos
         </mat-list-option>
 
-        <!-- <mat-list-option (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">
-          <mat-icon mat-list-icon>request_quote</mat-icon>
-          Solicitudes
-        </mat-list-option> -->
+        <mat-list-option (click)="closeDrawers()" routerLink="/checkProject/projectFinish" routerLinkActive="mat-list-single-selected-option">
+          <mat-icon mat-list-icon>check_circle_outline</mat-icon>
+          Proyectos Finalizados
+        </mat-list-option>
 
       </mat-selection-list>
     </div>

@@ -11,6 +11,7 @@ import { CheckProjectRoutes } from './check-project.routing';
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { ProjectListComponent } from './pages/project-list/project-list.component';
 import { NewTrackComponent } from './components/new-track/new-track.component';
+import { ProjectFinishComponent } from './pages/project-finish/project-finish.component';
 
 
 
@@ -19,7 +20,8 @@ import { NewTrackComponent } from './components/new-track/new-track.component';
     IndexComponent,
     NewProjectComponent,
     ProjectListComponent,
-    NewTrackComponent
+    NewTrackComponent,
+    ProjectFinishComponent
   ],
   imports: [
     CommonModule,

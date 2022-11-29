@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { ITrack } from 'src/app/core/models/seguimiento/progress';
 
 import { IProject } from 'src/app/core/models/seguimiento/project';
 import { IFiltroCheckProjects } from '../../core/models/adicionales/filtro-check-projects';
@@ -11,7 +12,7 @@ export const CHANGE_IS_MINISTRY = createAction(
 
 export const READ_CHECK_PROJECTS = createAction(
   '[CHECK PROJECTS Listar proyectos creados',
-  props<{ filtro: IFiltroCheckProjects }>()
+  props<{ filtros: IFiltroCheckProjects }>()
 )
 
 export const SET_CHECK_PROJECTS = createAction(
@@ -32,4 +33,19 @@ export const SET_NEW_CHECK_PROJECT = createAction(
 export const SET_PROJECT = createAction(
   '[CHECK PROJECTS] Asignar proyecto actual',
   props<{ checkProject: IProject }>()
+)
+
+export const SET_TRACKING = createAction(
+  '[CHECK PROJECTS] Asignar seguimiento al proyecto actual',
+  props<{ tracking: ITrack[] }>()
+)
+
+export const UPDATE_PROJECT = createAction(
+	'[CHECK PROJECTS] Actualizar proyecto',
+	props<{ checkProject: IProject }>()
+)
+
+export const SET_EDIT_PROJECT = createAction(
+	'[CHECK PROJECTS] Asignar proyecto editado',
+	props<{ checkProject: IProject }>()
 )

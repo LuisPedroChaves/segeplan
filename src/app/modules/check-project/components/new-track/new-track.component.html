@@ -403,15 +403,16 @@
           </mat-form-field>
 
           <div fxLayout="row" fxLayoutAlign="center center">
-            <button mat-stroked-button (click)="addComment()" color="warn">Agregar</button>
+            <button mat-stroked-button (click)="addComment()" color="primary" type="button">Agregar</button>
           </div>
 
           <mat-list-item *ngFor="let comment of comments, let i = index">
-            <div mat-line> <b>{{comment.theme}}</b> </div>
-            <div mat-line> {{comment.description}} </div>
             <div mat-line>
-              <button mat-button (click)="removeComment(i)" color="warn">Quitar</button>
+              <b>{{comment.theme}}</b>
+              <span fxFlex></span>
+              <button mat-icon-button (click)="removeComment(i)"><mat-icon>close</mat-icon></button>
             </div>
+            <div mat-line> {{comment.description}} </div>
           </mat-list-item>
 
         </div>

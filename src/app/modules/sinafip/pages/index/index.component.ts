@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CHANGE_MENU_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER, SET_IDEA } from 'src/app/store/actions';
+
+import { User } from 'src/app/core/models/adicionales/user';
+import * as actions from 'src/app/store/actions';
 import { AppState } from 'src/app/store/app.reducer';
-import { User } from '../../../../core/models/adicionales/user';
 
 @Component({
   selector: 'app-index',
@@ -32,15 +33,15 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.usuario = session.session.usuario;
     });
     this.storeSubscription = this.store.select('drawer')
-    .subscribe(state => {
-      if (this.menuDrawer) {
-        this.menuDrawer.opened = state.menuDrawer;
-      }
-      if (this.fullDrawer) {
-        this.fullDrawer.opened = state.fullDrawer;
-        this.fullComponent = state.fullComponent
-      }
-    });
+      .subscribe(state => {
+        if (this.menuDrawer) {
+          this.menuDrawer.opened = state.menuDrawer;
+        }
+        if (this.fullDrawer) {
+          this.fullDrawer.opened = state.fullDrawer;
+          this.fullComponent = state.fullComponent
+        }
+      });
 
   }
 
@@ -49,17 +50,18 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   chengeDrawer(): void {
-    this.store.dispatch(CHANGE_MENU_DRAWER())
+    this.store.dispatch(actions.CHANGE_MENU_DRAWER())
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
-    // this.store.dispatch(SET_IDEA({idea: null})) TODO: Enlazar con iniciativas de pre inversion
-    this.store.dispatch(OPEN_FULL_DRAWER({fullTitle, fullComponent}))
+    // this.store.dispatch(actions.SET_PROJECT({ checkProject: null }))
+    this.store.dispatch(actions.OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
+    this.store.dispatch(actions.CLOSE_FORM_DRAWER())
   }
 
   closeDrawers(): void {
-    this.store.dispatch( CLOSE_FULL_DRAWER() )
-    this.store.dispatch( CLOSE_FULL_DRAWER2() )
+    this.store.dispatch(actions.CLOSE_FULL_DRAWER())
+    this.store.dispatch(actions.CLOSE_FULL_DRAWER2())
   }
 
 }

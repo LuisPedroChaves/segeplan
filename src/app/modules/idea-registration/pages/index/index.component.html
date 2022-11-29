@@ -13,7 +13,7 @@
         Crear idea
       </button>
       <br>
-      <mat-selection-list #shoes [multiple]="false">
+      <mat-selection-list fxFill [multiple]="false">
         <mat-list-option *ngIf="usuario.role == 'USER_ROLE'" (click)="closeDrawers()"  routerLink="/" routerLinkActive="mat-list-single-selected-option"
           [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon mat-list-icon>tips_and_updates</mat-icon>

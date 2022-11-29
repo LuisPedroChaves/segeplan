@@ -8,7 +8,7 @@ export interface ITrack {
     iapc: number;
     activity: string;
     reportDate: string;
-    projectId?: number;
+    projectId?: string;
     advisoryEpi?: IAdvisoryEpi;
     advisoryDoc?: IAdvisoryDoc;
 }

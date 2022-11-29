@@ -18,7 +18,7 @@ export class CheckProjectEffects {
       .pipe(
         ofType(actions.READ_CHECK_PROJECTS),
         mergeMap(
-          (filtro) => this.checkProjectService.getAllProjects()
+          ({filtros}) => this.checkProjectService.getAllProjects(filtros)
             .pipe(
               map(checkProjects => actions.SET_CHECK_PROJECTS({ checkProjects }))
             )
@@ -38,5 +38,19 @@ export class CheckProjectEffects {
         )
       )
   )
+
+  // TODO: falta endpoint para editar proyecto
+  // editProject = createEffect(
+  //   () => this.actions$
+  //     .pipe(
+  //       ofType(actions.UPDATE_PROJECT),
+  //       mergeMap(
+  //         ({ checkProject }) => this.checkProjectService.create(checkProject)
+  //           .pipe(
+  //             map(checkProject => actions.SET_NEW_CHECK_PROJECT({ checkProject }))
+  //           )
+  //       )
+  //     )
+  // )
 
 }

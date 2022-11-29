@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+
+import { IAdvisoryDoc } from 'src/app/core/models/seguimiento/advisoryDoc';
+import { IAdvisoryEpi } from 'src/app/core/models/seguimiento/advisoryEpi';
 import { IComment } from 'src/app/core/models/seguimiento/comment';
+import { ITrack } from 'src/app/core/models/seguimiento/progress';
+import { IProject } from 'src/app/core/models/seguimiento/project';
 import { Entity } from 'src/app/core/models/sinafip/entity';
-import { READ_ENTITIES } from 'src/app/store/actions';
-import { EntityStore } from 'src/app/store/reducers';
+import { ChekProjectService } from 'src/app/core/services/httpServices/chek-project.service';
+import { CLOSE_FORM_DRAWER, READ_ENTITIES, SET_EDIT_PROJECT, SET_PROJECT, SET_TRACKING } from 'src/app/store/actions';
+import { CheckProjectStore, EntityStore } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-new-track',
   templateUrl: './new-track.component.html',
   styleUrls: ['./new-track.component.scss']
 })
-export class NewTrackComponent implements OnInit {
+export class NewTrackComponent implements OnInit, OnDestroy {
+
+  @ViewChild('stepper') stepper: MatStepper
 
   track = new FormGroup({
     iapa: new FormControl(null, Validators.required),
@@ -51,9 +60,8 @@ export class NewTrackComponent implements OnInit {
     analysisDate: new FormControl(''),
     advDate: new FormControl(''),
     assistant: new FormControl(''),
-    conclusions: new FormControl(''),
+    conclusions: new FormControl('', [Validators.maxLength(400)]),
     recomend: new FormControl('', [Validators.maxLength(400)]),
-    comments: new FormControl('', [Validators.maxLength(400)]),
   })
 
   comments: IComment[] = []
@@ -63,8 +71,13 @@ export class NewTrackComponent implements OnInit {
   entities: Entity[] = [];
   entityStoreSubscription = new Subscription();
 
+  checkProjectSubscription = new Subscription()
+  project: IProject = null;
+
   constructor(
-    private entityStore: Store<EntityStore>
+    private entityStore: Store<EntityStore>,
+    private checkProjectStore: Store<CheckProjectStore>,
+    private checkProjectService: ChekProjectService
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +88,20 @@ export class NewTrackComponent implements OnInit {
       })
     this.entityStore.dispatch(READ_ENTITIES())
 
+    this.checkProjectSubscription = this.checkProjectStore.select('checkProject')
+      .subscribe(state => {
+
+        if (state.project) {
+          this.project = state.project
+        }
+
+      })
+
+  }
+
+  ngOnDestroy(): void {
+    this.entityStoreSubscription?.unsubscribe()
+    this.checkProjectSubscription?.unsubscribe()
   }
 
   addComment(): void {
@@ -99,6 +126,137 @@ export class NewTrackComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+    const {
+      iapa,
+      iapb,
+      iapc,
+      activity,
+      reportDate,
+    } = this.track.value
+
+    const NEW_TRACK: ITrack = {
+      iapa,
+      iapb,
+      iapc,
+      activity,
+      reportDate,
+      projectId: this.project.id,
+      advisoryEpi: null,
+      advisoryDoc: null
+    }
+
+    if (activity === 'ASESORÍA A LA EPI') {
+
+      const {
+        goal,
+        action,
+        entity,
+        advTheme,
+        participantName,
+        participantPosition,
+        advDate,
+        reportDate,
+        place,
+        objective,
+        devAdv,
+        conclusions,
+        commitments,
+        specialist,
+        doc
+      } = this.advisoryEpi.value
+
+      const NEW_ADVISORY_EPI: IAdvisoryEpi = {
+        goal,
+        action,
+        entity,
+        advTheme,
+        participantName,
+        participantPosition,
+        advDate,
+        reportDate,
+        place,
+        objective,
+        devAdv,
+        conclusions,
+        commitments,
+        specialist,
+        doc
+      }
+
+      NEW_TRACK.advisoryEpi = { ...NEW_ADVISORY_EPI }
+
+
+      this.checkProjectService.addTrack(NEW_TRACK, this.project.id)
+        .subscribe(project => {
+
+          this.checkProjectStore.dispatch(SET_TRACKING({ tracking: project.tracking }))
+          this.checkProjectStore.dispatch(SET_EDIT_PROJECT({ checkProject: project }))
+
+        })
+
+      this.stepper.reset()
+      this.advisoryEpi.reset({
+        doc: null
+      })
+      this.checkProjectStore.dispatch(CLOSE_FORM_DRAWER())
+
+      return
+    }
+
+    if (activity === 'ASESORÍA AL DOCUMENTO') {
+
+      const {
+        goal,
+        action,
+        entity,
+        advTheme,
+        snipCode,
+        projectName,
+        participant,
+        analysisDate,
+        advDate,
+        assistant,
+        conclusions,
+        recomend,
+      } = this.advisoryDoc.value
+
+      const NEW_ADVISORY_DOC: IAdvisoryDoc = {
+        goal,
+        action,
+        entity,
+        advTheme,
+        snipCode,
+        projectName,
+        participant,
+        analysisDate,
+        advDate,
+        assistant,
+        conclusions,
+        recomend,
+        comments: this.comments
+      }
+
+      NEW_TRACK.advisoryDoc = { ...NEW_ADVISORY_DOC }
+
+
+      this.checkProjectService.addTrack(NEW_TRACK, this.project.id)
+        .subscribe(project => {
+
+          this.checkProjectStore.dispatch(SET_TRACKING({ tracking: project.tracking }))
+          this.checkProjectStore.dispatch(SET_EDIT_PROJECT({ checkProject: project }))
+
+        })
+
+      this.stepper.reset()
+      this.advisoryDoc.reset()
+      this.comments = []
+      this.checkProjectStore.dispatch(CLOSE_FORM_DRAWER())
+
+      return
+    }
+
+
   }
 
 }

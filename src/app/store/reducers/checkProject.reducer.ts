@@ -34,13 +34,36 @@ const _CHECK_REDUCER_REDUCER = createReducer(CHECK_PROJECT_STATE,
 
   on(actions.SET_NEW_CHECK_PROJECT, (state, { checkProject }) => ({
     ...state,
-    projects: [...state.projects, checkProject]
+    projects: [...state.projects, checkProject],
+    project: { ...checkProject }
   })),
 
   on(actions.SET_PROJECT, (state, { checkProject }) => ({
     ...state,
-    project: { ...checkProject }
-  }))
+    project:  checkProject ? { ...checkProject } : null
+  })),
+
+  on(actions.SET_TRACKING, (state, { tracking }) => ({
+    ...state,
+    project:  { ...state.project, tracking: [ ...tracking ] }
+  })),
+
+  on(actions.SET_EDIT_PROJECT, (state, { checkProject }) => ({
+    ...state,
+    projects: state.projects.map(p => {
+
+      if (p.id === checkProject.id) {
+        return {
+          ...checkProject
+        }
+      }
+
+      return {
+        ...p
+      }
+
+    })
+  })),
 
 )
 

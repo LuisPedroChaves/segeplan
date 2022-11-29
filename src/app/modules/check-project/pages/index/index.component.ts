@@ -3,12 +3,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import {
-  CHANGE_MENU_DRAWER,
-  CLOSE_FULL_DRAWER,
-  CLOSE_FULL_DRAWER2,
-  OPEN_FULL_DRAWER
-} from 'src/app/store/actions';
+import * as actions from 'src/app/store/actions';
 import { CheckProjectStore } from 'src/app/store/reducers/checkProject.reducer';
 import { CHANGE_IS_MINISTRY } from '../../../../store/actions/checkProject.actions';
 
@@ -49,12 +44,12 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.checkProjectSubscription = this.checkProjectStore.select('checkProject')
-        .subscribe(state => {
+    this.checkProjectSubscription = this.checkProjectStore.select('checkProject')
+      .subscribe(state => {
 
-          this.isMinistry = state.isMinistry
+        this.isMinistry = state.isMinistry
 
-        })
+      })
   }
 
   ngOnDestroy(): void {
@@ -64,20 +59,22 @@ export class IndexComponent implements OnInit, OnDestroy {
 
 
   chengeDrawer(): void {
-    this.checkProjectStore.dispatch(CHANGE_MENU_DRAWER())
+    this.checkProjectStore.dispatch(actions.CHANGE_MENU_DRAWER())
   }
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
-    this.checkProjectStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
+    this.checkProjectStore.dispatch(actions.SET_PROJECT({ checkProject: null }))
+    this.checkProjectStore.dispatch(actions.OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
+    this.checkProjectStore.dispatch(actions.CLOSE_FORM_DRAWER())
   }
 
   closeDrawers(): void {
-    this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
-    this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER2())
+    this.checkProjectStore.dispatch(actions.CLOSE_FULL_DRAWER())
+    this.checkProjectStore.dispatch(actions.CLOSE_FULL_DRAWER2())
   }
 
   checkIsMinistry(isMinistry: boolean): void {
-    this.checkProjectStore.dispatch( CHANGE_IS_MINISTRY({ isMinistry }) )
+    this.checkProjectStore.dispatch(CHANGE_IS_MINISTRY({ isMinistry }))
   }
 
 }
