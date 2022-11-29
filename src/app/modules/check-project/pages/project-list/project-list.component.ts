@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 
 import { IProject } from 'src/app/core/models/seguimiento/project';
-import { OPEN_FORM_DRAWER, READ_CHECK_PROJECTS } from 'src/app/store/actions';
+import { OPEN_FORM_DRAWER, OPEN_FULL_DRAWER, READ_CHECK_PROJECTS, SET_PROJECT } from 'src/app/store/actions';
 import { CheckProjectStore } from 'src/app/store/reducers';
 import { IFiltroCheckProjects } from '../../../../core/models/adicionales/filtro-check-projects';
 
@@ -30,20 +30,31 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<IProject>([]);
 
   constructor(
-    public checkProjectstore: Store<CheckProjectStore>,
+    public checkProjectStore: Store<CheckProjectStore>,
   ) { }
 
   ngOnInit(): void {
 
-    this.drawerSubscription = this.checkProjectstore.select('drawer')
+    this.drawerSubscription = this.checkProjectStore.select('drawer')
       .subscribe(state => {
         if (this.formDrawer) {
           this.formDrawer.opened = state.formDrawer
         }
       });
 
-    this.checkProjectSubscription = this.checkProjectstore.select('checkProject')
+    this.checkProjectSubscription = this.checkProjectStore.select('checkProject')
       .subscribe(state => {
+
+        if (this.filtro.isMinistry != state.isMinistry) {
+
+          this.checkProjectStore.dispatch(READ_CHECK_PROJECTS({
+            filtro: {
+              ...this.filtro,
+              isMinistry: state.isMinistry
+            }
+          }))
+
+        }
 
         this.filtro = {
           ...this.filtro,
@@ -54,7 +65,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
       })
 
-    this.checkProjectstore.dispatch(READ_CHECK_PROJECTS({ filtro: this.filtro }))
+    this.checkProjectStore.dispatch(READ_CHECK_PROJECTS({ filtro: this.filtro }))
   }
 
   ngOnDestroy(): void {
@@ -62,9 +73,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.checkProjectSubscription?.unsubscribe()
   }
 
-  openFormDrawer(formTitle: string, formComponent: string): void {
-    console.log('Entro a la funcion')
-    this.checkProjectstore.dispatch(OPEN_FORM_DRAWER({ formTitle, formComponent }))
+  openFullDrawer(fullTitle: string, fullComponent: string, checkProject: IProject): void {
+    this.checkProjectStore.dispatch(SET_PROJECT({ checkProject }))
+    this.checkProjectStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
   }
 
 }

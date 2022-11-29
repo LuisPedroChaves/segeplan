@@ -37,6 +37,11 @@ const _CHECK_REDUCER_REDUCER = createReducer(CHECK_PROJECT_STATE,
     projects: [...state.projects, checkProject]
   })),
 
+  on(actions.SET_PROJECT, (state, { checkProject }) => ({
+    ...state,
+    project: { ...checkProject }
+  }))
+
 )
 
 export function CheckProjectReducer(state: CheckProjectState, action: Action) {

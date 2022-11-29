@@ -63,6 +63,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { FullCalendarModule, CalendarOptions } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import { ClickOutsideModule } from 'ng-click-outside';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -110,7 +111,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FlexLayoutModule,
     SimplebarAngularModule,
     MaterialFileInputModule,
-    FullCalendarModule
+    FullCalendarModule,
+    ClickOutsideModule,
   ],
   exports: [
     FormsModule,
@@ -147,6 +149,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SimplebarAngularModule,
     MaterialFileInputModule,
     FullCalendarModule,
+    ClickOutsideModule,
     /* #region  Components */
     NotFoundComponent
     /* #endregion */

@@ -33,6 +33,7 @@
     "@ngx-loading-bar/router": "^6.0.2",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
+    "ng-click-outside": "^9.0.1",
     "ngx-material-file-input": "^4.0.0",
     "pdfmake": "^0.2.5",
     "rxjs": "~7.5.0",

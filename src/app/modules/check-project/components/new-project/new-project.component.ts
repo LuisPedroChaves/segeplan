@@ -52,6 +52,9 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   project: IProject = null;
   isMinistry = false;
 
+  editProject = false
+  elevationProject = 'mat-elevation-z0'
+
   constructor(
     public checkProjectStore: Store<CheckProjectStore>,
     private geograficoStore: Store<GeograficoStore>,
@@ -82,7 +85,10 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       .subscribe(state => {
 
         this.isMinistry = state.isMinistry
-        this.project = state.project
+
+        if (state.project) {
+          this.setProject(state.project)
+        }
 
       })
 
@@ -120,6 +126,35 @@ export class NewProjectComponent implements OnInit, OnDestroy {
       legalLand: false
     })
 
+  }
+
+  projectStyle($event): void{
+
+    if (this.editProject === true) {
+      this.elevationProject = 'mat-elevation-z8'
+      return
+    }
+
+    this.elevationProject = $event.type == 'mouseover' ? 'mat-elevation-z8' : 'mat-elevation-z0';
+  }
+
+  outProject(): void {
+    this.editProject = false
+    this.elevationProject = 'mat-elevation-z0'
+  }
+
+  setProject(project: IProject):void {
+    this.project = project
+
+    this.newProject.controls['process'].setValue(project.process)
+    this.newProject.controls['sector'].setValue(project.sector)
+    this.newProject.controls['nameProject'].setValue(project.nameProject)
+    this.newProject.controls['departament'].setValue(project.depto)
+    this.newProject.controls['municipality'].setValue(project.munic)
+    this.newProject.controls['observations'].setValue(project.observations)
+    this.newProject.controls['agripManage'].setValue(project.agripManage)
+    this.newProject.controls['legalLand'].setValue(project.legalLand)
+    this.newProject.controls['snipCode'].setValue(project.snipCode)
   }
 
   onSubmit(): void {

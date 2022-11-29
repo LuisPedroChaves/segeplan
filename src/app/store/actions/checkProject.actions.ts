@@ -28,3 +28,8 @@ export const SET_NEW_CHECK_PROJECT = createAction(
   '[CHECK PROJECTS] Asignar nuevo projecto',
   props<{ checkProject: IProject }>()
 )
+
+export const SET_PROJECT = createAction(
+  '[CHECK PROJECTS] Asignar proyecto actual',
+  props<{ checkProject: IProject }>()
+)
