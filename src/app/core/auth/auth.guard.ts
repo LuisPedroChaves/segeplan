@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     }
 
     localStorage.removeItem('segeplan-session');
-    this.router.navigate(['/session']);
+    this.router.createUrlTree(['/session'])
     return false;
   }
 

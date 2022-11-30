@@ -1,18 +1,31 @@
 <div class="mat-app-background body app-layout">
+
   <ngx-loading-bar color="#deb16e" [includeSpinner]="false" height="3px"></ngx-loading-bar>
+
   <mat-toolbar fxLayoutGap="15px">
-    <img [routerLink]="['/']" src="../assets/img/Logo-min.jpg" alt="SEGEPLAN" class="logo active-elevation">
+
+    <img [routerLink]="['/']" src="../assets/img/Logo-min.jpg" alt="SEGEPLAN" class="logo pointer active-elevation">
+
     <p fxHide.lt-md  class="mat-subheading-2">Secretaría de Planificación y Programación de la Presidencia</p>
+
     <span fxFlex></span>
+
+    <div fxHide.lt-md *ngIf="session">{{ session.usuario.name }}</div>
+
     <button mat-mini-fab *ngIf="theme === 'darkMode'" (click)="changeMode()" matTooltip="Modo claro">
       <mat-icon>light_mode</mat-icon>
     </button>
+
     <button mat-mini-fab *ngIf="theme === 'lightMode'" (click)="changeMode()" color="primary" matTooltip="Modo oscuro">
       <mat-icon>dark_mode</mat-icon>
     </button>
+
     <button mat-mini-fab *ngIf="session" (click)="logout()" color="accent" matTooltip="Cerrar Sesión">
       <mat-icon>logout</mat-icon>
     </button>
+
   </mat-toolbar>
+
   <router-outlet></router-outlet>
+
 </div>

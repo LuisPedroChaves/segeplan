@@ -40,7 +40,9 @@ export class NewIdeasComponent implements OnInit {
     this.ideaStore.dispatch(READ_IDEAS({ filtro: { state: this.state } }))
 
     this.sessionSubscription = this.store.select('session').subscribe(session => {
-      this.usuario = session.session.usuario;
+      if (session.session) {
+        this.usuario = session.session.usuario;
+      }
     });
   }
 

@@ -41,8 +41,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       });
 
       this.sessionSubscription = this.store.select('session').subscribe(session => {
-        this.usuario = session.session.usuario;
-        console.log(this.usuario);
+        if (session.session) {
+          this.usuario = session.session.usuario;
+        }
       });
   }
 

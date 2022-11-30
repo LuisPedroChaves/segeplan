@@ -64,6 +64,7 @@ import { FullCalendarModule, CalendarOptions } from '@fullcalendar/angular'; // 
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import { ClickOutsideModule } from 'ng-click-outside';
+import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -74,7 +75,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   declarations: [
     MobileMenuComponent,
     NotFoundComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    ShowForRolesDirective,
   ],
   imports: [
     CommonModule,
@@ -151,8 +153,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FullCalendarModule,
     ClickOutsideModule,
     /* #region  Components */
-    NotFoundComponent
+    NotFoundComponent,
     /* #endregion */
+    ShowForRolesDirective
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es' },

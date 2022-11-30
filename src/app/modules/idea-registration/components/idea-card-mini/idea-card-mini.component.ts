@@ -30,7 +30,9 @@ export class IdeaCardMiniComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionSubscription = this.store.select('session').subscribe(session => {
-      this.usuario = session.session.usuario;
+      if (session.session) {
+        this.usuario = session.session.usuario;
+      }
     });
   }
 
