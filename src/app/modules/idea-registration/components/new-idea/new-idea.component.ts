@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, CREATE_IDEA, OPEN_FULL_DRAWER2, READ_PRODUCTS, SET_ALTERNATIVE } from 'src/app/store/actions';
+import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, CREATE_IDEA, OPEN_FULL_DRAWER2, READ_PRODUCTS, SET_ALTERNATIVE } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
 import { IProduct } from 'src/app/core/models/adicionales/Product';
@@ -37,6 +37,7 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   @ViewChild('fullDrawer2') fullDrawer2!: MatDrawer;
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
+  @ViewChild('formDrawer') formDrawer!: MatDrawer;
 
   get formEffects(): FormArray {
     return this.generalInformation.get('possibleEffects') as FormArray;
@@ -91,6 +92,8 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   fullTitle = '';
   fullTitle2 = '';
   fullComponent2 = '';
+  formTitle = ''
+  formComponent = '';
   idEntidad = '';
 
   constructor(
@@ -125,6 +128,12 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
         }
         this.fullTitle2 = state.fullTitle2
         this.fullComponent2 = state.fullComponent2
+
+        if (this.formDrawer) {
+          this.formDrawer.opened = state.formDrawer
+          this.formComponent = state.formComponent
+          this.formTitle = state.formTitle
+        }
       });
 
     this.productStoreSubscription = this.productStore.select('product')
@@ -170,6 +179,10 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
 
   closeFullDrawer2(): void {
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+  }
+
+  closeFormDrawer(): void {
+    this.ideaStore.dispatch(CLOSE_FORM_DRAWER())
   }
 
   changeDescription(event: MatSlideToggleChange): void {

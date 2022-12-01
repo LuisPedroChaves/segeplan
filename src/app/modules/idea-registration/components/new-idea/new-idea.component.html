@@ -1,14 +1,29 @@
 <mat-drawer-container>
   <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer">
 
-    <mat-toolbar  fxLayoutGap="10px">
-      <button mat-icon-button (click)="closeFullDrawer2()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <span class="mat-title">{{ fullTitle2 }}</span>
-    </mat-toolbar>
+    <mat-drawer-container autosize>
+      <mat-drawer #formDrawer mode="over" class="my-form-drawer">
 
-    <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
+        <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <button mat-icon-button (click)="closeFormDrawer()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <span class="mat-title">{{ formTitle }}</span>
+        </mat-toolbar>
+
+        <app-new-data-geo *ngIf="formComponent === 'NEW_DATA_GEO'"></app-new-data-geo>
+
+      </mat-drawer>
+
+      <mat-toolbar  fxLayoutGap="10px">
+        <button mat-icon-button (click)="closeFullDrawer2()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="mat-title">{{ fullTitle2 }}</span>
+      </mat-toolbar>
+
+      <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
+    </mat-drawer-container>
 
   </mat-drawer>
 
