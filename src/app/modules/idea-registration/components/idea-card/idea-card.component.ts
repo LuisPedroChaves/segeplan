@@ -3,13 +3,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER, UPDATE_CREATED_IDEA, UPDATE_SEND_IDEA } from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER, OPEN_FULL_DRAWER, OPEN_FULL_DRAWER2, SET_ALTERNATIVE, UPDATE_CREATED_IDEA, UPDATE_SEND_IDEA } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
 import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
+import { MatTableDataSource } from '@angular/material/table';
+import { ConvertService } from 'src/app/core/services/internal/convert.service';
 
 @Component({
   selector: 'app-idea-card',
@@ -37,6 +39,8 @@ export class IdeaCardComponent implements OnInit {
   sessionSubscription: Subscription;
   usuario: User;
 
+  displayedColumns = ['preliminaryName', 'estimateBeneficiaries', 'estimatedCost', 'investmentCost', 'complexity', 'state', 'actions'];
+  dataSource = new MatTableDataSource<IdeaAlternative>([]);
 
   constructor(
     public dialog: MatDialog,
@@ -50,6 +54,7 @@ export class IdeaCardComponent implements OnInit {
     this.ideaStoreSubscription = this.ideaStore.select('idea')
       .subscribe(state => {
         this.currentIdea = state.idea;
+        this.dataSource = new MatTableDataSource<IdeaAlternative>(this.currentIdea.alternatives);
       })
 
     this.sessionSubscription = this.store.select('session').subscribe(session => {
@@ -59,6 +64,21 @@ export class IdeaCardComponent implements OnInit {
 
   openFullDrawer(fullTitle: string, fullComponent: string): void {
     this.ideaStore.dispatch(OPEN_FULL_DRAWER({ fullTitle, fullComponent }))
+  }
+
+  openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {
+    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative }))
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER2({ fullTitle2, fullComponent2 }))
+  }
+
+  printReport(alternative: any): void {
+
+    if (alternative.qualification.result == 'PERTINENTE') {
+      let print = ConvertService.createIdeaReportPertinenceAndPreinvestment(this.currentIdea, alternative);
+    }
+    else {
+      let printf = ConvertService.createIdeaReportPertinence(this.currentIdea, alternative);
+    }
   }
 
   sendIdea(): void {

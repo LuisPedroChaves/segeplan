@@ -227,6 +227,10 @@ export class NewDataGeoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result === true) {
+
+        console.log(image);
+
+
         // Code of Work
         this.alternativeStore.dispatch(SET_DATA_GEO({ dataGeo: NEW_DATA_GEO }))
         this.alternativeStore.dispatch(CLOSE_FORM_DRAWER())

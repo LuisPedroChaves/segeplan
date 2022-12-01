@@ -36,23 +36,11 @@
     <div>
       <span class="mat-title">{{ fullTitle }}</span>
     </div>
-    <span fxFlex></span>
-    <mat-chip-list>
-      <mat-chip color="primary" (click)="currentView = 'generalInformation'" [selected]="currentView === 'generalInformation'" class="pointer active-elevation">
-        <mat-icon matChipAvatar>lightbulb</mat-icon>
-        Información general
-      </mat-chip>
-      <mat-chip color="accent" (click)="currentView = 'alternatives'" [selected]="currentView === 'alternatives'" class="pointer active-elevation">
-        <mat-icon matChipAvatar>alt_route</mat-icon>
-        Alternativas
-      </mat-chip>
-    </mat-chip-list>
   </mat-toolbar>
 
-  <ngx-simplebar class="sub-content-desktop">
+  <ngx-simplebar class="my-content">
 
-    <app-idea-card *ngIf="currentView === 'generalInformation'"></app-idea-card>
-    <app-alternatives *ngIf="currentView === 'alternatives'"></app-alternatives>
+    <app-idea-card></app-idea-card>
 
   </ngx-simplebar>
 

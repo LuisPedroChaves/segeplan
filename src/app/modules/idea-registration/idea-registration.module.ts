@@ -14,7 +14,6 @@ import { NewIdeaComponent } from './components/new-idea/new-idea.component';
 import { SelectedIdeaComponent } from './components/selected-idea/selected-idea.component';
 import { RevelanceMatrixComponent } from './pages/revelance-matrix/revelance-matrix.component';
 import { IdeaCardComponent } from './components/idea-card/idea-card.component';
-import { AlternativesComponent } from './components/alternatives/alternatives.component';
 import { NewAlternativeComponent } from './components/new-alternative/new-alternative.component';
 import { SendIdeasComponent } from './pages/send-ideas/send-ideas.component';
 import { DoneIdeasComponent } from './pages/done-ideas/done-ideas.component';
@@ -33,7 +32,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
-    AlternativesComponent,
     DoneIdeasComponent,
     IdeaCardComponent,
     IdeaCardMiniComponent,

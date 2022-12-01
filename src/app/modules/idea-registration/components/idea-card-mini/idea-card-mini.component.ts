@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/core/models/adicionales/user';
+import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { OPEN_FULL_DRAWER, SET_IDEA } from 'src/app/store/actions';
+import { ConvertService } from 'src/app/core/services/internal/convert.service';
+import { CLOSE_FULL_DRAWER2, OPEN_FULL_DRAWER, SET_IDEA } from 'src/app/store/actions';
+import { AppState } from 'src/app/store/app.reducer';
 import { IdeaStore } from 'src/app/store/reducers';
-import { User } from '../../../../core/models/adicionales/user';
-import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
-import { ConvertService } from '../../../../core/services/internal/convert.service';
-import { AppState } from '../../../../store/app.reducer';
 
 @Component({
   selector: 'app-idea-card-mini',
@@ -38,9 +38,10 @@ export class IdeaCardMiniComponent implements OnInit {
 
   openFullDrawer(idea: GeneralInformation): void {
 
-    this.ideaStore.dispatch(SET_IDEA({ idea }))
+    this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
 
-    this.ideaStore.dispatch(OPEN_FULL_DRAWER({ fullTitle: idea.registerCode, fullComponent: 'SELECTED_IDEA' }))
+    this.ideaStore.dispatch(SET_IDEA({ idea }))
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER({ fullTitle: 'Detalles de idea', fullComponent: 'SELECTED_IDEA' }))
   }
 
   printReport(alternative: IdeaAlternative) {

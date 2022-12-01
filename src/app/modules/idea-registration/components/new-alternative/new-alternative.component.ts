@@ -95,12 +95,12 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
   })
 
   populationDelimitation = new FormGroup({
-    referencePopulation: new FormControl('', Validators.required),
+    referencePopulation: new FormControl('Departamental', Validators.required),
     denomination: new FormControl(''),
-    totalPopulation: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
+    totalPopulation: new FormControl<number>(100, [Validators.required, Validators.max(999999999999999)]),
     gender: new FormControl('Hombres', Validators.required),
-    estimateBeneficiaries: new FormControl<number>(null, [Validators.required, Validators.max(999999999999999)]),
-    preliminaryCharacterization: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+    estimateBeneficiaries: new FormControl<number>(100, [Validators.required, Validators.max(999999999999999)]),
+    preliminaryCharacterization: new FormControl('detalles', [Validators.required, Validators.maxLength(500)]),
   })
 
   geographicArea = new FormGroup({
@@ -160,9 +160,9 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       this.usuario = session.session.usuario;
       this.responsibleEntity.setValue({
         nameEPI: this.usuario?.name_inst,
-        leaderName: '',
-        email: '',
-        phone: '',
+        leaderName: 'Luis',
+        email: 'mail@mail.com',
+        phone: '22112211',
       })
 
       console.log(this.usuario);

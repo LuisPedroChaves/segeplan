@@ -17,9 +17,6 @@ export class SelectedIdeaComponent implements OnInit, OnDestroy {
   @ViewChild('fullDrawer2') fullDrawer2!: MatDrawer;
   @ViewChild('formDrawer') formDrawer!: MatDrawer;
 
-  ideaStoreSubscription = new Subscription();
-  currentView = 'generalInformation';
-
   drawerSubscription = new Subscription();
   fullTitle = '';
   fullTitle2 = '';
@@ -54,7 +51,6 @@ export class SelectedIdeaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.drawerSubscription?.unsubscribe()
-    this.ideaStoreSubscription?.unsubscribe()
   }
 
   closeFullDrawer(): void {

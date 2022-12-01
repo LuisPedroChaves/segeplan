@@ -1,16 +1,16 @@
 .idea-card {
-  height: calc(100vh - 268px);
-  margin: 40px 16px 16px 16px;
+  height: calc(100vh - 244px);
+  margin: 16px 16px 16px 16px;
   border-radius: 16px;
 }
 
-.idea-card-content {
-  height: calc(100vh - 388px);
-}
-
 .generalInformation {
-  height: calc(100vh - 530px);
+  height: calc(100vh - 500px);
   padding: 16px;
+}
+.alternatives {
+  height: calc(100vh - 468px);
+  padding: 5px 5px 0 5px;
 }
 body {
   margin: 25px;
@@ -39,7 +39,7 @@ ul {
     border-color: #FFB161;
     box-shadow: 0px 0px 4px 1px #FFC182;
   }
-  
+
   &.dead:before {
     background-color: #C9404D;
     border-color: #C42C3B;
@@ -55,4 +55,8 @@ ul {
     border: 1px solid #000;
     border-radius: 7px;
   }
+}
+
+table {
+  width: 100%;
 }
