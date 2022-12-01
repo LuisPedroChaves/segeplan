@@ -18,7 +18,7 @@ export const HomeRoutes: Routes = [
         path: 'ideas',
         canActivate: [ RoleGuard ],
         data: {
-          allowedRoles: ['USER_ROLE']
+          allowedRoles: ['USER_ROLE', 'ADMIN_ROLE']
         },
         loadChildren: () =>
           import('../../modules/idea-registration/idea-registration.module').then(
@@ -29,7 +29,7 @@ export const HomeRoutes: Routes = [
         path: 'sinafip',
         canActivate: [ RoleGuard ],
         data: {
-          allowedRoles: ['ADMIN_ROLE', 'DIGITADOR_ROLE']
+          allowedRoles: ['USER_ROLE', 'ADMIN_ROLE', 'DIGITADOR_ROLE']
         },
         loadChildren: () =>
           import('../../modules/sinafip/sinafip.module').then(

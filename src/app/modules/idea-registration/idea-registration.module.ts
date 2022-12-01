@@ -27,6 +27,7 @@ import { ReferenceReducer } from '../../store/reducers/popRef.reducer';
 import { AlternativeReducer } from '../../store/reducers/alternative.reducer';
 import { SelectedAlternativeComponent } from './components/selected-alternative/selected-alternative.component';
 import { NewDataGeoComponent } from './components/new-data-geo/new-data-geo.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 
@@ -46,6 +47,7 @@ import { NewDataGeoComponent } from './components/new-data-geo/new-data-geo.comp
     SelectedIdeaComponent,
     SendIdeasComponent,
     NewDataGeoComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,

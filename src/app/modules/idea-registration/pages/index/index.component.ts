@@ -18,17 +18,14 @@ export class IndexComponent implements OnInit, OnDestroy {
   @ViewChild('fullDrawer') fullDrawer!: MatDrawer;
 
   storeSubscription = new Subscription;
-
   fullComponent = '';
-
-  sessionSubscription: Subscription;
-  usuario: User;
 
   constructor(
     public store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
+
     this.storeSubscription = this.store.select('drawer')
       .subscribe(state => {
         if (this.menuDrawer) {
@@ -40,16 +37,10 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.sessionSubscription = this.store.select('session').subscribe(session => {
-        if (session.session) {
-          this.usuario = session.session.usuario;
-        }
-      });
   }
 
   ngOnDestroy(): void {
     this.storeSubscription?.unsubscribe();
-    this.sessionSubscription?.unsubscribe();
   }
 
   chengeDrawer(): void {

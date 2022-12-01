@@ -1,0 +1,48 @@
+<div fxLayout="column" fxLayoutGap="16px">
+
+  <div>
+    <p class="mat-headline">Bienvenid@ a SINAFIP</p>
+    <p class="mat-subheading-2">Comenzar...</p>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+
+    <div *appShowForRoles="['USER_ROLE']">
+      <mat-card (click)="openFullDrawer('Crear Iniciativa de Preinversión', 'NEW_INITIATIVE')" class="pointer mat-elevation-z2" [ngClass]="elevationNew" (mouseover)="newStyle($event)" (mouseout)="newStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>add</mat-icon>
+          <p class=" mat-title">Crear iniciativa de preinversión</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="newIniciatives" class="pointer mat-elevation-z2" [ngClass]="elevationNewIniciatives" (mouseover)="newIniciativeStyle($event)" (mouseout)="newIniciativeStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>start</mat-icon>
+          <p class=" mat-title">Registro de iniciativas</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="followups" class="pointer mat-elevation-z2" [ngClass]="elevationFollowups" (mouseover)="followupStyle($event)" (mouseout)="followupStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>request_quote</mat-icon>
+          <p class=" mat-title">Solicitudes</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['ADMIN_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="admissions" class="pointer mat-elevation-z2" [ngClass]="elevationAdmissions" (mouseover)="admissionStyle($event)" (mouseout)="admissionStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>assignment_turned_in</mat-icon>
+          <p class=" mat-title">Admisiones</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+</div>

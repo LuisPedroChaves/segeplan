@@ -17,6 +17,9 @@ import { InitiativeCardComponent } from './components/initiative-card/initiative
 import { InitiativeReducer } from '../../store/reducers/initiative.reducer';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
 import { AdmitionMatrixComponent } from './components/admition-matrix/admition-matrix.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FollowupsComponent } from './pages/followups/followups.component';
+import { AdmissionsComponent } from './pages/admissions/admissions.component';
 
 
 
@@ -28,7 +31,10 @@ import { AdmitionMatrixComponent } from './components/admition-matrix/admition-m
     SelectedInitiativeComponent,
     InitiativeCardComponent,
     NewActivityComponent,
-    AdmitionMatrixComponent
+    AdmitionMatrixComponent,
+    DashboardComponent,
+    FollowupsComponent,
+    AdmissionsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,57 @@
+<div fxLayout="column" fxLayoutGap="16px">
+
+  <div>
+    <p class="mat-headline">Bienvenid@ al banco de ideas</p>
+    <p class="mat-subheading-2">Comenzar...</p>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+
+    <div *appShowForRoles="['USER_ROLE']">
+      <mat-card (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')" class="pointer mat-elevation-z2" [ngClass]="elevationNew" (mouseover)="newStyle($event)" (mouseout)="newStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>add</mat-icon>
+          <p class=" mat-title">Crear nueva idea</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['USER_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="newIdeas" class="pointer mat-elevation-z2" [ngClass]="elevationNewIdeas" (mouseover)="newIdeaStyle($event)" (mouseout)="newIdeaStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>tips_and_updates</mat-icon>
+          <p class=" mat-title">Registro de ideas</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['USER_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="sendIdeas" class="pointer mat-elevation-z2" [ngClass]="elevationSendIdeas" (mouseover)="sendIdeaStyle($event)" (mouseout)="sendIdeaStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>send</mat-icon>
+          <p class=" mat-title">Ideas enviadas</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *appShowForRoles="['ADMIN_ROLE']">
+      <mat-card (click)="closeDrawers()" routerLink="revelanceMatrix" class="pointer mat-elevation-z2" [ngClass]="elevationMatrix" (mouseover)="matrixStyle($event)" (mouseout)="matrixStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>timeline</mat-icon>
+          <p class=" mat-title">Solicitudes de análisis</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div>
+      <mat-card (click)="closeDrawers()" routerLink="doneIdeas" class="pointer mat-elevation-z2" [ngClass]="elevationDoneIdeas" (mouseover)="doneIdeaStyle($event)" (mouseout)="doneIdeaStyle($event)">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+          <mat-icon>rate_review</mat-icon>
+          <p class=" mat-title">Ideas analizadas</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+</div>

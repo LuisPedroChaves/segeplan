@@ -12,6 +12,7 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
 import { ProjectListComponent } from './pages/project-list/project-list.component';
 import { NewTrackComponent } from './components/new-track/new-track.component';
 import { ProjectFinishComponent } from './pages/project-finish/project-finish.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 
@@ -21,7 +22,8 @@ import { ProjectFinishComponent } from './pages/project-finish/project-finish.co
     NewProjectComponent,
     ProjectListComponent,
     NewTrackComponent,
-    ProjectFinishComponent
+    ProjectFinishComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

@@ -13,7 +13,7 @@
           </mat-card>
         </div>
 
-        <div *appShowForRoles="['USER_ROLE']">
+        <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
           <mat-card class="menu-button pointer mat-elevation-z0" routerLink="/ideas" routerLinkActive="mat-elevation-z6"
             matTooltip="Banco de ideas" matTooltipPosition="right">
             <mat-card-content>
@@ -23,7 +23,7 @@
           </mat-card>
         </div>
 
-        <div *appShowForRoles="['ADMIN_ROLE', 'DIGITADOR_ROLE']">
+        <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE', 'DIGITADOR_ROLE']">
           <mat-card class="menu-button pointer mat-elevation-z0" routerLink="/sinafip"
             routerLinkActive="mat-elevation-z6" matTooltip="SINAFIP" matTooltipPosition="right">
             <mat-card-content>
@@ -64,7 +64,7 @@
             src="data:image/png;base64,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">
         </button>
 
-        <button *appShowForRoles="['ADMIN_ROLE', 'DIGITADOR_ROLE']" mat-icon-button routerLink="/sinafip" routerLinkActive="mat-elevation-z2 active-mobile">
+        <button *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE', 'DIGITADOR_ROLE']" mat-icon-button routerLink="/sinafip" routerLinkActive="mat-elevation-z2 active-mobile">
           <img
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFWklEQVRoge2YX2xTVRjAf6e37dY/Y4CMtYI6kZEYNcAMD5hoAkQTwWj0yUhQQUUEE+MDanwgxD9ReED8PwOCICjRiEQRMCCLKGE8DYhKwqJb2LRdIUDXtZvtzvl8aAvd1rHeroMl8iW3uffce9Lf75zvfOe2cC2uxf87VLEdt4mMEVhgDHNFmI6iRmAsAgIXRGhFcUxrDlpufnhKqVgpwbNhW2CLyDQFLyM8KuAVSbdL5kOAbJuR9LlAQoQvgTXLylVzqeDBhsBXIp4eeB14AcGZCzoEPCKZa0iJsN7nYdVipXqumMB2kVoDOwVu7w9qA/7SuaHROHjkRZ8KjbjAFpGZDvhRoKok8JlrI7RrxYKVfnVixAQyI394BOCz5+3GwayX/CpcrIBjsBubRcoNfD0UfLxTk4hp+/Dp9smml93r2sRTcgEL3hCYfjn4REyz64Mw37wXIh7V9uC5uB7uTHh5pViBvCmUKZW/X67aJGKab98PczaUBGBctYsHlwcpr7DswGPSz3VpQ+3qifZTKe8MZOr8oPDxTs3ODPx1QTfjg27Od6T4vj5MokvbhccIfhSr7MJnWPvGNpExRgjJIJtU7siPq3bx0PNBUPDdh2HOhZKMrXYx/9lLM1EAfPaZeI+D4Noqezv2gBkQWGAH3uO3KPNaPLA8wPiAmwsdKfbUh0h0ajvwGMHn0sy3A59XIPNuUzB8dsGWeS3ufy4jEUmx95MQiaguFB4joA1z7QoMSKF5b7bHzrYn/YN1yAefm/Pdcc2++jDnw0kqJ7qY93SQsgprSPjM0bh2kpptR2DADMQ7tbdYeAHcXot7lwYYF3ATjaQ4sDFEd1QXAo8RptiBhzwzsFnLvwju3ApUzCaV6NIc2BAm2pGkstrNPYsDuLxWH/juLs3Rz8PEIslCeX89/vGUu3MbBpbRHLhi4Q3g9lnMWRKgstpNtCPJz5vDdOeU2CLgM3R9Y8AMbOqVMyJMGA587oLtjmsOfRomGklSUeVi9qIg4oDGrWl43wQXdQuD2dmJvHuTqrZj5BygKLQAE0oBbwRcHou7ngxw+LMwnZEkR7alN9tYJIm/yk3dYwGcmdQyhr/swEO+FFIcKxV89nB7LWY/EWDMRDexSPLiyM/sC48xHB+2gNYcLCV8tp/TYzFrUYCKKnf/tEnDCxjFT3YFBqRQys1uZ5K4CL5SwZscibqFAUToO/Lp+3HVw95hz8AKpbpE2FFq+Itrwmvlg8cIX3x0m+oatkAm1kj6B3hJ4fu09+2XTBnetgs/qMCyctUswvorBI8W1m2apmxXoEEFAHweVomhcaThz52Ppo40Nu0oBv6yAouV6nEqHjZC20jBx7t7OPFHs8uUe/fV7T97a0kFAFb4VVgrHhBoLzl8opum4yehzEtZRWXAcjv31zVEp5ZUAGClX51IKuqMcKiEaZM82vQbvc4yPJXjcHm8gJrkUGydvLHNlsSQAgCvVqgz3kru08JrRogPp9oY4a1Tf7be4fSNafWMHY/L60t/iUhLqCU2RYv8EtzQWnA62f5zd3VEAihWGcPjJrPZFQAfN8L2lGFNttrMaAjVuBzeBqAGkZZ/Wrq8ptdkX+TCYOaGnqk5WXKBHBF/yrDAGOYYmKENN4swNgN8QRtajKHJKBoc3ezJt0nVNUSnOhRbOlq6bunt1f3fQguSKFqgVDG5vq1WW9IATMpze0iJqy4Aw5MYFQJQvMSoEYDiJAoqo1cq2pfd0GxpNQf4O8/tADh29W8cVQJwWQlBeKf/86MqhXKjXzoJwvLQ0hvrrzaXrZhc31Yb3Hj61PUbTy+52izX4lqM1vgPmfgtODY2e/kAAAAASUVORK5CYII=">
         </button>
