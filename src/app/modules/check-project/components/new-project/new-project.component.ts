@@ -105,7 +105,21 @@ export class NewProjectComponent implements OnInit, OnDestroy {
   }
 
   closeFullDrawer(): void {
-    this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '375px',
+      data: { title: 'Cambios no guardados', description: '¿Seguro que quiere salir? Hay cambios sin guardar. Si abandona la página, los cambios se perderán.', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+
+        this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
+
+      }
+
+      return
+    });
   }
 
   openFormDrawer(formTitle: string, formComponent: string): void {

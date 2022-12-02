@@ -12,7 +12,7 @@
 
 </mat-toolbar>
 <mat-drawer-container autosize class="my-menu-container">
-  <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
+  <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer" disableClose>
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
 
@@ -47,7 +47,7 @@
   </mat-drawer>
 
   <mat-drawer-container>
-    <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
+    <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer" (keydown.escape)="closeFullDrawer()" disableClose>
 
       <app-new-project *ngIf="fullComponent === 'NEW_PROJECT'"></app-new-project>
 

@@ -12,6 +12,8 @@ import { IRequest } from '../../../../core/models/sinafip/request';
 import { SinafipService } from '../../../../core/services/httpServices/sinafip.service';
 import { InitiativeStore } from '../../../../store/reducers';
 import { IPriorizationMatrix } from '../../../../core/models/sinafip/priorizationMatrix';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-admition-matrix',
@@ -79,7 +81,7 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
     private appStore: Store<AppState>,
     private initiativeStore: Store<InitiativeStore>,
     private sinafipService: SinafipService,
-
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -105,7 +107,21 @@ export class AdmitionMatrixComponent implements OnInit, OnDestroy {
   }
 
   closeFullDrawer(): void {
-    this.appStore.dispatch(CLOSE_FULL_DRAWER())
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '375px',
+      data: { title: 'Cambios no guardados', description: '¿Seguro que quiere salir? Hay cambios sin guardar. Si abandona la página, los cambios se perderán.', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+
+        this.appStore.dispatch(CLOSE_FULL_DRAWER())
+
+      }
+
+      return
+    });
   }
 
   resumeMatrix(): void {

@@ -40,7 +40,7 @@ export const HomeRoutes: Routes = [
         path: 'checkProject',
         canActivate: [ RoleGuard ],
         data: {
-          allowedRoles: ['ADMIN_ROLE', 'DIGITADOR_ROLE']
+          allowedRoles: ['USER_ROLE','ADMIN_ROLE', 'DIGITADOR_ROLE']
         },
         loadChildren: () =>
           import('../../modules/check-project/check-project.module').then(

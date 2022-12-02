@@ -1,8 +1,8 @@
 <mat-drawer-container>
-  <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer">
+  <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer" disableClose>
 
-    <mat-drawer-container autosize>
-      <mat-drawer #formDrawer mode="over" class="my-form-drawer">
+    <mat-drawer-container autosize (backdropClick)="closeFormDrawer()">
+      <mat-drawer #formDrawer mode="over" class="my-form-drawer" disableClose>
 
         <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button mat-icon-button (click)="closeFormDrawer()">
@@ -15,33 +15,43 @@
 
       </mat-drawer>
 
-      <mat-toolbar  fxLayoutGap="10px">
-        <button mat-icon-button (click)="closeFullDrawer2()">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-        <span class="mat-title">{{ fullTitle2 }}</span>
-      </mat-toolbar>
+      <mat-drawer-content>
 
-      <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
-      <app-new-revelance-matrix *ngIf="fullComponent2 === 'NEW_RELEVANCE_MATRIX'"></app-new-revelance-matrix>
-      <app-selected-alternative *ngIf="fullComponent2 === 'SELECTED_ALTERNATIVE'"></app-selected-alternative>
+        <mat-toolbar fxLayoutGap="10px">
+          <button mat-icon-button (click)="closeFullDrawer2()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <span class="mat-title">{{ fullTitle2 }}</span>
+        </mat-toolbar>
+
+        <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
+        <app-new-revelance-matrix *ngIf="fullComponent2 === 'NEW_RELEVANCE_MATRIX'"></app-new-revelance-matrix>
+        <app-selected-alternative *ngIf="fullComponent2 === 'SELECTED_ALTERNATIVE'"></app-selected-alternative>
+
+      </mat-drawer-content>
+
     </mat-drawer-container>
 
   </mat-drawer>
 
-  <mat-toolbar fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
-    <button mat-icon-button (click)="closeFullDrawer()">
-      <mat-icon>close</mat-icon>
-    </button>
-    <div>
-      <span class="mat-title">{{ fullTitle }}</span>
-    </div>
-  </mat-toolbar>
+  <mat-drawer-content>
 
-  <ngx-simplebar class="my-content">
+    <mat-toolbar fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
+      <button mat-icon-button (click)="closeFullDrawer()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div>
+        <span class="mat-title">{{ fullTitle }}</span>
+      </div>
+    </mat-toolbar>
 
-    <app-idea-card></app-idea-card>
+    <ngx-simplebar class="my-content">
 
-  </ngx-simplebar>
+      <app-idea-card></app-idea-card>
+
+    </ngx-simplebar>
+
+  </mat-drawer-content>
+
 
 </mat-drawer-container>

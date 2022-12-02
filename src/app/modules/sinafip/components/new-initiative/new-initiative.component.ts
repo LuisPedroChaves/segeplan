@@ -36,6 +36,8 @@ import { IProduct } from '../../../../core/models/adicionales/Product';
 import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
 import {map, startWith} from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-new-initiative',
@@ -177,7 +179,8 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     //END LISTADOS
     private sinafipService: SinafipService,
     private uploadService: UploadFileService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -289,7 +292,21 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
   }
 
   closeFullDrawer(): void {
-    this.initiativeStore.dispatch(CLOSE_FULL_DRAWER())
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '375px',
+      data: { title: 'Cambios no guardados', description: '¿Seguro que quiere salir? Hay cambios sin guardar. Si abandona la página, los cambios se perderán.', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+
+        this.initiativeStore.dispatch(CLOSE_FULL_DRAWER())
+
+      }
+
+      return
+    });
   }
 
   openFormDrawer(formTitle: string, formComponent: string): void {

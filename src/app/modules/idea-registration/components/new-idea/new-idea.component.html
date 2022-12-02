@@ -1,8 +1,9 @@
 <mat-drawer-container>
-  <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer">
 
-    <mat-drawer-container autosize>
-      <mat-drawer #formDrawer mode="over" class="my-form-drawer">
+  <mat-drawer #fullDrawer2 position="end" mode="over" class="full-drawer" disableClose>
+
+    <mat-drawer-container autosize (backdropClick)="closeFormDrawer()">
+      <mat-drawer #formDrawer mode="over" class="my-form-drawer" disableClose>
 
         <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button mat-icon-button (click)="closeFormDrawer()">
@@ -15,359 +16,376 @@
 
       </mat-drawer>
 
-      <mat-toolbar  fxLayoutGap="10px">
-        <button mat-icon-button (click)="closeFullDrawer2()">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-        <span class="mat-title">{{ fullTitle2 }}</span>
-      </mat-toolbar>
+      <mat-drawer-content>
 
-      <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
+        <mat-toolbar fxLayoutGap="10px">
+          <button mat-icon-button (click)="closeFullDrawer2()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <span class="mat-title">{{ fullTitle2 }}</span>
+        </mat-toolbar>
+
+        <app-new-alternative *ngIf="fullComponent2 === 'NEW_ALTERNATIVE'"></app-new-alternative>
+
+      </mat-drawer-content>
+
     </mat-drawer-container>
 
   </mat-drawer>
 
-  <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
-    <button mat-icon-button (click)="closeFullDrawer()">
-      <mat-icon>close</mat-icon>
-    </button>
-    <span class="mat-title">{{ fullTitle }}</span>
-  </mat-toolbar>
-  <div #scrollMe fxLayoutAlign="center start" class="sub-content-desktop">
-    <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
+  <mat-drawer-content>
 
-      <form [formGroup]="generalInformation" autocomplete="off">
-        <mat-step>
-          <ng-template matStepLabel>Información general</ng-template>
+    <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <button mat-icon-button (click)="closeFullDrawer()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span class="mat-title">{{ fullTitle }}</span>
+    </mat-toolbar>
+    <div #scrollMe fxLayoutAlign="center start" class="sub-content-desktop">
+      <mat-stepper orientation="vertical" linear="true" #stepper fxFlex.lt-md="100" fxFlex.md="80" fxFlex.gt-md="65">
 
-          <div fxLayout="column" fxLayoutGap="15px">
+        <form [formGroup]="generalInformation" autocomplete="off">
+          <mat-step>
+            <ng-template matStepLabel>Información general</ng-template>
 
-            <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
-              <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
-                <mat-form-field fxFill appearance="outline">
-                  <mat-label>Fecha</mat-label>
-                  <input matInput formControlName="date" [matDatepicker]="datepicker">
-                  <mat-hint>DD/MM/YYYY</mat-hint>
-                  <mat-error *ngIf="generalInformation.get('date')?.hasError('required')">
-                    La fecha es <strong>requerida</strong>
-                  </mat-error>
-                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                  <mat-datepicker #datepicker>
-                    <mat-datepicker-actions>
-                      <button mat-button matDatepickerCancel>Cancelar</button>
-                      <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
-                    </mat-datepicker-actions>
-                  </mat-datepicker>
-                </mat-form-field>
+            <div fxLayout="column" fxLayoutGap="15px">
+
+              <div fxFill fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
+                <div fxFlex.lt-md="100" fxFlex.gt-sm="39">
+                  <mat-form-field fxFill appearance="outline">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="datepicker">
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-error *ngIf="generalInformation.get('date')?.hasError('required')">
+                      La fecha es <strong>requerida</strong>
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancelar</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <p class="mat-subheading-2">{{ selectedProduct() }}</p>
+
+              <mat-form-field fxFill appearance="outline">
+                <mat-label>Selección del Producto</mat-label>
+                <input type="text" placeholder="Buscar producto..." matInput formControlName="_product"
+                  [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
+                  <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+                    {{product.nombre}}
+                  </mat-option>
+                </mat-autocomplete>
+                <button *ngIf="generalInformation.get('_product').value" matSuffix mat-icon-button
+                  (click)="generalInformation.get('_product').setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
+                <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
+                  El producto es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <p class="mat-subheading-2">Origen de la idea de proyecto</p>
+              <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un
+                instrumento de planificación</mat-slide-toggle>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="description"
+                  placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+                <mat-hint>Según la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento
+                  de
+                  planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
+                <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
+                  Máximo 200 caracteres.
+                </mat-error>
+              </mat-form-field>
+              <br>
+              <mat-divider></mat-divider>
+              <p class="mat-subheading-2">Datos de quien propone</p>
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre completo" formControlName="responsibleName">
+                <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
+              </mat-form-field>
+              <mat-form-field fxFill appearance="outline">
+                <mat-label>Correo electrónico</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
+                <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
+                <mat-error
+                  *ngIf="generalInformation.get('email')?.hasError('email') && !generalInformation.get('email')?.hasError('required')">
+                  Por favor, introduzca una dirección de correo electrónico válida
+                </mat-error>
+                <mat-error *ngIf="generalInformation.get('email')?.hasError('required')">
+                  El correo electrónico es <strong>requerido</strong>
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono </mat-label>
+                <span matPrefix>+502 &nbsp;</span>
+                <input formControlName="phone" type="number" matInput placeholder="12345678"
+                  onKeyPress="if(this.value.length==8) return false;">
+                <mat-icon matSuffix>contact_phone</mat-icon>
+                <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+              </div>
+
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Definición del problema, necesidad o potencialidad de inversión, causas y efectos
+            </ng-template>
+
+            <div fxLayout="column" fxLayoutGap="15px">
+
+              <p class="mat-subheading-2">Posibles efectos</p>
+
+              <table fxFill mat-table [dataSource]="effectsSource" formArrayName="possibleEffects"
+                class="mat-elevation-z0">
+                <tr mat-header-row *matHeaderRowDef="effectsColumns"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: effectsColumns;"></tr>
+
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef> Posibles efectos </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <mat-form-field fxFill appearance="outline" class="description">
+                      <mat-label>Descripción</mat-label>
+                      <input matInput formControlName="description" type="text" placeholder="Descripción...">
+                      <mat-hint>Ingrese un posible efecto</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="remove">
+                  <th mat-header-cell *matHeaderCellDef> Quitar </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <button mat-icon-button (click)="removeEffect(index)">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+              </table>
+
+              <button mat-button (click)="addEffect()" color="accent">Agregar efecto</button>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Definición de la problemática o potencialidad central</mat-label>
+                <textarea onKeyPress="if(this.value.length==200) return false;" matInput
+                  formControlName="definitionPotentiality" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+                <mat-hint>Hasta {{200 - generalInformation?.value?.definitionPotentiality?.length}} caracteres.
+                </mat-hint>
+                <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('maxlength')">
+                  Máximo 200 caracteres.
+                </mat-error>
+                <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('required')">
+                  El campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <p class="mat-subheading-2">Posibles causas</p>
+
+              <table fxFill mat-table [dataSource]="causesSource" formArrayName="possibleCauses"
+                class="mat-elevation-z0">
+                <tr mat-header-row *matHeaderRowDef="causesColumns"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: causesColumns;"></tr>
+
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef> Posibles causas </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <mat-form-field fxFill appearance="outline" class="description">
+                      <mat-label>Descripción</mat-label>
+                      <input matInput formControlName="description" type="text" placeholder="Descripción...">
+                      <mat-hint>Ingrese una posible causa</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="remove">
+                  <th mat-header-cell *matHeaderCellDef> Quitar </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <button mat-icon-button (click)="removeCauses(index)">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+              </table>
+
+              <button mat-button (click)="addCauses()" color="accent">Agregar causa</button>
+
+              <mat-form-field appearance="outline">
+                <mat-label> Indicador de la problemática /Línea de base</mat-label>
+                <input matInput placeholder="Ej, índice de analfabetismo =75% para el año 20XX"
+                  formControlName="baseLine">
+                <mat-error *ngIf="generalInformation.get('baseLine')?.hasError('required')">
+                  El campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Breve descripción de la situación actual</mat-label>
+                <textarea onKeyPress="if(this.value.length==200) return false;" matInput
+                  formControlName="descriptionCurrentSituation" placeholder="Hasta 200 caracteres..."
+                  rows="4"></textarea>
+                <mat-hint>Hasta {{200 - generalInformation.value.descriptionCurrentSituation?.length}} caracteres.
+                </mat-hint>
+                <mat-error *ngIf="generalInformation.get('descriptionCurrentSituation')?.hasError('maxlength')">
+                  Máximo 200 caracteres.
+                </mat-error>
+                <mat-error *ngIf="generalInformation.get('descriptionCurrentSituation')?.hasError('required')">
+                  El campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <div>
+                <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+                <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
               </div>
             </div>
 
-            <p class="mat-subheading-2">{{ selectedProduct() }}</p>
+          </mat-step>
 
-            <mat-form-field fxFill appearance="outline">
-              <mat-label>Selección del Producto</mat-label>
-              <input type="text"
-                     placeholder="Buscar producto..."
-                     matInput
-                     formControlName="_product"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
-                <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
-                  {{product.nombre}}
-                </mat-option>
-              </mat-autocomplete>
-              <button *ngIf="generalInformation.get('_product').value" matSuffix mat-icon-button (click)="generalInformation.get('_product').setValue('')">
-                <mat-icon>close</mat-icon>
-              </button>
-              <mat-hint>Selección del producto al cual corresponde la idea</mat-hint>
-              <mat-error *ngIf="generalInformation.get('_product')?.hasError('required')">
-                El producto es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
+          <mat-step>
+            <ng-template matStepLabel>Definición del cambio esperado </ng-template>
+            <div fxLayout="column" fxLayoutGap="15px">
 
-            <p class="mat-subheading-2">Origen de la idea de proyecto</p>
-            <mat-slide-toggle formControlName="planningInstrument" (change)="changeDescription($event)">Responde a un
-              instrumento de planificación</mat-slide-toggle>
-            <mat-form-field appearance="outline">
-              <mat-label>Descripción</mat-label>
-              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="description" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
-              <mat-hint>Según la respuesta anterior se justifica si la idea de proyecto proviene de algún instrumento de
-                planificación, PEI, PDM-OT, agregar otro. Hasta 200 caracteres.</mat-hint>
-              <mat-error *ngIf="generalInformation.get('description')?.hasError('maxlength')">
-                Máximo 200 caracteres.
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción de objetivo general</mat-label>
+                <textarea matInput onKeyPress="if(this.value.length==200) return false;"
+                  formControlName="generalObjective" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+                <mat-hint>Hasta {{200 - generalInformation.value.generalObjective?.length}} caracteres.</mat-hint>
+                <mat-error *ngIf="generalInformation.get('generalObjective')?.hasError('maxlength')">
+                  Máximo 200 caracteres.
+                </mat-error>
+                <mat-error *ngIf="generalInformation.get('generalObjective')?.hasError('required')">
+                  El campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Resultado o cambio esperado respecto a indicadores</mat-label>
+                <textarea matInput onKeyPress="if(this.value.length==200) return false;"
+                  formControlName="expectedChange" placeholder="Hasta 200 caracteres..." rows="4"></textarea>
+                <mat-hint>Hasta {{200 - generalInformation.value.expectedChange?.length}} caracteres.</mat-hint>
+                <mat-error *ngIf="generalInformation.get('expectedChange')?.hasError('maxlength')">
+                  Máximo 200 caracteres.
+                </mat-error>
+                <mat-error *ngIf="generalInformation.get('expectedChange')?.hasError('required')">
+                  El campo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <div>
+                <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
+                <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+              </div>
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Identificación preliminar de alternativas</ng-template>
+            <div fxLayout="column" fxLayoutGap="15px">
+
+              <p class="mat-subheading-2">Posibles Alternativas de solución (Intervenciones, proyectos, actividades)</p>
+
+              <table fxFill mat-table [dataSource]="alternativesSource" formArrayName="possibleAlternatives"
+                class="mat-elevation-z0">
+                <tr mat-header-row *matHeaderRowDef="alternativesColumns"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: alternativesColumns;"></tr>
+
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef> Posibles alternativas </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <mat-form-field fxFill appearance="outline" class="description">
+                      <mat-label>Descripción</mat-label>
+                      <input matInput formControlName="description" type="text" placeholder="Descripción...">
+                      <mat-hint>Ingrese una posible alternativa</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="remove">
+                  <th mat-header-cell *matHeaderCellDef> Quitar </th>
+                  <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <button mat-icon-button (click)="removeAlternatives(index)">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+              </table>
+
+              <button mat-button (click)="addAlternatives()" color="accent">Agregar posible alternativa</button>
+            </div>
             <br>
+
             <mat-divider></mat-divider>
-            <p class="mat-subheading-2">Datos de quien propone</p>
-            <mat-form-field appearance="outline">
-              <mat-label>Nombre</mat-label>
-              <input matInput placeholder="Nombre completo" formControlName="responsibleName">
-              <mat-hint>Nombre del responsable del proyecto o representante legal.</mat-hint>
-            </mat-form-field>
-            <mat-form-field fxFill appearance="outline">
-              <mat-label>Correo electrónico</mat-label>
-              <input type="email" matInput formControlName="email" placeholder="Ej. usuario@gmail.com">
-              <mat-hint>Correo electrónico (institucional) o alterno.</mat-hint>
-              <mat-error
-                *ngIf="generalInformation.get('email')?.hasError('email') && !generalInformation.get('email')?.hasError('required')">
-                Por favor, introduzca una dirección de correo electrónico válida
-              </mat-error>
-              <mat-error *ngIf="generalInformation.get('email')?.hasError('required')">
-                El correo electrónico es <strong>requerido</strong>
-              </mat-error>
-              <mat-icon matSuffix>alternate_email</mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Teléfono </mat-label>
-              <span matPrefix>+502 &nbsp;</span>
-              <input formControlName="phone" type="number" matInput placeholder="12345678"
-                onKeyPress="if(this.value.length==8) return false;">
-              <mat-icon matSuffix>contact_phone</mat-icon>
-              <mat-hint>Teléfono de contacto (Institucional)</mat-hint>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+
+            <br>
+
+            <button mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE', null)"
+              color="accent">
+              <mat-icon>add</mat-icon>
+              Crear alternativa
+            </button>
+
+            <br>
+            <br>
+
+            <div fxLayout="row wrap" fxLayoutGap="15px grid">
+
+              <div *ngFor="let item of idea.alternatives" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="100"
+                fxFlex.sm="100" fxFlex.lt-sm="100">
+
+                <mat-card class="alternative-card mat-elevation-z4">
+                  <mat-card-header>
+                    <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
+                    <mat-card-title>
+                      {{item?.preName?.preliminaryName}}
+                    </mat-card-title>
+
+                  </mat-card-header>
+                  <mat-card-content>
+                    <br>
+                    <p><b>Estimación preliminar de beneficiarios: </b>{{item?.popDelimit?.estimateBeneficiaries}}</p>
+                    <br>
+                    <p><b>Costo estimado de la preinversión: </b>Q.{{item?.projDesc?.estimatedCost}}</p>
+                    <br>
+                    <p><b>Costo estimado de la inversión: </b>Q.{{item?.projDesc?.investmentCost}}</p>
+                    <hr>
+                    <p> <b>Complejidad: </b>{{ item?.projDesc?.complexity }}</p>
+                  </mat-card-content>
+
+                </mat-card>
+
+              </div>
+
             </div>
 
-          </div>
-        </mat-step>
-
-        <mat-step>
-          <ng-template matStepLabel>Definición del problema, necesidad o potencialidad de inversión, causas y efectos
-          </ng-template>
-
-          <div fxLayout="column" fxLayoutGap="15px">
-
-            <p class="mat-subheading-2">Posibles efectos</p>
-
-            <table fxFill mat-table [dataSource]="effectsSource" formArrayName="possibleEffects" class="mat-elevation-z0">
-              <tr mat-header-row *matHeaderRowDef="effectsColumns"></tr>
-              <tr mat-row *matRowDef="let row; let i = index; columns: effectsColumns;"></tr>
-
-              <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> Posibles efectos </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <mat-form-field fxFill appearance="outline" class="description">
-                    <mat-label>Descripción</mat-label>
-                    <input matInput formControlName="description" type="text" placeholder="Descripción...">
-                    <mat-hint>Ingrese un posible efecto</mat-hint>
-                  </mat-form-field>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="remove">
-                <th mat-header-cell *matHeaderCellDef> Quitar </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <button mat-icon-button (click)="removeEffect(index)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-            </table>
-
-            <button mat-button (click)="addEffect()" color="accent">Agregar efecto</button>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Definición de la problemática o potencialidad central</mat-label>
-              <textarea onKeyPress="if(this.value.length==200) return false;" matInput formControlName="definitionPotentiality" placeholder="Hasta 200 caracteres..."
-                rows="4"></textarea>
-              <mat-hint>Hasta {{200 - generalInformation?.value?.definitionPotentiality?.length}} caracteres.</mat-hint>
-              <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('maxlength')">
-                Máximo 200 caracteres.
-              </mat-error>
-              <mat-error *ngIf="generalInformation.get('definitionPotentiality')?.hasError('required')">
-                El campo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-
-
-            <p class="mat-subheading-2">Posibles causas</p>
-
-            <table fxFill mat-table [dataSource]="causesSource" formArrayName="possibleCauses" class="mat-elevation-z0">
-              <tr mat-header-row *matHeaderRowDef="causesColumns"></tr>
-              <tr mat-row *matRowDef="let row; let i = index; columns: causesColumns;"></tr>
-
-              <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> Posibles causas </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <mat-form-field fxFill appearance="outline" class="description">
-                    <mat-label>Descripción</mat-label>
-                    <input matInput formControlName="description" type="text" placeholder="Descripción...">
-                    <mat-hint>Ingrese una posible causa</mat-hint>
-                  </mat-form-field>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="remove">
-                <th mat-header-cell *matHeaderCellDef> Quitar </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <button mat-icon-button (click)="removeCauses(index)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-            </table>
-
-            <button mat-button (click)="addCauses()" color="accent">Agregar causa</button>
-
-            <mat-form-field appearance="outline">
-              <mat-label> Indicador de la problemática /Línea de base</mat-label>
-              <input matInput placeholder="Ej, índice de analfabetismo =75% para el año 20XX" formControlName="baseLine">
-              <mat-error *ngIf="generalInformation.get('baseLine')?.hasError('required')">
-                El campo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Breve descripción de la situación actual</mat-label>
-              <textarea onKeyPress="if(this.value.length==200) return false;" matInput formControlName="descriptionCurrentSituation" placeholder="Hasta 200 caracteres..."
-                rows="4"></textarea>
-              <mat-hint>Hasta {{200 - generalInformation.value.descriptionCurrentSituation?.length}} caracteres.</mat-hint>
-              <mat-error *ngIf="generalInformation.get('descriptionCurrentSituation')?.hasError('maxlength')">
-                Máximo 200 caracteres.
-              </mat-error>
-              <mat-error *ngIf="generalInformation.get('descriptionCurrentSituation')?.hasError('required')">
-                El campo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
+            <br>
 
             <div>
+              <button mat-button (click)="saveGeneralInformation()" color="primary">Finalizar</button>
+              <span fxFlex></span>
               <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
-              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
+              <button mat-button (click)="stepper.reset()">Restablecer</button>
             </div>
-          </div>
+          </mat-step>
+        </form>
 
-        </mat-step>
+      </mat-stepper>
+    </div>
 
-        <mat-step>
-          <ng-template matStepLabel>Definición del cambio esperado </ng-template>
-          <div fxLayout="column" fxLayoutGap="15px">
-
-            <mat-form-field appearance="outline">
-              <mat-label>Descripción de objetivo general</mat-label>
-              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="generalObjective" placeholder="Hasta 200 caracteres..."
-                rows="4"></textarea>
-              <mat-hint>Hasta {{200 - generalInformation.value.generalObjective?.length}} caracteres.</mat-hint>
-              <mat-error *ngIf="generalInformation.get('generalObjective')?.hasError('maxlength')">
-                Máximo 200 caracteres.
-              </mat-error>
-              <mat-error *ngIf="generalInformation.get('generalObjective')?.hasError('required')">
-                El campo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Resultado o cambio esperado respecto a indicadores</mat-label>
-              <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="expectedChange" placeholder="Hasta 200 caracteres..."
-                rows="4"></textarea>
-              <mat-hint>Hasta {{200 - generalInformation.value.expectedChange?.length}} caracteres.</mat-hint>
-              <mat-error *ngIf="generalInformation.get('expectedChange')?.hasError('maxlength')">
-                Máximo 200 caracteres.
-              </mat-error>
-              <mat-error *ngIf="generalInformation.get('expectedChange')?.hasError('required')">
-                El campo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-
-            <div>
-              <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
-              <button mat-button matStepperNext (click)="scrollToTop()">Siguiente</button>
-            </div>
-          </div>
-        </mat-step>
-
-        <mat-step>
-          <ng-template matStepLabel>Identificación preliminar de alternativas</ng-template>
-          <div fxLayout="column" fxLayoutGap="15px">
-
-            <p class="mat-subheading-2">Posibles Alternativas de solución (Intervenciones, proyectos, actividades)</p>
-
-            <table fxFill mat-table [dataSource]="alternativesSource" formArrayName="possibleAlternatives" class="mat-elevation-z0">
-              <tr mat-header-row *matHeaderRowDef="alternativesColumns"></tr>
-              <tr mat-row *matRowDef="let row; let i = index; columns: alternativesColumns;"></tr>
-
-              <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> Posibles alternativas </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <mat-form-field fxFill appearance="outline" class="description">
-                    <mat-label>Descripción</mat-label>
-                    <input matInput formControlName="description" type="text" placeholder="Descripción...">
-                    <mat-hint>Ingrese una posible alternativa</mat-hint>
-                  </mat-form-field>
-                </td>
-              </ng-container>
-
-
-              <ng-container matColumnDef="remove">
-                <th mat-header-cell *matHeaderCellDef> Quitar </th>
-                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                  <button mat-icon-button (click)="removeAlternatives(index)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-
-            </table>
-
-            <button mat-button (click)="addAlternatives()" color="accent">Agregar posible alternativa</button>
-          </div>
-          <br>
-
-          <mat-divider></mat-divider>
-
-          <br>
-
-          <button mat-raised-button (click)="openFullDrawer2('Crear nueva alternativa', 'NEW_ALTERNATIVE', null)" color="accent">
-            <mat-icon>add</mat-icon>
-            Crear alternativa
-          </button>
-
-          <br>
-          <br>
-
-          <div fxLayout="row wrap" fxLayoutGap="15px grid">
-
-            <div *ngFor="let item of idea.alternatives" fxFlex.gt-lg="25" fxFlex.lg="33" fxFlex.md="100" fxFlex.sm="100"
-              fxFlex.lt-sm="100">
-
-              <mat-card class="alternative-card mat-elevation-z4">
-                <mat-card-header>
-                  <mat-icon mat-card-avatar color="accent">alt_route</mat-icon>
-                  <mat-card-title>
-                    {{item?.preName?.preliminaryName}}
-                  </mat-card-title>
-
-                </mat-card-header>
-                <mat-card-content>
-                  <br>
-                  <p><b>Estimación preliminar de beneficiarios: </b>{{item?.popDelimit?.estimateBeneficiaries}}</p>
-                  <br>
-                  <p><b>Costo estimado de la preinversión: </b>Q.{{item?.projDesc?.estimatedCost}}</p>
-                  <br>
-                  <p><b>Costo estimado de la inversión: </b>Q.{{item?.projDesc?.investmentCost}}</p>
-                  <hr>
-                  <p> <b>Complejidad: </b>{{ item?.projDesc?.complexity }}</p>
-                </mat-card-content>
-
-              </mat-card>
-
-            </div>
-
-          </div>
-
-          <br>
-
-          <div>
-            <button mat-button (click)="saveGeneralInformation()" color="primary">Finalizar</button>
-            <span fxFlex></span>
-            <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
-            <button mat-button (click)="stepper.reset()">Restablecer</button>
-          </div>
-        </mat-step>
-      </form>
-
-    </mat-stepper>
-  </div>
+  </mat-drawer-content>
 
 </mat-drawer-container>

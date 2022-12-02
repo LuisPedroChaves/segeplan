@@ -169,7 +169,21 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   }
 
   closeFullDrawer(): void {
-    this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '375px',
+      data: { title: 'Cambios no guardados', description: '¿Seguro que quiere salir? Hay cambios sin guardar. Si abandona la página, los cambios se perderán.', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+
+        this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+
+      }
+
+      return
+    });
   }
 
   openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {
@@ -178,10 +192,14 @@ export class NewIdeaComponent implements OnInit, OnDestroy {
   }
 
   closeFullDrawer2(): void {
+
     this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+
   }
 
   closeFormDrawer(): void {
+    console.log('close');
+
     this.ideaStore.dispatch(CLOSE_FORM_DRAWER())
   }
 

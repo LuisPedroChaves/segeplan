@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
 
 import * as actions from 'src/app/store/actions';
+import { CLOSE_FULL_DRAWER } from 'src/app/store/actions';
 import { CheckProjectStore } from 'src/app/store/reducers/checkProject.reducer';
 import { CHANGE_IS_MINISTRY } from '../../../../store/actions/checkProject.actions';
 
@@ -29,6 +32,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   constructor(
     public checkProjectStore: Store<CheckProjectStore>,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +54,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.isMinistry = state.isMinistry
 
       })
+
   }
 
   ngOnDestroy(): void {
@@ -71,6 +76,29 @@ export class IndexComponent implements OnInit, OnDestroy {
   closeDrawers(): void {
     this.checkProjectStore.dispatch(actions.CLOSE_FULL_DRAWER())
     this.checkProjectStore.dispatch(actions.CLOSE_FULL_DRAWER2())
+  }
+
+  closeFullDrawer(): void {
+
+    setTimeout(() => {
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '375px',
+        data: { title: 'Cambios no guardados', description: '¿Seguro que quiere salir? Hay cambios sin guardar. Si abandona la página, los cambios se perderán.', confirmation: true }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        if (result === true) {
+
+          this.checkProjectStore.dispatch(CLOSE_FULL_DRAWER())
+
+        }
+
+        return
+      });
+
+    }, 100);
+
   }
 
   checkIsMinistry(isMinistry: boolean): void {

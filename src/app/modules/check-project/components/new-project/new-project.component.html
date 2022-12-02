@@ -1,7 +1,7 @@
 <form [formGroup]="newProject" autocomplete="off">
 
   <mat-drawer-container autosize class="my-menu-container">
-    <mat-drawer #formDrawer mode="over">
+    <mat-drawer #formDrawer mode="over" disableClose>
 
       <mat-toolbar fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start center" class="mat-elevation-z2">
         <button mat-icon-button (click)="closeFormDrawer()">

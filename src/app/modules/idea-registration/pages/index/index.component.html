@@ -5,33 +5,38 @@
   <span>Banco de ideas</span>
 </mat-toolbar>
 <mat-drawer-container autosize class="my-menu-container">
-  <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer">
+  <mat-drawer #menuDrawer mode="side" opened="true" class="my-menu-drawer" disableClose>
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
-      <button *appShowForRoles="['USER_ROLE']" mat-raised-button (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')" color="primary">
+      <button *appShowForRoles="['USER_ROLE']" mat-raised-button (click)="openFullDrawer('Crear Idea', 'NEW_IDEA')"
+        color="primary">
         <mat-icon>add</mat-icon>
         Crear idea
       </button>
       <br>
       <mat-selection-list fxFill [multiple]="false">
-        <mat-list-option (click)="closeDrawers()"  routerLink="/ideas" routerLinkActive="mat-list-single-selected-option"
+        <mat-list-option (click)="closeDrawers()" routerLink="/ideas" routerLinkActive="mat-list-single-selected-option"
           [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon mat-list-icon>dashboard</mat-icon>
           Dashboard
         </mat-list-option>
-        <mat-list-option *appShowForRoles="['USER_ROLE']" (click)="closeDrawers()"  routerLink="newIdeas" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['USER_ROLE']" (click)="closeDrawers()" routerLink="newIdeas"
+          routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>tips_and_updates</mat-icon>
           Registro de ideas
         </mat-list-option>
-        <mat-list-option *appShowForRoles="['USER_ROLE']" (click)="closeDrawers()" routerLink="sendIdeas" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['USER_ROLE']" (click)="closeDrawers()" routerLink="sendIdeas"
+          routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>send</mat-icon>
           Ideas enviadas
         </mat-list-option>
-        <mat-list-option *appShowForRoles="['ADMIN_ROLE']" (click)="closeDrawers()" routerLink="revelanceMatrix" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['ADMIN_ROLE']" (click)="closeDrawers()" routerLink="revelanceMatrix"
+          routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>timeline</mat-icon>
           Solicitudes de Analisis
         </mat-list-option>
-        <mat-list-option routerLink="doneIdeas" (click)="closeDrawers()" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option routerLink="doneIdeas" (click)="closeDrawers()"
+          routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>rate_review</mat-icon>
           Ideas analizadas
         </mat-list-option>
@@ -40,19 +45,26 @@
 
   </mat-drawer>
 
+  <mat-drawer-content>
 
-  <mat-drawer-container>
-    <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer">
+    <mat-drawer-container>
+      <mat-drawer #fullDrawer position="end" mode="over" class="full-drawer" disableClose>
 
-      <app-new-idea *ngIf="fullComponent === 'NEW_IDEA'"></app-new-idea>
-      <app-selected-idea *ngIf="fullComponent === 'SELECTED_IDEA'"></app-selected-idea>
+        <app-new-idea *ngIf="fullComponent === 'NEW_IDEA'"></app-new-idea>
+        <app-selected-idea *ngIf="fullComponent === 'SELECTED_IDEA'"></app-selected-idea>
 
-    </mat-drawer>
+      </mat-drawer>
 
-    <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">
-      <router-outlet></router-outlet>
-    </div>
+      <mat-drawer-content>
 
-  </mat-drawer-container>
+        <div ngClass.gt-sm="my-content-desktop" ngClass.lt-md="my-content-mobile">
+          <router-outlet></router-outlet>
+        </div>
+
+      </mat-drawer-content>
+
+    </mat-drawer-container>
+
+  </mat-drawer-content>
 
 </mat-drawer-container>
