@@ -8,8 +8,8 @@ import { AppState } from '../app.reducer';
 import { DELETE_DATA_GEOS, REMOVE_DATA_GEO } from '../actions/alternative.actions';
 
 export interface AlternativeState {
-    alternative: IdeaAlternative,
-    dataGeos: DataGeo[]
+  alternative: IdeaAlternative,
+  dataGeos: DataGeo[]
 }
 
 export interface AlternativeStore extends AppState {
@@ -17,16 +17,17 @@ export interface AlternativeStore extends AppState {
 }
 
 export const ALTERNATIVE_STATE: AlternativeState = {
-    alternative: null!,
-    dataGeos: []
+  alternative: null!,
+  dataGeos: []
 }
 
 const _ALTERNATIVE_REDUCER = createReducer(ALTERNATIVE_STATE,
 
-    on(actions.SET_ALTERNATIVE, (state, { alternative }) => ({
-      ...state,
-      alternative: { ...alternative }
-    })),
+  on(actions.SET_ALTERNATIVE, (state, { alternative }) => ({
+    ...state,
+    alternative: alternative ? { ...alternative } : null,
+    dataGeos: alternative ? [ ...alternative.geoArea.dataGeo ] : []
+  })),
 
 
   on(SET_DATA_GEO, (state, { dataGeo }) => ({
@@ -46,5 +47,5 @@ const _ALTERNATIVE_REDUCER = createReducer(ALTERNATIVE_STATE,
 )
 
 export function AlternativeReducer(state: AlternativeState, action: Action) {
-    return _ALTERNATIVE_REDUCER(state, action)
+  return _ALTERNATIVE_REDUCER(state, action)
 }

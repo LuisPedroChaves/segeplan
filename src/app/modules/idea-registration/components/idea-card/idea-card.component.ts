@@ -67,7 +67,7 @@ export class IdeaCardComponent implements OnInit {
   }
 
   openFullDrawer2(fullTitle2: string, fullComponent2: string, alternative: IdeaAlternative): void {
-    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative }))
+    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative: alternative ? alternative : null }))
     this.ideaStore.dispatch(OPEN_FULL_DRAWER2({ fullTitle2, fullComponent2 }))
   }
 

@@ -18,11 +18,11 @@ export class NewDataGeoComponent implements OnInit {
   dataGeo = new FormGroup({
     governmentTerrain: new FormControl(false),
     registerGovernmentTerrain: new FormControl(false),
+    statusDescribe: new FormControl('', [Validators.maxLength(200), Validators.required]),
     // Este campo solo sirve para habilitar finca folio y libro
     // No se almacena en la DB
     switchStatus: new FormControl(false),
     // ----------------------------------
-    statusDescribe: new FormControl({ value: '', disabled: true }, [Validators.maxLength(200)]),
     finca: new FormControl({ value: '', disabled: true }),
     folio: new FormControl({ value: '', disabled: true }),
     libro: new FormControl({ value: '', disabled: true }),
@@ -85,14 +85,14 @@ export class NewDataGeoComponent implements OnInit {
       )
       .subscribe(value => {
         if (value) {
-          this.dataGeo.controls['statusDescribe'].enable()
+          // this.dataGeo.controls['statusDescribe'].enable()
           this.dataGeo.controls['finca'].enable()
           this.dataGeo.controls['folio'].enable()
           this.dataGeo.controls['libro'].enable()
           return
         }
 
-        this.dataGeo.controls['statusDescribe'].disable()
+        // this.dataGeo.controls['statusDescribe'].disable()
         this.dataGeo.controls['finca'].disable()
         this.dataGeo.controls['folio'].disable()
         this.dataGeo.controls['libro'].disable()
@@ -172,6 +172,10 @@ export class NewDataGeoComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+    if (this.dataGeo.invalid) {
+        return
+    }
 
     const {
       governmentTerrain,

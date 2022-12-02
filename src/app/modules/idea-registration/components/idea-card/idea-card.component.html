@@ -101,7 +101,7 @@
 
                     <mat-chip-list aria-label="Fish selection">
 
-                      <mat-chip *ngIf="element.state == 'CREADA'" color="light" selected >
+                      <mat-chip *ngIf="element.state == 'CREADA'" color="light" selected>
                         <mat-icon matChipAvatar>pending</mat-icon>
                         PENDIENTE DE REVISION
                       </mat-chip>
@@ -131,15 +131,22 @@
 
                     <mat-menu #menu="matMenu">
 
-                      <button  mat-menu-item (click)="openFullDrawer2('Detalles de la alternativa', 'SELECTED_ALTERNATIVE', element)">
+                      <button mat-menu-item
+                        (click)="openFullDrawer2('Detalles de la alternativa', 'SELECTED_ALTERNATIVE', element)">
                         <span>Detalles</span>
                       </button>
 
-                      <button  mat-menu-item *ngIf="usuario.role == 'ADMIN_ROLE' && element.state == 'CREADA' " (click)="openFullDrawer2('Matriz de pertinencia', 'NEW_RELEVANCE_MATRIX', element)">
+                      <button mat-menu-item *ngIf="element.state === 'CREADA'"
+                        (click)="openFullDrawer2('Editar alternativa', 'NEW_ALTERNATIVE', element)">
+                        <span>Editar</span>
+                      </button>
+
+                      <button mat-menu-item *ngIf="usuario.role == 'ADMIN_ROLE' && element.state == 'CREADA' "
+                        (click)="openFullDrawer2('Matriz de pertinencia', 'NEW_RELEVANCE_MATRIX', element)">
                         <span>Matriz de pertinencia</span>
                       </button>
 
-                      <button  mat-menu-item *ngIf="element.state == 'CALIFICADA' " (click)="printReport(element)">
+                      <button mat-menu-item *ngIf="element.state == 'CALIFICADA' " (click)="printReport(element)">
                         <span>Imprimir reporte</span>
                       </button>
 

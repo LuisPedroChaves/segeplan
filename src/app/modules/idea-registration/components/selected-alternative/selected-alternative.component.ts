@@ -10,6 +10,7 @@ import { GeneralInformation } from 'src/app/core/models/informationGeneral/Gener
 // Importaciones de Impresion
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { OPEN_FULL_DRAWER2, SET_ALTERNATIVE } from 'src/app/store/actions';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -62,6 +63,11 @@ export class SelectedAlternativeComponent implements OnInit, OnDestroy {
         this.currentAlternative = state.alternative
         console.log(this.currentAlternative);
       });
+  }
+
+  openFullDrawer2(fullTitle2: string, fullComponent2: string): void {
+    this.ideaStore.dispatch(SET_ALTERNATIVE({ alternative: this.currentAlternative }))
+    this.ideaStore.dispatch(OPEN_FULL_DRAWER2({ fullTitle2, fullComponent2 }))
   }
 
   // async printReport(): Promise<void> {

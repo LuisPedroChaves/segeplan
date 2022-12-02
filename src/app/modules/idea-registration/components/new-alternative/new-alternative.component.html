@@ -709,10 +709,10 @@
           <mat-form-field fxFill appearance="outline">
             <mat-select formControlName="annual">
 
-              <mat-option value="true">
+              <mat-option [value]="true">
                 Anual
               </mat-option>
-              <mat-option value="false">
+              <mat-option [value]="false">
                 Multianual
               </mat-option>
 
@@ -728,7 +728,10 @@
       <mat-divider></mat-divider>
       <br>
       <div>
-        <button mat-button (click)="saveIdeaAlternative()" [disabled]="executionTime.invalid" color="primary">Finalizar</button>
+        <button mat-raised-button (click)="saveIdeaAlternative()" [disabled]="executionTime.invalid" color="accent">
+          <mat-icon>save</mat-icon>
+          Finalizar
+        </button>
         <span fxFlex></span>
         <button mat-button matStepperPrevious (click)="scrollToTop()">Volver</button>
         <button mat-button (click)="stepper.reset()">Restablecer</button>

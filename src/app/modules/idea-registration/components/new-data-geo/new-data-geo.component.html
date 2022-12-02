@@ -7,8 +7,6 @@
     <mat-slide-toggle formControlName="registerGovernmentTerrain">Se debe de inscribir el terreno a nombre del
       Estado</mat-slide-toggle>
 
-    <mat-slide-toggle formControlName="switchStatus">Observación</mat-slide-toggle>
-
     <mat-form-field fxFill appearance="outline">
       <mat-label>Observación</mat-label>
       <textarea matInput onKeyPress="if(this.value.length==200) return false;" formControlName="statusDescribe"
@@ -17,7 +15,12 @@
       <mat-error *ngIf="dataGeo.get('statusDescribe')?.hasError('maxlength')">
         Máximo 200 caracteres.
       </mat-error>
+      <mat-error *ngIf="dataGeo.get('statusDescribe')?.hasError('required')">
+        La observación es necesaria, por favor ingrese algún detalle
+      </mat-error>
     </mat-form-field>
+
+    <mat-slide-toggle formControlName="switchStatus">Observación</mat-slide-toggle>
 
     <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
 

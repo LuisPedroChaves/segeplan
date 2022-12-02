@@ -135,6 +135,7 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
   currentIdea: GeneralInformation = null;
 
   alternativeStoreSubscription = new Subscription()
+  currentAlternative: IdeaAlternative
   dataGeos: DataGeo[] = [];
   displayedColumns = ['statusDescribe', 'actions'];
   dataSource = new MatTableDataSource<DataGeo>([])
@@ -154,7 +155,6 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.stepper)
 
     this.sessionSubscription = this.store.select('session').subscribe(session => {
       this.usuario = session.session.usuario;
@@ -165,11 +165,19 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         phone: '22112211',
       })
 
-      console.log(this.usuario);
     });
 
     this.alternativeStoreSubscription = this.alternativeStore.select('alternative')
       .subscribe(state => {
+
+        if (state.alternative) {
+          this.currentAlternative = state.alternative
+          this.setEditValues()
+        }else {
+          this.currentAlternative = null
+          this.stepper.reset();
+        }
+
         this.dataGeos = state.dataGeos
         this.dataSource = new MatTableDataSource<DataGeo>(this.dataGeos)
       })
@@ -327,6 +335,55 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
     this.alternativeStore.dispatch(REMOVE_DATA_GEO({ dataGeo }))
   }
 
+  setEditValues(): void {
+
+    this.preliminaryName.controls['typeProject'].setValue(this.currentAlternative.preName.typeProject)
+    this.preliminaryName.controls['proccess'].setValue(this.currentAlternative.preName.proccess)
+    this.preliminaryName.controls['object'].setValue(this.currentAlternative.preName.object)
+    this.preliminaryName.controls['departament'].setValue(this.currentAlternative.preName.departament)
+    this.preliminaryName.controls['municipality'].setValue(this.currentAlternative.preName.municipality)
+    this.preliminaryName.controls['village'].setValue(this.currentAlternative.preName.village)
+
+    this.responsibleEntity.controls['nameEPI'].setValue(this.currentAlternative.resEntity.nameEPI)
+    this.responsibleEntity.controls['leaderName'].setValue(this.currentAlternative.resEntity.leaderName)
+    this.responsibleEntity.controls['email'].setValue(this.currentAlternative.resEntity.email)
+    this.responsibleEntity.controls['phone'].setValue(this.currentAlternative.resEntity.phone)
+
+    this.populationDelimitation.controls['referencePopulation'].setValue(this.currentAlternative.popDelimit.refPop.name)
+    this.populationDelimitation.controls['denomination'].setValue(this.currentAlternative.popDelimitdenmtion.name)
+    this.populationDelimitation.controls['totalPopulation'].setValue(this.currentAlternative.popDelimit.totalPopulation)
+    this.populationDelimitation.controls['gender'].setValue(this.currentAlternative.popDelimit.gender)
+    this.populationDelimitation.controls['estimateBeneficiaries'].setValue(this.currentAlternative.popDelimit.estimateBeneficiaries)
+    this.populationDelimitation.controls['preliminaryCharacterization'].setValue(this.currentAlternative.popDelimit.preliminaryCharacterization)
+
+    this.geographicArea.controls['oneAvailableTerrain'].setValue(this.currentAlternative.geoArea.oneAvailableTerrain)
+    this.geographicArea.controls['availableTerrain'].setValue(this.currentAlternative.geoArea.availableTerrain)
+    this.geographicArea.controls['investPurchase'].setValue(this.currentAlternative.geoArea.investPurchase)
+
+    this.projectDescription.controls['projectType'].setValue(this.currentAlternative.projDesc.projectType)
+    this.projectDescription.controls['formulationProcess'].setValue(this.currentAlternative.projDesc.formulationProcess)
+    this.projectDescription.controls['formulationProcessDescription'].setValue(this.currentAlternative.projDesc.formulationProcessDescription)
+    this.projectDescription.controls['descriptionInterventions'].setValue(this.currentAlternative.projDesc.descriptionInterventions)
+    this.projectDescription.controls['complexity'].setValue(this.currentAlternative.projDesc.complexity)
+    this.projectDescription.controls['estimatedCost'].setValue(this.currentAlternative.projDesc.estimatedCost)
+    this.projectDescription.controls['investmentCost'].setValue(this.currentAlternative.projDesc.investmentCost)
+    this.projectDescription.controls['foundingSourcesName'].setValue(this.currentAlternative.projDesc.foundingSourcesName)
+
+    this.executionTime.controls['tentativeTermMonth'].setValue(this.currentAlternative.projDesc.execTime.tentativeTermMonth)
+    this.executionTime.controls['tentativeTermYear'].setValue(this.currentAlternative.projDesc.execTime.tentativeTermYear)
+    this.executionTime.controls['executionDateMonth'].setValue(this.currentAlternative.projDesc.execTime.executionDateMonth)
+    this.executionTime.controls['executionDateYear'].setValue(this.currentAlternative.projDesc.execTime.executionDateYear)
+    this.executionTime.controls['finishDateMonth'].setValue(this.currentAlternative.projDesc.execTime.finishDateMonth)
+    this.executionTime.controls['finishDateYear'].setValue(this.currentAlternative.projDesc.execTime.finishDateYear)
+    this.executionTime.controls['annual'].setValue(Boolean(this.currentAlternative.projDesc.execTime.annual))
+
+    setTimeout(() => {
+
+      this.selecDepartament()
+
+    }, 500);
+  }
+
   saveIdeaAlternative(): void {
 
     const {
@@ -413,9 +470,6 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       annual: 0
     }
 
-
-
-
     if (this.executionTime.value.annual) {
       EXECUTION_TIME.annual = 1
     } else if (!this.executionTime.value.annual) {
@@ -445,6 +499,7 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
       fundingSources: 1,
       execTime: EXECUTION_TIME
     }
+
     if (tentativeTermYear > executionDateYear && tentativeTermYear > finishDateYear && executionDateYear > finishDateYear) {
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
@@ -455,42 +510,13 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         console.log('The dialog was closed', result);
       });
       return;
-    } else {
+    }
 
-      if (this.currentIdea.codigo) {
-        const NEW_ALTERNATIVE: IdeaAlternative = {
-          sectionBIId: this.currentIdea.codigo,
-          preName: PRELIMINAR_NAME,
-          resEntity: RESPONSIBLE_ENTITY,
-          popDelimit: POPULATION_DELIMITATION,
-          geoArea: GEOGRAPHIC_AREA,
-          projDesc: PROJECT_DESCRIPTION
-        }
-        const dialogRef = this.dialog.open(AlertDialogComponent, {
-          width: '250px',
-          data: { title: 'Crear Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
-        });
+    // editar
+    if (this.currentAlternative) {
 
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed', result);
-          if (result === true) {
-            // Code of Work
-
-            this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
-              this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
-              this.stepper.reset();
-            });
-          }
-          else {
-            return;
-          }
-        });
-        return
-      }
-
-      // Esto aplica solo cuando se esta creado una idea con sus alternativas al mismo timepo
-      const NEW_ALTERNATIVE: IdeaAlternative = {
-        sectionBIId: '',
+      this.currentAlternative = {
+        ...this.currentAlternative,
         preName: PRELIMINAR_NAME,
         resEntity: RESPONSIBLE_ENTITY,
         popDelimit: POPULATION_DELIMITATION,
@@ -498,9 +524,39 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         projDesc: PROJECT_DESCRIPTION
       }
 
-      let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
+      const dialogRef = this.dialog.open(AlertDialogComponent, {
+        width: '250px',
+        data: { title: 'Editar Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
+      });
 
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+        if (result === true) {
+          // Code of Work
 
+          // TODO: Confirmar endpint para editar y hacer una prueba
+          // this.generalInformationService.(NEW_ALTERNATIVE).subscribe((res: any) => {
+          //   this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+          //   this.stepper.reset();
+          // });
+        }
+        else {
+          return;
+        }
+      });
+
+      return
+    }
+
+    if (this.currentIdea.codigo) {
+      const NEW_ALTERNATIVE: IdeaAlternative = {
+        sectionBIId: this.currentIdea.codigo,
+        preName: PRELIMINAR_NAME,
+        resEntity: RESPONSIBLE_ENTITY,
+        popDelimit: POPULATION_DELIMITATION,
+        geoArea: GEOGRAPHIC_AREA,
+        projDesc: PROJECT_DESCRIPTION
+      }
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         width: '250px',
         data: { title: 'Crear Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
@@ -510,20 +566,55 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         console.log('The dialog was closed', result);
         if (result === true) {
           // Code of Work
-          alternatives.push(NEW_ALTERNATIVE)
-          console.log(alternatives);
-          this.stepper.reset();
 
-          this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
-          this.alternativeStore.dispatch(DELETE_DATA_GEOS())
-          this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
-
+          this.generalInformationService.sendAlternative(NEW_ALTERNATIVE).subscribe((res: any) => {
+            this.ideaStore.dispatch(CLOSE_FULL_DRAWER())
+            this.stepper.reset();
+          });
         }
         else {
           return;
         }
       });
+      return
     }
+
+    // Esto aplica solo cuando se esta creado una idea con sus alternativas al mismo timepo
+    const NEW_ALTERNATIVE: IdeaAlternative = {
+      sectionBIId: '',
+      preName: PRELIMINAR_NAME,
+      resEntity: RESPONSIBLE_ENTITY,
+      popDelimit: POPULATION_DELIMITATION,
+      geoArea: GEOGRAPHIC_AREA,
+      projDesc: PROJECT_DESCRIPTION
+    }
+
+    let alternatives = this.currentIdea.alternatives ? [...this.currentIdea.alternatives] : [];
+
+
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '250px',
+      data: { title: 'Crear Alternativa', description: '¿Esta Seguro que desea guardar los datos de la Alternativa?', confirmation: true }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        // Code of Work
+        alternatives.push(NEW_ALTERNATIVE)
+        console.log(alternatives);
+        this.stepper.reset();
+
+        this.ideaStore.dispatch(SET_IDEA_ALTERNATIVES({ alternatives }))
+        this.alternativeStore.dispatch(DELETE_DATA_GEOS())
+        this.ideaStore.dispatch(CLOSE_FULL_DRAWER2())
+
+      }
+      else {
+        return;
+      }
+    });
+
   }
 
   calculaCobertura(): void {
