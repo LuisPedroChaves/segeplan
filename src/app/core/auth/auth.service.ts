@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   // refreshToken() {
-  //   const url = this.apiService.API_LOGIN + '/renuevatoken';
+  //   const url = this.url + '/renuevatoken';
 
   //   return this.http.get(url)
   //     .pipe(

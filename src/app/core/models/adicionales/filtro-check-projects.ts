@@ -1,4 +1,5 @@
 
 export interface IFiltroCheckProjects {
-  isMinistry: boolean
+  isMinistry: boolean,
+  status?: string; // REGISTER || COMPLETE
 }

@@ -16,7 +16,7 @@
 
     <div fxLayout="column" fxLayoutAlign="start center" class="my-menu">
 
-      <button *appShowForRoles="['USER_ROLE']" mat-raised-button (click)="openFullDrawer('Crear Proyecto', 'NEW_PROJECT')" color="primary">
+      <button *appShowForRoles="['ADMIN_ROLE']" mat-raised-button (click)="openFullDrawer('Crear Proyecto', 'NEW_PROJECT')" color="primary">
         <mat-icon>add</mat-icon>
         Registrar Proyecto
       </button>
@@ -31,12 +31,12 @@
           Dashboard
         </mat-list-option>
 
-        <mat-list-option *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']" (click)="closeDrawers()" routerLink="projects" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['ADMIN_ROLE']" (click)="closeDrawers()" routerLink="projects" routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>account_tree</mat-icon>
           Proyectos
         </mat-list-option>
 
-        <mat-list-option *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']" (click)="closeDrawers()" routerLink="projectFinish" routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['ADMIN_ROLE']" (click)="closeDrawers()" routerLink="projectFinish" routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>check_circle_outline</mat-icon>
           Proyectos Finalizados
         </mat-list-option>

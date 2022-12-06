@@ -132,4 +132,13 @@ export class GeneralInformationService {
             })
         );
     }
+
+    updateAlternative(alternative: IdeaAlternative): Observable<any> {
+        const url = this.API_URL + this.urlAlternative;
+        return this.http.put(url, alternative).pipe(
+            map((res: any) => {
+                return res;
+            })
+        );
+    }
 }

@@ -29,7 +29,7 @@ export const IdeaRegistrationRoutes: Routes = [
         path: 'sendIdeas',
         canActivate: [ RoleGuard ],
         data: {
-          allowedRoles: ['USER_ROLE']
+          allowedRoles: ['USER_ROLE', 'ADMIN_ROLE']
         },
         component: SendIdeasComponent
       },

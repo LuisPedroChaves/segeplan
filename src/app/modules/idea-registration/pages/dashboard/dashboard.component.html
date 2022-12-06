@@ -25,7 +25,7 @@
       </mat-card>
     </div>
 
-    <div *appShowForRoles="['USER_ROLE']">
+    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
       <mat-card (click)="closeDrawers()" routerLink="sendIdeas" class="pointer mat-elevation-z2" [ngClass]="elevationSendIdeas" (mouseover)="sendIdeaStyle($event)" (mouseout)="sendIdeaStyle($event)">
         <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
           <mat-icon>send</mat-icon>

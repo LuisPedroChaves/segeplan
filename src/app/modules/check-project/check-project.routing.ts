@@ -19,7 +19,7 @@ export const CheckProjectRoutes: Routes = [
         path: 'projects',
         canActivate: [RoleGuard],
         data: {
-          allowedRoles: ['USER_ROLE', 'ADMIN_ROLE']
+          allowedRoles: ['ADMIN_ROLE']
         },
         component: ProjectListComponent
       },
@@ -27,7 +27,7 @@ export const CheckProjectRoutes: Routes = [
         path: 'projectFinish',
         canActivate: [RoleGuard],
         data: {
-          allowedRoles: ['USER_ROLE', 'ADMIN_ROLE']
+          allowedRoles: ['ADMIN_ROLE']
         },
         component: ProjectFinishComponent
       },

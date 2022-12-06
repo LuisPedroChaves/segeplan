@@ -7,7 +7,7 @@
 
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
-    <div *appShowForRoles="['USER_ROLE']">
+    <div *appShowForRoles="['ADMIN_ROLE']">
       <mat-card (click)="openFullDrawer('Crear Proyecto', 'NEW_PROJECT')" class="pointer mat-elevation-z2" [ngClass]="elevationNew" (mouseover)="newStyle($event)" (mouseout)="newStyle($event)">
         <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
           <mat-icon>add</mat-icon>
@@ -16,7 +16,7 @@
       </mat-card>
     </div>
 
-    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
+    <div *appShowForRoles="['ADMIN_ROLE']">
       <mat-card (click)="closeDrawers()" routerLink="projects" class="pointer mat-elevation-z2" [ngClass]="elevationNewProjects" (mouseover)="newProjectStyle($event)" (mouseout)="newProjectStyle($event)">
         <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
           <mat-icon>account_tree</mat-icon>
@@ -25,7 +25,7 @@
       </mat-card>
     </div>
 
-    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
+    <div *appShowForRoles="['ADMIN_ROLE']">
       <mat-card (click)="closeDrawers()" routerLink="projectFinish" class="pointer mat-elevation-z2" [ngClass]="elevationFinishProjects" (mouseover)="finishProjectStyle($event)" (mouseout)="finishProjectStyle($event)">
         <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
           <mat-icon>check_circle_outline</mat-icon>
