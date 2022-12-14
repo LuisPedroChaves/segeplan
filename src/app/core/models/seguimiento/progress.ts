@@ -1,5 +1,6 @@
 import { IAdvisoryEpi } from "./advisoryEpi";
 import { IAdvisoryDoc } from './advisoryDoc';
+import { IVisitCard } from './visitCard';
 
 export interface ITrack {
     id?: string;
@@ -11,4 +12,5 @@ export interface ITrack {
     projectId?: string;
     advisoryEpi?: IAdvisoryEpi;
     advisoryDoc?: IAdvisoryDoc;
+    visitCard?: IVisitCard;
 }
