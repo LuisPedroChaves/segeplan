@@ -1,8 +1,51 @@
+<div class="filters">
+  <div class="control-filter">
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>Departamento</mat-label>
+      <mat-select [formControl]="departamentoFilter" (selectionChange)="selecDepartament()">
+        <mat-option *ngFor="let depto of departamentos" [value]="depto.NOMBRE">
+          {{depto.NOMBRE}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="control-filter">
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>Municipio</mat-label>
+      <mat-select [formControl]="municipioFilter">
+        <mat-option *ngFor="let mncpio of municipios" [value]="mncpio.NOMBRE">
+          {{mncpio.NOMBRE}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf="isMinistry" class="control-filter">
+    <mat-form-field appearance="outline">
+      <mat-label>Entidad</mat-label>
+      <input matInput [formControl]="entidadFilter">
+    </mat-form-field>
+  </div>
+  <div class="control-filter">
+    <mat-form-field appearance="outline">
+      <mat-label>Mes</mat-label>
+      <input matInput [formControl]="mouthFilter">
+    </mat-form-field>
+  </div>
+  <div class="control-filter filter-button">
+    <button mat-raised-button (click)="searchProjects()" color="primary">Buscar</button>
+    <button mat-raised-button (click)="clearControls()" color="secondary">Limpiar</button>
+  </div>
+</div>
+
+
 <ngx-simplebar class="example-container mat-elevation-z8" tabindex="0">
 
 
-
   <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="ministry">
+      <th mat-header-cell *matHeaderCellDef> Entidad </th>
+      <td mat-cell *matCellDef="let element"> {{element.ministry}} </td>
+    </ng-container>
     <ng-container matColumnDef="nameProject">
       <th mat-header-cell *matHeaderCellDef> PROYECTO </th>
       <td mat-cell *matCellDef="let element"> {{element.nameProject}} </td>

@@ -22,7 +22,8 @@ export class ProjectFinishComponent implements OnInit, OnDestroy {
   checkProjectSubscription = new Subscription
 
   filtros: IFiltroCheckProjects = {
-    isMinistry: false
+    isMinistry: false,
+    status: 'FINISHED',
   }
   displayedColumns = ['process', 'sector', 'munic', 'nameProject', 'advance', 'actions'];
   dataSource = new MatTableDataSource<IProject>([]);
