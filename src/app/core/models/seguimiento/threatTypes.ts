@@ -1,4 +1,4 @@
-export interface IAccessRoads {
+export interface IThreatTypes {
     id?: string;
     visitCardId?: string;
     name: string;

@@ -1,4 +1,9 @@
 import { IAccessRoads } from './accessRoads';
+import { IDisasters } from './disasters';
+import { IImgVisit } from './imgVisit';
+import { IMeansTransport } from './meansTransport';
+import { IServiceInf } from './serviceInf';
+import { IThreatTypes } from './threatTypes';
 export interface IVisitCard {
     id?: string;
     trackId?: string;
@@ -58,5 +63,10 @@ export interface IVisitCard {
     techProfEpi: string;
 
     accessRoads: IAccessRoads[];
-    
+    meanstransport: IMeansTransport[];
+    serviceInf: IServiceInf[];
+    disasters: IDisasters[];
+    threatTypes: IThreatTypes[];
+    imgVisit: IImgVisit[];
+
 }
