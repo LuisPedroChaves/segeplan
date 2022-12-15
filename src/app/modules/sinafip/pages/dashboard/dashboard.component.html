@@ -16,7 +16,7 @@
       </mat-card>
     </div>
 
-    <div *appShowForRoles="['USER_ROLE', 'ADMIN_ROLE']">
+    <div *appShowForRoles="['USER_ROLE']">
       <mat-card (click)="closeDrawers()" routerLink="newIniciatives" class="pointer mat-elevation-z2" [ngClass]="elevationNewIniciatives" (mouseover)="newIniciativeStyle($event)" (mouseout)="newIniciativeStyle($event)">
         <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
           <mat-icon>start</mat-icon>

@@ -22,7 +22,7 @@
           Dashboard
         </mat-list-option>
 
-        <mat-list-option (click)="closeDrawers()" routerLink="newIniciatives"  routerLinkActive="mat-list-single-selected-option">
+        <mat-list-option *appShowForRoles="['USER_ROLE']" (click)="closeDrawers()" routerLink="newIniciatives"  routerLinkActive="mat-list-single-selected-option">
           <mat-icon mat-list-icon>start</mat-icon>
           Registro de Iniciativas
         </mat-list-option>

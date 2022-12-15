@@ -26,10 +26,16 @@
     </mat-form-field>
   </div>
   <div class="control-filter">
+
     <mat-form-field appearance="outline">
       <mat-label>Mes</mat-label>
-      <input matInput [formControl]="mouthFilter">
+      <mat-select [formControl]="monthFilter">
+        <mat-option *ngFor="let month of months" [value]="month.value">
+          {{month.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
   </div>
   <div class="control-filter filter-button">
     <button mat-raised-button (click)="searchProjects()" color="primary">Buscar</button>
