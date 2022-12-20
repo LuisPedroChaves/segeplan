@@ -114,7 +114,16 @@
                   </mat-error>
                 </mat-form-field>
 
+                <mat-form-field *ngIf="isMinistry" fxFlex appearance="outline">
+                  <mat-label>Ministerio</mat-label>
+                  <input matInput formControlName="ministry" type="text">
+                  <mat-error *ngIf="newProject.get('ministry')?.hasError('required')">
+                    El ministerio de proyecto es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+
               </div>
+              
 
               <div fxLayout="row wrap" fxLayoutGap.gt-sm="10px">
 

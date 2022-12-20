@@ -38,6 +38,7 @@ export class NewProjectComponent implements OnInit, OnDestroy {
     agripManage: new FormControl(false, Validators.required),
     legalLand: new FormControl(false, Validators.required),
     snipCode: new FormControl(null, Validators.required),
+    ministry: new FormControl(null, Validators.required),
   })
 
   departamentos: Departament[] = [];

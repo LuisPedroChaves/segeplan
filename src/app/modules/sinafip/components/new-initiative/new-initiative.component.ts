@@ -1,43 +1,23 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_PRODUCTS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
-import { Entity } from '../../../../core/models/sinafip/entity';
-import { DenominationStore, EntityStore, GeograficoStore, ModalityFinancingStore, PreinvDocumentStore, ProductStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
-import { READ_ENTITIES } from '../../../../store/actions/entity.actions';
-import { ProjectFunction } from '../../../../core/models/sinafip/projectFunction';
-import { GeneralStudy } from '../../../../core/models/sinafip/generalStudy';
-import { PreinvDocument } from '../../../../core/models/sinafip/preinvDocument';
-import { ModalityFinancing } from '../../../../core/models/sinafip/modalityFinancing';
-import { GeneralStudyStore } from '../../../../store/reducers/generalStudy.reducer';
-import { READ_PROJECTFUNCTIONS } from '../../../../store/actions/projectFunction.action';
-import { READ_GENERALSTUDIES } from '../../../../store/actions/generalStudy.actions';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Activity } from 'src/app/core/models/sinafip/activity';
-import { InitiativeStore } from '../../../../store/reducers/initiative.reducer';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatDrawer } from '@angular/material/sidenav';
-import { CLOSE_FORM_DRAWER } from '../../../../store/actions/drawer.actions';
-import { IRequest } from 'src/app/core/models/sinafip/request';
-import { Institution } from '../../../../core/models/sinafip/institution';
-import { InvestmentProject } from 'src/app/core/models/sinafip/investmentProject';
-import { StudyDescription } from 'src/app/core/models/sinafip/studyDescription';
-import { Delimit } from 'src/app/core/models/sinafip/delimit';
-import { RequiredDocument } from 'src/app/core/models/sinafip/requiredDocument';
-import { EstimatedBudget } from 'src/app/core/models/sinafip/estimatedBudget';
-import { SinafipService } from 'src/app/core/services/httpServices/sinafip.service';
-import { UploadFileService } from 'src/app/core/services/httpServices/upload-file.service';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Departament } from 'src/app/core/models/adicionales/department';
-import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
-import { Denomination } from '../../../../core/models/alternative/Denomination';
-import { CalendarOptions } from '@fullcalendar/angular';
-import { IProduct } from '../../../../core/models/adicionales/Product';
-import { User } from '../../../../core/models/adicionales/user';
-import { AppState } from '../../../../store/app.reducer';
-import {map, startWith} from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
+import { AppState } from '../../../../store/app.reducer';
+import { CalendarOptions } from '@fullcalendar/angular';
+import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_ENTITIES, READ_GENERALSTUDIES, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_PRODUCTS, READ_PROJECTFUNCTIONS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Denomination } from '../../../../core/models/alternative/Denomination';
+import { DenominationStore, EntityStore, GeneralStudyStore, GeograficoStore, InitiativeStore, ModalityFinancingStore, PreinvDocumentStore, ProductStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable, Subscription } from 'rxjs';
+import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
+import { SinafipService } from 'src/app/core/services/httpServices/sinafip.service';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Store } from '@ngrx/store';
+import { UploadFileService } from 'src/app/core/services/httpServices/upload-file.service';
+import { map, startWith } from 'rxjs/operators';
+import { Departament, IProduct, User } from '../../../../core/models/adicionales';
+import { Activity, Delimit, Entity, EstimatedBudget, GeneralStudy, Institution, InvestmentProject, IRequest, ModalityFinancing, PreinvDocument, ProjectFunction, RequiredDocument, StudyDescription } from '../../../../core/models/sinafip';
 
 @Component({
   selector: 'app-new-initiative',
@@ -197,10 +177,10 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
       });
 
-      this.sessionSubscription = this.store.select('session').subscribe(session => {
-        this.usuario = session.session.usuario;
-        this.idEntidad = session.session.usuario.id_inst.toString()
-      });
+    this.sessionSubscription = this.store.select('session').subscribe(session => {
+      this.usuario = session.session.usuario;
+      this.idEntidad = session.session.usuario.id_inst.toString()
+    });
 
     this.activitiesStoreSubscription = this.initiativeStore.select('initiative')
       .subscribe(state => {
@@ -263,9 +243,9 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
 
 
     this.productStoreSubscription = this.productStore.select('product')
-    .subscribe(state => {
-      this.products = state.products;
-    })
+      .subscribe(state => {
+        this.products = state.products;
+      })
 
     this.productStore.dispatch(READ_PRODUCTS({ filtro: this.idEntidad }))
 
@@ -327,7 +307,7 @@ export class NewInitiativeComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  displayProduct(product: IProduct) : string {
+  displayProduct(product: IProduct): string {
     return product ? product.nombre : '';
   }
 

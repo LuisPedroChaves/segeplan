@@ -2,39 +2,19 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, Subscription } from 'rxjs';
-import { ExecutionTime } from 'src/app/core/models/alternative/ExecutionTime';
-import { GeographicArea } from 'src/app/core/models/alternative/GeographicArea';
-import { PopulationDelimitation } from 'src/app/core/models/alternative/PopulationDelimitation';
-
-import { PreliminaryName } from 'src/app/core/models/alternative/PreliminaryName';
-import { ProjectDescription } from 'src/app/core/models/alternative/ProjectDescription';
-import { ResponsibleEntity } from 'src/app/core/models/alternative/ResponsibleEntity';
 import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
-import { AlternativeStore, GeograficoStore, IdeaStore, ObjectStore, ProcesoStore } from 'src/app/store/reducers';
-import { IdeaAlternative } from '../../../../core/models/alternative/ideaAlternative';
-import { Denomination } from '../../../../core/models/alternative/Denomination';
-import { Departament } from '../../../../core/models/adicionales/department';
-import { IObject } from '../../../../core/models/adicionales/objeto';
-import { Procesos, Process } from '../../../../core/models/adicionales/process';
-import { DenominationStore } from '../../../../store/reducers/denomination.reducer';
-import { READ_DENOMINATIONS } from '../../../../store/actions/denomination.actions';
-import { READ_GEOGRAFICOS } from '../../../../store/actions/geografico.actions';
-import { READ_OBJECTS } from '../../../../store/actions/object.actions';
-import { READ_PROCESOS } from '../../../../store/actions/proceso.actions';
+import { AlternativeStore, DenominationStore, GeograficoStore, IdeaStore, ObjectStore, ProcesoStore, ReferenceStore } from 'src/app/store/reducers';
 import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
-import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, OPEN_FORM_DRAWER, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
-import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
-import { ReferenceStore } from '../../../../store/reducers/popRef.reducer';
-import { READ_REFERENCES } from '../../../../store/actions/popRef.actions';
+import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, DELETE_DATA_GEOS, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_PROCESOS, READ_REFERENCES, REMOVE_DATA_GEO, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
 import { MatStepper } from '@angular/material/stepper';
-import { User } from '../../../../core/models/adicionales/user';
 import { AppState } from '../../../../store/app.reducer';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { DataGeo } from 'src/app/core/models/alternative/DataGeo';
 import { MatTableDataSource } from '@angular/material/table';
-import { REMOVE_DATA_GEO, DELETE_DATA_GEOS } from '../../../../store/actions/alternative.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
+import { DataGeo, Denomination, ExecutionTime, GeographicArea, IdeaAlternative, PopulationDelimitation, PreliminaryName, ProjectDescription, ReferencePopulation, ResponsibleEntity } from '../../../../core/models/alternative';
+import { Departament, IObject, Procesos, Process, User } from '../../../../core/models/adicionales';
+import { READ_OBJECTS } from '../../../../store/actions/object.actions';
 
 @Component({
   selector: 'app-new-alternative',
