@@ -3,16 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
-import { IAdvisoryDoc } from 'src/app/core/models/seguimiento/advisoryDoc';
-import { IAdvisoryEpi } from 'src/app/core/models/seguimiento/advisoryEpi';
-import { IComment } from 'src/app/core/models/seguimiento/comment';
-import { ITrack } from 'src/app/core/models/seguimiento/progress';
-import { IProject } from 'src/app/core/models/seguimiento/project';
-import { Entity } from 'src/app/core/models/sinafip/entity';
 import { ChekProjectService } from 'src/app/core/services/httpServices/chek-project.service';
 import { CLOSE_FORM_DRAWER, READ_ENTITIES, SET_EDIT_PROJECT, SET_PROJECT, SET_TRACKING } from 'src/app/store/actions';
 import { CheckProjectStore, EntityStore } from 'src/app/store/reducers';
+import { Entity, IAdvisoryDoc, IAdvisoryEpi, IComment, IProject, ITrack } from '../../../../core/models';
 
 @Component({
   selector: 'app-new-track',

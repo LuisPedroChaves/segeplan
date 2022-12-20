@@ -3,15 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
-
-import { IPertinence } from 'src/app/core/models/adicionales/pertinence';
 import { GeneralInformationService } from 'src/app/core/services/httpServices/generalInformation.service';
-import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 import { AlternativeStore, IdeaStore } from 'src/app/store/reducers';
-import { Qualification } from '../../../../core/models/alternative/Qyualification';
-import { preInvestmentResult } from '../../../../core/models/alternative/preInvestmentResult';
 import { CLOSE_FULL_DRAWER } from 'src/app/store/actions';
-import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 
 
 // Importaciones de Impresion
@@ -22,6 +16,7 @@ import * as moment from 'moment';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GeneralInformation, IdeaAlternative, Qualification, preInvestmentResult, IPertinence } from '../../../../core/models';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-new-revelance-matrix',

@@ -5,14 +5,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
-import { Departament } from 'src/app/core/models/adicionales/department';
-import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, OPEN_FORM_DRAWER, READ_GEOGRAFICOS } from 'src/app/store/actions';
+import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, CREATE_CHECK_PROJECT, OPEN_FORM_DRAWER, READ_GEOGRAFICOS } from 'src/app/store/actions';
 import { CheckProjectStore, GeograficoStore } from 'src/app/store/reducers';
-import { ITrack } from 'src/app/core/models/seguimiento/progress';
-import { IProject } from 'src/app/core/models/seguimiento/project';
 import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
-import { CREATE_CHECK_PROJECT } from '../../../../store/actions/checkProject.actions';
+import { Departament, IProject, ITrack } from '../../../../core/models';
 
 @Component({
   selector: 'app-new-project',

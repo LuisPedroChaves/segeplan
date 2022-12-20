@@ -2,7 +2,6 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, Subscription } from 'rxjs';
-import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { AlternativeStore, DenominationStore, GeograficoStore, IdeaStore, ObjectStore, ProcesoStore, ReferenceStore } from 'src/app/store/reducers';
 import { GeneralInformationService } from '../../../../core/services/httpServices/generalInformation.service';
 import { CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, DELETE_DATA_GEOS, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_GEOGRAFICOS, READ_PROCESOS, READ_REFERENCES, REMOVE_DATA_GEO, SET_IDEA_ALTERNATIVES } from '../../../../store/actions';
@@ -12,9 +11,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
-import { DataGeo, Denomination, ExecutionTime, GeographicArea, IdeaAlternative, PopulationDelimitation, PreliminaryName, ProjectDescription, ReferencePopulation, ResponsibleEntity } from '../../../../core/models/alternative';
-import { Departament, IObject, Procesos, Process, User } from '../../../../core/models/adicionales';
 import { READ_OBJECTS } from '../../../../store/actions/object.actions';
+import { User, ReferencePopulation, Denomination, Departament, IObject, Procesos, Process, GeneralInformation, IdeaAlternative, DataGeo, PreliminaryName, ResponsibleEntity, PopulationDelimitation, GeographicArea, ExecutionTime, ProjectDescription } from '../../../../core/models';
 
 @Component({
   selector: 'app-new-alternative',
@@ -153,7 +151,7 @@ export class NewAlternativeComponent implements OnInit, OnDestroy {
         if (state.alternative) {
           this.currentAlternative = state.alternative
           this.setEditValues()
-        }else {
+        } else {
           this.currentAlternative = null
           this.stepper.reset();
         }

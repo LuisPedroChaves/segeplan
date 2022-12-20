@@ -5,22 +5,15 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
-
-import { GeneralInformation } from 'src/app/core/models/informationGeneral/GeneralInformation';
 import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, CLOSE_FULL_DRAWER2, CREATE_IDEA, OPEN_FULL_DRAWER2, READ_PRODUCTS, SET_ALTERNATIVE } from 'src/app/store/actions';
 import { IdeaStore } from 'src/app/store/reducers';
 import { ProductStore } from '../../../../store/reducers/product.reducer';
-import { IProduct } from 'src/app/core/models/adicionales/Product';
-import { PossibleEffect } from 'src/app/core/models/informationGeneral/PossibleEffect';
-import { PossibleCause } from 'src/app/core/models/informationGeneral/PossibleCause';
-import { PossibleAlternative } from 'src/app/core/models/informationGeneral/PossibleAlternative';
 import { MatDrawer } from '@angular/material/sidenav';
-import { IdeaAlternative } from 'src/app/core/models/alternative/ideaAlternative';
 import { AppState } from '../../../../store/app.reducer';
-import { User } from '../../../../core/models/adicionales/user';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
+import { IProduct, PossibleEffect, PossibleCause, PossibleAlternative, GeneralInformation, User, IdeaAlternative } from '../../../../core/models';
 
 @Component({
   selector: 'app-new-idea',

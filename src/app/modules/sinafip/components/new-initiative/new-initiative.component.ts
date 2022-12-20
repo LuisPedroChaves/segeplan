@@ -3,21 +3,20 @@ import { AppState } from '../../../../store/app.reducer';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { CLOSE_FORM_DRAWER, CLOSE_FULL_DRAWER, DELETE_ACTIVITIES, OPEN_FORM_DRAWER, READ_DENOMINATIONS, READ_ENTITIES, READ_GENERALSTUDIES, READ_GEOGRAFICOS, READ_MODALITYFINANCINGS, READ_PREINVDOCUMENTS, READ_PRODUCTS, READ_PROJECTFUNCTIONS, READ_REFERENCES, REMOVE_ACTIVITY } from 'src/app/store/actions';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { Denomination } from '../../../../core/models/alternative/Denomination';
 import { DenominationStore, EntityStore, GeneralStudyStore, GeograficoStore, InitiativeStore, ModalityFinancingStore, PreinvDocumentStore, ProductStore, ProjectFunctionStore, ReferenceStore } from '../../../../store/reducers';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
-import { ReferencePopulation } from '../../../../core/models/alternative/ReferencePopulation';
 import { SinafipService } from 'src/app/core/services/httpServices/sinafip.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Store } from '@ngrx/store';
 import { UploadFileService } from 'src/app/core/services/httpServices/upload-file.service';
 import { map, startWith } from 'rxjs/operators';
-import { Departament, IProduct, User } from '../../../../core/models/adicionales';
-import { Activity, Delimit, Entity, EstimatedBudget, GeneralStudy, Institution, InvestmentProject, IRequest, ModalityFinancing, PreinvDocument, ProjectFunction, RequiredDocument, StudyDescription } from '../../../../core/models/sinafip';
+import { Entity, ProjectFunction, GeneralStudy, PreinvDocument, ModalityFinancing, Departament, ReferencePopulation, Denomination, IProduct, User, Activity, Institution, InvestmentProject, StudyDescription, Delimit, EstimatedBudget, RequiredDocument, IRequest } from '../../../../core/models';
+
+
 
 @Component({
   selector: 'app-new-initiative',
